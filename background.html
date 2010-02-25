@@ -1,0 +1,188 @@
+<html>
+<script type="text/javascript" src="jquery-1.4.2.min.js" />
+<script type="text/javascript" src="common.js" />
+<script>
+setDefaults();
+var gTimer;
+startTimer();
+var gSabInfo;
+
+function restartTimer() {
+   startTimer(); 
+}
+
+function startTimer() {
+    if(gTimer) {
+        clearInterval(gTimer);
+    } else {
+        fetchInfo();
+    }
+    gTimer = setInterval(fetchInfo, getPref('refresh_rate')*1000);
+    //gTimer = setInterval(fetchInfo, 5000);
+}
+
+function test() {
+    $('#timeleft').html('hi');
+}
+
+//file size formatter - takes an input in bytes
+function fileSizes(value, decimals){
+    // Set the default decimals to 2
+    if(decimals == undefined) decimals = 2;
+    kb = value / 1024
+    mb = value / 1048576
+    gb = value / 1073741824
+    if (gb >= 1){
+        return gb.toFixed(decimals)+"GB"
+    } else if (mb >= 1) {
+        return mb.toFixed(decimals)+"MB"
+    } else {
+        return kb.toFixed(decimals)+"KB"
+    }
+}
+
+function fetchInfo() {
+
+    var sabApiUrl = constructApiUrl();
+    var data = constructApiPost(true);
+    
+
+    data.mode = 'qstatus';
+    data.output = 'json';
+    $.ajax({
+        type: "GET",
+        url: sabApiUrl,
+        data: data,
+		username : getPref('http_user'),
+		password : getPref('http_pass'),
+        dataType: 'json',
+        success: function(data) {
+        
+            // Cache the latest update (probably not needed)
+            gSabInfo = data;
+            
+            setPref('timeleft', data.timeleft);
+            
+            if(data.kbpersec && data.kbpersec > 0) {
+                // Convert to bytes
+                var bytesPerSec = data.kbpersec*1024;
+                var speed = fileSizes(bytesPerSec, 0);
+            } else {
+                var speed = '0KB';
+            }
+            setPref('speed', speed);
+            
+            
+            if(data.mbleft && data.mbleft > 0) {
+                // Convert to bytes
+                var bytesLeft = data.mbleft*1048576;
+                var queueSize = fileSizes(bytesLeft);
+            } else {
+                var queueSize = '';
+            }
+           
+            setPref('sizeleft', queueSize);
+            setPref('current_job', data.jobs[0].filename);
+        
+            // Update from qstatus to mode=queue for more status'
+            if(data.paused) {
+                var status = 'Paused';
+            } else if(data.kbpersec > 1) {
+                var status = 'Downloading';
+            } else {
+                var status = 'Idle';
+            }
+            setPref('status', status);
+            setPref('paused', data.paused);
+        
+            // Update the badge
+            var badge = {};
+            // Set the text on the object to be the number of items in the queue
+            // +'' = converts the int to a string.
+            badge.text = data.noofslots+'';
+            chrome.browserAction.setBadgeText(badge);
+            
+
+            // Update the background based on if we are downloading
+            if(data.kbpersec && data.kbpersec > 1) {
+                badgeColor = {}
+                badgeColor.color = new Array(0, 213, 7, 100);
+                chrome.browserAction.setBadgeBackgroundColor(badgeColor)
+            } else {
+                badgeColor = {}
+                badgeColor.color = new Array(255, 0, 0, 100);
+                chrome.browserAction.setBadgeBackgroundColor(badgeColor)
+            }
+        },
+        error: function() {
+
+        }
+    });
+    
+}
+
+function addToSABnzbd(nzburl, mode, cb) {
+
+    var sabApiUrl = constructApiUrl();
+    var data = constructApiPost(true);
+    data.mode = mode;
+    data.name = nzburl;
+    
+    $.ajax({
+        type: "GET",
+        url: sabApiUrl,
+		username : getPref('http_user'),
+		password : getPref('http_pass'),
+        data: data,
+        success: cb,
+        error: cb
+    });   
+}
+
+function setDefaults() {
+    if(!getPref('sab_url')) setPref('sab_url', 'http://localhost:8080/sabnzbd/');
+    if(!getPref('api_key')) setPref('api_key', '');
+    if(!getPref('sab_user')) setPref('sab_user', '');
+    if(!getPref('sab_pass')) setPref('sab_pass', '');
+    if(!getPref('http_user')) setPref('http_user', '');
+    if(!getPref('http_pass')) setPref('http_pass', '');
+    
+    if(!getPref('refresh_rate')) setPref('refresh_rate', 60);
+}
+
+
+// Listen for notifications from the content script.
+chrome.extension.onConnect.addListener(function(port, name) {
+    port.onMessage.addListener(function(msg) {
+        if(msg.get) {
+            var value = getPref(msg.get);    
+            sendConfigResponse(msg.get, value);
+        }
+    });
+});
+
+
+function sendConfigResponse(key, value) {
+  chrome.tabs.getSelected(null, function(tab) {
+    var port = chrome.tabs.connect(tab.id, {name: "notifyChannelOut"});
+    port.postMessage({key: key, value: value});
+  });
+}
+
+      /**
+       * Handles data sent via chrome.extension.sendRequest().
+       * @param request Object Data sent in the request.
+       * @param sender Object Origin of the request.
+       * @param callback Function The method to call when the request completes.
+       */
+      function onRequest(request, sender, callback) {
+        if (request.action == 'addToSABnzbd') {
+			addToSABnzbd(request.nzburl, request.mode, callback);
+        }
+      };
+
+      // Wire up the listener.
+      chrome.extension.onRequest.addListener(onRequest);
+
+</script>
+</html>

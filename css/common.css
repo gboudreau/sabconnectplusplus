@@ -1,0 +1,14 @@
+.serversPriorities ul,
+.serversPriorities ul li
+{
+    margin: 0;
+    padding: 0;
+}
+
+.serversPriorities ul {
+    padding: 0 5px;
+}
+
+.serversPriorities ul li {
+    list-style-type: none;
+}

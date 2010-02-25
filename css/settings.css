@@ -1,0 +1,38 @@
+body {
+    background-color: #c7e0f5;
+    font-family:Tahoma, sans-serif;
+}
+
+#settings {
+    width: 80%;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+label {
+    width: 250px;
+    display: inline-block;
+}
+
+#logo {
+  float: left;
+}
+h1 {
+    float: left;
+    margin: 10px;
+    color: #38444f;
+}
+
+
+.clear {
+    clear: both;
+}
+
+
+#settings input[type=text],
+#settings input[type=password]{
+    width:300px;
+}

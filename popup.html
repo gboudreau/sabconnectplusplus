@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="css/popup.css" />
+<script type="text/javascript" src="jquery-1.3.2.min.js" />
+<script type="text/javascript" src="common.js"></script>
+<script type="text/javascript">
+
+var status = getPref('status');
+var paused = getPref('paused');
+var timeleft = getPref('timeleft');
+var speed = getPref('speed');
+var sizeleft = getPref('sizeleft');
+var current_job = getPref('current_job');
+
+function togglePause() {
+    if(paused) {
+        var mode = 'resume';
+        var wasPaused = 1;
+    } else {
+        var mode = 'pause';
+        var wasPaused = 0;
+    }
+    
+    var sabApiUrl = constructApiUrl();
+    var data = constructApiPost(true);
+    data.mode = mode;
+    
+    $.ajax({
+        type: "GET",
+        url: sabApiUrl,
+        data: data,
+        success: function(data) {
+            
+            if(wasPaused) {
+                var msg = 'Pause';
+            } else {
+                var msg = 'Resume';
+            }
+            $('#togglePause').html(msg);
+        },
+        error: function() {
+            $('#togglePause').html('failed - try again');
+            //alert("failed to toggle pause");
+        }
+    });    
+}
+
+function func1() { 
+    if(paused) {
+        var msg = 'Resume';
+    } else {
+        var msg = 'Pause';
+    }
+    $('.menu').prepend('<hr /><div id="togglePause">' + msg + '</div>');
+    $('#togglePause').click(function() {
+        togglePause();
+
+    });
+    
+    $('#sabInfo').append('<div><span class="label">Status:</span> ' + status + '</div>');
+    $('#sabInfo').append('<div><span class="label">Speed:</span> ' + speed + '/s</div>');
+    $('#sabInfo').append('<div><span class="label">Timeleft:</span> ' + timeleft + '</div>');
+    $('#sabInfo').append('<div><span class="label">Remaining:</span> ' + sizeleft + '</div>');
+    $('#sabInfo').append('<div><span class="label">Currently Downloading:</span><br />' + current_job + '</div>');
+} 
+
+window.onload=func1;
+
+</script>
+</head>
+<body>
+<div id="sabInfo"></div>
+<div class="menu">
+    <hr />
+    <div onclick="chrome.tabs.create({url: getPref('sab_url')})">Open SABnzbd</div>
+	<hr />
+	<div onclick="chrome.tabs.create({url: 'settings.html'})">Settings</div>
+</div>
+</body>
+</html>

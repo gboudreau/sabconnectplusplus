@@ -1,0 +1,55 @@
+<link rel="stylesheet" type="text/css" href="css/settings.css" />
+
+<script type="text/javascript" src="jquery-1.4.2.min.js" />
+<script type="text/javascript" src="common.js"></script>
+<script>
+$('document').ready(function() {
+    // Set the current preference value based off the id
+    $('.extension-preference').each(function() {
+        var id = $(this).attr('id');
+        $(this).val(getPref(id));
+        
+    });
+
+    // Record a change to the preference
+    $('.extension-preference').change(function() {
+        var id = $(this).attr('id');
+        var val = $(this).val();
+        setPref(id, val);
+    });
+});
+
+
+
+
+
+</script>
+
+
+
+
+
+
+<div id="page">
+    <div id="settings">
+    
+    <img id="logo" src="images/sab2_64.png" />
+    <h1>SABConnect Settings</h1>
+    
+    <div class="clear"></div><br />
+    
+    <label for="sab_url">SABnzbd URL</label><input class="extension-preference" type="text" id="sab_url" value="" /><br />
+    <label for="api_key">API KEY</label><input class="extension-preference" type="text" id="api_key" value="" /><br />
+
+    <br />
+
+    <label for="sab_user">SABnzbd Username (Optional)</label><input class="extension-preference" type="text" id="sab_user" value="" /><br />
+    <label for="sab_pass">SABnzbd Password (Optional)</label><input class="extension-preference" type="password" id="sab_pass" value="" /><br />
+
+    <label for="sab_user">HTTP Username (Optional)</label><input class="extension-preference" type="text" id="http_user" value="" /><br />
+    <label for="sab_pass">HTTP Password (Optional)</label><input class="extension-preference" type="password" id="http_pass" value="" /><br />
+    
+    <!--<button id="testSabConnection">Test Connection</button><span id="conResponse"></span>-->
+    </div>
+</div>
+
