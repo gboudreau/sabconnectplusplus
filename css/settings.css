@@ -35,4 +35,44 @@ h1 {
 #settings input[type=text],
 #settings input[type=password]{
     width:300px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 2px 0;
+}
+
+.message {
+    border: 1px solid #a7ef8e;
+    background-color: #c5fbb2;
+    padding: 2px 4px;
+    margin: 20px 0 0 0;
+    font-size: 12px;
+}
+
+.message.info {
+    background-color: #fff7cf !important;
+    border: 1px solid #ffe983 !important;
+}
+
+.tip {
+    display: inline;
+    font-size: 11px;
+    padding-left: 15px;
+}
+
+
+#conResponse {
+    background-color: #fff7cf;
+    padding: 2px 4px;
+    border: 1px solid #ffe983;
+    margin: 0;
+    display: none;
+}
+
+#conResponse.checkError {
+    background-color: #ffd3d3 !important;
+    border-color: #ff8383 !important;
+}
+#conResponse.checkOk {
+    background-color: #c5fbb2 !important;
+    border-color: #a7ef8e !important;
 }

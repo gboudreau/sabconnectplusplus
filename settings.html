@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="css/settings.css" />
 
-<script type="text/javascript" src="jquery-1.4.2.min.js" />
-<script type="text/javascript" src="common.js"></script>
+<script type="text/javascript" src="jquery-1.4.2.min.js"/>
+<script type="text/javascript" src="common.js"/>
 <script>
 $('document').ready(function() {
     // Set the current preference value based off the id
@@ -17,10 +17,47 @@ $('document').ready(function() {
         var val = $(this).val();
         setPref(id, val);
     });
+    
+    // Checkboxes need to be handled a little differently
+    $('.extension-preference-checkbox').each(function() {
+        var id = $(this).attr('id');
+        $(this).attr('checked', (getPref(id)) ? 'checked' : '');
+        
+    });
+
+    // Record a change to the preference
+    $('.extension-preference-checkbox').change(function() {
+        var id = $(this).attr('id');
+        if($(this).attr('checked')) {
+            var val = 1;
+        } else {
+            var val = 0;
+        }
+        setPref(id, val);
+    });
+    
+    $('#testSabConnection').click(function() {
+        $('#conResponse').html('Checking...').css('display', 'block')
+        .removeClass('checkError').removeClass('checkOk');
+        // Call our api queue function, and tell it to execute checkForErrors once complete
+        fetchInfo(true, checkForErrors);
+        return false;
+    });
 });
 
-
-
+function checkForErrors() {
+    // Called after a request to SABnzbd's api has been tried, 'error' should be set if there was an error
+    var error = getPref('error');
+    if(error) {
+        $('#conResponse').html('Error: ' + error).addClass('checkError');
+    } else {
+        $('#conResponse').html('Connected sucessfully!').addClass('checkOk');
+    }
+    
+    // Unsetting error here as otherwise would appear in popup - could confuse the user
+    // Could move this just so it is removed when connected successfully
+    setPref('error', '');
+}
 
 
 </script>
@@ -33,23 +70,66 @@ $('document').ready(function() {
 <div id="page">
     <div id="settings">
     
-    <img id="logo" src="images/sab2_64.png" />
-    <h1>SABConnect Settings</h1>
-    
-    <div class="clear"></div><br />
-    
-    <label for="sab_url">SABnzbd URL</label><input class="extension-preference" type="text" id="sab_url" value="" /><br />
-    <label for="api_key">API KEY</label><input class="extension-preference" type="text" id="api_key" value="" /><br />
+        <img id="logo" src="images/sab2_64.png" />
+        <h1>SABConnect Settings</h1> 
+        
+        <div class="clear"></div>
+			<div class="message">Enter your settings for SABnzbd here. Note input fields are automatically saved, just click off or press enter.</div>
+        <br />
+        
+        <label for="sab_url">SABnzbd URL</label>
+        <input class="extension-preference" type="text" id="sab_url" value="" />
+        <div class="tip">The full URL you use to access SABnzbd.</div>
+        <br />
+        
+        <label for="api_key">API KEY</label>
+        <input class="extension-preference" type="text" id="api_key" value="" />
+        <div class="tip">SABnzbd's API Key found in Config>General.</div>
+        <br />
+		
+		<label for="http_user">HTTP USER</label>
+        <input class="extension-preference" type="text" id="http_user" value="" />
+        <div class="tip">Http authentication user</div>
+        <br />
+		
+		<label for="http_pass">HTTP PASSWORD</label>
+        <input class="extension-preference" type="password" id="http_pass" value="" />
+        <div class="tip">Http authentication password</div>
+        <br />
+        <br />
 
-    <br />
-
-    <label for="sab_user">SABnzbd Username (Optional)</label><input class="extension-preference" type="text" id="sab_user" value="" /><br />
-    <label for="sab_pass">SABnzbd Password (Optional)</label><input class="extension-preference" type="password" id="sab_pass" value="" /><br />
-
-    <label for="sab_user">HTTP Username (Optional)</label><input class="extension-preference" type="text" id="http_user" value="" /><br />
-    <label for="sab_pass">HTTP Password (Optional)</label><input class="extension-preference" type="password" id="http_pass" value="" /><br />
+        <button id="testSabConnection">Test Connection</button>
+        <div id="conResponse"></div>
+        <br /><br /><br />
+        
+        <label for="show_graph">Enable Graph</label>
+        <input class="extension-preference-checkbox" type="checkbox" id="show_graph" value="1" />        
+        <div class="tip">Show Google Charts Graph in popup (experimental)</div>
+        <br />
+        
+        <div class="message info">Disabling the below will not disable the SABnzbd icon, just the functionality of sending to SABnzbd.
+        If you choose to disable one, remember the icon will still show.</div>
+        <br />
+        
+        <label for="enable_newzbin">Newzbin.com 1-Click NZB</label>
+        <input class="extension-preference-checkbox" type="checkbox" id="enable_newzbin" value="1" />
+        <div class="tip">1-Click NZB downloading (Account and Credit required)</div>
+        <br /><br />
+        
+        <label for="enable_tvnzb">TVNZB.com 1-Click NZB</label>
+        <input class="extension-preference-checkbox" type="checkbox" id="enable_tvnzb" value="1" />
+        <div class="tip">1-Click NZB downloading</div>
+        <br /><br />
+		
+        <label for="enable_nzbclub">NZBClub.com 1-Click NZB</label>
+        <input class="extension-preference-checkbox" type="checkbox" id="enable_nzbclub" value="1" />
+        <div class="tip">1-Click NZB downloading</div>
+        <br /><br />		
+        
+        <label for="enable_nzbmatrix">NZBMatrix.com 1-Click NZB</label>
+        <input class="extension-preference-checkbox" type="checkbox" id="enable_nzbmatrix" value="1" />   
+        <div class="tip">1-Click NZB downloading (VIP Required)</div>
     
-    <!--<button id="testSabConnection">Test Connection</button><span id="conResponse"></span>-->
     </div>
 </div>
 

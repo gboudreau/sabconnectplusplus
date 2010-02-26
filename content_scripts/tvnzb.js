@@ -1,4 +1,10 @@
 function addToSABnzbdFromTVNZB() {
+
+    if(!gConfig.enable_tvnzb) {
+        // If disabled, skip api and just dl
+        return true;
+    }
+    
     // Set the image to an in-progress image
     var img = chrome.extension.getURL('images/sab2_16_fetching.png');
     $(this).find('img').attr("src", img);

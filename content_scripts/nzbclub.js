@@ -12,6 +12,7 @@ function addToSABnzbdFromNZBCLUB() {
 }
 
 function handleAllDownloadLinks() {
+
 	$('img[title="Download NZB"]').each(function() {
 		// Change the title to "Send to SABnzbd"
 		$(this).attr("title", "Send to SABnzbd");
@@ -26,6 +27,6 @@ function handleAllDownloadLinks() {
 	return;
 }
 
-
-//$(document).ready(handleAllDownloadLinks);
-$(document).bind("DOMNodeInserted", handleAllDownloadLinks);
+if(!gConfig.enable_nzbclub) {
+	$(document).bind("DOMNodeInserted", handleAllDownloadLinks);
+}

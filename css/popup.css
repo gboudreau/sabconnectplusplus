@@ -17,11 +17,15 @@ body {
 .menu div:hover { 
     background-color: #316AC5;
     color: white;
-    cursor: default;
+    cursor: pointer;
 }
 
 .menu div span {
     float: right;
+}
+
+hr {
+    margin: 2px 0;
 }
 
 #sabInfo { 
@@ -34,4 +38,124 @@ body {
     font-weight: bold;
     width:140px;
     display:inline-block;
+}
+
+.status {
+    padding: 4px;
+    text-transform: uppercase;
+}
+
+.Idle {
+    background-color: yellow;
+}
+
+.Paused {
+    background-color: red;
+}
+
+.Downloading {
+    background-color: lime;
+}
+
+#sab-status {
+    padding: 1px 3px;
+}
+
+#sab-speed {
+    font-weight: bold;
+}
+
+.speed {
+    float: right;
+}
+
+
+.file-Downloading {
+    color: green;
+}
+
+.file-Paused {
+    color: #ccc;
+}
+
+
+.float-fix {
+    clear:both;
+}
+
+
+.progressBarContainer {
+width: 198px;
+height: 2px;
+background-color: #333;
+border: 2px solid #333;
+}
+
+.progressBarInner {
+height: 100%;
+background-color: lime;
+}
+
+
+
+ul#sab-queue {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul#sab-queue li.item {
+    margin: 5px 0;
+    padding: 3px;
+    border: 1px solid #fff;
+}
+
+.controls {
+    float: right;
+}
+
+div.filename {
+    float: left;
+    width:160px;
+    overflow: hidden;
+}
+
+.lowOpacity {
+    opacity: 0.2;
+}
+
+.filename {
+    cursor: move;
+}
+
+
+
+.col-left, .col-right {
+    width:49%;
+    float: left;
+    line-height: 20px;
+}
+
+.col-right {
+    text-align: right;
+}
+
+.col-container {
+    overflow: auto;
+}
+
+li.highlight {
+    background-color: #eee;
+    border: 1px solid #ccc !important;
+}
+
+#graph-inner {
+    height: 75px;
+}
+
+#errors-container {
+    background-color: #ffd3d3;
+    padding: 2px 4px;
+    border: 1px solid #ff8383;
+    margin: 4px 0 20px 0;
 }

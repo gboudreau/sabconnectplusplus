@@ -8,6 +8,11 @@ function findNZBId(elem) {
 
 function addToSABnzbdFromIconClick() {
 
+    if(!gConfig.enable_newzbin) {
+        // If disabled, skip the dl
+        return true;
+    }
+
     // Find the newzbin id from the href
     var nzbid = findNZBId(this);
     if(nzbid) {
@@ -27,6 +32,11 @@ function addToSABnzbdFromIconClick() {
 
 function addToSABnzbdFromCheckbox(checkbox) {
 
+    if(!gConfig.enable_newzbin) {
+        // If disabled, skip the dl
+        return true;
+    }
+
     var link = $(checkbox).closest('tr').find('a[title="Send to SABnzbd"]');
     // Find the nzb id from the links href
     var nzbid = findNZBId(link);
@@ -45,32 +55,42 @@ function addToSABnzbdFromCheckbox(checkbox) {
 
 }
 
-// Add a common CSS for styling purposes
-var commonCss = chrome.extension.getURL('css/common.css');
-$('head').append('<link rel="stylesheet" href="' + commonCss + '" type="text/css" />');
+$(document).ready(function() {
 
-// Add the SABnzbd download icon
-$('a[title="Download report NZB"]').each(function() {
-    // Change the title to "Send to SABnzbd"
-    $(this).attr("title", "");
-    
-    // Change the nzb download image to our own custom one
-    var img = chrome.extension.getURL('images/sab2_16.png');
-    $(this).find('img')
-    .attr("src", img)
-    .attr("width", '16')
-    .attr("height",'16');
+    // Add a common CSS for styling purposes
+    var commonCss = chrome.extension.getURL('css/common.css');
+    $('head').append('<link rel="stylesheet" href="' + commonCss + '" type="text/css" />');
 
-    // Change the on click handler to send to sabnzbd
-    $(this).click(addToSABnzbdFromIconClick);
-    
-});
+    // Add the SABnzbd download icon
+    $('a[title="Download report NZB"]').each(function() {
+        // Change the title to "Send to SABnzbd"
+        $(this).attr("title", "");
+        
+        // Change the nzb download image to our own custom one
+        var img = chrome.extension.getURL('images/sab2_16.png');
+        $(this).find('img')
+        .attr("src", img)
+        .attr("width", '16')
+        .attr("height",'16');
 
-$('#topActionsForm table tr td:first').append('<button id="sendMultiple">Send to SABnzbd</button>');
-$('#sendMultiple').click(function() {
-    $('table.dataTabular input:checkbox:checked').each(function() {
-        addToSABnzbdFromCheckbox(this);
+        // Change the on click handler to send to sabnzbd
+        $(this).click(addToSABnzbdFromIconClick);
+        
     });
-    return false;
-});
 
+    $('#topActionsForm table tr td:first').append('<button id="sendMultiple">Send to SABnzbd</button>');
+    $('#sendMultiple').click(function() {
+    
+        if(!gConfig.enable_newzbin) {
+            // If disabled, skip the dl
+            return true;
+        }
+    
+        $('table.dataTabular input:checkbox:checked').each(function() {
+            addToSABnzbdFromCheckbox(this);
+        });
+        return false;
+    });
+
+
+});

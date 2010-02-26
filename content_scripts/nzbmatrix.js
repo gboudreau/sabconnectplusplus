@@ -9,7 +9,12 @@ function findNZBId(elem) {
 }
 
 function addToSABnzbdFromNZBMatrix() {
-    
+
+    if(!gConfig.enable_nzbmatrix) {
+        // If disabled, skip the dl
+        return true;
+    }
+
     // Find the newzbin id from the href
     var nzbid = findNZBId(this);
     if(nzbid) {
@@ -35,6 +40,7 @@ $('img[title="Download NZB"]').each(function() {
     $(this).attr("src", img);
 
     // Change the on click handler to send to sabnzbd
+    // this is the <img>, parent is the <a>
     $(this).parent().click(addToSABnzbdFromNZBMatrix);
     
 });
