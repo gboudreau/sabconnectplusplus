@@ -107,7 +107,7 @@ function getSortItemPos(id) {
 function reDrawPopup() {
 
     // If we do not want to redraw (such as in the middle of a drag and drop event, then skip
-    if(getPref('skip_redraw')) return;
+    if(getPref('skip_redraw') == '1') return;
 
     // Grab the errors (should be an array)
     /*var errors = getPref('errors');
@@ -136,6 +136,7 @@ function reDrawPopup() {
     $.each(fields, function(i, field) {
         var value = getPref(field);
         $('#sab-' + field).html(value);
+        $('#sab-' + field).html(value);
     });
     
     var status = getPref('status');
@@ -148,7 +149,7 @@ function reDrawPopup() {
     };
     
     // Grab a list of jobs (array of slot objects from the json API)
-    var jobs = getPref('queue');
+    var jobs = JSON.parse(getPref('queue'));
     $.each(jobs, function(i, slot) {
         data['slot'] = slot;
         $('#template').jqote(data).appendTo($('#sab-queue'));
@@ -241,7 +242,7 @@ function reDrawPopup() {
     });
     
     
-    if(getPref('show_graph')) {
+    /*if(getPref('show_graph')) {
         var api = new jGCharts.Api();
         var url = api.make({
             data : getPref('speedlog'), //MANDATORY
@@ -252,7 +253,7 @@ function reDrawPopup() {
         })
         
         $('#graph').html('<div id="graph-inner"><img src="' + url + '" /></div>');
-    }
+    }*/
     
 }
 

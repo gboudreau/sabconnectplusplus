@@ -7,10 +7,10 @@ var gTimer;
 var gSabInfo;
 
 var globalContext = new Object();
-globalContext.config = getAllPrefs();
 
 $(document).ready(function() {
-    setDefaults();
+	setDefaults();
+    globalContext.config = getAllPrefs();
     startTimer();
 });
 
@@ -26,26 +26,6 @@ function startTimer() {
     }
     gTimer = setInterval(fetchInfo, getPref('refresh_rate')*1000);
     //gTimer = setInterval(fetchInfo, 5000);
-}
-
-
-function setDefaults() {
-    if(!getPref('sab_url')) setPref('sab_url', 'http://localhost:8080/sabnzbd/');
-    if(!getPref('api_key')) setPref('api_key', '');
-    if(!getPref('http_user')) setPref('http_user', '');
-    if(!getPref('http_pass')) setPref('http_pass', '');	
-    if(!getPref('speedlog')) setPref('speedlog', []);
-    if(!getPref('show_graph') == undefined) setPref('show_graph', 0);
-    if(getPref('enable_newzbin') == undefined) setPref('enable_newzbin', 1);
-    if(getPref('enable_tvnzb') == undefined) setPref('enable_tvnzb', 1);
-    if(getPref('enable_nzbmatrix') == undefined) setPref('enable_nzbmatrix', 1);
-    if(getPref('enable_nzbclub') == undefined) setPref('enable_nzbclub', 1);
-	if(getPref('enable_bintube') == undefined) setPref('enable_bintube', 1); 
- 
-    // Force this back to 0 just incase
-    getPref('skip_redraw', 0);
-    
-    if(getPref('refresh_rate') == undefined) setPref('refresh_rate', 15);
 }
 
 function addToSABnzbd(cb, nzburl, mode) {
@@ -66,7 +46,7 @@ function addToSABnzbd(cb, nzburl, mode) {
         success: cb({'ret' : 'success', 'data' : data}),
         error: cb({'ret' : 'error'})
     });
-	//fetchInfo(true);
+	fetchInfo(true);
 }
 
 /**

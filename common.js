@@ -1,24 +1,34 @@
 function setPref(key, value) {
-  var config = {};
-  if (localStorage.config) {
-    config = JSON.parse(localStorage.config);
-  }
-  config[key] = value;
-  chrome.extension.sendRequest({action : 'reloadConfig'});
-  localStorage.config = JSON.stringify(config);
+	localStorage[key] = value;
+	chrome.extension.sendRequest({action : 'reloadConfig'});
 }
 
 function getPref(key) {
-	var config = getAllPrefs();
-	return config[key];
+	return localStorage[key];
 }
 
 function getAllPrefs()
 {
-  if (!localStorage.config) {
-    return undefined;
-  }
-  return JSON.parse(localStorage.config);
+	return localStorage;
+}
+
+function setDefaults() {
+    if(!getPref('sab_url')) setPref('sab_url', 'http://localhost:8080/sabnzbd/');
+    if(!getPref('api_key')) setPref('api_key', '');
+    if(!getPref('http_user')) setPref('http_user', '');
+    if(!getPref('http_pass')) setPref('http_pass', '');	
+    if(!getPref('speedlog')) setPref('speedlog', JSON.stringify([]));
+    if(getPref('show_graph') == null) setPref('show_graph', 0);
+    if(getPref('enable_newzbin') == null) setPref('enable_newzbin', 1);
+    if(getPref('enable_tvnzb') == null) setPref('enable_tvnzb', 1);
+    if(getPref('enable_nzbmatrix') == null) setPref('enable_nzbmatrix', 1);
+    if(getPref('enable_nzbclub') == null) setPref('enable_nzbclub', 1);
+	if(getPref('enable_bintube') == null) setPref('enable_bintube', 1); 
+ 
+    // Force this back to 0 just incase
+    setPref('skip_redraw', 0);
+    
+    if(getPref('refresh_rate') == null) setPref('refresh_rate', 15);
 }
 
 function checkEndSlash(input) {
@@ -141,7 +151,7 @@ function queueItemAction(action, nzoid, callBack) {
 //file size formatter - takes an input in bytes
 function fileSizes(value, decimals){
     // Set the default decimals to 2
-    if(decimals == undefined) decimals = 2;
+    if(decimals == null) decimals = 2;
     kb = value / 1024
     mb = value / 1048576
     gb = value / 1073741824
@@ -176,7 +186,7 @@ function fetchInfo(quickUpdate, callBack) {
         success: function(data) {
 
             // If there was an error of some type, report it to the user and abort!
-            if(data.error) {
+            if(data != null && data.error) {
                 setPref('error', data.error);
                 // We allow a custom callback to be passed (ie redrawing the popup html after update)
                 if(callBack) {
@@ -204,17 +214,17 @@ function fetchInfo(quickUpdate, callBack) {
             setPref('speed', speed);
             
             // Do not run this on a quickUpdate (unscheduled refresh)
-            if(!quickUpdate) {
-                var speedlog = getPref('speedlog');
+            /*if(!quickUpdate) {
+                var speedlog = JSON.parse(getPref('speedlog'));
                 
                 if(speedlog.length >= 10) {
                     // Only allow 10 values, if at our limit, remove the first value (oldest)
-                    speedlog.shift()
+                    speedlog.shift();
                 }
                 
                 speedlog.push(data.queue.kbpersec);
-                setPref('speedlog', speedlog);
-            }
+                setPref('speedlog', JSON.stringify(speedlog));
+            }*/
             
             
             
@@ -227,7 +237,7 @@ function fetchInfo(quickUpdate, callBack) {
             }
             setPref('sizeleft', queueSize);
 
-            setPref('queue', data.queue.slots);           
+            setPref('queue', JSON.stringify(data.queue.slots));           
 
             setPref('status', data.queue.status);
             setPref('paused', data.queue.paused);
