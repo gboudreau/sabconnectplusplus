@@ -10,11 +10,6 @@ function findNZBId(elem) {
 
 function addToSABnzbdFromNZBMatrix() {
 
-    if(!gConfig.enable_nzbmatrix) {
-        // If disabled, skip the dl
-        return true;
-    }
-
     // Find the newzbin id from the href
     var nzbid = findNZBId(this);
     if(nzbid) {
@@ -30,18 +25,24 @@ function addToSABnzbdFromNZBMatrix() {
     return false;
 
 }
+function handleAllDownloadLinks() {
+	$('img[title="Download NZB"]').each(function() {
+		// Change the title to "Send to SABnzbd"
+		$(this).attr("title", "Send to SABnzbd");
+		
+		// Change the nzb download image
+		var img = chrome.extension.getURL('images/sab2_16.png');
+		$(this).attr("src", img);
 
-$('img[title="Download NZB"]').each(function() {
-    // Change the title to "Send to SABnzbd"
-    $(this).attr("title", "Send to SABnzbd");
-    
-    // Change the nzb download image
-    var img = chrome.extension.getURL('images/sab2_16.png');
-    $(this).attr("src", img);
+		// Change the on click handler to send to sabnzbd
+		// this is the <img>, parent is the <a>
+		$(this).parent().click(addToSABnzbdFromNZBMatrix);
+	});
+}
 
-    // Change the on click handler to send to sabnzbd
-    // this is the <img>, parent is the <a>
-    $(this).parent().click(addToSABnzbdFromNZBMatrix);
-    
+chrome.extension.sendRequest({'action' : 'getContext'}, function(response){
+
+	if(!response.value.config.enable_nzbmatrix)
+		return;
+	handleAllDownloadLinks();
 });
-

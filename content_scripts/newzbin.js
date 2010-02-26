@@ -8,11 +8,6 @@ function findNZBId(elem) {
 
 function addToSABnzbdFromIconClick() {
 
-    if(!gConfig.enable_newzbin) {
-        // If disabled, skip the dl
-        return true;
-    }
-
     // Find the newzbin id from the href
     var nzbid = findNZBId(this);
     if(nzbid) {
@@ -32,11 +27,6 @@ function addToSABnzbdFromIconClick() {
 
 function addToSABnzbdFromCheckbox(checkbox) {
 
-    if(!gConfig.enable_newzbin) {
-        // If disabled, skip the dl
-        return true;
-    }
-
     var link = $(checkbox).closest('tr').find('a[title="Send to SABnzbd"]');
     // Find the nzb id from the links href
     var nzbid = findNZBId(link);
@@ -55,8 +45,7 @@ function addToSABnzbdFromCheckbox(checkbox) {
 
 }
 
-$(document).ready(function() {
-
+function handleAllDownloadLinks() {
     // Add a common CSS for styling purposes
     var commonCss = chrome.extension.getURL('css/common.css');
     $('head').append('<link rel="stylesheet" href="' + commonCss + '" type="text/css" />');
@@ -81,16 +70,18 @@ $(document).ready(function() {
     $('#topActionsForm table tr td:first').append('<button id="sendMultiple">Send to SABnzbd</button>');
     $('#sendMultiple').click(function() {
     
-        if(!gConfig.enable_newzbin) {
-            // If disabled, skip the dl
-            return true;
-        }
-    
         $('table.dataTabular input:checkbox:checked').each(function() {
             addToSABnzbdFromCheckbox(this);
         });
         return false;
     });
+}
 
+$(document).ready(function() {
+	chrome.extension.sendRequest({'action' : 'getContext'}, function(response){
 
+		if(!response.value.config.enable_newzbin)
+			return;
+		handleAllDownloadLinks();
+	});
 });
