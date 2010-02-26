@@ -12,7 +12,7 @@ function addToSABnzbdFromNZBCLUB() {
 }
 
 function handleAllDownloadLinks() {
-
+	var unbind = false;
 	$('img[title="Download NZB"]').each(function() {
 		// Change the title to "Send to SABnzbd"
 		$(this).attr("title", "Send to SABnzbd");
@@ -23,10 +23,15 @@ function handleAllDownloadLinks() {
 
 		// Change the on click handler to send to sabnzbd
 		$(this).click(addToSABnzbdFromNZBCLUB);		
+		unbind = true;
 	});
+	if ( unbind )
+		$("#ctl00_ContentPlaceHolder1_ui_searchformMain_ui_updatepanelMain").unbind("DOMNodeInserted", handleAllDownloadLinks);
 	return;
 }
 
-if(!gConfig.enable_nzbclub) {
-	$(document).bind("DOMNodeInserted", handleAllDownloadLinks);
-}
+chrome.extension.sendRequest({'action' : 'getContext'},function(response){
+	if ( !response.value.config.enable_nzbclub )
+		return;
+	$("#ctl00_ContentPlaceHolder1_ui_searchformMain_ui_updatepanelMain").bind("DOMNodeInserted", handleAllDownloadLinks);
+});

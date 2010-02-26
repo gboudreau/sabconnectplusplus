@@ -1,6 +1,6 @@
 {
     "name": "SABconnect++",
-    "version": "1.0+",
+    "version": "0.2.1.0",
     "description": "SABnzbd extension for Google Chrome.",
     "background_page": "background.html",
     "options_page": "settings.html",
@@ -52,6 +52,16 @@
                 "https://*.nzbclub.com/*"
             ],
             "js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/nzbclub.js"],
+			"all_frames": true
+		},
+        {
+            "matches": [
+                "http://*.bintube.com/",
+                "http://*.bintube.com/*",
+                "https://*.bintube.com/",
+                "https://*.bintube.com/*"
+            ],
+            "js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/bintube.js"],
 			"all_frames": true
 		}		
     ],

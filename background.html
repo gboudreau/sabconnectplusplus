@@ -6,6 +6,8 @@
 var gTimer;
 var gSabInfo;
 
+var globalContext = new Object();
+globalContext.config = getAllPrefs();
 
 $(document).ready(function() {
     setDefaults();
@@ -33,90 +35,62 @@ function setDefaults() {
     if(!getPref('http_user')) setPref('http_user', '');
     if(!getPref('http_pass')) setPref('http_pass', '');	
     if(!getPref('speedlog')) setPref('speedlog', []);
-    if(!getPref('show_graph')) setPref('show_graph', 0);
-    if(!getPref('enable_newzbin')) setPref('enable_newzbin', 1);
-    if(!getPref('enable_tvnzb')) setPref('enable_tvnzb', 1);
-    if(!getPref('enable_nzbmatrix')) setPref('enable_nzbmatrix', 1);
-    if(!getPref('enable_nzbclub')) setPref('enable_nzbclub', 1); 
+    if(!getPref('show_graph') == undefined) setPref('show_graph', 0);
+    if(getPref('enable_newzbin') == undefined) setPref('enable_newzbin', 1);
+    if(getPref('enable_tvnzb') == undefined) setPref('enable_tvnzb', 1);
+    if(getPref('enable_nzbmatrix') == undefined) setPref('enable_nzbmatrix', 1);
+    if(getPref('enable_nzbclub') == undefined) setPref('enable_nzbclub', 1);
+	if(getPref('enable_bintube') == undefined) setPref('enable_bintube', 1); 
  
     // Force this back to 0 just incase
     getPref('skip_redraw', 0);
     
-    if(!getPref('refresh_rate')) setPref('refresh_rate', 15);
+    if(getPref('refresh_rate') == undefined) setPref('refresh_rate', 15);
 }
 
-
-// Listen for notifications from the content script.
-chrome.extension.onConnect.addListener(function(port, name) {
-    port.onMessage.addListener(function(msg) {
-        if(msg.get) {
-            var value = getPref(msg.get);    
-            sendConfigResponse(msg.get, value);
-        }
-    });
-});
-
-
-function sendConfigResponse(key, value) {
-  chrome.tabs.getSelected(null, function(tab) {
-    var port = chrome.tabs.connect(tab.id, {name: "notifyChannelOut"});
-    port.postMessage({key: key, value: value});
-  });
-}
-
-function addToSABnzbd(nzburl, mode, cb) {
+function addToSABnzbd(cb, nzburl, mode) {
 
     var sabApiUrl = constructApiUrl();
     var data = constructApiPost(true);
     data.mode = mode;
     data.name = nzburl;
-    
+	data.output = 'json';
     $.ajax({
         type: "GET",
         url: sabApiUrl,
+		cache: false,
 		username : getPref('http_user'),
 		password : getPref('http_pass'),
         data: data,
-        success: function(data) {
-        
-            // If there was an error of some type, report it to the user and abort!
-            if(data.error) {
-                var img = chrome.extension.getURL('images/sab2_16_red.png');
-                $(addLink).find('img').attr("src", img);
-                alert(data.error);
-            }
-        
-            var img = chrome.extension.getURL('images/sab2_16_green.png');
-            $(addLink).find('img').attr("src", img);
-        },
-        error: function() {
-            // This seems to get called on a success message from sabnzbd.
-            var img = chrome.extension.getURL('sab2_16_red.png');
-            //var img = chrome.extension.getURL('images/sab2_16_green.png');
-            $(addLink).find('img').attr("src", img);
-            
-            alert("Could not contact SABnzbd \n Check it is running and your settings are correct");
-        }
-    });   
-}
-
-function sendConfigResponse(key, value) {
-  chrome.tabs.getSelected(null, function(tab) {
-    var port = chrome.tabs.connect(tab.id, {name: "notifyChannelOut"});
-    port.postMessage({key: key, value: value});
-  });
+        dataType: 'json',
+        success: cb({'ret' : 'success', 'data' : data}),
+        error: cb({'ret' : 'error'})
+    });
+	//fetchInfo(true);
 }
 
 /**
 * Handles data sent via chrome.extension.sendRequest().
 * @param request Object Data sent in the request.
 * @param sender Object Origin of the request.
-* @param callback Function The method to call when the request completes.
+* @param sendResponse Function The method to call when the request completes.
 */
-function onRequest(request, sender, callback) {
-	if (request.action == 'addToSABnzbd') {
-		addToSABnzbd(request.nzburl, request.mode, callback);
+function onRequest(request, sender, sendResponse) {
+	switch(request.action)
+	{
+		case 'getContext':
+			sendResponse({value: globalContext});
+			return;
+		case 'reloadConfig':
+			globalContext.config = getAllPrefs();
+			break;
+		case 'addToSABnzbd':
+			console.log('add');
+			addToSABnzbd(sendResponse, request.nzburl, request.mode);
+			return;
 	}
+	sendResponse({});
+	return;
 };
 
 // Wire up the listener.

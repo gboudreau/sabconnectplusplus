@@ -4,30 +4,22 @@ function setPref(key, value) {
     config = JSON.parse(localStorage.config);
   }
   config[key] = value;
+  chrome.extension.sendRequest({action : 'reloadConfig'});
   localStorage.config = JSON.stringify(config);
 }
 
 function getPref(key) {
+	var config = getAllPrefs();
+	return config[key];
+}
+
+function getAllPrefs()
+{
   if (!localStorage.config) {
     return undefined;
   }
-  var config = JSON.parse(localStorage.config);
-  return config[key];
+  return JSON.parse(localStorage.config);
 }
-
-var gConfig = new Object();
-// Load the config objects into memory since we cannot access them directly in content scripts yet
-sendMessage('sab_url');
-sendMessage('api_key');
-sendMessage('sab_user');
-sendMessage('sab_pass');
-sendMessage('http_user');
-sendMessage('http_pass');
-
-sendMessage('enable_newzbin');
-sendMessage('enable_tvnzb');
-sendMessage('enable_nzbmatrix');
-sendMessage('enable_nzbclub');
 
 function checkEndSlash(input) {
     if (input.charAt(input.length-1) == '/') {
@@ -39,24 +31,18 @@ function checkEndSlash(input) {
 }
 
 function constructApiUrl() {
-
-    if (gConfig.sab_url) {
-        var sabUrl = checkEndSlash(gConfig.sab_url) + 'api';
-    } else {
         var sabUrl = checkEndSlash(getPref('sab_url')) + 'api';
-    }
-    
     return sabUrl;
 }
 
 // hasJsConfig = has local html javascript
 function constructApiPost(hasJsConfig) {
 
-    if (hasJsConfig) {
+    //if (hasJsConfig) {
         var apikey = getPref('api_key');
-    } else {
-        var apikey = gConfig.api_key;
-    }
+    //} else {
+    //    var apikey = gConfig.api_key;
+    //}
 
     var data = {};
     
@@ -72,7 +58,30 @@ function addToSABnzbd(addLink, nzburl, mode) {
 		{'action' : 'addToSABnzbd',
 		'nzburl' : nzburl,
 		'mode' : mode
+		}, function(response) {
+			switch(response.ret)
+			{
+			case 'error' :
+				alert("Could not contact SABnzbd \n Check it is running and your settings are correct");
+				var img = chrome.extension.getURL('images/sab2_16_red.png');
+				$(addLink).find('img').attr('src', img);	
+				return;
+			case 'success' :
+				// If there was an error of some type, report it to the user and abort!
+				if(response.data.error) {
+					alert(response.data.error);
+					var img = chrome.extension.getURL('images/sab2_16_red.png');
+					$(addLink).find('img').attr('src', img);	
+					return;
+				}
+				var img = chrome.extension.getURL('images/sab2_16_green.png');
+				$(addLink).find('img').attr('src', img);	
+				return;
+			default:
+				alert("Ups something went wrong try again");
+			}
 		});
+		return;
 }
 
 
@@ -128,27 +137,6 @@ function queueItemAction(action, nzoid, callBack) {
  
     
 }
-
-
-
-function sendMessage(key) {
-    // Create a short-lived named channel to the extension and send a single
-    // message through it.
-    var port = chrome.extension.connect({name: "notifyChannel"});
-    port.postMessage({get: key});
-}
-
-// Also listen for new channels from the extension for when the button is
-// pressed.
-chrome.extension.onConnect.addListener(function(port, name) {
-  port.onMessage.addListener(function(msg) {
-    if (msg.value) {
-        gConfig[msg.key] = msg.value;
-    }
-  });
-});
-
-
 
 //file size formatter - takes an input in bytes
 function fileSizes(value, decimals){
@@ -277,5 +265,4 @@ function fetchInfo(quickUpdate, callBack) {
             }
         }
     });
-    
 }
