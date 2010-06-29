@@ -1,51 +1,57 @@
 <html>
 <head>
-<script type="text/javascript" src="jquery-1.4.2.min.js"/>
-<script type="text/javascript" src="common.js"/>
-<script>
+<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="common.js"></script>
+<script type="text/javascript">
 var gTimer;
-var gSabInfo;
-
 var globalContext = new Object();
 
 $(document).ready(function() {
 	setDefaults();
-    globalContext.config = getAllPrefs();
-    startTimer();
+	globalContext.config = getAllPrefs();
+	startTimer();
 });
 
 function restartTimer() {
-   startTimer(); 
+	startTimer(); 
 }
 
 function startTimer() {
-    if(gTimer) {
-        clearInterval(gTimer);
-    } else {
-        fetchInfo();
-    }
-    gTimer = setInterval(fetchInfo, getPref('refresh_rate')*1000);
-    //gTimer = setInterval(fetchInfo, 5000);
+	if (gTimer) {
+		clearInterval(gTimer);
+	} else {
+		fetchInfo();
+	}
+	gTimer = setInterval(fetchInfo, getPref('refresh_rate')*1000);
 }
 
-function addToSABnzbd(cb, nzburl, mode) {
-
-    var sabApiUrl = constructApiUrl();
-    var data = constructApiPost(true);
-    data.mode = mode;
-    data.name = nzburl;
+function addToSABnzbd(cb, request) {
+	var nzburl = request.nzburl;
+	var mode = request.mode;
+	var nzbname = request.nzbname;
+	
+	var sabApiUrl = constructApiUrl();
+	var data = constructApiPost(true);
+	data.mode = mode;
+	data.name = nzburl;
 	data.output = 'json';
-    $.ajax({
-        type: "GET",
-        url: sabApiUrl,
+	if (request.nzbname) {
+		data.nzbname = request.nzbname;
+	}
+	if (request.category) {
+		data.cat = request.category;
+	}
+	$.ajax({
+		type: "GET",
+		url: sabApiUrl,
 		cache: false,
 		username : getPref('http_user'),
 		password : getPref('http_pass'),
-        data: data,
-        dataType: 'json',
-        success: cb({'ret' : 'success', 'data' : data}),
-        error: cb({'ret' : 'error'})
-    });
+		data: data,
+		dataType: 'json',
+		success: cb({'ret' : 'success', 'data' : data}),
+		error: cb({'ret' : 'error'})
+	});
 	fetchInfo(true);
 }
 
@@ -56,8 +62,7 @@ function addToSABnzbd(cb, nzburl, mode) {
 * @param sendResponse Function The method to call when the request completes.
 */
 function onRequest(request, sender, sendResponse) {
-	switch(request.action)
-	{
+	switch(request.action) {
 		case 'getContext':
 			sendResponse({value: globalContext});
 			return;
@@ -65,8 +70,7 @@ function onRequest(request, sender, sendResponse) {
 			globalContext.config = getAllPrefs();
 			break;
 		case 'addToSABnzbd':
-			console.log('add');
-			addToSABnzbd(sendResponse, request.nzburl, request.mode);
+			addToSABnzbd(sendResponse, request);
 			return;
 	}
 	sendResponse({});

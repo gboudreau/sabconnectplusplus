@@ -79,9 +79,9 @@ function handleAllDownloadLinks() {
 
 $(document).ready(function() {
 	chrome.extension.sendRequest({'action' : 'getContext'}, function(response){
-
-		if(!response.value.config.enable_newzbin)
+		if (response.value.config.enable_newzbin == "0") {
 			return;
+		}
 		handleAllDownloadLinks();
 	});
 });

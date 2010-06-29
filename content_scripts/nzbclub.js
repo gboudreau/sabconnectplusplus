@@ -31,7 +31,8 @@ function handleAllDownloadLinks() {
 }
 
 chrome.extension.sendRequest({'action' : 'getContext'},function(response){
-	if ( !response.value.config.enable_nzbclub )
+	if (response.value.config.enable_nzbclub == "0") {
 		return;
+	}
 	$("#ctl00_ContentPlaceHolder1_ui_searchformMain_ui_updatepanelMain").bind("DOMNodeInserted", handleAllDownloadLinks);
 });

@@ -1,77 +1,92 @@
 {
-    "name": "SABconnect++",
-    "version": "0.3.1.0",
-    "description": "SABnzbd extension for Google Chrome.",
-    "background_page": "background.html",
-    "options_page": "settings.html",
-    "browser_action": {
-        "default_icon": "images/sab2_16.png",
-        "default_title": "SABnzbd",
-      "popup": {
-         "height": 200,
-         "path": "popup.html"
-      }
-    },
-    "content_scripts": [
-        {
-            "matches": [
-                "http://*.newzbin.com/*",
-                "https://*.newzbin.com/*",
-                "http://*.newzxxx.com/*",
-                "https://*.newzxxx.com/*"
-            ],
-            "js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/newzbin.js"]
-        },
-        {
-            "matches": [
-                "http://*.tvnzb.com/",
-                "http://*.tvnzb.com/*",
-                "https://*.tvnzb.com/",
-                "https://*.tvnzb.com/*"
-            ],
-            "js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/tvnzb.js"]
-        },
-        {
-            "matches": [
-                "http://*.nzbmatrix.com/",
-                "http://*.nzbmatrix.com/*",
-                "https://*.nzbmatrix.com/",
-                "https://*.nzbmatrix.com/*",
-                "http://*.nzbxxx.com/",
-                "http://*.nzbxxx.com/*",
-                "https://*.nzbxxx.com/",
-                "https://*.nzbxxx.com/*"
-            ],
-            "js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/nzbmatrix.js"]
-        },
-        {
-            "matches": [
-                "http://*.nzbclub.com/",
-                "http://*.nzbclub.com/*",
-                "https://*.nzbclub.com/",
-                "https://*.nzbclub.com/*"
-            ],
-            "js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/nzbclub.js"],
+	"name": "SABconnect++",
+	"version": "0.4",
+	"description": "SABnzbd extension for Google Chrome.",
+	"background_page": "background.html",
+	"options_page": "settings.html",
+	"browser_action": {
+		"default_icon": "images/sab2_16.png",
+		"default_title": "SABnzbd",
+		"popup": {
+			"height": 200,
+			"path": "popup.html"
+		}
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"http://*.newzbin.com/*",
+				"https://*.newzbin.com/*",
+				"http://*.newzxxx.com/*",
+				"https://*.newzxxx.com/*"
+			],
+			"js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/newzbin.js"]
+		},
+		{
+			"matches": [
+				"http://*.nzbmatrix.com/",
+				"http://*.nzbmatrix.com/*",
+				"https://*.nzbmatrix.com/",
+				"https://*.nzbmatrix.com/*",
+				"http://*.nzbxxx.com/",
+				"http://*.nzbxxx.com/*",
+				"https://*.nzbxxx.com/",
+				"https://*.nzbxxx.com/*"
+			],
+			"js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/nzbmatrix.js"],
+			"css": ["css/nzbmatrix.css"]
+		},
+		{
+			"matches": [
+				"http://*.nzbclub.com/",
+				"http://*.nzbclub.com/*",
+				"https://*.nzbclub.com/",
+				"https://*.nzbclub.com/*"
+			],
+			"js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/nzbclub.js"],
 			"all_frames": true
 		},
-        {
-            "matches": [
-                "http://*.bintube.com/",
-                "http://*.bintube.com/*",
-                "https://*.bintube.com/",
-                "https://*.bintube.com/*"
-            ],
-            "js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/bintube.js"],
+		{
+			"matches": [
+				"http://*.bintube.com/",
+				"http://*.bintube.com/*",
+				"https://*.bintube.com/",
+				"https://*.bintube.com/*"
+			],
+			"js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/bintube.js"],
 			"all_frames": true
-		}		
-    ],
-    "icons": { "16": "images/sab2_16.png",
-               "32": "images/sab2_32.png",
-              "128": "images/sab2_128.png" },
-
-    "permissions": [
-        "http://*/*",
-        "https://*/*",
-        "tabs"
-    ]
+		},
+		{
+			"matches": [
+				"http://*.nzbs.org/",
+				"http://*.nzbs.org/*",
+				"https://*.nzbs.org/",
+				"https://*.nzbs.org/*"
+			],
+			"js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/nzbsorg.js"],
+			"all_frames": true
+		},
+		{
+			"matches": [
+				"http://*.binsearch.info/",
+				"http://*.binsearch.info/*",
+				"https://*.binsearch.info/",
+				"https://*.binsearch.info/*",
+				"http://binsearch.info/",
+				"http://binsearch.info/*",
+				"https://binsearch.info/",
+				"https://binsearch.info/*"
+			],
+			"js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/binsearch.js"],
+			"all_frames": true
+		}
+	],
+	"icons": { "16": "images/sab2_16.png",
+			   "32": "images/sab2_32.png",
+			  "128": "images/sab2_128.png" },
+	"permissions": [
+		"http://*/*",
+		"https://*/*",
+		"tabs"
+	]
 }

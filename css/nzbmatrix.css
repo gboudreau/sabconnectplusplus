@@ -1,0 +1,23 @@
+span.downloadButton {
+	display: inline-block;
+	width: 171px;
+	height: 26px;
+	text-decoration: none;
+	color: black;
+	position: relative;
+	top: -15px;
+}
+
+span.downloadButton .text {
+	position: relative;
+	top: 5px;
+}
+
+span.downloadButton img {
+	position: relative;
+	top: 5px;
+}
+
+a:.downloadButton:hover {
+	text-decoration: none;
+}

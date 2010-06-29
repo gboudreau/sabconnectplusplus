@@ -1,0 +1,17 @@
+Version 0.4
+-----------
+New feature: Added nzbs.org 1-click NZB downloads (code comes from SABConnect, slightly modified) Auto-categorization seems to work out-of-the-box. http://code.google.com/p/sabconnect/issues/detail?id=4
+New feature: Added binsearch.info 1-click NZB downloads. http://code.google.com/p/sabconnect/issues/detail?id=8
+             Auto-categorization: 1st group that appears in "Group" column on binsearch.info will be sent as the Category. Make sure to create categories that have names equal to the groups you usually download from (eg. a.b.sounds.mp3.french). Sorry, but there's no way I can use the SABnzbd 'group' field using the API... :\
+New feature: Thanks to SABnzbd 0.5.3, auto-categorization for NZBMatrix.com! :)
+             Documentation here: http://wiki.sabnzbd.org/configure-categories
+             Example SABnzbd categories you need to create: http://cl.ly/eec6e7308ee01f800b3d
+Improvement: Re-enabled the option to show a graph in popup.
+Bugfix: Fixed 1-click for all services in latest (dev) Chrome; it wasn't sending to SABnzbd anymore; was just downloading the NZB locally instead.
+Bugfix: Options page that wasn't working at all in latest (dev) Chrome.
+Bugfix: Options page checkboxes: trying to uncheck any service would 'appear' to not work: checkbox would still be checked when reloading the options page.
+Bugfix: Disabling a service in the options page didn't disable 1-click NZB downloads!
+Bugfix: Connection to SABnzbd now works even if the user chose to "Disable API-key" in SABnzbd settings.
+Bugfix: Popup always showed 'Resume queue' even if the queue wasn't paused.
+Bugfix: Status (at the top of popup) would stay red (paused color) if you paused then resumed.
+Bugfix: NZBMatrix.com download URLs had the hostname twice in them! http://code.google.com/p/sabconnect/issues/detail?id=9

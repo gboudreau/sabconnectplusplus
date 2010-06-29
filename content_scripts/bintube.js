@@ -30,7 +30,7 @@ function handleAllDownloadLinks() {
 }
 
 chrome.extension.sendRequest({'action': 'getContext'} ,function(response){
-	if ( !response.value.config.enable_bintube )
+	if (response.value.config.enable_bintube == "0")
 		return;
 	handleAllDownloadLinks();
 });
