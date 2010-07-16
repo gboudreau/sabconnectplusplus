@@ -79,6 +79,20 @@
 			],
 			"js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/binsearch.js"],
 			"all_frames": true
+		},
+		{
+			"matches": [
+				"http://*.nzbindex.com/",
+				"http://*.nzbindex.com/*",
+				"https://*.nzbindex.com/",
+				"https://*.nzbindex.com/*",
+				"http://nzbindex.com/",
+				"http://nzbindex.com/*",
+				"https://nzbindex.com/",
+				"https://nzbindex.com/*"
+			],
+			"js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/nzbindex.js"],
+			"all_frames": true
 		}
 	],
 	"icons": { "16": "images/sab2_16.png",

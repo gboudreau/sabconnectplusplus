@@ -27,6 +27,7 @@ function setDefaults() {
 	if(getPref('enable_bintube') == null) setPref('enable_bintube', 1); 
 	if(getPref('enable_nzbsorg') == null) setPref('enable_nzbsorg', 1); 
 	if(getPref('enable_binsearch') == null) setPref('enable_binsearch', 1); 
+	if(getPref('enable_nzbindex') == null) setPref('enable_nzbindex', 1); 
  
 	// Force this back to 0 just incase
 	setPref('skip_redraw', 0);
@@ -98,7 +99,7 @@ function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 				return;
 			case 'success' :
 				// If there was an error of some type, report it to the user and abort!
-				if(response.data.error) {
+				if (response.data.error) {
 					alert(response.data.error);
 					var img = chrome.extension.getURL('images/sab2_16_red.png');
 					if ($(this).find('img').length > 0) {
@@ -109,7 +110,7 @@ function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 					return;
 				}
 				var img = chrome.extension.getURL('images/sab2_16_green.png');
-				if ($(this).find('img').length > 0) {
+				if ($(addLink).find('img').length > 0) {
 				    $(addLink).find('img').attr("src", img);
 				} else {
 					$(addLink).css('background-image', 'url('+img+')');

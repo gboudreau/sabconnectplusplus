@@ -1,3 +1,9 @@
+Version 0.4.1
+-------------
+New feature: Added nzbindex.com 1-click NZB downloads
+             Auto-categorization: 1st group that appears in "Group" column on nzbindex.com will be sent as the Category. Make sure to create categories that have names equal to the groups you usually download from (eg. a.b.sounds.mp3.french). Sorry, but there's no way I can use the SABnzbd 'group' field using the API... :\
+			Bugfix: SABnzbd icons (used to send a NZB to SABnzbd) changed to 'fetching' (green arrows), but never changed to 'OK' (green logo). Cosmetic bugfix; the actual send operation worked fine.
+
 Version 0.4
 -----------
 New feature: Added nzbs.org 1-click NZB downloads (code comes from SABConnect, slightly modified) Auto-categorization seems to work out-of-the-box. http://code.google.com/p/sabconnect/issues/detail?id=4
