@@ -1,6 +1,6 @@
 {
 	"name": "SABconnect++",
-	"version": "0.4.1",
+	"version": "0.4.2",
 	"description": "SABnzbd extension for Google Chrome.",
 	"background_page": "background.html",
 	"options_page": "settings.html",
@@ -75,7 +75,15 @@
 				"http://binsearch.info/",
 				"http://binsearch.info/*",
 				"https://binsearch.info/",
-				"https://binsearch.info/*"
+				"https://binsearch.info/*",
+				"http://*.binsearch.net/",
+				"http://*.binsearch.net/*",
+				"https://*.binsearch.net/",
+				"https://*.binsearch.net/*",
+				"http://binsearch.net/",
+				"http://binsearch.net/*",
+				"https://binsearch.net/",
+				"https://binsearch.net/*"
 			],
 			"js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/binsearch.js"],
 			"all_frames": true
