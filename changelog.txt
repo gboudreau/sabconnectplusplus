@@ -1,6 +1,11 @@
 Version 0.4.2
 -------------
+New feature: double-click the toolbar icon to open SABnzbd.
+  Note: Chrome doesn't support this natively.
+  The extension tries to detect if you tried to open the popup twice fast enough, and will open SABnzbd if it detects you did.
+  You might want to continue clicking on the toolbar icon until a new tab opens, if just double-clicking doesn't work for you.
 Bugfix (Issue #1): one-click NZB button was missing from binsearch.net (same as binsearch.info); thanks evertbeurskens for the patch.
+Bugfix: "Enable Graph" option couldn't be disabled.
 
 Version 0.4.1
 -------------

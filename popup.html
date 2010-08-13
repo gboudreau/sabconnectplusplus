@@ -222,7 +222,7 @@ function reDrawPopup() {
 		return false;
 	});
 	
-	if(getPref('show_graph')) {
+	if (getPref('show_graph') == '1') {
 		var api = new jGCharts.Api();
 		var url = api.make({
 			data : getPref('speedlog'), //MANDATORY
@@ -236,7 +236,20 @@ function reDrawPopup() {
 	}
 }
 
-window.onload = function() { fetchInfo(true, func1); };
+var nowtime = new Date();
+var lastOpened = parseInt(localStorage["lastOpened"]);
+var closeWindow = false;
+if (lastOpened > 0) {
+	if (nowtime.getTime() - lastOpened < 700) { 
+		chrome.tabs.create({url: getPref('sab_url')});
+		closeWindow = true;
+		window.close();
+	}
+}
+if (!closeWindow) {
+	localStorage["lastOpened"] = nowtime.getTime();
+	window.onload = function() { fetchInfo(true, func1); };
+}
 </script>
 
 <script type="text/html" id="template">
