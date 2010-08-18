@@ -8,12 +8,21 @@ var hash = match[1];
 
 //http://nzbs.org/index.php?action=getnzb&nzbid=307942
 function addToSABnzbdFromNZBORG() {
-	var img = chrome.extension.getURL('images/sab2_16_fetching.png');
-	$(this).find('img').attr("src", img);
-	
-	// Find the newzbin id from the href
 	var url = 'http://nzbs.org/';
-	var nzburl = url.concat($(this).attr('href'));
+	var img = chrome.extension.getURL('images/sab2_16_fetching.png');
+	if ($(this).find('img').length > 0) {
+		$(this).find('img').attr("src", img);
+
+		// Find the nzbs.org download URL
+		var nzburl = url.concat($(this).attr('href'));
+	} else {
+		$(this).css('background-image', 'url('+img+')');
+
+		// Find the nzbs.org download URL
+		var nzbid = $(this).parent().find('input[name="nzbid"]')[0].value;
+		var nzburl = url + '?action=getnzb&nzbid=' + nzbid;
+	}
+
 
 	// Add the authentication to the link about to be fetched
 	nzburl += '&i=' + user;
@@ -26,14 +35,21 @@ function addToSABnzbdFromNZBORG() {
 }
 
 function handleAllDownloadLinks() {
-	// Loop through each download link and prepend a link+img to add to sabnzbd
+	// List view: Loop through each download link and prepend a link+img to add to sabnzbd
 	$('.dlnzb').each(function() {
 		var img = chrome.extension.getURL('/images/sab2_16.png');
 		var href = $(this).attr('href');
-		var link = '<a class="addSABnzbd" href="' + href + '"><img src="' + img + '" /></a> ';
+		var link = '<a class="addSABnzbd" href="' + href + '"><img src="' + img + '" /></a> or ';
 		$(this).before(link);
 		$(this).parent().find('a[class="addSABnzbd"]').first().click(addToSABnzbdFromNZBORG);
 	});
+	// Details view: Find the download button, and prepend a sabnzbd button
+	$('input[name="downloadnzb"]').each(function() {
+		var img = chrome.extension.getURL('/images/sab2_16.png');
+		var link = '<input class="addSABnzbd submit" type="button" value="      Download" style="background-image: url('+img+'); background-repeat: no-repeat; background-position: 3px 1px;" />';
+		$(this).before(link);
+		$(this).parent().find('input[class="addSABnzbd submit"]').first().click(addToSABnzbdFromNZBORG);
+	});	
 }
 
 chrome.extension.sendRequest({'action' : 'getContext'}, function(response){

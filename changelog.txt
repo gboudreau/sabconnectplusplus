@@ -1,3 +1,9 @@
+Version 0.4.3
+-------------
+New feature: Added 1-click NZB download for newzleech.com; thanks to johannespfau for the patch.
+New feature: Added 1-click NZB download to nzbs.org details page.
+Improvement: nzbs.org: Made it clearer that the SAB 1-click icon and the download link are distinct.
+
 Version 0.4.2
 -------------
 New feature: double-click the toolbar icon to open SABnzbd.

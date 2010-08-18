@@ -18,16 +18,17 @@ function setDefaults() {
 	if(!getPref('sab_url')) setPref('sab_url', 'http://localhost:8080/sabnzbd/');
 	if(!getPref('api_key')) setPref('api_key', '');
 	if(!getPref('http_user')) setPref('http_user', '');
-	if(!getPref('http_pass')) setPref('http_pass', '');	
+	if(!getPref('http_pass')) setPref('http_pass', '');
 	if(!getPref('speedlog')) setPref('speedlog', JSON.stringify([]));
 	if(getPref('show_graph') == null) setPref('show_graph', 0);
 	if(getPref('enable_newzbin') == null) setPref('enable_newzbin', 1);
 	if(getPref('enable_nzbmatrix') == null) setPref('enable_nzbmatrix', 1);
 	if(getPref('enable_nzbclub') == null) setPref('enable_nzbclub', 1);
-	if(getPref('enable_bintube') == null) setPref('enable_bintube', 1); 
-	if(getPref('enable_nzbsorg') == null) setPref('enable_nzbsorg', 1); 
-	if(getPref('enable_binsearch') == null) setPref('enable_binsearch', 1); 
-	if(getPref('enable_nzbindex') == null) setPref('enable_nzbindex', 1); 
+	if(getPref('enable_bintube') == null) setPref('enable_bintube', 1);
+	if(getPref('enable_newzleech') == null) setPref('enable_newzleech', 1);
+	if(getPref('enable_nzbsorg') == null) setPref('enable_nzbsorg', 1);
+	if(getPref('enable_binsearch') == null) setPref('enable_binsearch', 1);
+	if(getPref('enable_nzbindex') == null) setPref('enable_nzbindex', 1);
  
 	// Force this back to 0 just incase
 	setPref('skip_redraw', 0);

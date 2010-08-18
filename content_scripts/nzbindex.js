@@ -32,7 +32,6 @@ function handleAllDownloadLinks() {
 	$('input[value="Create NZB"]').each(function() {
 		// add button to send checked items to SABConnect
 		var img = chrome.extension.getURL('/images/sab2_16.png');
-		var href = "#";
 		var link = '<input class="addSABnzbd" type="button" value="      Download selected" style="background-image: url('+img+'); background-repeat: no-repeat; background-position: 3px 1px;" />';
 		$(this).after(link);
 		$(this).parent().find('input[class="addSABnzbd"]').first().click(addToSABnzbdFromNzbindex);
