@@ -268,7 +268,11 @@ function fetchInfo(quickUpdate, callBack) {
 			var badge = {};
 			// Set the text on the object to be the number of items in the queue
 			// +'' = converts the int to a string.
-			badge.text = data.queue.noofslots+'';
+			if (data.queue.noofslots == 0) {
+				badge.text = '';
+			} else {
+				badge.text = data.queue.noofslots+'';
+			}
 			chrome.browserAction.setBadgeText(badge);
 			
 			// Update the background based on if we are downloading
