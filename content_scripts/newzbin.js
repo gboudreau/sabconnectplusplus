@@ -53,7 +53,7 @@ function handleAllDownloadLinks() {
     // Add the SABnzbd download icon
     $('a[title="Download report NZB"]').each(function() {
         // Change the title to "Send to SABnzbd"
-        $(this).attr("title", "");
+        $(this).attr("title", "Send to SABnzbd");
         
         // Change the nzb download image to our own custom one
         var img = chrome.extension.getURL('images/sab2_16.png');
@@ -64,7 +64,6 @@ function handleAllDownloadLinks() {
 
         // Change the on click handler to send to sabnzbd
         $(this).click(addToSABnzbdFromIconClick);
-        
     });
 
     $('#topActionsForm table tr td:first').append('<button id="sendMultiple">Send to SABnzbd</button>');
