@@ -66,6 +66,9 @@ function onRequest(request, sender, sendResponse) {
 		case 'getContext':
 			sendResponse({value: globalContext});
 			return;
+		case 'saveContext':
+			globalContext = request.value;
+			return;
 		case 'reloadConfig':
 			globalContext.config = getAllPrefs();
 			break;
