@@ -114,6 +114,8 @@ function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 				var img = chrome.extension.getURL('images/sab2_16_green.png');
 				if ($(addLink).find('img').length > 0) {
 				    $(addLink).find('img').attr("src", img);
+				} else if (addLink.nodeName.toUpperCase() == 'INPUT' && addLink.value == 'Sent to SABnzbd!') {
+					// Nothing; handled in nzbsorg.js
 				} else {
 					$(addLink).css('background-image', 'url('+img+')');
 				}
