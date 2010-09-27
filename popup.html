@@ -225,7 +225,7 @@ function reDrawPopup() {
 	if (getPref('show_graph') == '1') {
 		var api = new jGCharts.Api();
 		var url = api.make({
-			data : getPref('speedlog'), //MANDATORY
+			data : JSON.parse(getPref('speedlog')), //MANDATORY
 			type : 'lc',
 			fillarea : true, //default false
 			fillbottom : true, //default false

@@ -233,7 +233,7 @@ function fetchInfo(quickUpdate, callBack) {
 			
 			if(data.queue.speed) {
 				// Convert to bytes
-				var bytesPerSec = data.queue.kbpersec*1024;
+				var bytesPerSec = parseFloat(data.queue.kbpersec)*1024;
 				var speed = data.queue.speed + 'B/s';
 			} else {
 				var speed = '-';
@@ -241,7 +241,9 @@ function fetchInfo(quickUpdate, callBack) {
 			setPref('speed', speed);
 			
 			// Do not run this on a quickUpdate (unscheduled refresh)
+			console.log(data.queue)
 			if(!quickUpdate) {
+			    console.log("!quickUpdate")
 				var speedlog = JSON.parse(getPref('speedlog'));
 				
 				if(speedlog.length >= 10) {
@@ -249,7 +251,7 @@ function fetchInfo(quickUpdate, callBack) {
 					speedlog.shift();
 				}
 				
-				speedlog.push(data.queue.kbpersec);
+				speedlog.push(parseFloat(data.queue.kbpersec));
 				setPref('speedlog', JSON.stringify(speedlog));
 			}
 			
@@ -279,7 +281,7 @@ function fetchInfo(quickUpdate, callBack) {
 			chrome.browserAction.setBadgeText(badge);
 			
 			// Update the background based on if we are downloading
-			if(data.queue.kbpersec && data.queue.kbpersec > 1) {
+			if(data.queue.kbpersec && parseFloat(data.queue.kbpersec) > 1) {
 				badgeColor = {}
 				badgeColor.color = new Array(0, 213, 7, 100);
 				chrome.browserAction.setBadgeBackgroundColor(badgeColor)
