@@ -232,7 +232,12 @@ function reDrawPopup() {
 			size : '220x75'
 		})
 		
-		$('#graph').html('<div id="graph-inner"><img src="' + url + '" /></div>');
+		// Let the image load first so as to not make it flicker.
+		var graph = new Image();
+		graph.src = url;
+		graph.onload = function() {
+			$('#graph').html('').append($('<div id="graph-inner"></div>').append(this));
+		};
 	}
 }
 

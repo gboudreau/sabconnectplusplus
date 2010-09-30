@@ -1,6 +1,7 @@
 Version 0.4.5
 -------------
 Improvement: Added 'Send selected to SABnzbd' buttons on nzbs.org, to send multiple NZBs to SAB in one click.
+Improvement: Preload graph image in the background to remove flickering.
 Bugfix: bandwidth graph wasn't working; thanks to Sajid Anwar for the fix.
 
 Version 0.4.4
