@@ -317,6 +317,8 @@ if (!closeWindow) {
 	<div onclick="chrome.tabs.create({url: getPref('sab_url')})">Open SABnzbd</div>
 	<hr />
 	<div onclick="chrome.tabs.create({url: 'settings.html'})">Extension Settings</div>
+	<hr />
+	<div onclick="fetchInfo(true, reDrawPopup)">Refresh</div>
 </div>
 </body>
 </html>
