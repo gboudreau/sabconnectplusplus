@@ -20,6 +20,23 @@ $('document').ready(function() {
         setPref(id, val);
     });
     
+    // Choose the selected number based on the data, or default to '*id*_default' if the value doesn't exist in our groupbox.
+    $('.extension-preference-select-number').each(function() {
+		var id = $(this).attr('id');
+		
+		if ($(this).children().filter('[value="' + getPref(id) + '"]').length == 0) {
+			setPref(id, getPref(id + '_default'));
+		}
+		
+		$(this).children().filter('[value="' + getPref(id) + '"]').attr('selected', true);
+    });
+    
+    // Record changes in the select combobox.
+    $('.extension-preference-select-number').change(function() {
+		var val = $(this).children().filter('[selected=true]').attr('value');
+		setPref($(this).attr('id'), val);
+	});
+    
     // Checkboxes need to be handled a little differently
     $('.extension-preference-checkbox').each(function() {
         var id = $(this).attr('id');
@@ -98,6 +115,23 @@ function checkForErrors() {
         <button id="testSabConnection">Test Connection</button>
         <div id="conResponse"></div>
         <br /><br /><br />
+        
+        <label for="refresh_rate">Refresh Rate</label>
+        <select class="extension-preference-select-number" id="refresh_rate">
+			<option value="1">1 sec</option>
+			<option value="2">2 sec</option>
+			<option value="4">4 sec</option>
+			<option value="8">8 sec</option>
+			<option value="15">15 sec</option>
+			<option value="30">30 sec</option>
+			<option value="60">1 min</option>
+			<option value="120">2 min</option>
+			<option value="300">5 min</option>
+			<option value="900">15 min</option>
+			<option value="1800">30 min</option>
+        </select>
+        <div class="tip">How long SABconnect++ should wait before refreshing</div>
+        <br /><br />
         
         <label for="show_graph">Enable Graph</label>
         <input class="extension-preference-checkbox" type="checkbox" id="show_graph" value="1" />        

@@ -75,6 +75,9 @@ function onRequest(request, sender, sendResponse) {
 		case 'addToSABnzbd':
 			addToSABnzbd(sendResponse, request);
 			return;
+		case 'refreshRateChanged':
+			restartTimer();
+			break;
 	}
 	sendResponse({});
 	return;

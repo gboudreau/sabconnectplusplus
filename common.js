@@ -1,6 +1,10 @@
 function setPref(key, value) {
 	localStorage[key] = value;
 	chrome.extension.sendRequest({action : 'reloadConfig'});
+	
+	if (key == 'refresh_rate') {
+		chrome.extension.sendRequest({action : 'refreshRateChanged'});
+	}
 }
 
 function getPref(key) {
@@ -34,7 +38,8 @@ function setDefaults() {
 	// Force this back to 0 just incase
 	setPref('skip_redraw', 0);
 	
-	if(getPref('refresh_rate') == null) setPref('refresh_rate', 15);
+	setPref('refresh_rate_default', 15);
+	if(getPref('refresh_rate') == null) setPref('refresh_rate', getPref('refresh_rate_default'));
 }
 
 function checkEndSlash(input) {

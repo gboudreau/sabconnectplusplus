@@ -241,6 +241,25 @@ function reDrawPopup() {
 	}
 }
 
+/**
+* Handles data sent via chrome.extension.sendRequest().
+* @param request Object Data sent in the request.
+* @param sender Object Origin of the request.
+* @param sendResponse Function The method to call when the request completes.
+*/
+function onRequest(request, sender, sendResponse) {
+	switch(request.action) {
+		case 'refreshRateChanged':
+			restartTimer();
+			break;
+	}
+	sendResponse({});
+	return;
+};
+
+// Wire up the listener.
+chrome.extension.onRequest.addListener(onRequest);
+
 var nowtime = new Date();
 var lastOpened = parseInt(localStorage["lastOpened"]);
 var closeWindow = false;
