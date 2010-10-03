@@ -111,7 +111,15 @@
 				"http://nzbindex.com/",
 				"http://nzbindex.com/*",
 				"https://nzbindex.com/",
-				"https://nzbindex.com/*"
+				"https://nzbindex.com/*",
+				"http://*.nzbindex.nl/",
+				"http://*.nzbindex.nl/*",
+				"https://*.nzbindex.nl/",
+				"https://*.nzbindex.nl/*",
+				"http://nzbindex.nl/",
+				"http://nzbindex.nl/*",
+				"https://nzbindex.nl/",
+				"https://nzbindex.nl/*"
 			],
 			"js": ["jquery-1.4.2.min.js", "common.js", "content_scripts/nzbindex.js"],
 			"all_frames": true

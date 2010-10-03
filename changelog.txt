@@ -5,6 +5,7 @@ Improvement: Preload graph image in the background to remove flickering.
 Improvement: Added manual refresh menu item.
 Improvement: Allow user to change refresh rate.
 Bugfix: bandwidth graph wasn't working; thanks to Sajid Anwar for the fix.
+New feature: Added 1-click NZB download for nzbindex.nl
 
 Version 0.4.4
 -------------
