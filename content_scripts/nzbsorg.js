@@ -17,7 +17,7 @@ function addToSABnzbdFromNZBORG() {
 
 		// Find the nzbs.org download URL
 		var nzburl = url.concat($(this).attr('href'));
-	} if (this.nodeName.toUpperCase() == 'INPUT') {
+	} else if (this.nodeName.toUpperCase() == 'INPUT') {
 		this.value = "Sending...";
 		$(this).css('color', 'green');
 
@@ -46,7 +46,6 @@ function addToSABnzbdFromNZBORG() {
 	// Add the authentication to the link about to be fetched
 	nzburl += '&i=' + user;
 	nzburl += '&h=' + hash;
-
 	addToSABnzbd(addLink, nzburl, "addurl");
 
 	return false;

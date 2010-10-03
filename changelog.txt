@@ -1,5 +1,6 @@
 Version 0.4.6
 -------------
+Bugfix: 0.4.5 broke 1-click NZB download buttons on nzbs.org
 
 Version 0.4.5
 -------------
