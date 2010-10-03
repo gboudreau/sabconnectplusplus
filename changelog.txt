@@ -1,11 +1,15 @@
+Version 0.4.6
+-------------
+
 Version 0.4.5
 -------------
+Bugfix: bandwidth graph wasn't working; thanks to Sajid Anwar for the fix.
+New feature: Added 1-click NZB download for nzbindex.nl
 Improvement: Added 'Send selected to SABnzbd' buttons on nzbs.org, to send multiple NZBs to SAB in one click.
 Improvement: Preload graph image in the background to remove flickering.
 Improvement: Added manual refresh menu item.
 Improvement: Allow user to change refresh rate.
-Bugfix: bandwidth graph wasn't working; thanks to Sajid Anwar for the fix.
-New feature: Added 1-click NZB download for nzbindex.nl
+Improvement: Number of developers working on SABconnect++ increased! Welcome Sajid Anwar!
 
 Version 0.4.4
 -------------
