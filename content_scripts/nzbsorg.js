@@ -17,7 +17,7 @@ function addToSABnzbdFromNZBORG() {
 
 		// Find the nzbs.org download URL
 		var nzburl = url.concat($(this).attr('href'));
-	} else if (this.nodeName.toUpperCase() == 'INPUT') {
+	} else if (this.nodeName.toUpperCase() == 'INPUT' && this.value == 'Send to SABnzbd') {
 		this.value = "Sending...";
 		$(this).css('color', 'green');
 

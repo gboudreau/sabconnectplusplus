@@ -1,6 +1,7 @@
 Version 0.4.6
 -------------
-Bugfix: 0.4.5 broke 1-click NZB download buttons on nzbs.org
+Bugfix: 0.4.5 broke 1-click NZB download buttons on nzbs.org, in list view
+Bugfix: 1-click NZB download button on nzbs.org details page looked weird after click
 
 Version 0.4.5
 -------------
