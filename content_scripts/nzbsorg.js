@@ -12,8 +12,39 @@ function addToSABnzbdFromNZBORG() {
 	var addLink = this;
     var url = 'http://nzbs.org/';
     var img = chrome.extension.getURL('images/sab2_16_fetching.png');
+	var category = null;
 	if ($(this).find('img').length > 0) {
 		$(this).find('img').attr("src", img);
+		var isSearch = false;
+		$('h3').each(function() {
+			if ($(this).html().indexOf('Search NZBs') != -1) {
+				isSearch = true;
+			} else {
+				var re = new RegExp('>([^<]+)</a> &gt;.+>([^<]+)</a> &gt;[ ]*(.+)');
+				var m = re.exec($(this).html());
+				if (m != null) {
+					for (var i=1; i<m.length; i++) {
+						if (m[i] == 'Home') { continue; }
+						if (category != null) {
+							category += '.' + m[i];
+						} else {
+							category = m[i];
+						}
+					}
+				}
+			}
+		});
+		if (isSearch) {
+			$(this).parent().parent().parent().find('td').each(function() {
+				if ($(this).html().indexOf('index.php?action=browse&amp;catid=') != -1) {
+					var re = new RegExp('<a.+>[ ]*(.+)[ ]*</a>');
+					var m = re.exec($(this).html());
+					if (m != null) {
+						category = m[1].replace('-', '.').replace('WMV.HD', 'WMV-HD');
+					}
+				}
+			});
+		}
 
 		// Find the nzbs.org download URL
 		var nzburl = url.concat($(this).attr('href'));
@@ -22,11 +53,42 @@ function addToSABnzbdFromNZBORG() {
 		$(this).css('color', 'green');
 
 	    $('tr.selected input:checked').each(function() {
+			var isSearch = false;
+			$('h3').each(function() {
+				if ($(this).html().indexOf('Search NZBs') != -1) {
+					isSearch = true;
+				} else {
+					var re = new RegExp('>([^<]+)</a> &gt;.+>([^<]+)</a> &gt;[ ]*(.+)');
+					var m = re.exec($(this).html());
+					if (m != null) {
+						for (var i=1; i<m.length; i++) {
+							if (m[i] == 'Home') { continue; }
+							if (category != null) {
+								category += '.' + m[i];
+							} else {
+								category = m[i];
+							}
+						}
+					}
+				}
+			});
+			if (isSearch) {
+				$(this).parent().parent().parent().find('td').each(function() {
+					if ($(this).html().indexOf('index.php?action=browse&amp;catid=') != -1) {
+						var re = new RegExp('<a.+>[ ]*(.+)[ ]*</a>');
+						var m = re.exec($(this).html());
+						if (m != null) {
+							category = m[1].replace('-', '.').replace('WMV.HD', 'WMV-HD');
+						}
+					}
+				});
+			}
+
 			var nzbid = this.value;
 			var nzburl = url + '?action=getnzb&nzbid=' + nzbid;
 			nzburl += '&i=' + user;
 			nzburl += '&h=' + hash;
-			addToSABnzbd(addLink, nzburl, "addurl");
+			addToSABnzbd(addLink, nzburl, "addurl", null, category);
 		});
 		this.value = 'Sent to SABnzbd!';
 		$(this).css('color', 'red');
@@ -36,6 +98,20 @@ function addToSABnzbdFromNZBORG() {
 
 		return false;
 	} else {
+		$('h3').each(function() {
+			var re = new RegExp('>([^<]+)</a> &gt;.+>([^<]+)</a> &gt;.+>([^<]+)</a>');
+			var m = re.exec($(this).html());
+			if (m != null) {
+				for (var i=1; i<m.length; i++) {
+					if (m[i] == 'Home') { continue; }
+					if (category != null) {
+						category += '.' + m[i];
+					} else {
+						category = m[i];
+					}
+				}
+			}
+		});
 		$(this).css('background-image', 'url('+img+')');
 
 		// Find the nzbs.org download URL
@@ -46,7 +122,7 @@ function addToSABnzbdFromNZBORG() {
 	// Add the authentication to the link about to be fetched
 	nzburl += '&i=' + user;
 	nzburl += '&h=' + hash;
-	addToSABnzbd(addLink, nzburl, "addurl");
+	addToSABnzbd(addLink, nzburl, "addurl", null, category);
 
 	return false;
 }

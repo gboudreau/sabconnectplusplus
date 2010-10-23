@@ -83,13 +83,16 @@ function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 	'mode' : mode
 	};
 	
-	if (typeof nice_name != 'undefined') {
+	if (typeof nice_name != 'undefined' && nice_name != null) {
 		req['nzbname'] = nice_name;
 	}
 
-	if (typeof category != 'undefined') {
+	if (typeof category != 'undefined' && category != null) {
 		req['category'] = category;
 	}
+	
+	console.log("Sending to SABnzbd:");
+	console.log(req);
 
 	chrome.extension.sendRequest(
 		req, function(response) {
