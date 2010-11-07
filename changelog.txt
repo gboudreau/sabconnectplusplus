@@ -1,6 +1,6 @@
 Version 0.4.7
 -------------
-Improvement: Send category for nzbs.org. Categories are named "Console.XBox360", "TV.x264", etc. and need to match a category NAME you have defined in SABnzbd.
+Improvement: Send category for nzbs.org. Categories are named "Console.XBox360", "TV.x264", etc. and need to match a category NAME you have defined in SABnzbd. See http://code.google.com/p/sabconnectplusplus/wiki/Categories#nzbs.org for details.
 
 Version 0.4.6
 -------------
