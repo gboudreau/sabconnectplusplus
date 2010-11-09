@@ -17,7 +17,7 @@ function addToSABnzbdFromNZBORG() {
 		$(this).find('img').attr("src", img);
 		var isSearch = false;
 		$('h3').each(function() {
-			if ($(this).html().indexOf('Search NZBs') != -1) {
+			if ($(this).html().indexOf('Search NZBs') != -1 || $(this).html().indexOf('Browse All NZBs') != -1) {
 				isSearch = true;
 			} else {
 				var re = new RegExp('>([^<]+)</a> &gt;.+>([^<]+)</a> &gt;[ ]*(.+)');
@@ -55,7 +55,7 @@ function addToSABnzbdFromNZBORG() {
 	    $('tr.selected input:checked').each(function() {
 			var isSearch = false;
 			$('h3').each(function() {
-				if ($(this).html().indexOf('Search NZBs') != -1) {
+				if ($(this).html().indexOf('Search NZBs') != -1 || $(this).html().indexOf('Browse All NZBs') != -1) {
 					isSearch = true;
 				} else {
 					var re = new RegExp('>([^<]+)</a> &gt;.+>([^<]+)</a> &gt;[ ]*(.+)');
