@@ -130,6 +130,17 @@ function handleAllDownloadLinks() {
 		// this is the <a>
 		$(this).click(addToSABnzbdFromNZBsRus);
 	});
+	
+	// Remove AJAX pager & search
+	$('a[onclick*="pager(this)"]').each(function() {
+		$(this).attr("onclick", "return true;");
+	});
+	$('form[action="/nzbbrowse.php"]').each(function() {
+		$(this).attr("onclick", "return true;");
+	});
+	$('input[name="ajsearch"]').each(function() {
+		$(this).attr("value", "0");
+	});	
 }
 
 chrome.extension.sendRequest({'action' : 'getContext'}, function(response){

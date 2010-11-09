@@ -3,6 +3,7 @@ Version 0.4.8
 New feature: "Hard-coded category" & "Default category" options, to override NZB index site categories, or send a default when no category is found on the NZB index site.
 Bugfix: nzbs.org auto-categorization didn't work on homepage (Browse All NZBs)
 Bugfix: NZBXXX.com 1-click NZB download was not working; added Username & API Key options in the extension options to fix. http://code.google.com/p/sabconnectplusplus/issues/detail?id=12
+Bugfix: Some search results & subsequent results pages wouldn't show the 1-click NZB download buttons. http://code.google.com/p/sabconnectplusplus/issues/detail?id=11
 
 Version 0.4.7
 -------------
