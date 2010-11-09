@@ -187,10 +187,21 @@ function checkForErrors() {
         <input class="extension-preference-checkbox" type="checkbox" id="enable_nzbsrus" value="1" />
         <div class="tip">1-Click NZB downloading</div>
         <br /><br />
-        
-        <label for="enable_nzbmatrix">NZBMatrix.com 1-Click NZB</label>
-        <input class="extension-preference-checkbox" type="checkbox" id="enable_nzbmatrix" value="1" />   
-        <div class="tip">1-Click NZB downloading (VIP Required; enter account details in SABnzbd settings)</div>
+
+        <label for="enable_nzbmatrix">NZBMatrix.com / NZBXXX.com 1-Click NZB</label>
+        <input class="extension-preference-checkbox" type="checkbox" id="enable_nzbmatrix" value="1" />
+        <div class="tip">1-Click NZB downloading; VIP Required; Enter NZBmatrix account details in SABnzbd settings, and NZBXXX account details below.</div>
+        <br /><br />
+
+        <label for="nzbxxx_username">NZBXXX.com Username</label>
+        <input class="extension-preference" type="text" id="nzbxxx_username" value="" />
+        <div class="tip"></div>
+        <br /><br />
+
+        <label for="nzbxxx_apikey">NZBXXX.com API Key</label>
+        <input class="extension-preference" type="text" id="nzbxxx_apikey" value="" />
+        <div class="tip">You can find it here: http://nzbxxx.com/account.php</div>
+        <br /><br />
     </div>
 </div>
 </body>

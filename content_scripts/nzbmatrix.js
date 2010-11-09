@@ -1,11 +1,16 @@
 function findNZBId(elem) {
 	var url = $(elem).attr('href');
 
-	// 0.5a6 needs nzb-details not nzb-download in url
-	url = url.replace('nzb-download', 'nzb-details');
+	var hostname = window.location.href.substr(0, window.location.href.indexOf('/', 8));
+	if (hostname.indexOf('nzbxxx') != -1) {
+		url = url.replace('nzb-download', 'api-nzb-download') + '&apikey=' + nzbxxx_apikey + '&username=' + nzbxxx_username;
+	} else {
+		// 0.5+ needs nzb-details not nzb-download in url
+		url = url.replace('nzb-download', 'nzb-details');
+	}
 	
-	if (url.indexOf('http://nzbmatrix.com') == -1) {
-		url = 'http://nzbmatrix.com' + url
+	if (url.indexOf(hostname) == -1) {
+		url = hostname + url
 	}
 	return url;
 }
@@ -61,9 +66,13 @@ function handleAllDownloadLinks() {
 	});
 }
 
+var nzbxxx_apikey;
+var nzbxxx_username;
 chrome.extension.sendRequest({'action' : 'getContext'}, function(response){
 	if (response.value.config.enable_nzbmatrix == "0") {
 		return;
 	}
+	nzbxxx_apikey = response.value.config.nzbxxx_apikey;
+	nzbxxx_username = response.value.config.nzbxxx_username;
 	handleAllDownloadLinks();
 });
