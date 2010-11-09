@@ -145,6 +145,7 @@
 	"permissions": [
 		"http://*/*",
 		"https://*/*",
-		"tabs"
+		"tabs",
+		"notifications"
 	]
 }

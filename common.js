@@ -27,6 +27,7 @@ function setDefaults() {
 	if(!getPref('default_category')) setPref('default_category', '');
 	if(!getPref('speedlog')) setPref('speedlog', JSON.stringify([]));
 	if(getPref('show_graph') == null) setPref('show_graph', 0);
+	if(getPref('show_notifications') == null) setPref('show_notifications', 1);
 	if(getPref('enable_newzbin') == null) setPref('enable_newzbin', 1);
 	if(getPref('enable_nzbmatrix') == null) setPref('enable_nzbmatrix', 1);
 	if(getPref('enable_nzbclub') == null) setPref('enable_nzbclub', 1);
@@ -315,4 +316,37 @@ function fetchInfo(quickUpdate, callBack) {
 			}
 		}
 	});
+
+	if (!quickUpdate && getPref('show_notifications') == '1') {
+		// Check for new complete downloads
+		var sabApiUrl = constructApiUrl();
+		var data = constructApiPost();
+
+		data.mode = 'history';
+		data.output = 'json';
+		data.limit = '10';
+		$.ajax({
+			type: "GET",
+			url: sabApiUrl,
+			data: data,
+			username: getPref('http_user'),
+			password: getPref('http_pass'),
+			dataType: 'json',
+			success: function(data) {
+				for (var i=0; i<data.history.slots.length; i++) {
+					var dl = data.history.slots[i];
+					var key = 'past_dl-' + dl.name + '-' + dl.bytes;
+					if (typeof localStorage[key] == 'undefined') {
+						var notification = webkitNotifications.createNotification(
+						  'images/sab2_64.png',
+						  'SABnzbd Download Complete',
+						  dl.name
+						);
+						notification.show();
+						localStorage[key] = true;
+					}
+				}
+			}
+		});
+	}
 }
