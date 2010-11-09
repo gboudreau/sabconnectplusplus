@@ -1,5 +1,6 @@
 Version 0.4.8
 -------------
+New feature: "Hard-coded category" & "Default category" options, to override NZB index site categories, or send a default when no category is found on the NZB index site.
 Bugfix: nzbs.org auto-categorization didn't work on homepage (Browse All NZBs)
 
 Version 0.4.7

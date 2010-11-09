@@ -23,6 +23,8 @@ function setDefaults() {
 	if(!getPref('api_key')) setPref('api_key', '');
 	if(!getPref('http_user')) setPref('http_user', '');
 	if(!getPref('http_pass')) setPref('http_pass', '');
+	if(!getPref('hardcoded_category')) setPref('hardcoded_category', '');
+	if(!getPref('default_category')) setPref('default_category', '');
 	if(!getPref('speedlog')) setPref('speedlog', JSON.stringify([]));
 	if(getPref('show_graph') == null) setPref('show_graph', 0);
 	if(getPref('enable_newzbin') == null) setPref('enable_newzbin', 1);

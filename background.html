@@ -38,9 +38,14 @@ function addToSABnzbd(cb, request) {
 	if (request.nzbname) {
 		data.nzbname = request.nzbname;
 	}
-	if (request.category) {
+	if (getPref('hardcoded_category') != '') {
+		data.cat = getPref('hardcoded_category');
+	} else if (request.category) {
 		data.cat = request.category;
-	}
+	} else if (getPref('default_category') != '') {
+		data.cat = getPref('default_category');
+	} 
+
 	$.ajax({
 		type: "GET",
 		url: sabApiUrl,

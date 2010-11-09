@@ -19,7 +19,7 @@ $('document').ready(function() {
         var val = $(this).val();
         setPref(id, val);
     });
-    
+
     // Choose the selected number based on the data, or default to '*id*_default' if the value doesn't exist in our groupbox.
     $('.extension-preference-select-number').each(function() {
 		var id = $(this).attr('id');
@@ -30,13 +30,13 @@ $('document').ready(function() {
 		
 		$(this).children().filter('[value="' + getPref(id) + '"]').attr('selected', true);
     });
-    
+
     // Record changes in the select combobox.
     $('.extension-preference-select-number').change(function() {
 		var val = $(this).children().filter('[selected=true]').attr('value');
 		setPref($(this).attr('id'), val);
 	});
-    
+
     // Checkboxes need to be handled a little differently
     $('.extension-preference-checkbox').each(function() {
         var id = $(this).attr('id');
@@ -53,7 +53,7 @@ $('document').ready(function() {
         }
         setPref(id, val);
     });
-    
+
     $('#testSabConnection').click(function() {
         $('#conResponse').html('Checking...').css('display', 'block').removeClass('checkError').removeClass('checkOk');
         // Call our api queue function, and tell it to execute checkForErrors once complete
@@ -70,7 +70,7 @@ function checkForErrors() {
     } else {
         $('#conResponse').html('Connected sucessfully!').addClass('checkOk');
     }
-    
+
     // Unsetting error here as otherwise would appear in popup - could confuse the user
     // Could move this just so it is removed when connected successfully
     setPref('error', '');
@@ -80,22 +80,22 @@ function checkForErrors() {
 <body>
 <div id="page">
     <div id="settings">
-    
+
         <img id="logo" src="images/sab2_64.png" />
-        <h1>SABConnect++ Settings</h1> 
-        
+        <h1>SABConnect++ Settings</h1>
+
         <div class="clear"></div>
 			<div class="message">
 				Enter your settings for SABnzbd here.
 				Note input fields are automatically saved; just click outside the form fields, or press ENTER.
 			</div>
         <br />
-        
+
         <label for="sab_url">SABnzbd URL</label>
         <input class="extension-preference" type="text" id="sab_url" value="" />
         <div class="tip">The full URL you use to access SABnzbd.</div>
         <br />
-        
+
         <label for="api_key">API KEY</label>
         <input class="extension-preference" type="text" id="api_key" value="" />
         <div class="tip">SABnzbd's API Key found in Config>General.</div>
@@ -115,7 +115,7 @@ function checkForErrors() {
         <button id="testSabConnection">Test Connection</button>
         <div id="conResponse"></div>
         <br /><br /><br />
-        
+
         <label for="refresh_rate">Refresh Rate</label>
         <select class="extension-preference-select-number" id="refresh_rate">
 			<option value="1">1 sec</option>
@@ -132,17 +132,27 @@ function checkForErrors() {
         </select>
         <div class="tip">How long SABconnect++ should wait before refreshing</div>
         <br /><br />
-        
+
         <label for="show_graph">Enable Graph</label>
-        <input class="extension-preference-checkbox" type="checkbox" id="show_graph" value="1" />        
+        <input class="extension-preference-checkbox" type="checkbox" id="show_graph" value="1" />
         <div class="tip">Show Google Charts Graph in popup</div>
         <br /><br />
-        
+
+        <label for="hardcoded_category">Hard-coded Category</label>
+        <input class="extension-preference" type="text" id="hardcoded_category" value="" />
+        <div class="tip">Will use this category for <strong>all</strong> downloads sent to SABnzbd.</div>
+        <br /><br />
+
+        <label for="default_category">Default Category</label>
+        <input class="extension-preference" type="text" id="default_category" value="" />
+        <div class="tip">Will use this category if no category can be obtained from the NZB index site.</div>
+        <br /><br />
+
         <label for="enable_newzbin">Newzbin.com 1-Click NZB</label>
         <input class="extension-preference-checkbox" type="checkbox" id="enable_newzbin" value="1" />
         <div class="tip">1-Click NZB downloading (Account and Credit required; enter account details in SABnzbd settings)</div>
         <br /><br />
-        
+
         <label for="enable_nzbclub">NZBClub.com 1-Click NZB</label>
         <input class="extension-preference-checkbox" type="checkbox" id="enable_nzbclub" value="1" />
         <div class="tip">1-Click NZB downloading</div>
