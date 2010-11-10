@@ -28,6 +28,7 @@ function setDefaults() {
 	if(!getPref('speedlog')) setPref('speedlog', JSON.stringify([]));
 	if(getPref('show_graph') == null) setPref('show_graph', 0);
 	if(getPref('show_notifications') == null) setPref('show_notifications', 1);
+	if(getPref('notifications_timeout') == null) setPref('notifications_timeout', 0);
 	if(getPref('enable_newzbin') == null) setPref('enable_newzbin', 1);
 	if(getPref('enable_nzbmatrix') == null) setPref('enable_nzbmatrix', 1);
 	if(getPref('enable_nzbclub') == null) setPref('enable_nzbclub', 1);
@@ -252,9 +253,9 @@ function fetchInfo(quickUpdate, callBack) {
 			setPref('speed', speed);
 			
 			// Do not run this on a quickUpdate (unscheduled refresh)
-			console.log(data.queue)
+			//console.log(data.queue)
 			if(!quickUpdate) {
-			    console.log("!quickUpdate")
+			    //console.log("!quickUpdate")
 				var speedlog = JSON.parse(getPref('speedlog'));
 				
 				if(speedlog.length >= 10) {
@@ -337,13 +338,33 @@ function fetchInfo(quickUpdate, callBack) {
 					var dl = data.history.slots[i];
 					var key = 'past_dl-' + dl.name + '-' + dl.bytes;
 					if (typeof localStorage[key] == 'undefined') {
-						var notification = webkitNotifications.createNotification(
-						  'images/sab2_64.png',
-						  'SABnzbd Download Complete',
-						  dl.name
-						);
-						notification.show();
-						localStorage[key] = true;
+						console.log("Possible History notification:");
+						console.log(dl);
+						// Only notify when post-processing is complete
+						if (dl.action_line == '') {
+							if (dl.fail_message != '') {
+								var fail_msg = dl.fail_message.split('<')[0];
+								var notification = webkitNotifications.createNotification(
+								  'images/sab2_64.png',
+								  'Download Failed',
+								  dl.name + ': ' + fail_msg
+								);
+							} else {
+								var notification = webkitNotifications.createNotification(
+								  'images/sab2_64.png',
+								  'Download Complete',
+								  dl.name
+								);
+							}
+							notification.show();
+							localStorage[key] = true;
+							console.log("Notification posted!");
+							
+							if (getPref('notifications_timeout') != '0') {
+								console.log("notifications_timeout set to " + getPref('notifications_timeout') + " seconds");
+								setTimeout(function() { notification.cancel(); }, getPref('notifications_timeout') * 1000);
+							}
+						}
 					}
 				}
 			}

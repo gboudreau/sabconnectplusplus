@@ -1,3 +1,8 @@
+Version 0.4.9
+-------------
+Improvement: Timeout for notifications (to disappear) is now configurable. Default is to keep them open indefinitely.
+Bugfix: Show 'Download Failed' notifications instead of 'Download Complete' when appropriate.
+
 Version 0.4.8
 -------------
 New feature: "Download Complete" desktop notifications
