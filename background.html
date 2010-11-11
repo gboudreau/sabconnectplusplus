@@ -38,13 +38,30 @@ function addToSABnzbd(cb, request) {
 	if (request.nzbname) {
 		data.nzbname = request.nzbname;
 	}
-	if (getPref('hardcoded_category') != '') {
-		data.cat = getPref('hardcoded_category');
-	} else if (request.category) {
-		data.cat = request.category;
-	} else if (getPref('default_category') != '') {
-		data.cat = getPref('default_category');
-	} 
+	
+	// Only use auto-categorization if "Use X-DNZB-Category" is false (0), or if the index site doesn't support the X-DNZB-Category HTTP header
+	console.log('use_category_header=');
+	console.log(getPref('use_category_header'));
+	if (getPref('use_category_header') != '0') {
+		var site_supports_category_header = false;
+		for (var i=0; i<category_header_sites.length; i++) {
+			if (nzburl.indexOf(category_header_sites[i]) != -1) {
+				site_supports_category_header = true;
+				break;
+			}
+		}
+		console.log('site_supports_category_header=');
+		console.log(site_supports_category_header);
+	}
+	if (getPref('use_category_header') == '0' || !site_supports_category_header) {
+		if (getPref('hardcoded_category') != '') {
+			data.cat = getPref('hardcoded_category');
+		} else if (request.category) {
+			data.cat = request.category;
+		} else if (getPref('default_category') != '') {
+			data.cat = getPref('default_category');
+		} 
+	}
 
 	$.ajax({
 		type: "GET",

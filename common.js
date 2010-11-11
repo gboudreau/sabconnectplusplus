@@ -29,6 +29,7 @@ function setDefaults() {
 	if(getPref('show_graph') == null) setPref('show_graph', 0);
 	if(getPref('show_notifications') == null) setPref('show_notifications', 1);
 	if(getPref('notifications_timeout') == null) setPref('notifications_timeout', 0);
+	if(getPref('use_category_header') == null) setPref('use_category_header', 0);
 	if(getPref('enable_newzbin') == null) setPref('enable_newzbin', 1);
 	if(getPref('enable_nzbmatrix') == null) setPref('enable_nzbmatrix', 1);
 	if(getPref('enable_nzbclub') == null) setPref('enable_nzbclub', 1);
@@ -80,6 +81,10 @@ function constructApiPost() {
 	
 	return data;
 }
+
+// List of sites that send the X-DNZB-Category HTTP header
+var category_header_sites = ['nzbs.org', 'newzbin.com', 'newzxxx.com'];
+var no_category_header_sites = ['nzbmatrix.com', 'binsearch', 'nzbindex', 'nzbsrus', 'newzleech', 'nzbclub'];
 
 function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 	var req = {'action' : 'addToSABnzbd',

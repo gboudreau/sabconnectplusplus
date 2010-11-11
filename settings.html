@@ -170,7 +170,12 @@ function checkForErrors() {
         <div class="tip">Will use this category if no category can be obtained from the NZB index site.</div>
         <br /><br />
 
-        <label for="enable_newzbin">Newzbin.com 1-Click NZB</label>
+        <label for="use_category_header">Use X-DNZB-Category header</label>
+        <input class="extension-preference-checkbox" type="checkbox" id="use_category_header" value="0" />
+        <div class="tip">Use X-DNZB-Category HTTP header instead of auto-categorization on supported sites (NZBs.org, Newzbin).</div>
+        <br /><br />
+
+        <label for="enable_newzbin">Newzbin/Newxxx 1-Click NZB</label>
         <input class="extension-preference-checkbox" type="checkbox" id="enable_newzbin" value="1" />
         <div class="tip">1-Click NZB downloading (Account and Credit required; enter account details in SABnzbd settings)</div>
         <br /><br />
@@ -210,7 +215,7 @@ function checkForErrors() {
         <div class="tip">1-Click NZB downloading</div>
         <br /><br />
 
-        <label for="enable_nzbmatrix">NZBMatrix.com / NZBXXX.com 1-Click NZB</label>
+        <label for="enable_nzbmatrix">NZBMatrix/NZBxxx 1-Click NZB</label>
         <input class="extension-preference-checkbox" type="checkbox" id="enable_nzbmatrix" value="1" />
         <div class="tip">1-Click NZB downloading; VIP Required; Enter NZBmatrix account details in SABnzbd settings, and NZBXXX account details below.</div>
         <br /><br />
