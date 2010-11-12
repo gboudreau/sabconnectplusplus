@@ -18,7 +18,9 @@ function addToSABnzbdFromBinsearch() {
 			} else {
 				var category = categories;
 			}
-			var nice_name = $(a[i]).parent().parent().find('td')[2].innerText;
+			if (use_nice_name_binsearch == '1') {
+				var nice_name = $(a[i]).parent().parent().find('td')[2].innerText;
+			}
 			addToSABnzbd(addLink, 'http://binsearch.info/?action=nzb&' + a[i].name + '=1', "addurl", nice_name, category);
 		}
 	}
@@ -35,9 +37,11 @@ function handleAllDownloadLinks() {
 	});
 }
 
+var use_nice_name_binsearch;
 chrome.extension.sendRequest({'action' : 'getContext'}, function(response){
 	if (response.value.config.enable_binsearch == "0") {
 		return;
 	}
+	use_nice_name_binsearch = response.value.config.use_nice_name_binsearch;
 	handleAllDownloadLinks();
 });

@@ -39,6 +39,8 @@ function setDefaults() {
 	if(getPref('enable_binsearch') == null) setPref('enable_binsearch', 1);
 	if(getPref('enable_nzbindex') == null) setPref('enable_nzbindex', 1);
 	if(getPref('enable_nzbsrus') == null) setPref('enable_nzbsrus', 1);
+	if(getPref('use_nice_name_nzbindex') == null) setPref('use_nice_name_nzbindex', 1);
+	if(getPref('use_nice_name_binsearch') == null) setPref('use_nice_name_binsearch', 1);
  
 	// Force this back to 0 just incase
 	setPref('skip_redraw', 0);

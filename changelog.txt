@@ -1,7 +1,9 @@
 Version 0.4.9
 -------------
 Improvement: Timeout for notifications (to disappear) is now configurable. Default is to keep them open indefinitely.
-Improvement: Allow you to use the X-DNZB-Category HTTP header on sites that supports it (nzbs.org, Newzbin), instead of using the default auto-categorization. The X-DNZB-Category header will only contain the main category (eg. 'TV'), versus auto-categorization that will contain the full category name (eg. TV.x264)
+Improvement: Allow you to use the X-DNZB-Category HTTP header on sites that supports it (nzbs.org, Newzbin), instead of using the default auto-categorization. The X-DNZB-Category header will only contain the main category (eg. 'TV'), versus auto-categorization that will contain the full category name (eg. TV.x264) http://code.google.com/p/sabconnectplusplus/issues/detail?id=18
+Improvement: Added individual 1-click NZB download buttons to nzbindex.com http://code.google.com/p/sabconnectplusplus/issues/detail?id=20
+Improvement: Added option to use the NZB file name, instead of the full name displayed on the website, for nzbindex.com and binsearch.info http://code.google.com/p/sabconnectplusplus/issues/detail?id=20
 Bugfix: Show 'Download Failed' notifications instead of 'Download Complete' when appropriate.
 
 Version 0.4.8
