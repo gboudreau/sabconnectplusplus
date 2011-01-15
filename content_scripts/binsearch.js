@@ -19,7 +19,7 @@ function addToSABnzbdFromBinsearch() {
 				var category = categories;
 			}
 			if (use_nice_name_binsearch == '1') {
-				var nice_name = $(a[i]).parent().parent().find('td')[2].innerText;
+				var nice_name = $(a[i]).parent().parent().find('td')[2].getElementsByTagName('span')[0].innerText;
 			}
 			addToSABnzbd(addLink, 'http://binsearch.info/?action=nzb&' + a[i].name + '=1', "addurl", nice_name, category);
 		}
