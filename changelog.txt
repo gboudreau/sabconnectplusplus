@@ -1,3 +1,8 @@
+Version 0.4.10
+--------------
+New feature: Added 1-click NZB download for nzb.su (Newznab).
+  Note: SABconnect++ won't send a category when using cover view. This is because those views don't display the categories.
+
 Version 0.4.9
 -------------
 Improvement: Timeout for notifications (to disappear) is now configurable. Default is to keep them open indefinitely.

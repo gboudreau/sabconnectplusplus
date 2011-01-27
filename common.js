@@ -39,6 +39,7 @@ function setDefaults() {
 	if(getPref('enable_binsearch') == null) setPref('enable_binsearch', 1);
 	if(getPref('enable_nzbindex') == null) setPref('enable_nzbindex', 1);
 	if(getPref('enable_nzbsrus') == null) setPref('enable_nzbsrus', 1);
+	if(getPref('enable_nzbdotsu') == null) setPref('enable_nzbdotsu', 1);
 	if(getPref('use_nice_name_nzbindex') == null) setPref('use_nice_name_nzbindex', 1);
 	if(getPref('use_nice_name_binsearch') == null) setPref('use_nice_name_binsearch', 1);
  
@@ -133,7 +134,7 @@ function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 				var img = chrome.extension.getURL('images/sab2_16_green.png');
 				if ($(addLink).find('img').length > 0) {
 				    $(addLink).find('img').attr("src", img);
-				} else if (addLink.nodeName.toUpperCase() == 'INPUT' && addLink.value == 'Sent to SABnzbd!') {
+				} else if (addLink.nodeName && addLink.nodeName.toUpperCase() == 'INPUT' && addLink.value == 'Sent to SABnzbd!') {
 					// Nothing; handled in nzbsorg.js
 				} else {
 					$(addLink).css('background-image', 'url('+img+')');
