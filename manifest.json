@@ -159,7 +159,11 @@
 				"http://*.nzb.su/",
 				"http://*.nzb.su/*",
 				"http://nzb.su/",
-				"http://nzb.su/*"
+				"http://nzb.su/*",
+				"https://*.nzb.su/",
+				"https://*.nzb.su/*",
+				"https://nzb.su/",
+				"https://nzb.su/*"
 			],
 			"js": ["jquery-1.4.2.min.js", "common.js", "webtoolkit.base64.js", "content_scripts/nzb.su.js"],
 			"all_frames": true
