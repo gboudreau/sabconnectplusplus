@@ -71,8 +71,8 @@ function addToSABnzbd(cb, request) {
 		password : getPref('http_pass'),
 		data: data,
 		dataType: 'json',
-		success: cb({'ret' : 'success', 'data' : data}),
-		error: cb({'ret' : 'error'})
+		success: function() { cb({'ret' : 'success', 'data' : data}) },
+		error: function() { cb({'ret' : 'error'}) }
 	});
 	fetchInfo(true);
 }
