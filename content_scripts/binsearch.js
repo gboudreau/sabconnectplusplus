@@ -28,7 +28,7 @@ function addToSABnzbdFromBinsearch() {
 }
 
 function handleAllDownloadLinks() {
-	$('input[name="watchlist"]').each(function() {
+	$('input[name$="watchlist"]').each(function() {
 		// add button to h3 to move checked in to SABConnect
 		var img = chrome.extension.getURL('/images/sab2_16.png');
 		var link = '<input class="b addSABnzbd" type="button" value="    Download selected" style="background-image: url('+img+'); background-repeat: no-repeat; background-position: 3px 3px;" />';
