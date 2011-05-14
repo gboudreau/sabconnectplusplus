@@ -40,6 +40,7 @@ function setDefaults() {
 	if(getPref('enable_nzbindex') == null) setPref('enable_nzbindex', 1);
 	if(getPref('enable_nzbsrus') == null) setPref('enable_nzbsrus', 1);
 	if(getPref('enable_nzbdotsu') == null) setPref('enable_nzbdotsu', 1);
+	if(getPref('enable_fanzub') == null) setPref('enable_fanzub', 1);
 	if(getPref('use_nice_name_nzbindex') == null) setPref('use_nice_name_nzbindex', 1);
 	if(getPref('use_nice_name_binsearch') == null) setPref('use_nice_name_binsearch', 1);
  
@@ -87,7 +88,7 @@ function constructApiPost() {
 
 // List of sites that send the X-DNZB-Category HTTP header
 var category_header_sites = ['nzbs.org', 'newzbin.com', 'newzxxx.com'];
-var no_category_header_sites = ['nzbmatrix.com', 'binsearch', 'nzbindex', 'nzbsrus', 'newzleech', 'nzbclub'];
+var no_category_header_sites = ['nzbmatrix.com', 'binsearch', 'nzbindex', 'nzbsrus', 'newzleech', 'nzbclub', 'fanzub.com'];
 
 function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 	var req = {'action' : 'addToSABnzbd',

@@ -1,6 +1,6 @@
 {
 	"name": "SABconnect++",
-	"version": "0.4.11",
+	"version": "0.4.12",
 	"description": "SABnzbd extension for Google Chrome.",
 	"background_page": "background.html",
 	"options_page": "settings.html",
@@ -166,6 +166,20 @@
 				"https://nzb.su/*"
 			],
 			"js": ["jquery-1.4.2.min.js", "common.js", "webtoolkit.base64.js", "content_scripts/nzb.su.js"],
+			"all_frames": true
+		},
+		{
+			"matches": [
+				"http://*.fanzub.com/",
+				"http://*.fanzub.com/*",
+				"http://fanzub.com/",
+				"http://fanzub.com/*",
+				"https://*.fanzub.com/",
+				"https://*.fanzub.com/*",
+				"https://fanzub.com/",
+				"https://fanzub.com/*"
+			],
+			"js": ["jquery-1.4.2.min.js", "common.js", "webtoolkit.base64.js", "content_scripts/fanzub.js"],
 			"all_frames": true
 		}
 	],
