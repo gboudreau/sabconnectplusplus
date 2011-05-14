@@ -118,6 +118,7 @@ function checkForErrors() {
 
         <label for="refresh_rate">Refresh Rate</label>
         <select class="extension-preference-select-number" id="refresh_rate">
+			<option value="0">Disabled (only refresh on click)</option>
 			<option value="1">1 sec</option>
 			<option value="2">2 sec</option>
 			<option value="4">4 sec</option>
@@ -129,6 +130,9 @@ function checkForErrors() {
 			<option value="300">5 min</option>
 			<option value="900">15 min</option>
 			<option value="1800">30 min</option>
+			<option value="3600">1 hour</option>
+			<option value="7200">2 hours</option>
+			<option value="14400">4 hours</option>
         </select>
         <div class="tip">How long SABconnect++ should wait before refreshing</div>
         <br /><br />

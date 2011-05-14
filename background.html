@@ -22,7 +22,13 @@ function startTimer() {
 	} else {
 		fetchInfo();
 	}
-	gTimer = setInterval(fetchInfo, getPref('refresh_rate')*1000);
+	var rr = parseInt(getPref('refresh_rate'));
+	if (rr > 0) {
+	    console.log("Will refresh from SABnzbd every " + rr + " seconds.");
+    	gTimer = setInterval(fetchInfo, rr*1000);
+	} else {
+	    console.log("Will NOT refresh from SABnzbd automatically (refresh disabled in options).");
+	}
 }
 
 function addToSABnzbd(cb, request) {
