@@ -1,6 +1,8 @@
 Version 0.4.12
 --------------
 New feature: Added 1-click NZB download for fanzub.com
+Bugfix: fixing 1-click for nzbclub.com
+Bugfix: Missing 1-click downloads on binsearch.info Watchlist
 
 Version 0.4.11
 --------------

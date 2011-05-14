@@ -136,7 +136,7 @@ function handleAllDownloadLinks() {
 		$(this).attr("onclick", "return true;");
 	});
 	$('form[action="/nzbbrowse.php"]').each(function() {
-		$(this).attr("onclick", "return true;");
+		$(this).attr("onsubmit", "return true;");
 	});
 	$('input[name="ajsearch"]').each(function() {
 		$(this).attr("value", "0");
