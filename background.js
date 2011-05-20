@@ -1,4 +1,3 @@
-
 // List of sites that send the X-DNZB-Category HTTP header
 var category_header_sites = ['nzbs.org', 'newzbin.com', 'newzxxx.com'];
 var no_category_header_sites = ['nzbmatrix.com', 'binsearch', 'nzbindex', 'nzbsrus', 'newzleech', 'nzbclub', 'fanzub.com'];
@@ -288,7 +287,7 @@ function startTimer()
 {
 	var refreshRate = getRefreshRate();
 	if( refreshRate > 0 ) {
-	    console.log("Will refresh from SABnzbd every " + refreshRate + " seconds.");
+	    console.log("Will refresh from SABnzbd every " + refreshRate + " ms.");
     	gTimer = setInterval( refresh, refreshRate );
 	}
 	else {
