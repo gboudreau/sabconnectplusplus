@@ -1,3 +1,10 @@
+Version 0.5
+--------------
+Feature: This is marked as a major release due to extensive architectural changes that were made.
+Bugfix: Fixed continuous memory leaks happening during refreshes.
+Bugfix: SabConnect++ no longer crashes after a period of time.
+Bugfix: Several script errors eliminated and stability improved.
+
 Version 0.4.12
 --------------
 New feature: Added 1-click NZB download for fanzub.com
