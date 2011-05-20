@@ -57,7 +57,7 @@ function updateBadge( data )
 	if( data ) {
 		var slots = data.queue.noofslots;
 		var badge = {};
-		if( slots && slots == 0 ) {
+		if( !slots ) {
 			badge.text = '';
 		} else {
 			badge.text = slots.toString();
