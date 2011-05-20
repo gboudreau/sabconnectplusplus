@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="css/settings.css" />
 
 <script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="bind.js"></script>
 <script type="text/javascript" src="common.js"></script>
 <script type="text/javascript">
 $('document').ready(function() {
@@ -57,10 +58,16 @@ $('document').ready(function() {
     $('#testSabConnection').click(function() {
         $('#conResponse').html('Checking...').css('display', 'block').removeClass('checkError').removeClass('checkOk');
         // Call our api queue function, and tell it to execute checkForErrors once complete
-        fetchInfo(true, checkForErrors);
+		testConnection();
         return false;
     });
 });
+
+function testConnection()
+{
+	var background = chrome.extension.getBackgroundPage()
+	background.testConnection( checkForErrors );
+}
 
 function checkForErrors() {
     // Called after a request to SABnzbd's api has been tried, 'error' should be set if there was an error
