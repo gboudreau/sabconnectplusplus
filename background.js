@@ -56,6 +56,7 @@ function updateBadge( data )
 {
 	if( data ) {
 		var slots = data.queue.noofslots;
+		var badge = {};
 		if( slots && slots == 0 ) {
 			badge.text = '';
 		} else {
@@ -176,9 +177,9 @@ function fetchInfoSuccess( data, quickUpdate, callback )
 	setPref( 'status', data ? data.queue.status : '' );
 	setPref( 'paused', data ? data.queue.paused : '' );
 	
-	updateBadge();
-	updateBackground();
-	
+	updateBadge( data );
+	updateBackground( data );
+
 	if( callback ) {
 		callback();
 	}
