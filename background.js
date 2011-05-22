@@ -306,8 +306,8 @@ function addToSABnzbd(cb, request) {
 	data.mode = mode;
 	data.name = nzburl;
 	data.output = 'json';
-	if (request.nzbname) {
-		data.nzbname = request.nzbname;
+	if( nzbname ) {
+		data.nzbname = nzbname;
 	}
 	
 	// Only use auto-categorization if "Use X-DNZB-Category" is false (0), or if the index site doesn't support the X-DNZB-Category HTTP header

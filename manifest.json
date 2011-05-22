@@ -12,6 +12,20 @@
 			"path": "popup.html"
 		}
 	},
+	"icons":
+	{
+		"16": "images/sab2_16.png",
+		"32": "images/sab2_32.png",
+		"128": "images/sab2_128.png"
+	},
+	"permissions":
+	[
+		"http://*/*",
+		"https://*/*",
+		"tabs",
+		"notifications",
+		"contextMenus"
+	],
 	"content_scripts": [
 		{
 			"matches": [
@@ -182,14 +196,5 @@
 			"js": ["jquery-1.4.2.min.js", "bind.js", "content_common.js", "webtoolkit.base64.js", "content_scripts/fanzub.js"],
 			"all_frames": true
 		}
-	],
-	"icons": { "16": "images/sab2_16.png",
-			   "32": "images/sab2_32.png",
-			  "128": "images/sab2_128.png" },
-	"permissions": [
-		"http://*/*",
-		"https://*/*",
-		"tabs",
-		"notifications"
 	]
 }
