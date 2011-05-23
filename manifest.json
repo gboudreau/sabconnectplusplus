@@ -34,7 +34,12 @@
 				"http://*.newzxxx.com/*",
 				"https://*.newzxxx.com/*"
 			],
-			"js": ["jquery-1.4.2.min.js", "bind.js", "content_common.js", "content_scripts/newzbin.js"]
+			"js": [
+				"scripts/third_party/jquery-1.4.2.min.js",
+				"scripts/bind.js",
+				"scripts/content/common.js",
+				"scripts/content/newzbin.js"
+			]
 		},
 		{
 			"matches": [
@@ -47,7 +52,12 @@
 				"https://*.nzbxxx.com/",
 				"https://*.nzbxxx.com/*"
 			],
-			"js": ["jquery-1.4.2.min.js", "bind.js", "content_common.js", "content_scripts/nzbmatrix.js"],
+			"js": [
+				"scripts/third_party/jquery-1.4.2.min.js",
+				"scripts/bind.js",
+				"scripts/content/common.js",
+				"scripts/content/nzbmatrix.js"
+			],
 			"css": ["css/nzbmatrix.css"]
 		},
 		{
@@ -57,7 +67,12 @@
 				"https://*.nzbclub.com/",
 				"https://*.nzbclub.com/*"
 			],
-			"js": ["jquery-1.4.2.min.js", "bind.js", "content_common.js", "content_scripts/nzbclub.js"],
+			"js": [
+				"scripts/third_party/jquery-1.4.2.min.js",
+				"scripts/bind.js",
+				"scripts/content/common.js",
+				"scripts/content/nzbclub.js"
+			],
 			"all_frames": true
 		},
 		{
@@ -67,7 +82,12 @@
 				"https://*.bintube.com/",
 				"https://*.bintube.com/*"
 			],
-			"js": ["jquery-1.4.2.min.js", "bind.js", "content_common.js", "content_scripts/bintube.js"],
+			"js": [
+				"scripts/third_party/jquery-1.4.2.min.js",
+				"scripts/bind.js",
+				"scripts/content/common.js",
+				"scripts/content/bintube.js"
+			],
 			"all_frames": true
 		},
 		{
@@ -77,7 +97,12 @@
 				"https://*.nzbs.org/",
 				"https://*.nzbs.org/*"
 			],
-			"js": ["jquery-1.4.2.min.js", "bind.js", "content_common.js", "content_scripts/nzbsorg.js"],
+			"js": [
+				"scripts/third_party/jquery-1.4.2.min.js",
+				"scripts/bind.js",
+				"scripts/content/common.js",
+				"scripts/content/nzbsorg.js"
+			],
 			"all_frames": true
 		},
 		{
@@ -115,7 +140,12 @@
  				"https://binsear.ch/",
  				"https://binsear.ch/*"
 			],
-			"js": ["jquery-1.4.2.min.js", "bind.js", "content_common.js", "content_scripts/binsearch.js"],
+			"js": [
+				"scripts/third_party/jquery-1.4.2.min.js",
+				"scripts/bind.js",
+				"scripts/content/common.js",
+				"scripts/content/binsearch.js"
+			],
 			"all_frames": true
 		},
 		{
@@ -129,7 +159,12 @@
 				"https://newzleech.com/",
 				"https://newzleech.com/*"
 			],
-			"js": ["jquery-1.4.2.min.js", "bind.js", "content_common.js", "content_scripts/newzleech.js"],
+			"js": [
+				"scripts/third_party/jquery-1.4.2.min.js",
+				"scripts/bind.js",
+				"scripts/content/common.js",
+				"scripts/content/newzleech.js"
+			],
 			"all_frames": true
 		},
 		{
@@ -151,7 +186,12 @@
 				"https://nzbindex.nl/",
 				"https://nzbindex.nl/*"
 			],
-			"js": ["jquery-1.4.2.min.js", "bind.js", "content_common.js", "content_scripts/nzbindex.js"],
+			"js": [
+				"scripts/third_party/jquery-1.4.2.min.js",
+				"scripts/bind.js",
+				"scripts/content/common.js",
+				"scripts/content/nzbindex.js"
+			],
 			"all_frames": true
 		},
 		{
@@ -165,7 +205,13 @@
 				"https://nzbsrus.com/",
 				"https://nzbsrus.com/*"
 			],
-			"js": ["jquery-1.4.2.min.js", "bind.js", "content_common.js", "webtoolkit.base64.js", "content_scripts/nzbsrus.js"],
+			"js": [
+				"scripts/third_party/jquery-1.4.2.min.js",
+				"scripts/bind.js",
+				"scripts/content/common.js",
+				"scripts/third_party/webtoolkit.base64.js",
+				"scripts/content/nzbsrus.js"
+			],
 			"all_frames": true
 		},
 		{
@@ -179,7 +225,13 @@
 				"https://nzb.su/",
 				"https://nzb.su/*"
 			],
-			"js": ["jquery-1.4.2.min.js", "bind.js", "content_common.js", "webtoolkit.base64.js", "content_scripts/nzb.su.js"],
+			"js": [
+				"scripts/third_party/jquery-1.4.2.min.js",
+				"scripts/bind.js",
+				"scripts/content/common.js",
+				"scripts/third_party/webtoolkit.base64.js",
+				"scripts/content/nzb.su.js"
+			],
 			"all_frames": true
 		},
 		{
@@ -193,7 +245,13 @@
 				"https://fanzub.com/",
 				"https://fanzub.com/*"
 			],
-			"js": ["jquery-1.4.2.min.js", "bind.js", "content_common.js", "webtoolkit.base64.js", "content_scripts/fanzub.js"],
+			"js": [
+				"scripts/third_party/jquery-1.4.2.min.js",
+				"scripts/bind.js",
+				"scripts/content/common.js",
+				"scripts/third_party/webtoolkit.base64.js",
+				"scripts/content/fanzub.js"
+			],
 			"all_frames": true
 		}
 	]

@@ -101,6 +101,13 @@ function updateSpeedLog( data )
 
 function displayNotificationCallback( data )
 {
+	// Return early if data is null, which can happen if we
+	// have invalid connection information in settings and
+	// we actually can't establish a connection with sabnzbd.
+	if( !data ) {
+		return;
+	}
+	
 	for (var i=0; i<data.history.slots.length; i++) {
 		var dl = data.history.slots[i];
 		var key = 'past_dl-' + dl.name + '-' + dl.bytes;
