@@ -46,6 +46,26 @@ function CreateContextMenu()
 	}
 	
 	chrome.contextMenus.create( properties, CreateContextMenuResult );
+	console.log( 'Context menu created' );
 }
 
-CreateContextMenu();
+function DestroyContextMenu()
+{
+	chrome.contextMenus.removeAll();
+	console.log( 'Context menu destroyed' );
+}
+
+function SetupContextMenu()
+{
+	var enabled = toBoolean( getPref( 'enable_context_menu' ) );
+	if( enabled )
+	{
+		CreateContextMenu();
+	}
+	else
+	{
+		DestroyContextMenu();
+	}
+}
+
+SetupContextMenu();

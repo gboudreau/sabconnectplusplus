@@ -2,38 +2,46 @@
 var category_header_sites = ['nzbs.org', 'newzbin.com', 'newzxxx.com'];
 var no_category_header_sites = ['nzbmatrix.com', 'binsearch', 'nzbindex', 'nzbsrus', 'newzleech', 'nzbclub', 'fanzub.com'];
 
+function setDefault( key, value )
+{
+	if( !getPref( key ) ) {
+		setPref( key, value );
+	}
+}
+
 function setDefaults()
 {
-	if(!getPref('sab_url')) setPref('sab_url', 'http://localhost:8080/sabnzbd/');
-	if(!getPref('api_key')) setPref('api_key', '');
-	if(!getPref('http_user')) setPref('http_user', '');
-	if(!getPref('http_pass')) setPref('http_pass', '');
-	if(!getPref('hardcoded_category')) setPref('hardcoded_category', '');
-	if(!getPref('default_category')) setPref('default_category', '');
-	if(!getPref('speedlog')) setPref('speedlog', JSON.stringify([]));
-	if(getPref('show_graph') == null) setPref('show_graph', 0);
-	if(getPref('show_notifications') == null) setPref('show_notifications', 1);
-	if(getPref('notifications_timeout') == null) setPref('notifications_timeout', 0);
-	if(getPref('use_category_header') == null) setPref('use_category_header', 0);
-	if(getPref('enable_newzbin') == null) setPref('enable_newzbin', 1);
-	if(getPref('enable_nzbmatrix') == null) setPref('enable_nzbmatrix', 1);
-	if(getPref('enable_nzbclub') == null) setPref('enable_nzbclub', 1);
-	if(getPref('enable_bintube') == null) setPref('enable_bintube', 1);
-	if(getPref('enable_newzleech') == null) setPref('enable_newzleech', 1);
-	if(getPref('enable_nzbsorg') == null) setPref('enable_nzbsorg', 1);
-	if(getPref('enable_binsearch') == null) setPref('enable_binsearch', 1);
-	if(getPref('enable_nzbindex') == null) setPref('enable_nzbindex', 1);
-	if(getPref('enable_nzbsrus') == null) setPref('enable_nzbsrus', 1);
-	if(getPref('enable_nzbdotsu') == null) setPref('enable_nzbdotsu', 1);
-	if(getPref('enable_fanzub') == null) setPref('enable_fanzub', 1);
-	if(getPref('use_nice_name_nzbindex') == null) setPref('use_nice_name_nzbindex', 1);
-	if(getPref('use_nice_name_binsearch') == null) setPref('use_nice_name_binsearch', 1);
+	setDefault( 'sab_url', 'http://localhost:8080/sabnzbd/' );
+	setDefault( 'api_key', '' );
+	setDefault( 'http_user', '' );
+	setDefault( 'http_pass', '' );
+	setDefault( 'hardcoded_category', '' );
+	setDefault( 'default_category', '' );
+	setDefault( 'speedlog', JSON.stringify([]) );
+	setDefault( 'show_graph', 0 );
+	setDefault( 'show_notifications', 1 );
+	setDefault( 'notifications_timeout', 0 );
+	setDefault( 'use_category_header', 0 );
+	setDefault( 'enable_newzbin', 1 );
+	setDefault( 'enable_nzbmatrix', 1 );
+	setDefault( 'enable_nzbclub', 1 );
+	setDefault( 'enable_bintube', 1 );
+	setDefault( 'enable_newzleech', 1 );
+	setDefault( 'enable_nzbsorg', 1 );
+	setDefault( 'enable_binsearch', 1 );
+	setDefault( 'enable_nzbindex', 1 );
+	setDefault( 'enable_nzbsrus', 1 );
+	setDefault( 'enable_nzbdotsu', 1 );
+	setDefault( 'enable_fanzub', 1 );
+	setDefault( 'use_nice_name_nzbindex', 1 );
+	setDefault( 'use_nice_name_binsearch', 1 );
+	setDefault( 'enable_context_menu', 1 );
  
 	// Force this back to 0 just incase
 	setPref('skip_redraw', 0);
 	
 	setPref('refresh_rate_default', 15);
-	if(getPref('refresh_rate') == null) setPref('refresh_rate', getPref('refresh_rate_default'));
+	setDefault( 'refresh_rate', getPref('refresh_rate_default') );
 }
 
 //file size formatter - takes an input in bytes
