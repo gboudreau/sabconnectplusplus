@@ -51,7 +51,7 @@ this.manifest = {
 			'text':
 					'This is a list of currently supported providers. For each provider that is\
 					enabled, 1-click NZB downloading will be supported. This sends the NZB to SABnzbd\
-					so it can download it.'
+					so it can be downloaded.'
 		},
 		{
 			'tab': 'Providers',
