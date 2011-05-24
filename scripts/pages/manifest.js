@@ -42,6 +42,16 @@ this.manifest = {
         {
             'tab': 'Providers',
             'group': '1-Click NZB downloading',
+            'name': 'provider_description',
+            'type': 'description',
+            'text':
+					'This is a list of currently supported providers. For each provider that is\
+					enabled, 1-click NZB downloading will be supported. This sends the NZB to SABnzbd\
+					so it can download it.'
+        },
+        {
+            'tab': 'Providers',
+            'group': '1-Click NZB downloading',
             'name': 'provider_newzbin',
             'type': 'checkbox',
             'label': 'Newzbin / Newzxxx'
