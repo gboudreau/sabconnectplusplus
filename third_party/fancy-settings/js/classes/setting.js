@@ -276,9 +276,26 @@
     });
     
     Bundle.Slider = new Class({
-        // label, max, min, step
+        // label, max, min, step, display, displayModifier
         // action -> change
         "Extends": Bundle,
+        
+        "initialize": function (params) {
+            this.params = params;
+            this.params.searchString = "•" + this.params.tab + "•" + this.params.group + "•";
+            
+            this.createDOM();
+            this.setupDOM();
+            this.addEvents();
+            
+            if (this.params.name !== undefined) {
+                this.set((settings.get(this.params.name) || 0), true);
+            } else {
+                this.set(0, true);
+            }
+            
+            this.params.searchString = this.params.searchString.toLowerCase();
+        },
         
         "createDOM": function () {
             this.bundle = new Element("div", {
@@ -296,6 +313,10 @@
             
             this.label = new Element("label", {
                 "class": "setting label slider"
+            });
+            
+            this.display = new Element("span", {
+                "class": "setting display slider"
             });
         },
         
@@ -319,7 +340,30 @@
             }
             
             this.element.inject(this.container);
+            if (this.params.display !== false) {
+                if (this.params.displayModifier !== undefined) {
+                    this.display.set("text", this.params.displayModifier(0));
+                } else {
+                    this.display.set("text", 0);
+                }
+                this.display.inject(this.container);
+            }
             this.container.inject(this.bundle);
+        },
+        
+        "addEvents": function () {
+            this.element.addEvent("change", (function (event) {
+                if (this.params.name !== undefined) {
+                    settings.set(this.params.name, this.get());
+                }
+                
+                if (this.params.displayModifier !== undefined) {
+                    this.display.set("text", this.params.displayModifier(this.get()));
+                } else {
+                    this.display.set("text", this.get());
+                }
+                this.fireEvent("action", this.get());
+            }).bind(this));
         },
         
         "get": function () {
@@ -331,6 +375,12 @@
             
             if (noChangeEvent !== true) {
                 this.element.fireEvent("change");
+            } else {
+                if (this.params.displayModifier !== undefined) {
+                    this.display.set("text", this.params.displayModifier(Number.from(value)));
+                } else {
+                    this.display.set("text", Number.from(value));
+                }
             }
             
             return this;
@@ -361,6 +411,8 @@
             
             if (this.params.options === undefined) { return; }
             this.params.options.each((function (option) {
+                if (typeOf(option) === "string") { option = {"value": option}; }
+                if (typeOf(option) === "array") { option = {"value": option[0], "text": option[1]}; }
                 this.params.searchString += (option.text || option.value) + "•";
                 
                 (new Element("option", {
@@ -407,6 +459,8 @@
             
             if (this.params.options === undefined) { return; }
             this.params.options.each((function (option) {
+                if (typeOf(option) === "string") { option = {"value": option}; }
+                if (typeOf(option) === "array") { option = {"value": option[0], "text": option[1]}; }
                 this.params.searchString += (option.text || option.value) + "•";
                 
                 (new Element("option", {
@@ -446,6 +500,8 @@
                 var optionID,
                     container;
                 
+                if (typeOf(option) === "string") { option = {"value": option}; }
+                if (typeOf(option) === "array") { option = {"value": option[0], "text": option[1]}; }
                 this.params.searchString += (option.text || option.value) + "•";
                 
                 optionID = String.uniqueID();
@@ -530,7 +586,7 @@
                 "radioButtons": "RadioButtons"
             };
             
-            if (Object.keys(types).contains(params.type)) {
+            if (types.hasOwnProperty(params.type)) {
                 bundle = new Bundle[types[params.type]](params);
                 bundle.bundleContainer = this.container;
                 bundle.bundle.inject(this.container);

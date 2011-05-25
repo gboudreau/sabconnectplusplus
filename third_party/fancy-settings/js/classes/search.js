@@ -19,7 +19,7 @@
             setting = new Setting(this.searchResultContainer);
             this.nothingFound = setting.create({
                 "type": "description",
-                "text": "No matches were found."
+                "text": (i18n.get("nothing-found") || "No matches were found.")
             });
             this.nothingFound.bundle.set("id", "nothing-found");
             

@@ -57,6 +57,7 @@
 
 .setting.element.slider {
     position: relative;
+    width: 150px;
     top: 4px;
 }
 
@@ -64,6 +65,11 @@
     display: block;
     height: 100px;
     width: 100%;
+}
+
+.setting.display.slider {
+    margin-left: 5px;
+    color: #666666;
 }
 
 #nothing-found {
