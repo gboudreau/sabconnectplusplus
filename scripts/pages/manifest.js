@@ -188,21 +188,21 @@ this.manifest = {
 			'label': 'Refresh Rate:',
 			'options':
 			[
-				{ value: 0, text: 'Disabled' },
-				{ value: 1, text: '1 second' },
-				{ value: 2, text: '2 seconds' },
-				{ value: 4, text: '4 seconds' },
-				{ value: 8, text: '8 seconds' },
-				{ value: 15, text: '15 seconds' },
-				{ value: 30, text: '30 seconds' },
-				{ value: 60, text: '1 minute' },
-				{ value: 120, text: '2 minutes' },
-				{ value: 300, text: '5 minutes' },
-				{ value: 900, text: '15 minutes' },
-				{ value: 1800, text: '30 minutes' },
-				{ value: 3600, text: '1 hour' },
-				{ value: 7200, text: '2 hours' },
-				{ value: 14400, text: '4 hours' }
+				[ 0, 'Disabled' ],
+				[ 1, '1 second' ],
+				[ 2, '2 seconds' ],
+				[ 4, '4 seconds' ],
+				[ 8, '8 seconds' ],
+				[ 15, '15 seconds' ],
+				[ 30, '30 seconds' ],
+				[ 60, '1 minute' ],
+				[ 120, '2 minutes' ],
+				[ 300, '5 minutes' ],
+				[ 900, '15 minutes' ],
+				[ 1800, '30 minutes' ],
+				[ 3600, '1 hour' ],
+				[ 7200, '2 hours' ],
+				[ 14400, '4 hours' ]
 			]
 		},
 		{
@@ -234,17 +234,17 @@ this.manifest = {
 			'label': 'Notification Timeout:',
 			'options':
 			[
-				{ value: 0, text: 'Disabled' },
-				{ value: 10, text: '10 seconds' },
-				{ value: 15, text: '15 seconds' },
-				{ value: 20, text: '20 seconds' },
-				{ value: 30, text: '30 seconds' },
-				{ value: 45, text: '45 seconds' },
-				{ value: 60, text: '1 minute' },
-				{ value: 120, text: '2 minutes' },
-				{ value: 300, text: '5 minutes' },
-				{ value: 1800, text: '30 minutes' },
-				{ value: 3600, text: '1 hour' }
+				[ 0, 'Disabled' ],
+				[ 10, '10 seconds' ],
+				[ 15, '15 seconds' ],
+				[ 20, '20 seconds' ],
+				[ 30, '30 seconds' ],
+				[ 45, '45 seconds' ],
+				[ 60, '1 minute' ],
+				[ 120, '2 minutes' ],
+				[ 300, '5 minutes' ],
+				[ 1800, '30 minutes' ],
+				[ 3600, '1 hour' ]
 			]
 		},
 		
