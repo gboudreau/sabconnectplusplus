@@ -16,21 +16,23 @@
         <script src="third_party/fancy-settings/js/classes/setting.js"></script>
         <script src="third_party/fancy-settings/js/classes/search.js"></script>
         <script src="third_party/fancy-settings/js/classes/fancy-settings.js"></script>
+        <script src="third_party/fancy-settings/js/i18n.js"></script>
+        <!-- <script src="scripts/pages/localization.js"></script> -->
         <script src="scripts/pages/manifest.js"></script>
         <script src="scripts/pages/settings.js"></script>
     </head>
     <body class="no-select">
         <div id="sidebar" class="fancy">
-            <img id="icon" src="" alt=""><h1>Settings</h1>
+            <img id="icon" src="" alt=""><h1 id="settings-label"></h1>
             <div id="tab-container">
                 <div id="search-container" class="tab">
-                    <input id="search" type="search" placeholder="Search...">
+                    <input id="search" type="search" placeholder="">
                 </div>
             </div>
         </div>
         <div id="content">
             <div id="search-result-container" class="tab-content">
-                <h2>Search</h2>
+                <h2 id="search-label"></h2>
             </div>
         </div>
     </body>
