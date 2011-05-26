@@ -63,7 +63,7 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_',
+			'name': 'provider_nzbmatrix',
 			'type': 'checkbox',
 			'label': 'NZBMatrix / NZBxxx *'
 		},
@@ -122,13 +122,6 @@ this.manifest = {
 			'name': 'provider_nzb',
 			'type': 'checkbox',
 			'label': 'nzb.su'
-		},
-		{
-			'tab': 'Providers',
-			'group': '1-Click NZB downloading',
-			'name': 'provider_fanzub',
-			'type': 'checkbox',
-			'label': 'fanzub.com'
 		},
 		{
 			'tab': 'Providers',
@@ -246,6 +239,14 @@ this.manifest = {
 				[ 1800, '30 minutes' ],
 				[ 3600, '1 hour' ]
 			]
+		},
+		{
+			'tab': 'Configuration',
+			'group': 'General',
+			'name': 'config_reset',
+			'type': 'button',
+			'label': 'Click to reset all settings to default:',
+			'text': 'Reset'
 		},
 		
 		// Configuration Tab, Categories section

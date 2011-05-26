@@ -2,6 +2,35 @@
 var category_header_sites = ['nzbs.org', 'newzbin.com', 'newzxxx.com'];
 var no_category_header_sites = ['nzbmatrix.com', 'binsearch', 'nzbindex', 'nzbsrus', 'newzleech', 'nzbclub', 'fanzub.com'];
 
+var defaultSettings = {
+	sabnzbd_url: 'http://localhost:8080/',
+	provider_newzbin: true,
+	provider_nzbmatrix: true,
+	provider_nzbclub: true,
+	provider_bintube: true,
+	provider_newzleech: true,
+	provider_nzbs: true,
+	provider_binsearch: true,
+	provider_nzbindex: true,
+	provider_nzbsrus: true,
+	provider_nzb: true,
+	provider_fanzub: true,
+	use_name_binsearch: true,
+	use_name_nzbindex: true,
+	config_refresh_rate: 15,
+	config_enable_graph: true,
+	config_enable_context_menu: true,
+	config_enable_notifications: true,
+	config_notification_timeout: 0
+};
+
+var settings = new Store( 'settings', defaultSettings );
+
+function resetSettings()
+{
+	settings.fromObject( defaultSettings );
+}
+
 function setDefault( key, value )
 {
 	if( !getPref( key ) ) {
