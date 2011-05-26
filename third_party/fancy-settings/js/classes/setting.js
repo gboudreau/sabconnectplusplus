@@ -411,13 +411,11 @@
             
             if (this.params.options === undefined) { return; }
             this.params.options.each((function (option) {
-                if (typeOf(option) === "string") { option = {"value": option}; }
-                if (typeOf(option) === "array") { option = {"value": option[0], "text": option[1]}; }
-                this.params.searchString += (option.text || option.value) + "•";
+                this.params.searchString += (option[0] || option[1]) + "•";
                 
                 (new Element("option", {
-                    "value": option.value,
-                    "text": option.text || option.value
+                    "value": option[1],
+                    "text": option[0] || option[1]
                 })).inject(this.element);
             }).bind(this));
         },
@@ -459,13 +457,11 @@
             
             if (this.params.options === undefined) { return; }
             this.params.options.each((function (option) {
-                if (typeOf(option) === "string") { option = {"value": option}; }
-                if (typeOf(option) === "array") { option = {"value": option[0], "text": option[1]}; }
-                this.params.searchString += (option.text || option.value) + "•";
+                this.params.searchString += (option[0] || option[1]) + "•";
                 
                 (new Element("option", {
-                    "value": option.value,
-                    "text": option.text || option.value
+                    "value": option[1],
+                    "text": option[0] || option[1]
                 })).inject(this.element);
             }).bind(this));
         },
@@ -500,9 +496,7 @@
                 var optionID,
                     container;
                 
-                if (typeOf(option) === "string") { option = {"value": option}; }
-                if (typeOf(option) === "array") { option = {"value": option[0], "text": option[1]}; }
-                this.params.searchString += (option.text || option.value) + "•";
+                this.params.searchString += (option[0] || option[1]) + "•";
                 
                 optionID = String.uniqueID();
                 container = (new Element("div", {
@@ -515,13 +509,13 @@
                     "name": settingID,
                     "class": "setting element radio-buttons",
                     "type": "radio",
-                    "value": option.value
+                    "value": option[1]
                 })).inject(container));
                 
                 this.labels.push((new Element("label", {
                     "class": "setting element-label radio-buttons",
                     "for": optionID,
-                    "text": option.text || option.value
+                    "text": option[0] || option[1]
                 })).inject(container));
             }).bind(this));
         },

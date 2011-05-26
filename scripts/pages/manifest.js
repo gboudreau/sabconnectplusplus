@@ -2,6 +2,18 @@
 this.manifest = {
 	'name': 'SABConnect++ Settings',
 	'icon': 'images/sab2_32.png',
+	'alignment': [
+		[
+			'sabnzbd_url',
+			'sabnzbd_api_key',
+			'sabnzbd_username',
+			'sabnzbd_password'
+		],
+		[
+			'nzbxxx_username',
+			'nzbxxx_api_key'
+		],
+	],
 	'settings': [
 	
 		// Connections Tab
