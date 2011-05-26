@@ -1,9 +1,12 @@
 function RefreshControlStates( settings )
 {
 	var store = new Store( 'settings' );
-	Object.each( settings.manifest, function( setting ) {
-		setting.set( store.get( setting.params.name ) );
-	});
+	for( var name in settings.manifest ) {
+		var setting = settings.manifest[name];
+		if( typeOf(setting.set) === "function" ) {
+			setting.set( store.get( setting.params.name ) );
+		}
+	}
 }
 
 function OnResetConfigClicked( settings )
