@@ -15,15 +15,14 @@ this.manifest = {
 		],
 		[
 			'config_hard_coded_category',
-			'config_default_category',
+			'config_default_category'
 		],
-		/*[
-			'config_category_desc1',
-			'config_category_desc2',
-		],*/
+		[
+			'config_refresh_rate',
+			'config_notification_timeout'
+		],
 	],
 	'settings': [
-	
 		// Connections Tab
 		{
 			'tab': 'Connection',
@@ -221,27 +220,6 @@ this.manifest = {
 		{
 			'tab': 'Configuration',
 			'group': 'General',
-			'name': 'config_enable_graph',
-			'type': 'checkbox',
-			'label': 'Enable Graph'
-		},
-		{
-			'tab': 'Configuration',
-			'group': 'General',
-			'name': 'config_enable_context_menu',
-			'type': 'checkbox',
-			'label': 'Enable Context Menu'
-		},
-		{
-			'tab': 'Configuration',
-			'group': 'General',
-			'name': 'config_enable_notifications',
-			'type': 'checkbox',
-			'label': 'Enable Notifications'
-		},
-		{
-			'tab': 'Configuration',
-			'group': 'General',
 			'name': 'config_notification_timeout',
 			'type': 'popupButton',
 			'label': 'Notification Timeout:',
@@ -259,6 +237,27 @@ this.manifest = {
 				[ 1800, '30 minutes' ],
 				[ 3600, '1 hour' ]
 			]
+		},
+		{
+			'tab': 'Configuration',
+			'group': 'General',
+			'name': 'config_enable_graph',
+			'type': 'checkbox',
+			'label': 'Enable Graph'
+		},
+		{
+			'tab': 'Configuration',
+			'group': 'General',
+			'name': 'config_enable_context_menu',
+			'type': 'checkbox',
+			'label': 'Enable Context Menu'
+		},
+		{
+			'tab': 'Configuration',
+			'group': 'General',
+			'name': 'config_enable_notifications',
+			'type': 'checkbox',
+			'label': 'Enable Notifications'
 		},
 		{
 			'tab': 'Configuration',
