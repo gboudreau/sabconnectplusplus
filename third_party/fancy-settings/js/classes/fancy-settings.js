@@ -96,7 +96,8 @@
             
             settings.each(function (setting) {
                 if (setting.params.type !== type) {
-                    throw "multibleTypes";
+                    console.error("Only one type per group is allowed.");
+                    throw "multipleTypes";
                 }
                 
                 var width = setting.label.offsetWidth;
@@ -133,12 +134,14 @@
         });
         
         if (manifest.alignment !== undefined) {
+            document.body.addClass("measuring");
             manifest.alignment.each(function (group) {
                 group = group.map(function (name) {
                     return settings.manifest[name];
                 });
                 settings.align(group);
             });
+            document.body.removeClass("measuring");
         }
         
         if (callback !== undefined) {

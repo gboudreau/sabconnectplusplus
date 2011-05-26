@@ -340,7 +340,7 @@
             }
             
             this.element.inject(this.container);
-            if (this.params.display !== false) {
+            if (this.params.display === true) {
                 if (this.params.displayModifier !== undefined) {
                     this.display.set("text", this.params.displayModifier(0));
                 } else {

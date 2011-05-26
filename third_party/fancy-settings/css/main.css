@@ -124,3 +124,9 @@ body.searching .tab-content {
 body.searching #search-result-container {
     display: block !important;
 }
+
+body.measuring .tab-content, body.measuring #search-result-container {
+    display: block;
+    opacity: 0;
+    overflow: hidden;
+}
