@@ -24,53 +24,11 @@ var defaultSettings = {
 	config_notification_timeout: 0
 };
 
-var settings = new Store( 'settings', defaultSettings );
+var store = new Store( 'settings', defaultSettings );
 
 function resetSettings()
 {
-	settings.fromObject( defaultSettings );
-}
-
-function setDefault( key, value )
-{
-	if( !getPref( key ) ) {
-		setPref( key, value );
-	}
-}
-
-function setDefaults()
-{
-	setDefault( 'sab_url', 'http://localhost:8080/sabnzbd/' );
-	setDefault( 'api_key', '' );
-	setDefault( 'http_user', '' );
-	setDefault( 'http_pass', '' );
-	setDefault( 'hardcoded_category', '' );
-	setDefault( 'default_category', '' );
-	setDefault( 'speedlog', JSON.stringify([]) );
-	setDefault( 'show_graph', 0 );
-	setDefault( 'show_notifications', 1 );
-	setDefault( 'notifications_timeout', 0 );
-	setDefault( 'use_category_header', 0 );
-	setDefault( 'enable_newzbin', 1 );
-	setDefault( 'enable_nzbmatrix', 1 );
-	setDefault( 'enable_nzbclub', 1 );
-	setDefault( 'enable_bintube', 1 );
-	setDefault( 'enable_newzleech', 1 );
-	setDefault( 'enable_nzbsorg', 1 );
-	setDefault( 'enable_binsearch', 1 );
-	setDefault( 'enable_nzbindex', 1 );
-	setDefault( 'enable_nzbsrus', 1 );
-	setDefault( 'enable_nzbdotsu', 1 );
-	setDefault( 'enable_fanzub', 1 );
-	setDefault( 'use_nice_name_nzbindex', 1 );
-	setDefault( 'use_nice_name_binsearch', 1 );
-	setDefault( 'enable_context_menu', 1 );
- 
-	// Force this back to 0 just incase
-	setPref('skip_redraw', 0);
-	
-	setPref('refresh_rate_default', 15);
-	setDefault( 'refresh_rate', getPref('refresh_rate_default') );
+	store.fromObject( defaultSettings );
 }
 
 //file size formatter - takes an input in bytes
@@ -171,9 +129,10 @@ function displayNotificationCallback( data )
 				localStorage[key] = true;
 				console.log("Notification posted!");
 				
-				if (getPref('notifications_timeout') != '0') {
-					console.log("notifications_timeout set to " + getPref('notifications_timeout') + " seconds");
-					setTimeout(function() { notification.cancel(); }, getPref('notifications_timeout') * 1000);
+				var notifyTimeout = store.get( 'config_notification_timeout' );
+				if( notifyTimeout !== '0' ) {
+					console.log( "notifications_timeout set to " + notifyTimeout + " seconds" );
+					setTimeout( function() { notification.cancel(); }, notifyTimeout * 1000 );
 				}
 			}
 		}
@@ -258,7 +217,7 @@ function fetchInfo( quickUpdate, callback )
 
 function displayNotifications()
 {
-	if( getPref('show_notifications') == '1' ) {
+	if( store.get('config_enable_notifications') === true ) {
 		sendSabRequest(
 			'history',
 			'10',
@@ -279,8 +238,8 @@ function sendSabRequest( mode, limit, success_callback, error_callback )
 		type: "GET",
 		url: sabApiUrl,
 		data: data,
-		username: getPref('http_user'),
-		password: getPref('http_pass'),
+		username: store.get('sabnzbd_username'),
+		password: store.get('sabnzbd_password'),
 		dataType: 'json',
 		success: success_callback,
 		error: error_callback
@@ -355,9 +314,10 @@ function addToSABnzbd(cb, request) {
 	}
 	
 	// Only use auto-categorization if "Use X-DNZB-Category" is false (0), or if the index site doesn't support the X-DNZB-Category HTTP header
+	var useCatHeader = store.get('config_use_category_header');
 	console.log('use_category_header=');
-	console.log(getPref('use_category_header'));
-	if (getPref('use_category_header') != '0') {
+	console.log( useCatHeader );
+	if( useCatHeader !== false ) {
 		var site_supports_category_header = false;
 		for (var i=0; i<category_header_sites.length; i++) {
 			if (nzburl.indexOf(category_header_sites[i]) != -1) {
@@ -368,13 +328,16 @@ function addToSABnzbd(cb, request) {
 		console.log('site_supports_category_header=');
 		console.log(site_supports_category_header);
 	}
-	if (getPref('use_category_header') == '0' || !site_supports_category_header) {
-		if (getPref('hardcoded_category') != '') {
-			data.cat = getPref('hardcoded_category');
-		} else if (request.category) {
+	if (useCatHeader === true || !site_supports_category_header) {
+		var hardcodedCategory = store.get( 'config_hardcoded_category' );
+		var defaultCategory = store.get( 'config_default_category' );
+		
+		if( hardcodedCategory.length !== 0 ) {
+			data.cat = hardcodedCategory;
+		} else if( request.category ) {
 			data.cat = request.category;
-		} else if (getPref('default_category') != '') {
-			data.cat = getPref('default_category');
+		} else if( defaultCategory.length !== 0 ) {
+			data.cat = defaultCategory;
 		} 
 	}
 
@@ -382,8 +345,8 @@ function addToSABnzbd(cb, request) {
 		type: "GET",
 		url: sabApiUrl,
 		cache: false,
-		username : getPref('http_user'),
-		password : getPref('http_pass'),
+		username : store.get( 'sabnzbd_username' ),
+		password : store.get( 'sabnzbd_password' ),
 		data: data,
 		dataType: 'json',
 		success: function() { cb({ret: 'success', data: data}) },

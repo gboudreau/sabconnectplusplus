@@ -272,6 +272,14 @@ this.manifest = {
 		{
 			'tab': 'Configuration',
 			'group': 'Categories',
+			'name': 'config_use_category_header',
+			'type': 'checkbox',
+			'label': 'Use X-DNZB-Category HTTP header instead of auto-categorization\
+					on supported sites (NZBs.org, Newzbin).'
+		},
+		{
+			'tab': 'Configuration',
+			'group': 'Categories',
 			'name': 'config_hard_coded_category',
 			'type': 'text',
 			'label': 'Hard-coded Category:'
