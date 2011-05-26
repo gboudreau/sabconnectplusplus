@@ -13,6 +13,14 @@ this.manifest = {
 			'nzbxxx_username',
 			'nzbxxx_api_key'
 		],
+		[
+			'config_hard_coded_category',
+			'config_default_category',
+		],
+		/*[
+			'config_category_desc1',
+			'config_category_desc2',
+		],*/
 	],
 	'settings': [
 	
