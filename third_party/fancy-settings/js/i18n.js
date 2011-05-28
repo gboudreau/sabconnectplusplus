@@ -5,8 +5,12 @@
 //
 (function () {
     var lang = navigator.language.split("-")[0];
-    if (typeOf(this.i18n) !== "object") { this.i18n = {}; }
+    if (this.i18n === undefined) { this.i18n = {}; }
     this.i18n.get = function (value) {
+        if (value === "lang") {
+            return lang;
+        }
+        
         if (this.hasOwnProperty(value)) {
             value = this[value];
             if (value.hasOwnProperty(lang)) {
@@ -17,7 +21,7 @@
                 return Object.values(value)[0];
             }
         } else {
-            return undefined;
+            return value;
         }
     };
 }());

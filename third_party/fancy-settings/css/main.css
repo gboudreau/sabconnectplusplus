@@ -126,7 +126,7 @@ body.searching #search-result-container {
 }
 
 body.measuring .tab-content, body.measuring #search-result-container {
-    display: block;
+    display: block !important;
     opacity: 0;
     overflow: hidden;
 }

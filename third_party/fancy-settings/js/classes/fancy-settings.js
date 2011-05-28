@@ -96,7 +96,6 @@
             
             settings.each(function (setting) {
                 if (setting.params.type !== type) {
-                    console.error("Only one type per group is allowed.");
                     throw "multipleTypes";
                 }
                 
@@ -111,8 +110,10 @@
                 if (width < maxWidth) {
                     if (type === "button" || type === "slider") {
                         setting.element.setStyle("margin-left", (maxWidth - width + 2) + "px");
+                        setting.search.element.setStyle("margin-left", (maxWidth - width + 2) + "px");
                     } else {
                         setting.element.setStyle("margin-left", (maxWidth - width) + "px");
+                        setting.search.element.setStyle("margin-left", (maxWidth - width) + "px");
                     }
                 }
             });

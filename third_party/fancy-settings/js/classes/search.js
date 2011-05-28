@@ -14,6 +14,7 @@
             
             this.search = search;
             this.searchResultContainer = searchResultContainer;
+            this.setting = new Setting(new Element("div"));
             
             // Create setting for message "nothing found"
             setting = new Setting(this.searchResultContainer);
@@ -43,26 +44,25 @@
         },
         
         "add": function (setting) {
-            this.index.push(setting);
+            var searchSetting = this.setting.create(setting.params);
+            setting.search = searchSetting;
+            searchSetting.original = setting;
+            this.index.push(searchSetting);
+            
+            setting.addEvent("action", function (value, stopPropagation) {
+                if (searchSetting.set !== undefined && stopPropagation !== true) {
+                    searchSetting.set(value, true);
+                }
+            });
+            searchSetting.addEvent("action", function (value) {
+                if (setting.set !== undefined) {
+                    setting.set(value, true);
+                }
+                setting.fireEvent("action", [value, true]);
+            });
         },
         
         "find": function (searchString) {
-            var result,
-                groupName,
-                group,
-                row,
-                content
-            
-            // Reset all settings
-            this.index.each(function (setting) {
-                setting.bundle.inject(setting.bundleContainer);
-            });
-            
-            // Hide all groups
-            Object.each(this.groups, function (group) {
-                group.dispose();
-            });
-            
             // Exit search mode
             if (searchString.trim() === "") {
                 document.body.removeClass("searching");
@@ -70,13 +70,18 @@
             }
             
             // Or enter search mode
+            this.index.each(function (setting) { setting.bundle.dispose(); });
+            Object.each(this.groups, function (group) { group.dispose(); });
             document.body.addClass("searching");
-            result = this.index.filter(function (setting) {
+            
+            // Filter settings
+            var result = this.index.filter(function (setting) {
                 if (setting.params.searchString.contains(searchString.trim().toLowerCase())) {
                     return true;
                 }
             });
             
+            // Display settings
             result.each((function (setting) {
                 var group,
                     row;
@@ -86,9 +91,9 @@
                     this.groups[setting.params.group] = (new Element("table", {
                         "class": "setting group"
                     })).inject(this.searchResultContainer);
-                    group = this.groups[setting.params.group];
                     
-                    var row = (new Element("tr")).inject(group);
+                    group = this.groups[setting.params.group];
+                    row = (new Element("tr")).inject(group);
                     
                     (new Element("td", {
                         "class": "setting group-name",
@@ -99,8 +104,7 @@
                         "class": "setting group-content"
                     })).inject(row);
                 } else {
-                    group = this.groups[setting.params.group];
-                    group.inject(this.searchResultContainer);
+                    group = this.groups[setting.params.group].inject(this.searchResultContainer);
                 }
                 
                 setting.bundle.inject(group.content);

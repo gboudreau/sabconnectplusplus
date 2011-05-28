@@ -411,11 +411,11 @@
             
             if (this.params.options === undefined) { return; }
             this.params.options.each((function (option) {
-                this.params.searchString += (option[0] || option[1]) + "•";
+                this.params.searchString += (option[1] || option[0]) + "•";
                 
                 (new Element("option", {
-                    "value": option[1],
-                    "text": option[0] || option[1]
+                    "value": option[0],
+                    "text": option[1] || option[0]
                 })).inject(this.element);
             }).bind(this));
         },
@@ -457,11 +457,11 @@
             
             if (this.params.options === undefined) { return; }
             this.params.options.each((function (option) {
-                this.params.searchString += (option[0] || option[1]) + "•";
+                this.params.searchString += (option[1] || option[0]) + "•";
                 
                 (new Element("option", {
-                    "value": option[1],
-                    "text": option[0] || option[1]
+                    "value": option[0],
+                    "text": option[1] || option[0]
                 })).inject(this.element);
             }).bind(this));
         },
@@ -496,7 +496,7 @@
                 var optionID,
                     container;
                 
-                this.params.searchString += (option[0] || option[1]) + "•";
+                this.params.searchString += (option[1] || option[0]) + "•";
                 
                 optionID = String.uniqueID();
                 container = (new Element("div", {
@@ -509,13 +509,13 @@
                     "name": settingID,
                     "class": "setting element radio-buttons",
                     "type": "radio",
-                    "value": option[1]
+                    "value": option[0]
                 })).inject(container));
                 
                 this.labels.push((new Element("label", {
                     "class": "setting element-label radio-buttons",
                     "for": optionID,
-                    "text": option[0] || option[1]
+                    "text": option[1] || option[0]
                 })).inject(container));
             }).bind(this));
         },
