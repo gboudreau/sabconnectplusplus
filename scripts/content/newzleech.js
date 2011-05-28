@@ -46,8 +46,6 @@ function handleAllDownloadLinks() {
     return;
 }
 
-chrome.extension.sendRequest({'action': 'getContext'} ,function(response){
-    if (response.value.config.enable_newzleech == "0")
-        return;
+Initialize( 'newzleech', function() {
     handleAllDownloadLinks();
 });

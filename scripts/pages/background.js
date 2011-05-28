@@ -21,7 +21,10 @@ var defaultSettings = {
 	config_enable_graph: true,
 	config_enable_context_menu: true,
 	config_enable_notifications: true,
-	config_notification_timeout: 0
+	config_notification_timeout: 0,
+	config_use_category_header: false,
+	config_hard_coded_category: '',
+	config_default_category: ''
 };
 
 var store = new Store( 'settings', defaultSettings );
@@ -82,12 +85,17 @@ function updateBackground( data )
 
 function updateSpeedLog( data )
 {
-	//console.log("!quickUpdate")
-	var speedlog = JSON.parse(getPref('speedlog'));
+	var speedlog = [];
 	
-	// Only allow 10 values, if at our limit, remove the first value (oldest)
-	while( speedlog.length >= 10 ) {
-		speedlog.shift();
+	var speedlogData = getPref( 'speedlog' );
+	if( speedlogData )
+	{
+		speedlog = JSON.parse(getPref('speedlog'));
+		
+		// Only allow 10 values, if at our limit, remove the first value (oldest)
+		while( speedlog.length >= 10 ) {
+			speedlog.shift();
+		}
 	}
 	
 	speedlog.push( data ? parseFloat( data.queue.kbpersec ) : 0 );
@@ -99,7 +107,7 @@ function displayNotificationCallback( data )
 	// Return early if data is null, which can happen if we
 	// have invalid connection information in settings and
 	// we actually can't establish a connection with sabnzbd.
-	if( !data ) {
+	if( !data || data.error ) {
 		return;
 	}
 	
@@ -332,7 +340,7 @@ function addToSABnzbd(cb, request) {
 		console.log(site_supports_category_header);
 	}
 	if (useCatHeader === true || !site_supports_category_header) {
-		var hardcodedCategory = store.get( 'config_hardcoded_category' );
+		var hardcodedCategory = store.get( 'config_hard_coded_category' );
 		var defaultCategory = store.get( 'config_default_category' );
 		
 		if( hardcodedCategory.length !== 0 ) {
@@ -359,36 +367,50 @@ function addToSABnzbd(cb, request) {
 	fetchInfo(true);
 }
 
-function reloadConfig()
-{
-	globalContext.config = localStorage;
-}
-
 function refreshRateChanged()
 {
 	restartTimer();
+}
+
+function InitializeContentScript( request, callback )
+{
+	if( request.provider )
+	{
+		var setting = 'provider_' + request.provider;
+		if( store.get( setting ) )
+		{
+			callback();
+		}
+	}
+}
+
+function GetSetting( request, callback )
+{
+	callback( store.get( request.name ) );
 }
 
 /**
 * Handles data sent via chrome.extension.sendRequest().
 * @param request Object Data sent in the request.
 * @param sender Object Origin of the request.
-* @param sendResponse Function The method to call when the request completes.
+* @param callback Function The method to call when the request completes.
 */
-function onRequest(request, sender, sendResponse) {
-	switch(request.action) {
-		case 'getContext':
-			sendResponse({value: globalContext});
-			return;
-		case 'saveContext':
-			globalContext = request.value;
-			return;
-		case 'addToSABnzbd':
-			addToSABnzbd(sendResponse, request);
-			return;
+function onRequest( request, sender, callback )
+{
+	switch( request.action ) {
+	case 'initialize':
+		InitializeContentScript( request, callback );
+		break;
+	case 'get_setting':
+		GetSetting( request, callback );
+		break;
+	case 'saveContext':
+		globalContext = request.value;
+		break;
+	case 'addToSABnzbd':
+		addToSABnzbd( callback, request );
+		break;
 	}
-	
-	sendResponse({});
 };
 
 chrome.extension.onRequest.addListener( onRequest );

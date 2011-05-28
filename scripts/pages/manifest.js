@@ -1,4 +1,3 @@
-// SAMPLE MANIFEST
 this.manifest = {
 	'name': 'SABConnect++ Settings',
 	'icon': 'images/sab2_32.png',

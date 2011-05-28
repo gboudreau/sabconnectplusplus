@@ -1,3 +1,5 @@
+var use_nice_name_nzbindex;
+
 function addToSABnzbdFromNzbindex() {
 	var addLink = this;
 
@@ -70,11 +72,10 @@ function handleAllDownloadLinks() {
     $('.addSABnzbdOnClick').click(addToSABnzbdFromNzbindex);
 }
 
-var use_nice_name_nzbindex;
-chrome.extension.sendRequest({'action' : 'getContext'}, function(response){
-	if (response.value.config.enable_nzbindex == "0") {
-		return;
-	}
-	use_nice_name_nzbindex = response.value.config.use_nice_name_nzbindex;
+Initialize( 'nzbindex', function() {
+	GetSetting( 'use_name_nzbindex', function( value ) {
+		use_nice_name_nzbindex = value;
+	});
+	
 	handleAllDownloadLinks();
 });

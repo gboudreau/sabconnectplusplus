@@ -27,9 +27,6 @@ function handleAllDownloadLinks() {
 	});
 }
 
-chrome.extension.sendRequest({'action' : 'getContext'},function(response){
-	if (response.value.config.enable_fanzub == "0") {
-		return;
-	}
+Initialize( 'fanzub', function() {
 	handleAllDownloadLinks();
 });

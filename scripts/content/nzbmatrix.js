@@ -1,3 +1,6 @@
+var nzbxxx_apikey;
+var nzbxxx_username;
+
 function findNZBId(elem) {
 	var url = $(elem).attr('href');
 
@@ -66,13 +69,15 @@ function handleAllDownloadLinks() {
 	});
 }
 
-var nzbxxx_apikey;
-var nzbxxx_username;
-chrome.extension.sendRequest({'action' : 'getContext'}, function(response){
-	if (response.value.config.enable_nzbmatrix == "0") {
-		return;
-	}
-	nzbxxx_apikey = response.value.config.nzbxxx_apikey;
-	nzbxxx_username = response.value.config.nzbxxx_username;
+Initialize( 'nzbmatrix', function() {
+
+	GetSetting( 'nzbxxx_api_key', function( value ) {
+		nzbxxx_apikey = value;
+	});
+	
+	GetSetting( 'nzbxxx_username', function( value ) {
+		nzbxxx_username = value
+	});
+	
 	handleAllDownloadLinks();
 });

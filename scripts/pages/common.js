@@ -6,8 +6,6 @@ function background()
 function setPref(key, value) {
 	localStorage[key] = value;
 	
-	background().reloadConfig();
-	
 	if (key == 'refresh_rate') {
 		background.refreshRateChanged();
 	}

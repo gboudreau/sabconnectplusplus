@@ -1,3 +1,6 @@
+var user;
+var rssHash;
+
 function findNZBId(elem) {
 	var url = $(elem).attr('href');
 
@@ -43,13 +46,11 @@ function addToSABnzbdFromNZBsRus() {
 		}
 		addLink = this;
 		
-		chrome.extension.sendRequest({'action' : 'getContext'}, function(response) {
-			if (response.value.nzbsrus) {
-				addToSABnzbdFromNZBsRusCont(response.value.nzbsrus);
-			} else {
-				getHashFromNZBsRus();
-			}
-		});
+		if( user && rssHash ) {
+			addToSABnzbdFromNZBsRusCont();
+		} else {
+			getHashFromNZBsRus();
+		}
 
 		return false;
 	}
@@ -78,24 +79,22 @@ function getHashFromNZBsRus() {
 		var user = match[1];
 		var rssHash = match[2];
 	}
-	chrome.extension.sendRequest({'action' : 'getContext'}, function(response){
-		response.value.nzbsrus = new Object();
-		response.value.nzbsrus.user = user;
-		response.value.nzbsrus.rssHash = rssHash;
-		chrome.extension.sendRequest({'action' : 'saveContext', 'value': response.value}, function(response){});
-		addToSABnzbdFromNZBsRusCont(response.value.nzbsrus);
-	});
+	
+	this.user = user;
+	this.rssHash = rssHash;
+	addToSABnzbdFromNZBsRusCont();
 }
 
-function addToSABnzbdFromNZBsRusCont(config) {
-	var downloasHash = config.rssHash;
+function addToSABnzbdFromNZBsRusCont()
+{
+	var downloasHash = rssHash;
 	var nzbId = nzburl.substr(nzburl.lastIndexOf('/')+1, 10);
 	for (var i=0; i<nzbId.length; i++) {
 		downloasHash = downloasHash.substr(0, i*4) + nzbId[i] + downloasHash.substr(i*4+1, 32);
 	}
 	
 	// Add the authentication to the link about to be fetched
-	nzburl += '/' + config.user + '/' + downloasHash + '/';
+	nzburl += '/' + user + '/' + downloasHash + '/';
 
 	addToSABnzbd(addLink, nzburl, "addurl", null, category);
 }
@@ -143,9 +142,6 @@ function handleAllDownloadLinks() {
 	});	
 }
 
-chrome.extension.sendRequest({'action' : 'getContext'}, function(response){
-	if (response.value.config.enable_nzbsrus == "0") {
-		return;
-	}
+Initialize( 'nzbsrus', function() {
 	handleAllDownloadLinks();
 });

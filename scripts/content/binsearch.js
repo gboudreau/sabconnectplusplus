@@ -1,4 +1,7 @@
-function addToSABnzbdFromBinsearch() {
+var use_nice_name_binsearch;
+
+function addToSABnzbdFromBinsearch()
+{
     // Set the image to an in-progress image
     var img = chrome.extension.getURL('images/sab2_16_fetching.png');
 	if ($(this).find('img').length > 0) {
@@ -27,7 +30,8 @@ function addToSABnzbdFromBinsearch() {
 	return false;
 }
 
-function handleAllDownloadLinks() {
+function handleAllDownloadLinks()
+{
 	$('input[name$="watchlist"]').each(function() {
 		// add button to h3 to move checked in to SABConnect
 		var img = chrome.extension.getURL('/images/sab2_16.png');
@@ -37,11 +41,10 @@ function handleAllDownloadLinks() {
 	});
 }
 
-var use_nice_name_binsearch;
-chrome.extension.sendRequest({'action' : 'getContext'}, function(response){
-	if (response.value.config.enable_binsearch == "0") {
-		return;
-	}
-	use_nice_name_binsearch = response.value.config.use_nice_name_binsearch;
+Initialize( 'binsearch', function() {
+	GetControlState( 'use_name_binsearch', function( state ) {
+		useNiceName = state;
+	});
+	
 	handleAllDownloadLinks();
 });

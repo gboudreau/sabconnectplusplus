@@ -48,16 +48,27 @@ function OnResetConfigClicked( settings )
 	RefreshControlStates( settings );
 }
 
-function InitializeSettings( settings )
+function OnRefreshRateChanged()
 {
-	settings.manifest.config_reset.addEvent( 'action', bind( OnResetConfigClicked, settings ) );
-	settings.manifest.test_connection.addEvent( 'action', OnTestConnectionClicked );
+	background().restartTimer();
+}
 
+function CreateTestConnectionStatusElement( settings )
+{
 	var resultDiv = new Element( 'div', {
 		id: 'connection-status'
 	});
 	
 	resultDiv.inject( settings.manifest.test_connection.container, 'bottom' );
+}
+
+function InitializeSettings( settings )
+{
+	settings.manifest.config_reset.addEvent( 'action', bind( OnResetConfigClicked, settings ) );
+	settings.manifest.test_connection.addEvent( 'action', OnTestConnectionClicked );
+	settings.manifest.config_refresh_rate.addEvent( 'action', OnRefreshRateChanged );
+
+	CreateTestConnectionStatusElement( settings );
 }
 
 window.addEvent("domready", function () {

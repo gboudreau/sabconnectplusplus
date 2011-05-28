@@ -22,9 +22,6 @@ function handleAllDownloadLinks() {
 	return;
 }
 
-chrome.extension.sendRequest({'action' : 'getContext'},function(response){
-	if (response.value.config.enable_nzbclub == "0") {
-		return;
-	}
+Initialize( 'nzbclub', function() {
 	handleAllDownloadLinks();
 });

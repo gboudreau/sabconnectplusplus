@@ -17,8 +17,8 @@
         }
     };
     
-    Store.prototype.get = function (name) {
-        name = "store." + this.name + "." + name;
+    Store.prototype.get = function (name2) {
+        var name = "store." + this.name + "." + name2;
         if (localStorage.getItem(name) === null) { return undefined; }
         try {
             return JSON.parse(localStorage.getItem(name));
