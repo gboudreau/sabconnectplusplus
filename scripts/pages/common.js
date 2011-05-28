@@ -1,8 +1,12 @@
+function background()
+{
+	return chrome.extension.getBackgroundPage();
+}
+
 function setPref(key, value) {
 	localStorage[key] = value;
 	
-	var background = chrome.extension.getBackgroundPage();
-	background.reloadConfig();
+	background().reloadConfig();
 	
 	if (key == 'refresh_rate') {
 		background.refreshRateChanged();
@@ -26,25 +30,26 @@ function checkEndSlash(input) {
 }
 
 function constructApiUrl() {
-	var sabUrl = checkEndSlash(getPref('sab_url')) + 'api';
-	return sabUrl;
+	var url = background().store.get('sabnzbd_url');
+	return checkEndSlash( url ) + 'api';
 }
 
 function constructApiPost() {
+	var store = background().store;
 	var data = {};
 	
-	var apikey = getPref('api_key');
-	if (apikey) {
+	var apikey = store.get( 'sabnzbd_api_key' );
+	if( apikey ) {
 		data.apikey = apikey;
 	}
 
-	var username = getPref('http_user');
-	if (username) {
+	var username = store.get( 'sabnzbd_username' );
+	if( username ) {
 		data.ma_username = username;
 	}
 
-	var password = getPref('http_pass');
-	if (password) {
+	var password = store.get( 'sabnzbd_password' );
+	if( password ) {
 		data.ma_password = password;
 	}
 	
@@ -53,5 +58,5 @@ function constructApiPost() {
 
 function getRefreshRate()
 {
-	return parseInt( getPref('refresh_rate') ) * 1000;
+	return parseInt( background().store.get( 'config_refresh_rate' ) ) * 1000;
 }

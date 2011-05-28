@@ -141,9 +141,13 @@ function displayNotificationCallback( data )
 
 function fetchInfoSuccess( data, quickUpdate, callback )
 {
-	// If there was an error of some type, report it to the user and abort!
-	if( data != null && data.error ) {
-		setPref('error', data.error);
+	if( !data || data.error ) {
+		setPref( 'error', data ? data.error : 'Success with no data?' );
+		
+		if( callback ) {
+			callback();
+		}
+		
 		return;
 	}
 	
@@ -273,7 +277,6 @@ var gTimer;
 var globalContext = new Object();
 
 $(document).ready(function() {
-	setDefaults();
 	globalContext.config = localStorage;
 	startTimer();
 });

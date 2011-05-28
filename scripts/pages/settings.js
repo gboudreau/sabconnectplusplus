@@ -1,21 +1,32 @@
 var store = new Store( 'settings' );
 
 function checkForErrors() {
-    // Called after a request to SABnzbd's api has been tried, 'error' should be set if there was an error
-    var error = getPref('error');
-    if(error) {
-        $('#conResponse').html('Error: ' + error).addClass('checkError');
-    } else {
-        $('#conResponse').html('Connected sucessfully!').addClass('checkOk');
-    }
-
-    // Unsetting error here as otherwise would appear in popup - could confuse the user
-    // Could move this just so it is removed when connected successfully
-    setPref('error', '');
+	// Called after a request to SABnzbd's api has been tried, 'error' should be set if there was an error
+	var error = getPref('error');
+	if(error) {
+		$('connection-status')
+			.set( 'class', 'connection-status-failure' )
+			.set( 'html', 'Failed' )
+			;
+	} else {
+		$('connection-status')
+			.set( 'class', 'connection-status-success' )
+			.set( 'html', 'Succeeded' )
+			;
+	}
+	
+	// Unsetting error here as otherwise would appear in popup - could confuse the user
+	// Could move this just so it is removed when connected successfully
+	setPref('error', '');
 }
 
 function OnTestConnectionClicked()
 {
+	$('connection-status')
+		.set( 'class', '' )
+		.set( 'html', 'Running...' )
+		;
+		
 	var background = chrome.extension.getBackgroundPage()
 	background.testConnection( checkForErrors );
 }
@@ -37,12 +48,18 @@ function OnResetConfigClicked( settings )
 	RefreshControlStates( settings );
 }
 
-function SetupEventHandlers( settings )
+function InitializeSettings( settings )
 {
 	settings.manifest.config_reset.addEvent( 'action', bind( OnResetConfigClicked, settings ) );
 	settings.manifest.test_connection.addEvent( 'action', OnTestConnectionClicked );
+
+	var resultDiv = new Element( 'div', {
+		id: 'connection-status'
+	});
+	
+	resultDiv.inject( settings.manifest.test_connection.container, 'bottom' );
 }
 
 window.addEvent("domready", function () {
-	new FancySettings.initWithManifest( SetupEventHandlers );
+	new FancySettings.initWithManifest( InitializeSettings );
 });
