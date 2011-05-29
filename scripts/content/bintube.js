@@ -29,8 +29,6 @@ function handleAllDownloadLinks() {
 	return;
 }
 
-chrome.extension.sendRequest({'action': 'getContext'} ,function(response){
-	if (response.value.config.enable_bintube == "0")
-		return;
+Initialize( 'bintube', function() {
 	handleAllDownloadLinks();
 });

@@ -57,8 +57,7 @@ function DestroyContextMenu()
 
 function SetupContextMenu()
 {
-	var enabled = toBoolean( getPref( 'enable_context_menu' ) );
-	if( enabled )
+	if( store.get( 'config_enable_context_menu' ) )
 	{
 		CreateContextMenu();
 	}

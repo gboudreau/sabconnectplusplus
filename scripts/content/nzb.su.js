@@ -1,3 +1,7 @@
+var nzburl;
+var addLink;
+var category = null;
+
 function findNZBId(elem) {
 	var url = $(elem).attr('href');
 
@@ -8,9 +12,6 @@ function findNZBId(elem) {
 	return url;
 }
 
-var nzburl;
-var addLink;
-var category = null;
 function addToSABnzbdFromNZBdotsu() {
 	if (this.nodeName.toUpperCase() == 'INPUT') {
 		this.value = "Sending...";
@@ -96,9 +97,6 @@ function handleAllDownloadLinks() {
 	});
 }
 
-chrome.extension.sendRequest({'action' : 'getContext'}, function(response){
-	if (response.value.config.enable_NZBdotsu == "0") {
-		return;
-	}
+Initialize( 'nzb', function() {
 	handleAllDownloadLinks();
 });

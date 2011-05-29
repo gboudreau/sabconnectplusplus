@@ -154,9 +154,6 @@ function handleAllDownloadLinks() {
 	});	
 }
 
-chrome.extension.sendRequest({'action' : 'getContext'}, function(response){
-	if (response.value.config.enable_nzbsorg == "0") {
-		return;
-	}
+Initialize( 'nzbs', function() {
 	handleAllDownloadLinks();
 });

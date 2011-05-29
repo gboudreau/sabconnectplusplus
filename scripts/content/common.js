@@ -58,3 +58,30 @@ function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 
 	chrome.extension.sendRequest( req, bind( onResponseAdd, _1, addLink ) );
 }
+
+function GetSetting( setting, callback )
+{
+	var request = {
+		action: 'get_control_state',
+		name: setting
+	}
+	
+	chrome.extension.sendRequest( request, function( value ) {
+		if( typeof value == 'undefined' ) {
+			throw 'GetSetting(): ' + setting + ' is undefined';
+		}
+		else {
+			callback( value );
+		}
+	});
+}
+
+function Initialize( provider, callback )
+{
+	var request = {
+		action: 'initialize',
+		'provider': provider
+	}
+	
+	chrome.extension.sendRequest( request, callback );
+}

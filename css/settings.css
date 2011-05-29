@@ -1,78 +1,21 @@
-body {
-    background-color: #c7e0f5;
-    font-family:Tahoma, sans-serif;
+#connection-status
+{
+	display: inline;
+	margin-left: 30px;
+	padding: 5px 25px;
 }
 
-#settings {
-    width: 80%;
-    background-color: white;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    margin: 0 auto;
-    padding: 20px;
+.connection-status-success
+{
+	background-color: #41AD37;
 }
 
-label {
-    width: 250px;
-    display: inline-block;
+.connection-status-failure
+{
+	background-color: #FF0000;
 }
 
-#logo {
-  float: left;
-}
-h1 {
-    float: left;
-    margin: 10px;
-    color: #38444f;
-}
-
-
-.clear {
-    clear: both;
-}
-
-
-#settings input[type=text],
-#settings input[type=password]{
-    width:300px;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 2px 0;
-}
-
-.message {
-    border: 1px solid #a7ef8e;
-    background-color: #c5fbb2;
-    padding: 2px 4px;
-    margin: 20px 0 0 0;
-    font-size: 12px;
-}
-
-.message.info {
-    background-color: #fff7cf !important;
-    border: 1px solid #ffe983 !important;
-}
-
-.tip {
-    display: inline;
-    font-size: 11px;
-    padding-left: 15px;
-}
-
-
-#conResponse {
-    background-color: #fff7cf;
-    padding: 2px 4px;
-    border: 1px solid #ffe983;
-    margin: 0;
-    display: none;
-}
-
-#conResponse.checkError {
-    background-color: #ffd3d3 !important;
-    border-color: #ff8383 !important;
-}
-#conResponse.checkOk {
-    background-color: #c5fbb2 !important;
-    border-color: #a7ef8e !important;
+.setting.element.button
+{
+	display: inline;
 }

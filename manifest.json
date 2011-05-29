@@ -35,7 +35,7 @@
 				"https://*.newzxxx.com/*"
 			],
 			"js": [
-				"scripts/third_party/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.4.2.min.js",
 				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/newzbin.js"
@@ -53,7 +53,7 @@
 				"https://*.nzbxxx.com/*"
 			],
 			"js": [
-				"scripts/third_party/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.4.2.min.js",
 				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/nzbmatrix.js"
@@ -68,7 +68,7 @@
 				"https://*.nzbclub.com/*"
 			],
 			"js": [
-				"scripts/third_party/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.4.2.min.js",
 				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/nzbclub.js"
@@ -83,7 +83,7 @@
 				"https://*.bintube.com/*"
 			],
 			"js": [
-				"scripts/third_party/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.4.2.min.js",
 				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/bintube.js"
@@ -98,7 +98,7 @@
 				"https://*.nzbs.org/*"
 			],
 			"js": [
-				"scripts/third_party/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.4.2.min.js",
 				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/nzbsorg.js"
@@ -141,7 +141,7 @@
  				"https://binsear.ch/*"
 			],
 			"js": [
-				"scripts/third_party/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.4.2.min.js",
 				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/binsearch.js"
@@ -160,7 +160,7 @@
 				"https://newzleech.com/*"
 			],
 			"js": [
-				"scripts/third_party/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.4.2.min.js",
 				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/newzleech.js"
@@ -187,7 +187,7 @@
 				"https://nzbindex.nl/*"
 			],
 			"js": [
-				"scripts/third_party/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.4.2.min.js",
 				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/nzbindex.js"
@@ -206,10 +206,10 @@
 				"https://nzbsrus.com/*"
 			],
 			"js": [
-				"scripts/third_party/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.4.2.min.js",
 				"scripts/bind.js",
 				"scripts/content/common.js",
-				"scripts/third_party/webtoolkit.base64.js",
+				"third_party/webtoolkit/webtoolkit.base64.js",
 				"scripts/content/nzbsrus.js"
 			],
 			"all_frames": true
@@ -226,10 +226,10 @@
 				"https://nzb.su/*"
 			],
 			"js": [
-				"scripts/third_party/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.4.2.min.js",
 				"scripts/bind.js",
 				"scripts/content/common.js",
-				"scripts/third_party/webtoolkit.base64.js",
+				"third_party/webtoolkit/webtoolkit.base64.js",
 				"scripts/content/nzb.su.js"
 			],
 			"all_frames": true
@@ -246,10 +246,10 @@
 				"https://fanzub.com/*"
 			],
 			"js": [
-				"scripts/third_party/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.4.2.min.js",
 				"scripts/bind.js",
 				"scripts/content/common.js",
-				"scripts/third_party/webtoolkit.base64.js",
+				"third_party/webtoolkit/webtoolkit.base64.js",
 				"scripts/content/fanzub.js"
 			],
 			"all_frames": true

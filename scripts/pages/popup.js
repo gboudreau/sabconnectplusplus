@@ -1,3 +1,4 @@
+var store = new Store( 'settings' );
 
 function refresh()
 {
@@ -17,8 +18,8 @@ function moveQueueItem(nzoid, pos)
 		type: "POST",
 		url: sabApiUrl,
 		data: data,
-		username: getPref('http_user'),
-		password: getPref('http_pass'),
+		username: store.get('sabnzbd_username'),
+		password: store.get('sabnzbd_password'),
 		success: function(data) { refresh() },
 		error: function() {
 			$('#error').html('Failed to move item, please check your connection to SABnzbd');
@@ -38,8 +39,8 @@ function queueItemAction(action, nzoid, callback)
 		type: "POST",
 		url: sabApiUrl,
 		data: data,
-		username: getPref('http_user'),
-		password: getPref('http_pass'),
+		username: store.get('sabnzbd_username'),
+		password: store.get('sabnzbd_password'),
 		success: function(data) { refresh() },
 		error: function() {
 			$('#error').html('Failed to move item, please check your connection to SABnzbd');
@@ -260,7 +261,7 @@ function reDrawPopup() {
 		return false;
 	});
 	
-	if (getPref('show_graph') == '1') {
+	if( store.get( 'config_enable_graph' ) == '1' ) {
 		var api = new jGCharts.Api();
 		var url = api.make({
 			data : JSON.parse(getPref('speedlog')), //MANDATORY
@@ -279,13 +280,26 @@ function reDrawPopup() {
 	}
 }
 
+$(document).ready( function() {
+	$('#open_sabnzbd').click( function() {
+		chrome.tabs.create( { url: store.get( 'sabnzbd_url' ) } );
+	});
+
+	$('#extension_settings').click( function() {
+		chrome.tabs.create({url: 'settings.html'});
+	});
+
+	$('#refresh').click( function() {
+		refresh();
+	});
+});
 
 var nowtime = new Date();
 var lastOpened = parseInt(localStorage["lastOpened"]);
 var closeWindow = false;
 if (lastOpened > 0) {
 	if (nowtime.getTime() - lastOpened < 700) { 
-		chrome.tabs.create({url: getPref('sab_url')});
+		chrome.tabs.create({url: store.get('sabnzbd_url')});
 		closeWindow = true;
 		window.close();
 	}
