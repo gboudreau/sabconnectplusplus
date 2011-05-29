@@ -1,4 +1,4 @@
-Version 0.5
+Version 0.5.0
 --------------
 Feature: This is marked as a major release due to extensive architectural changes that were made.
 Feature: "Send link to SABnzbd" link added to chrome context menu for http links. Note that this feature is not intended to be used on links that will require authentication.
