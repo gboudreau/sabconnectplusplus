@@ -1,6 +1,5 @@
 // List of sites that send the X-DNZB-Category HTTP header
 var category_header_sites = ['nzbs.org', 'newzbin.com', 'newzxxx.com'];
-var no_category_header_sites = ['nzbmatrix.com', 'binsearch', 'nzbindex', 'nzbsrus', 'newzleech', 'nzbclub', 'fanzub.com'];
 
 var defaultSettings = {
 	sabnzbd_url: 'http://localhost:8080/',
@@ -8,7 +7,6 @@ var defaultSettings = {
 	provider_nzbmatrix: true,
 	provider_nzbclub: true,
 	provider_bintube: true,
-	provider_newzleech: true,
 	provider_nzbs: true,
 	provider_binsearch: true,
 	provider_nzbindex: true,

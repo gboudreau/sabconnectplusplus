@@ -150,25 +150,6 @@
 		},
 		{
 			"matches": [
-				"http://*.newzleech.com/",
-				"http://*.newzleech.com/*",
-				"https://*.newzleech.com/",
-				"https://*.newzleech.com/*",
-				"http://newzleech.com/",
-				"http://newzleech.com/*",
-				"https://newzleech.com/",
-				"https://newzleech.com/*"
-			],
-			"js": [
-				"third_party/jquery/jquery-1.4.2.min.js",
-				"scripts/bind.js",
-				"scripts/content/common.js",
-				"scripts/content/newzleech.js"
-			],
-			"all_frames": true
-		},
-		{
-			"matches": [
 				"http://*.nzbindex.com/",
 				"http://*.nzbindex.com/*",
 				"https://*.nzbindex.com/",

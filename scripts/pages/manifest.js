@@ -102,13 +102,6 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_newzleech',
-			'type': 'checkbox',
-			'label': 'newzleech.com'
-		},
-		{
-			'tab': 'Providers',
-			'group': '1-Click NZB downloading',
 			'name': 'provider_nzbs',
 			'type': 'checkbox',
 			'label': 'nzbs.org'
