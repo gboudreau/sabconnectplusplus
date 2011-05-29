@@ -7,6 +7,7 @@
 <script type="text/javascript" src="third_party/jquery/jquery.jqote.min.js"></script>
 <script type="text/javascript" src="third_party/jquery/jquery-ui-1.7.2.sortable.min.js"></script>
 <script type="text/javascript" src="third_party/jgcharts/jgcharts.pack.js"></script>
+<script type="text/javascript" src="third_party/fancy-settings/lib/store.js"></script>
 <script type="text/javascript" src="scripts/pages/common.js"></script>
 <script type="text/javascript" src="scripts/pages/popup.js"></script>
 
@@ -67,11 +68,11 @@
 
 <div class="menu">
 	<hr />
-	<div onclick="chrome.tabs.create({url: getPref('sab_url')})">Open SABnzbd</div>
+	<div id="open_sabnzbd">Open SABnzbd</div>
 	<hr />
-	<div onclick="chrome.tabs.create({url: 'settings.html'})">Extension Settings</div>
+	<div id="extension_settings">Extension Settings</div>
 	<hr />
-	<div onclick="refresh()">Refresh</div>
+	<div id="refresh">Refresh</div>
 </div>
 </body>
 </html>
