@@ -4,6 +4,7 @@ Feature: This is marked as a major release due to extensive architectural change
 Feature: "Send link to SABnzbd" link added to chrome context menu for http links. Note that this feature is not intended to be used on links that will require authentication.
 Feature: New setting in options page to enable/disable the new context menu.
 Feature: Added support for fanzub
+Change: Removed newzleech support since that website is down.
 Bugfix: Fixed continuous memory leaks happening during refreshes.
 Bugfix: SabConnect++ no longer crashes after a period of time.
 Bugfix: Several script errors eliminated and stability improved.
