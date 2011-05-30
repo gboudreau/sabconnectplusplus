@@ -42,7 +42,7 @@ function handleAllDownloadLinks()
 }
 
 Initialize( 'binsearch', function() {
-	GetControlState( 'use_name_binsearch', function( state ) {
+	GetSetting( 'use_name_binsearch', function( state ) {
 		useNiceName = state;
 	});
 	
