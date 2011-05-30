@@ -1,5 +1,7 @@
 Version 0.5.1
 --------------
+Change: Fresh new icon (the smaller 16x16 icon remains the same)
+Change: 'Notification Timeout' setting now defaults to 10 seconds (previously defaulted to Disabled).
 Bugfix: 'Enable Context Menu' option was not working.
 
 Version 0.5.0

@@ -19,7 +19,7 @@ var defaultSettings = {
 	config_enable_graph: true,
 	config_enable_context_menu: true,
 	config_enable_notifications: true,
-	config_notification_timeout: 0,
+	config_notification_timeout: 10,
 	config_use_category_header: false,
 	config_hard_coded_category: '',
 	config_default_category: ''
@@ -120,13 +120,13 @@ function displayNotificationCallback( data )
 				if (dl.fail_message != '') {
 					var fail_msg = dl.fail_message.split('<')[0];
 					var notification = webkitNotifications.createNotification(
-					  'images/sab2_64.png',
+					  'images/sab2_48.png',
 					  'Download Failed',
 					  dl.name + ': ' + fail_msg
 					);
 				} else {
 					var notification = webkitNotifications.createNotification(
-					  'images/sab2_64.png',
+					  'images/sab2_48.png',
 					  'Download Complete',
 					  dl.name
 					);
