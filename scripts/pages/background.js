@@ -15,6 +15,8 @@ var defaultSettings = {
 	provider_fanzub: true,
 	use_name_binsearch: true,
 	use_name_nzbindex: true,
+	nzbxxx_username: '',
+	nzbxxx_api_key: '',
 	config_refresh_rate: 15,
 	config_enable_graph: true,
 	config_enable_context_menu: true,
