@@ -3,6 +3,7 @@ Version 0.5.0
 Feature: "Send link to SABnzbd" link added to chrome context menu for http links. Note that this feature is not intended to be used on links that will require authentication.
 Feature: New setting in options page to enable/disable the new context menu.
 Feature: Added support for fanzub
+Feature: Completely redesigned Options page
 Change: Removed newzleech support since that website is down.
 Change: Extreme architecture change that fixes many bugs and improves stability.
 Bugfix: Fixed continuous memory leaks happening during refreshes.
