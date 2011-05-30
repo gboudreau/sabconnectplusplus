@@ -58,7 +58,8 @@
 				"scripts/content/common.js",
 				"scripts/content/nzbmatrix.js"
 			],
-			"css": ["css/nzbmatrix.css"]
+			"css": ["css/nzbmatrix.css"],
+			"all_frames": true
 		},
 		{
 			"matches": [

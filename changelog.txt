@@ -1,6 +1,7 @@
 Version 0.5.2
 --------------
 Bugfix: X-DNZB-Category was not working on compatible sites.
+Bugfix: NZBmatrix was not working in iframes (Issue 60)
 
 Version 0.5.1
 --------------
