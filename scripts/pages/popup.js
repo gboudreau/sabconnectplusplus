@@ -50,21 +50,6 @@ function queueItemAction(action, nzoid, callback)
 
 var paused = false;
 var oldPos = -1;
-var gPopupTimer;
-var refreshRate = 0;
-
-function restartTimer() {
-	startTimer(); 
-}
-
-function startTimer()
-{
-	if (gPopupTimer) {
-		clearInterval(gPopupTimer);
-	}
-	
-	gPopupTimer = setInterval( reDrawPopup, getRefreshRate() );
-}
 
 function togglePause() {
 	if (paused) {
@@ -99,7 +84,7 @@ function togglePause() {
 	});	
 }
 
-function func1() {
+function SetupTogglePause() {
 	paused = getPref('paused');
 
 	if (paused) {
@@ -115,11 +100,6 @@ function func1() {
 	$('#togglePause').click(function() {
 		togglePause();
 	});
-
-	// Main function of this html page
-	// Add a load of html using javascript ie sabnzbd queue and details, errors, ect
-	reDrawPopup();
-	startTimer();
 }
 
 function getSortItemPos(id) {
@@ -306,5 +286,5 @@ if (lastOpened > 0) {
 }
 if (!closeWindow) {
 	localStorage["lastOpened"] = nowtime.getTime();
-	window.onload = function() { reDrawPopup(); };
+	window.onload = function() { SetupTogglePause(); reDrawPopup(); };
 }
