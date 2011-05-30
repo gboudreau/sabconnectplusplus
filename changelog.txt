@@ -1,3 +1,7 @@
+Version 0.5.1
+--------------
+Bugfix: 'Enable Context Menu' option was not working.
+
 Version 0.5.0
 --------------
 Feature: "Send link to SABnzbd" link added to chrome context menu for http links. Note that this feature is not intended to be used on links that will require authentication.

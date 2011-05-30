@@ -26,9 +26,8 @@ function OnTestConnectionClicked()
 		.set( 'class', '' )
 		.set( 'html', 'Running...' )
 		;
-		
-	var background = chrome.extension.getBackgroundPage()
-	background.testConnection( checkForErrors );
+
+	background().testConnection( checkForErrors );
 }
 	
 function RefreshControlStates( settings )
@@ -43,8 +42,7 @@ function RefreshControlStates( settings )
 
 function OnResetConfigClicked( settings )
 {
-	var background = chrome.extension.getBackgroundPage();
-	background.resetSettings();
+	background().resetSettings();
 	RefreshControlStates( settings );
 }
 
@@ -62,11 +60,17 @@ function CreateTestConnectionStatusElement( settings )
 	resultDiv.inject( settings.manifest.test_connection.container, 'bottom' );
 }
 
+function OnToggleContextMenu()
+{
+	background().SetupContextMenu()
+}
+
 function InitializeSettings( settings )
 {
 	settings.manifest.config_reset.addEvent( 'action', bind( OnResetConfigClicked, settings ) );
 	settings.manifest.test_connection.addEvent( 'action', OnTestConnectionClicked );
 	settings.manifest.config_refresh_rate.addEvent( 'action', OnRefreshRateChanged );
+	settings.manifest.config_enable_context_menu.addEvent( 'action', OnToggleContextMenu );
 
 	CreateTestConnectionStatusElement( settings );
 }
