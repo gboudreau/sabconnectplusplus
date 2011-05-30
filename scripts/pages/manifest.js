@@ -157,14 +157,14 @@ this.manifest = {
 			'group': 'Display Options',
 			'name': 'use_name_binsearch',
 			'type': 'checkbox',
-			'label': 'binsearch.info: Use NZB filename instead of full name.'
+			'label': 'binsearch.info: Use display name instead of NZB filename.'
 		},
 		{
 			'tab': 'Providers',
 			'group': 'Display Options',
 			'name': 'use_name_nzbindex',
 			'type': 'checkbox',
-			'label': 'nzbindex.com: Use NZB filename instead of full name.'
+			'label': 'nzbindex.com: Use display name instead of NZB filename.'
 		},
 		
 		// Providers Tab, NZBXXX.com section

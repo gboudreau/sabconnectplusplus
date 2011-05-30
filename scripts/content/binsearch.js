@@ -1,4 +1,4 @@
-var use_nice_name_binsearch;
+var useNiceName;
 
 function addToSABnzbdFromBinsearch()
 {
@@ -21,7 +21,7 @@ function addToSABnzbdFromBinsearch()
 			} else {
 				var category = categories;
 			}
-			if (use_nice_name_binsearch == '1') {
+			if( useNiceName ) {
 				var nice_name = $(a[i]).parent().parent().find('td')[2].getElementsByTagName('span')[0].innerText;
 			}
 			addToSABnzbd(addLink, 'http://binsearch.info/?action=nzb&' + a[i].name + '=1', "addurl", nice_name, category);

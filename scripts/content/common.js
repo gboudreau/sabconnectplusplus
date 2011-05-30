@@ -62,13 +62,13 @@ function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 function GetSetting( setting, callback )
 {
 	var request = {
-		action: 'get_control_state',
+		action: 'get_setting',
 		name: setting
 	}
 	
 	chrome.extension.sendRequest( request, function( value ) {
-		if( typeof value == 'undefined' ) {
-			throw 'GetSetting(): ' + setting + ' is undefined';
+		if( typeof value == 'undefined' || value == null ) {
+			throw 'GetSetting(): ' + setting + ' could not be found.';
 		}
 		else {
 			callback( value );
