@@ -1,3 +1,7 @@
+Version 0.5.2
+--------------
+Bugfix: X-DNZB-Category was not working on compatible sites.
+
 Version 0.5.1
 --------------
 Change: Fresh new icon (the smaller 16x16 icon remains the same)

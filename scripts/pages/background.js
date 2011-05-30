@@ -308,6 +308,40 @@ function startTimer()
 	}
 }
 
+function DoesSiteSupportCatHeader( nzburl )
+{
+	var supported = false;
+	for (var i=0; i<category_header_sites.length; i++) {
+		if (nzburl.indexOf(category_header_sites[i]) != -1) {
+			supported = true;
+			break;
+		}
+	}
+	
+	console.log( 'site_supports_category_header = ' + supported );
+	return supported;
+}
+
+function SetupCategoryHeader( request, data, nzburl )
+{
+	// Only use auto-categorization if "Use X-DNZB-Category" is false (0), or if the index site doesn't support the X-DNZB-Category HTTP header
+	var useCatHeader = store.get('config_use_category_header');
+	console.log( 'config_use_category_header = ' + useCatHeader );
+	
+	if( !useCatHeader || !DoesSiteSupportCatHeader( nzburl ) ) {
+		var hardcodedCategory = store.get( 'config_hard_coded_category' );
+		var defaultCategory = store.get( 'config_default_category' );
+		
+		if( hardcodedCategory ) {
+			data.cat = hardcodedCategory;
+		} else if( request.category ) {
+			data.cat = request.category;
+		} else if( defaultCategory ) {
+			data.cat = defaultCategory;
+		}
+	}
+}
+
 function addToSABnzbd(cb, request) {
 	var nzburl = request.nzburl;
 	var mode = request.mode;
@@ -322,33 +356,7 @@ function addToSABnzbd(cb, request) {
 		data.nzbname = nzbname;
 	}
 	
-	// Only use auto-categorization if "Use X-DNZB-Category" is false (0), or if the index site doesn't support the X-DNZB-Category HTTP header
-	var useCatHeader = store.get('config_use_category_header');
-	console.log('use_category_header=');
-	console.log( useCatHeader );
-	if( useCatHeader !== false ) {
-		var site_supports_category_header = false;
-		for (var i=0; i<category_header_sites.length; i++) {
-			if (nzburl.indexOf(category_header_sites[i]) != -1) {
-				site_supports_category_header = true;
-				break;
-			}
-		}
-		console.log('site_supports_category_header=');
-		console.log(site_supports_category_header);
-	}
-	if (useCatHeader === true || !site_supports_category_header) {
-		var hardcodedCategory = store.get( 'config_hard_coded_category' );
-		var defaultCategory = store.get( 'config_default_category' );
-		
-		if( hardcodedCategory.length !== 0 ) {
-			data.cat = hardcodedCategory;
-		} else if( request.category ) {
-			data.cat = request.category;
-		} else if( defaultCategory.length !== 0 ) {
-			data.cat = defaultCategory;
-		} 
-	}
+	SetupCategoryHeader( request, data, nzburl );
 
 	$.ajax({
 		type: "GET",
