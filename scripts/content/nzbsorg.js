@@ -154,6 +154,6 @@ function handleAllDownloadLinks() {
 	});	
 }
 
-Initialize( 'nzbs', function() {
+Initialize( 'nzbs', null, function() {
 	handleAllDownloadLinks();
 });

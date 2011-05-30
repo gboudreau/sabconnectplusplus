@@ -27,6 +27,6 @@ function handleAllDownloadLinks() {
 	});
 }
 
-Initialize( 'fanzub', function() {
+Initialize( 'fanzub', null, function() {
 	handleAllDownloadLinks();
 });

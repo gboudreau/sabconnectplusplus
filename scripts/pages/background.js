@@ -15,6 +15,8 @@ var defaultSettings = {
 	provider_fanzub: true,
 	use_name_binsearch: true,
 	use_name_nzbindex: true,
+	nzbxxx_username: '',
+	nzbxxx_api_key: '',
 	config_refresh_rate: 15,
 	config_enable_graph: true,
 	config_enable_context_menu: true,
@@ -419,4 +421,14 @@ function onRequest( request, sender, callback )
 	}
 };
 
-chrome.extension.onRequest.addListener( onRequest );
+//chrome.extension.onRequest.addListener( onRequest );
+
+/*function OnMessage( port, msg )
+{
+}
+
+chrome.extension.onConnect.addListener( function( port ) {
+	if( port.name == 'content_script' ) {
+		port.onMessage.addListener( bind( OnMessage, port, _1 ) );
+	}
+});*/

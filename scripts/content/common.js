@@ -76,7 +76,16 @@ function GetSetting( setting, callback )
 	});
 }
 
-function Initialize( provider, callback )
+var refresh_func = null;
+
+function CallRefreshFunction()
+{
+	if( refresh_func ) {
+		refresh_func();
+	}
+}
+
+function Initialize( provider, refresh_function, callback )
 {
 	var request = {
 		action: 'initialize',
@@ -84,4 +93,18 @@ function Initialize( provider, callback )
 	}
 	
 	chrome.extension.sendRequest( request, callback );
+	
+	refresh_func = refresh_function
+	CallRefreshFunction();
 }
+
+function onRefreshRequest( request, sender, callback )
+{
+	switch( request.action ) {
+	case 'refresh_settings':
+		CallRefreshFunction();
+		break;
+	}
+};
+
+chrome.extension.onRequest.addListener( onRefreshRequest );

@@ -69,8 +69,8 @@ function handleAllDownloadLinks() {
 	});
 }
 
-Initialize( 'nzbmatrix', function() {
-
+function RefreshSettings()
+{
 	GetSetting( 'nzbxxx_api_key', function( value ) {
 		nzbxxx_apikey = value;
 	});
@@ -78,6 +78,8 @@ Initialize( 'nzbmatrix', function() {
 	GetSetting( 'nzbxxx_username', function( value ) {
 		nzbxxx_username = value
 	});
-	
+}
+
+Initialize( 'nzbmatrix', RefreshSettings, function() {
 	handleAllDownloadLinks();
 });

@@ -41,10 +41,13 @@ function handleAllDownloadLinks()
 	});
 }
 
-Initialize( 'binsearch', function() {
+function RefreshSettings()
+{
 	GetSetting( 'use_name_binsearch', function( state ) {
 		useNiceName = state;
 	});
-	
+}
+
+Initialize( 'binsearch', RefreshSettings, function() {
 	handleAllDownloadLinks();
 });

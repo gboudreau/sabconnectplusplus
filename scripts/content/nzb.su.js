@@ -97,6 +97,6 @@ function handleAllDownloadLinks() {
 	});
 }
 
-Initialize( 'nzb', function() {
+Initialize( 'nzb', null, function() {
 	handleAllDownloadLinks();
 });
