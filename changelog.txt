@@ -1,6 +1,6 @@
-Version 0.5.2
+Version 0.5.3
 --------------
-
+Change: If options are changed in the extension, tabs currently open for indexer sites automatically pick up those changes. Previously the website had to be refreshed by the user to pick up changes in options (such as nzbxxx username & api key).
 
 Version 0.5.2
 --------------

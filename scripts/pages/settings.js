@@ -66,13 +66,22 @@ function OnToggleContextMenu()
 	background().SetupContextMenu()
 }
 
+function NotifyTabRefresh()
+{
+	chrome.windows.getAll( {populate: true}, function( windows ) {
+		Array.each( windows, function( window ) {
+			Array.each( window.tabs, function( tab ) {
+				chrome.tabs.sendRequest( tab.id, { action: 'refresh_settings' } );
+			});
+		});
+	});
+}
+
 function RegisterContentScriptNotifyHandlers( settings )
 {
 	Object.each( settings.manifest, function( setting ) {
 		if( setting.params.type !== 'button' ) {
-			setting.addEvent( 'action', function( value ) {
-				chrome.extension.sendRequest( { action: 'refresh_settings' } );
-			});
+			setting.addEvent( 'action', NotifyTabRefresh );
 		}
 	});
 }
