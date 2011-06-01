@@ -282,10 +282,8 @@ function refresh( quick, callback )
 }
 
 var gTimer;
-var globalContext = new Object();
 
 $(document).ready(function() {
-	globalContext.config = localStorage;
 	startTimer();
 });
 
@@ -344,7 +342,7 @@ function SetupCategoryHeader( request, data, nzburl )
 	}
 }
 
-function addToSABnzbd(cb, request) {
+function addToSABnzbd( request, response ) {
 	var nzburl = request.nzburl;
 	var mode = request.mode;
 	var nzbname = request.nzbname;
@@ -368,8 +366,8 @@ function addToSABnzbd(cb, request) {
 		password : store.get( 'sabnzbd_password' ),
 		data: data,
 		dataType: 'json',
-		success: function() { cb({ret: 'success', data: data}) },
-		error: function() { cb({ret: 'error'}) }
+		success: function() { response.ret = 'success'; response.data = data; },
+		error: function() { response.ret = 'error'; }
 	});
 	
 	fetchInfo(true);
@@ -380,45 +378,38 @@ function refreshRateChanged()
 	restartTimer();
 }
 
-function InitializeContentScript( request, callback )
+function InitializeContentScript( request, response )
 {
-	if( request.provider )
-	{
+	if( request.provider ) {
 		var setting = 'provider_' + request.provider;
-		if( store.get( setting ) )
-		{
-			callback();
-		}
+		response.enabled = store.get( setting );
 	}
 }
 
-function GetSetting( request, callback )
+function GetSetting( request, response )
 {
-	callback( store.get( request.name ) );
+	response.value = store.get( request.setting );
 }
 
-/**
-* Handles data sent via chrome.extension.sendRequest().
-* @param request Object Data sent in the request.
-* @param sender Object Origin of the request.
-* @param callback Function The method to call when the request completes.
-*/
-function onRequest( request, sender, callback )
+function OnRequest( request, sender, sendResponse )
 {
+	var response = {
+		response: request.action
+	}
+	
 	switch( request.action ) {
 	case 'initialize':
-		InitializeContentScript( request, callback );
+		InitializeContentScript( request, response );
 		break;
 	case 'get_setting':
-		GetSetting( request, callback );
-		break;
-	case 'saveContext':
-		globalContext = request.value;
+		GetSetting( request, response );
 		break;
 	case 'addToSABnzbd':
-		addToSABnzbd( callback, request );
+		addToSABnzbd( request, response );
 		break;
 	}
-};
+	
+	sendResponse( response );
+}
 
-chrome.extension.onRequest.addListener( onRequest );
+chrome.extension.onRequest.addListener( OnRequest );

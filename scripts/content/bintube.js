@@ -29,6 +29,6 @@ function handleAllDownloadLinks() {
 	return;
 }
 
-Initialize( 'bintube', function() {
+Initialize( 'bintube', null, function() {
 	handleAllDownloadLinks();
 });

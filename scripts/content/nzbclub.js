@@ -22,6 +22,6 @@ function handleAllDownloadLinks() {
 	return;
 }
 
-Initialize( 'nzbclub', function() {
+Initialize( 'nzbclub', null, function() {
 	handleAllDownloadLinks();
 });

@@ -77,7 +77,7 @@ function handleAllDownloadLinks() {
 }
 
 $(document).ready(function() {
-	Initialize( 'newzbin', function() {
+	Initialize( 'newzbin', null, function() {
 		handleAllDownloadLinks();
 	});
 });

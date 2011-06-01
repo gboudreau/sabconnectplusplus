@@ -72,10 +72,13 @@ function handleAllDownloadLinks() {
     $('.addSABnzbdOnClick').click(addToSABnzbdFromNzbindex);
 }
 
-Initialize( 'nzbindex', function() {
+function RefreshSettings()
+{
 	GetSetting( 'use_name_nzbindex', function( value ) {
 		use_nice_name_nzbindex = value;
 	});
-	
+}
+
+Initialize( 'nzbindex', RefreshSettings, function() {
 	handleAllDownloadLinks();
 });

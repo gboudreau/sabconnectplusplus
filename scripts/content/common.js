@@ -33,40 +33,42 @@ function onResponseAdd( response, addLink )
 		}
 		break;
 	default:
-		alert("Oops! Something went wrong. Try again.");
+		alert("SABconnect: Oops! Something went wrong. Try again.");
 	}
 }
 
 function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 	
-	var req = {
+	var request = {
 		action: 'addToSABnzbd',
 		nzburl: nzburl,
 		mode: mode
 	};
 	
 	if (typeof nice_name != 'undefined' && nice_name != null) {
-		req.nzbname = nice_name;
+		request.nzbname = nice_name;
 	}
 
 	if (typeof category != 'undefined' && category != null) {
-		req.category = category;
+		request.category = category;
 	}
 	
 	console.log("Sending to SABnzbd:");
-	console.log(req);
-
-	chrome.extension.sendRequest( req, bind( onResponseAdd, _1, addLink ) );
+	console.log(request);
+	
+	chrome.extension.sendRequest( request, bind( onResponseAdd, _1, addLink ) );
 }
 
 function GetSetting( setting, callback )
 {
 	var request = {
 		action: 'get_setting',
-		name: setting
+		setting: setting
 	}
 	
-	chrome.extension.sendRequest( request, function( value ) {
+	chrome.extension.sendRequest( request, function( response ) {
+		var value = response.value;
+		
 		if( typeof value == 'undefined' || value == null ) {
 			throw 'GetSetting(): ' + setting + ' could not be found.';
 		}
@@ -76,12 +78,42 @@ function GetSetting( setting, callback )
 	});
 }
 
-function Initialize( provider, callback )
+var refresh_func = null;
+
+function CallRefreshFunction()
+{
+	if( refresh_func ) {
+		refresh_func();
+	}
+}
+
+function Initialize( provider, refresh_function, callback )
 {
 	var request = {
 		action: 'initialize',
-		'provider': provider
+		provider: provider
 	}
 	
-	chrome.extension.sendRequest( request, callback );
+	chrome.extension.sendRequest( request, function( response ) {
+		if( response.enabled ) {
+			callback();
+		}
+		else {
+			console.info( 'SABconnect: 1-click functionality for this site is disabled' );
+		}
+	});
+	
+	refresh_func = refresh_function
+	CallRefreshFunction();
 }
+
+function OnRequest( request, sender, onResponse )
+{
+	switch( request.action ) {
+	case 'refresh_settings':
+		CallRefreshFunction();
+		break;
+	}
+};
+
+chrome.extension.onRequest.addListener( OnRequest );

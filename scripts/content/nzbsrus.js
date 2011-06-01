@@ -142,6 +142,6 @@ function handleAllDownloadLinks() {
 	});	
 }
 
-Initialize( 'nzbsrus', function() {
+Initialize( 'nzbsrus', null, function() {
 	handleAllDownloadLinks();
 });

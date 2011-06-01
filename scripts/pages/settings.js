@@ -1,6 +1,7 @@
 var store = new Store( 'settings' );
 
-function checkForErrors() {
+function checkForErrors()
+{
 	// Called after a request to SABnzbd's api has been tried, 'error' should be set if there was an error
 	var error = getPref('error');
 	if(error) {
@@ -65,6 +66,26 @@ function OnToggleContextMenu()
 	background().SetupContextMenu()
 }
 
+function NotifyTabRefresh()
+{
+	chrome.windows.getAll( {populate: true}, function( windows ) {
+		Array.each( windows, function( window ) {
+			Array.each( window.tabs, function( tab ) {
+				chrome.tabs.sendRequest( tab.id, { action: 'refresh_settings' } );
+			});
+		});
+	});
+}
+
+function RegisterContentScriptNotifyHandlers( settings )
+{
+	Object.each( settings.manifest, function( setting ) {
+		if( setting.params.type !== 'button' ) {
+			setting.addEvent( 'action', NotifyTabRefresh );
+		}
+	});
+}
+
 function InitializeSettings( settings )
 {
 	settings.manifest.config_reset.addEvent( 'action', bind( OnResetConfigClicked, settings ) );
@@ -73,8 +94,9 @@ function InitializeSettings( settings )
 	settings.manifest.config_enable_context_menu.addEvent( 'action', OnToggleContextMenu );
 
 	CreateTestConnectionStatusElement( settings );
+	RegisterContentScriptNotifyHandlers( settings );
 }
 
-window.addEvent("domready", function () {
+window.addEvent( 'domready', function () {
 	new FancySettings.initWithManifest( InitializeSettings );
 });
