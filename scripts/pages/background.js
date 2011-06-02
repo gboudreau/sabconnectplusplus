@@ -342,7 +342,7 @@ function SetupCategoryHeader( request, data, nzburl )
 	}
 }
 
-function addToSABnzbd( request, response ) {
+function addToSABnzbd( request, sendResponse ) {
 	var nzburl = request.nzburl;
 	var mode = request.mode;
 	var nzbname = request.nzbname;
@@ -366,8 +366,8 @@ function addToSABnzbd( request, response ) {
 		password : store.get( 'sabnzbd_password' ),
 		data: data,
 		dataType: 'json',
-		success: function() { response.ret = 'success'; response.data = data; },
-		error: function() { response.ret = 'error'; }
+		success: function() { sendResponse( {ret: 'success', data: data } ); },
+		error: function() { sendResponse( {ret: 'error' } ); }
 	});
 	
 	fetchInfo(true);
@@ -405,8 +405,8 @@ function OnRequest( request, sender, sendResponse )
 		GetSetting( request, response );
 		break;
 	case 'addToSABnzbd':
-		addToSABnzbd( request, response );
-		break;
+		addToSABnzbd( request, sendResponse );
+		return;
 	}
 	
 	sendResponse( response );
