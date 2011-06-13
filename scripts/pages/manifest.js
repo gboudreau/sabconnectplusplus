@@ -254,6 +254,13 @@ this.manifest = {
 		{
 			'tab': 'Configuration',
 			'group': 'General',
+			'name': 'config_enable_automatic_authentication',
+			'type': 'checkbox',
+			'label': 'Enable Automatic Authentication (insecure)'
+		},
+		{
+			'tab': 'Configuration',
+			'group': 'General',
 			'name': 'config_reset',
 			'type': 'button',
 			'label': 'Click to reset all settings to default:',

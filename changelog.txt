@@ -1,5 +1,6 @@
 Version 0.5.3
 --------------
+Feature: New option to enable automatic authentication. This feature automatically provides your SABnzbd username & password to SABnzbd through URL parameters so you don't have to type in your username & password manually when you click the "Open SABnzbd" button in the popup. Enabled by default.
 Change: If options are changed in the extension, tabs currently open for indexer sites automatically pick up those changes. Previously the website had to be refreshed by the user to pick up changes in options (such as nzbxxx username & api key).
 
 Version 0.5.2

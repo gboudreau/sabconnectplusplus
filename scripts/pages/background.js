@@ -24,7 +24,8 @@ var defaultSettings = {
 	config_notification_timeout: 10,
 	config_use_category_header: false,
 	config_hard_coded_category: '',
-	config_default_category: ''
+	config_default_category: '',
+	config_enable_automatic_authentication: true,
 };
 
 var store = new Store( 'settings', defaultSettings );

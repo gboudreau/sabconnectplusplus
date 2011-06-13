@@ -262,7 +262,23 @@ function reDrawPopup() {
 
 $(document).ready( function() {
 	$('#open_sabnzbd').click( function() {
-		chrome.tabs.create( { url: store.get( 'sabnzbd_url' ) } );
+		var url = $.url.parse( store.get( 'sabnzbd_url' ) );
+		
+		var build = {
+			protocol: 'http',
+			host: url.host,
+			port: url.port,
+			path: url.path,
+		}
+		
+		if( store.get( 'config_enable_automatic_authentication' ) ) {
+			build.user = store.get( 'sabnzbd_username' );
+			build.password = store.get( 'sabnzbd_password' );
+		}
+		
+		var test = $.url.build( build );
+		
+		chrome.tabs.create( { url: $.url.build( build ) } );
 	});
 
 	$('#extension_settings').click( function() {
