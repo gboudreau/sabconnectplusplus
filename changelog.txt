@@ -1,3 +1,6 @@
+Version 0.5.4
+--------------
+
 Version 0.5.3
 --------------
 Feature: New option to enable automatic authentication. This feature automatically provides your SABnzbd username & password to SABnzbd through URL parameters so you don't have to type in your username & password manually when you click the "Open SABnzbd" button in the popup. Enabled by default.
