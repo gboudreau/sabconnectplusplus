@@ -274,7 +274,7 @@ this.manifest = {
 			'name': 'config_category_summary',
 			'type': 'description',
 			'text':
-					'Below are the category settings provided by SABconnect++. For more information retarding categories,\
+					'Below are the category settings provided by SABconnect++. For more information regarding categories,\
 					please read the <a href="http://code.google.com/p/sabconnectplusplus/wiki/Categories">wiki page</a>\
 					for more information.'
 		},
