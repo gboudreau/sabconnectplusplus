@@ -271,6 +271,16 @@ this.manifest = {
 		{
 			'tab': 'Configuration',
 			'group': 'Categories',
+			'name': 'config_category_summary',
+			'type': 'description',
+			'text':
+					'Below are the category settings provided by SABconnect++. For more information retarding categories,\
+					please read the <a href="http://code.google.com/p/sabconnectplusplus/wiki/Categories">wiki page</a>\
+					for more information.'
+		},
+		{
+			'tab': 'Configuration',
+			'group': 'Categories',
 			'name': 'config_use_category_header',
 			'type': 'checkbox',
 			'label': 'Use X-DNZB-Category HTTP header instead of auto-categorization\
