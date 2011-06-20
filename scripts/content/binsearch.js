@@ -22,7 +22,10 @@ function addToSABnzbdFromBinsearch()
 				var category = categories;
 			}
 			if( useNiceName ) {
-				var nice_name = $(a[i]).parent().parent().find('td')[2].getElementsByTagName('span')[0].innerText;
+				var nice_name = document.getElementsByName("q")[0].value;
+				if (!nice_name.length) {			
+					nice_name = $(a[i]).parent().parent().find('td')[2].getElementsByTagName('span')[0].innerText;
+				}
 			}
 			addToSABnzbd(addLink, 'http://binsearch.info/?action=nzb&' + a[i].name + '=1', "addurl", nice_name, category);
 		}
