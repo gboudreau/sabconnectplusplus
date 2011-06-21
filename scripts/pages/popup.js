@@ -265,7 +265,7 @@ $(document).ready( function() {
 		var url = $.url.parse( store.get( 'sabnzbd_url' ) );
 		
 		var build = {
-			protocol: 'http',
+			protocol: url.protocol,
 			host: url.host,
 			port: url.port,
 			path: url.path,
