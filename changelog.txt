@@ -2,6 +2,7 @@ Version 0.5.4
 --------------
 Change: The "nice names" for binsearch.info have been simplified. Thanks to "thibaut....@gmail.com" for this.
 Change: The Categories section of the Configuration tab in Options now has a summary paragraph with a link to the Categories wiki page on our Google Code project page.
+Bugfix: (Regression) [Issue 77] "Open SABnzbd" link in the popup was not working for https connections.
 
 Version 0.5.3
 --------------
