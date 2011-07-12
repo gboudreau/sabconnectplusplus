@@ -83,7 +83,7 @@ function handleAllDownloadLinks() {
 		$(this).click(addToSABnzbdFromNZBdotsu);
     });
 
-	$('a[title="Download Nzb"]').each(function() {
+	$.merge($('a[title="Download Nzb"]'), $('a[title="Download NZB"]')).each(function() {
 		// Change the title to "Send to SABnzbd"
 		$(this).attr("title", "Send to SABnzbd");
 
