@@ -322,6 +322,13 @@ $(document).ready( function() {
 		setMaxSpeed( $('#speed-input').val() );
 	});
 	
+	$('#speed-input').keydown( function( event ) {
+		var code = event.keyCode || event.which;
+		if( code == 13 ) { // Enter pressed
+			setMaxSpeed( $('#speed-input').val() );
+		}
+	});
+	
 	setMaxSpeedText();
 });
 
