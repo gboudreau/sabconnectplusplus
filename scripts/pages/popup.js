@@ -6,6 +6,24 @@ function refresh()
 	background.refresh();
 }
 
+/// @param speed Maximum speed in Kbps
+function setMaxSpeed( speed )
+{
+	var background = chrome.extension.getBackgroundPage();
+	background.setMaxSpeed( speed, undefined, setSpeedFailure );
+}
+
+function setSpeedFailure( XMLHttpRequest, textStatus, errorThrown )
+{
+	alert( 'Failed to set max speed.' );
+}
+
+function getMaxSpeed( success_callback )
+{
+	var background = chrome.extension.getBackgroundPage();
+	background.getMaxSpeed( success_callback );
+}
+
 function moveQueueItem(nzoid, pos)
 {
 	var sabApiUrl = constructApiUrl();
@@ -288,6 +306,14 @@ $(document).ready( function() {
 	$('#refresh').click( function() {
 		refresh();
 	});
+	
+	$('#set-speed').click( function() {
+		setMaxSpeed( $('#speed-input').val() );
+	});
+	
+	/*getMaxSpeed( function( data ) {
+		$('#speed-input').val( data.speedlimit );
+	});*/
 });
 
 var nowtime = new Date();

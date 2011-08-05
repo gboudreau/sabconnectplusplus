@@ -220,9 +220,13 @@ function testConnection( callback )
  */
 function fetchInfo( quickUpdate, callback )
 {
+	var params = {
+		mode: 'queue',
+		limit: '5'
+	};
+	
 	sendSabRequest(
-		'queue',
-		'5',
+		params,
 		bind( fetchInfoSuccess, _1, quickUpdate, callback ),
 		bind( fetchInfoError, _1, _2, _3, callback )
 		);
@@ -231,26 +235,46 @@ function fetchInfo( quickUpdate, callback )
 function displayNotifications()
 {
 	if( store.get('config_enable_notifications') === true ) {
-		sendSabRequest(
-			'history',
-			'10',
-			displayNotificationCallback
-			);
+		var params = {
+			mode: 'history',
+			limit: '10'
+		};
+		
+		sendSabRequest( params, displayNotificationCallback );
 	}
 }
 
-function sendSabRequest( mode, limit, success_callback, error_callback )
+function setMaxSpeed( speed, success_callback, error_callback )
+{
+	var params = {
+		mode: 'config',
+		name: 'speedlimit',
+		value: speed
+	};
+	
+	sendSabRequest( params, success_callback, error_callback );
+}
+
+function getMaxSpeed( success_callback )
+{
+	var params = {
+		mode: 'get_config',
+		name: 'speedlimit'
+	};
+	
+	sendSabRequest( params, success_callback );
+}
+
+function sendSabRequest( params, success_callback, error_callback )
 {
 	var sabApiUrl = constructApiUrl();
 	var data = constructApiPost();
-	
-	data.mode = mode;
 	data.output = 'json';
-	data.limit = limit;
+	
 	$.ajax({
 		type: "GET",
 		url: sabApiUrl,
-		data: data,
+		data: combine( data, params ),
 		username: store.get('sabnzbd_username'),
 		password: store.get('sabnzbd_password'),
 		dataType: 'json',

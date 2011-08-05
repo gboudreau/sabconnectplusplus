@@ -159,3 +159,8 @@ li.highlight {
     border: 1px solid #ff8383;
     margin: 4px 0 20px 0;
 }
+
+#speed-input
+{
+	width: 50px;
+}

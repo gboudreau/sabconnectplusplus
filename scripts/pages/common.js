@@ -58,3 +58,15 @@ function getRefreshRate()
 {
 	return parseInt( background().store.get( 'config_refresh_rate' ) ) * 1000;
 }
+
+/// Used to merge two associative arrays.
+function combine( dst, src )
+{
+	for( var property in src ) {
+		if( src.hasOwnProperty( property ) ) {
+			dst[property] = src[property];
+		}
+	}
+	
+	return dst;
+}
