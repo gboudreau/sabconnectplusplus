@@ -6,16 +6,27 @@ function refresh()
 	background.refresh();
 }
 
+function setMaxSpeedText()
+{
+	getMaxSpeed( function( data ) {
+		$('#speed-input').val( data.speedlimit );
+	});
+}
+
 /// @param speed Maximum speed in Kbps
 function setMaxSpeed( speed )
 {
 	var background = chrome.extension.getBackgroundPage();
-	background.setMaxSpeed( speed, undefined, setSpeedFailure );
-}
-
-function setSpeedFailure( XMLHttpRequest, textStatus, errorThrown )
-{
-	alert( 'Failed to set max speed.' );
+	background.setMaxSpeed( speed,
+		// Success
+		function() {
+			setMaxSpeedText();
+		},
+		// Failure
+		function( XMLHttpRequest, textStatus, errorThrown ) {
+			alert( 'Failed to set max speed.' );
+		}
+	);
 }
 
 function getMaxSpeed( success_callback )
@@ -311,9 +322,7 @@ $(document).ready( function() {
 		setMaxSpeed( $('#speed-input').val() );
 	});
 	
-	/*getMaxSpeed( function( data ) {
-		$('#speed-input').val( data.speedlimit );
-	});*/
+	setMaxSpeedText();
 });
 
 var nowtime = new Date();

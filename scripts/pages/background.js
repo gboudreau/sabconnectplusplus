@@ -258,8 +258,8 @@ function setMaxSpeed( speed, success_callback, error_callback )
 function getMaxSpeed( success_callback )
 {
 	var params = {
-		mode: 'get_config',
-		name: 'speedlimit'
+		mode: 'config',
+		name: 'get_speedlimit'
 	};
 	
 	sendSabRequest( params, success_callback );
