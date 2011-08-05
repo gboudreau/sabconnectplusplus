@@ -1,6 +1,6 @@
 Version 0.5.5
 --------------
-Feature: [Issue 51]: Max Speed for SABnzbd can now be set in the popup.
+Feature: [Issue 51]: Max Speed for SABnzbd can now be set in the popup. You can press the ENTER key in the input field to accept the changes or click the "Set" button.
 Bugfix: [Issue 81]: nzb.su anime series page doesn't have 1-click.
 
 Version 0.5.4
