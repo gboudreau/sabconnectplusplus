@@ -1,3 +1,7 @@
+Version 0.5.6
+--------------
+
+
 Version 0.5.5
 --------------
 Feature: [Issue 51]: Max Speed for SABnzbd can now be set in the popup. You can press the ENTER key in the input field to accept the changes or click the "Set" button.
