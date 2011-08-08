@@ -43,6 +43,7 @@ function changeProfile( profileName )
 	var profiles = store.get( 'profiles' );
 	var profile = profiles[profileName];
 	if( profile ) {
+		store.set( 'profile_name', profileName );
 		store.set( 'sabnzbd_url', profile.url );
 		store.set( 'sabnzbd_api_key', profile.api_key );
 		store.set( 'sabnzbd_username', profile.username );
