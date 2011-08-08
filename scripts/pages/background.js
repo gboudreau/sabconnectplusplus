@@ -26,6 +26,9 @@ var defaultSettings = {
 	config_hard_coded_category: '',
 	config_default_category: '',
 	config_enable_automatic_authentication: true,
+	profiles: {},
+	active_profile: '',
+	first_profile_initialized: false,
 };
 
 var store = new Store( 'settings', defaultSettings );
@@ -33,6 +36,20 @@ var store = new Store( 'settings', defaultSettings );
 function resetSettings()
 {
 	store.fromObject( defaultSettings );
+}
+
+function changeProfile( profileName )
+{
+	var profiles = store.get( 'profiles' );
+	var profile = profiles[profileName];
+	if( profile ) {
+		store.set( 'sabnzbd_url', profile.url );
+		store.set( 'sabnzbd_api_key', profile.api_key );
+		store.set( 'sabnzbd_username', profile.username );
+		store.set( 'sabnzbd_password', profile.password );
+	}
+	
+	store.set( 'active_profile', profileName );
 }
 
 //file size formatter - takes an input in bytes
@@ -437,4 +454,52 @@ function OnRequest( request, sender, sendResponse )
 	sendResponse( response );
 }
 
-chrome.extension.onRequest.addListener( OnRequest );
+/// This function is limited usefulness and will be removed in
+/// a future version. This takes the current connection info
+/// and creates a default profile out of it for users updating to
+/// version 0.5.6
+function setupFirstTimeDefaultProfile()
+{
+	try {
+		var profiles = new ProfileManager();
+		profiles.add( 'Default' );
+		store.set( 'active_profile', 'Default' );
+	}
+	catch( e ) {
+		if( e == 'already_exists' ) {
+			alert( 'Default profile already exists for some reason. File a bug report on our Google Code page about this please.' );
+		}
+		else {
+			throw e;
+		}
+	}
+}
+
+function initializeProfile()
+{
+	var firstProfileInitialized = store.get( 'first_profile_initialized' );
+	if( !firstProfileInitialized ) {
+		setupFirstTimeDefaultProfile();
+		store.set( 'first_profile_initialized', true );
+		return;
+	}
+	
+	var activeProfile = store.get( 'active_profile' );
+	var profiles = store.get( 'profiles' );
+	if( !profiles.hasOwnProperty( activeProfile ) ) {
+		// For some reason the active profile does not exist
+		console.error( 'Profile \'' + activeProfile + '\' was not found in the list of existing profiles. A new active profile was chosen.' );
+		activeProfile = first( profiles );
+	}
+	
+	changeProfile( activeProfile );
+}
+
+function initializeBackgroundPage()
+{
+	chrome.extension.onRequest.addListener( OnRequest );
+	initializeProfile();
+}
+
+initializeBackgroundPage();
+
