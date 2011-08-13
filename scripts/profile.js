@@ -2,14 +2,11 @@ function ProfileManager()
 {
 }
 
-/// Creates a new profile initialized to the current values specified
-/// in the URL, API Key, Username, and Password fields in the options
-/// page.
-/// Note that the profile will not be added if another profile with the
-/// same name already exists. If add is called and the profile already
-/// exists with that name, an exception is thrown that is a string named
-/// 'already_exists'.
-/// @param profileName The name of the new profile.
+ProfileManager.prototype.count = function()
+{
+	return store.get( 'profiles' ).length;
+}
+
 ProfileManager.prototype.add = function( profileName, values )
 {
 	var profiles = store.get( 'profiles' );
@@ -19,7 +16,6 @@ ProfileManager.prototype.add = function( profileName, values )
 	
 	profiles[profileName] = values;
 	store.set( 'profiles', profiles );
-	return true;
 }
 
 ProfileManager.prototype.edit = function( profileName, values )
@@ -51,15 +47,43 @@ ProfileManager.prototype.remove = function( profileName )
 		throw 'profile_missing';
 	}
 	
-	delete profiles[selectedProfile];
+	delete profiles[profileName];
 	store.set( 'profiles', profiles );
+	
+	var newActive = first( profiles );
+	this.setActiveProfile( newActive );
+	return newActive;
+}
+
+ProfileManager.prototype.getProfile = function( profileName )
+{
+	if( !profileName ) {
+		return null;
+	}
+	
+	var profiles = store.get( 'profiles' );
+	var profile = profiles[profileName];
+	
+	if( !profile ) {
+		return null;
+	}
+	
+	return {
+		'name': profileName,
+		'values': profiles[profileName]
+	};
 }
 
 ProfileManager.prototype.getActiveProfile = function()
 {
-	var activeProfile = store.get( 'active_profile' );
-	var profiles = store.get( 'profiles' );
-	return profiles[activeProfile];
+	var profileName = store.get( 'active_profile' );
+	return this.getProfile( profileName );
+}
+
+ProfileManager.prototype.getFirstProfile = function()
+{
+	var profileName = first( store.get( 'profiles' ) );
+	return this.getProfile( profileName );
 }
 
 ProfileManager.prototype.setActiveProfile = function( profileName )

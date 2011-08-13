@@ -1,6 +1,5 @@
 var store = new Store( 'settings' );
 var popup = null;
-var profiles = new ProfileManager();
 var settings = null;
 
 var profileMissingErrorMsg =
@@ -82,7 +81,7 @@ function OnTestConnectionClicked()
 		.set( 'html', 'Running...' )
 		;
 
-	background().testConnection( checkForErrors );
+	background().testConnection( getConnectionValues(), checkForErrors );
 }
 	
 function RefreshControlStates( settings )
@@ -144,32 +143,30 @@ function SetupConnectionProfiles( settings )
 {
 	popup = new ProfilePopup( settings );
 	
-	var profiles = store.get( 'profiles' );
-	for( var p in profiles ) {
+	var profileNames = store.get( 'profiles' );
+	for( var p in profileNames ) {
 		popup.add( p );
 	}
 
-	var profile = this.profiles.getActiveProfile();
-	if( profile) {
-		popup.setSelection( store.get( 'active_profile' ) );
-		
-		settings.manifest.sabnzbd_url.set( profile.url );
-		settings.manifest.sabnzbd_api_key.set( profile.api_key );
-		settings.manifest.sabnzbd_username.set( profile.username );
-		settings.manifest.sabnzbd_password.set( profile.password );
-	}
+	changeActiveProfile( profiles.getActiveProfile().name );
+}
+
+function getConnectionValues()
+{
+	return {
+		'url': settings.manifest.sabnzbd_url.get(),
+		'api_key': settings.manifest.sabnzbd_api_key.get(),
+		'username': settings.manifest.sabnzbd_username.get(),
+		'password': settings.manifest.sabnzbd_password.get()
+	};
 }
 
 function OnAddProfileClicked()
 {
 	try {
 		var profileName = store.get( 'profile_name' );
-		profiles.add( profileName, {
-			'url': settings.manifest.sabnzbd_url.get(),
-			'api_key': settings.manifest.sabnzbd_api_key.get(),
-			'username': settings.manifest.sabnzbd_username.get(),
-			'password': settings.manifest.sabnzbd_password.get()
-		});
+		profiles.add( profileName, getConnectionValues() );
+		profiles.setActiveProfile( profileName );
 		
 		popup.add( profileName );
 		popup.setSelection( profileName );
@@ -190,7 +187,7 @@ function OnEditProfileClicked()
 		var profileName = popup.getSelection();
 		var newProfileName = store.get( 'profile_name' );
 		
-		profiles.edit( profileName );
+		profiles.edit( profileName, getConnectionValues() );
 		
 		if( profileName != newProfileName ) {
 			popup.rename( profileName, newProfileName );
@@ -216,8 +213,12 @@ function OnDeleteProfileClicked()
 {
 	try {
 		var selectedProfile = popup.getSelection();
-		profiles.remove( selectedProfile );
 		popup.remove( selectedProfile );
+		
+		var newActive = profiles.remove( selectedProfile );
+		if( newActive ) {
+			changeActiveProfile( newActive );
+		}
 	}
 	catch( e ) {
 		if( e == 'profile_missing' ) {
@@ -229,11 +230,12 @@ function OnDeleteProfileClicked()
 	}
 }
 
-function OnProfileChanged( profileName )
+function changeActiveProfile( profileName )
 {
 	profiles.setActiveProfile( profileName );
+	popup.setSelection( profileName );
 	
-	var profile = profiles.getActiveProfile();
+	var profile = profiles.getActiveProfile().values;
 	if( profile) {
 		settings.manifest.profile_name.set( profileName );
 		settings.manifest.sabnzbd_url.set( profile.url );
@@ -241,6 +243,11 @@ function OnProfileChanged( profileName )
 		settings.manifest.sabnzbd_username.set( profile.username );
 		settings.manifest.sabnzbd_password.set( profile.password );
 	}
+}
+
+function OnProfileChanged( profileName )
+{
+	changeActiveProfile( profileName );
 }
 
 function AddProfileButtons( settings )
@@ -264,6 +271,8 @@ function AddProfileButtons( settings )
 
 function InitializeSettings( settings )
 {
+	this.settings = settings;
+	
 	settings.manifest.config_reset.addEvent( 'action', bind( OnResetConfigClicked, settings ) );
 	settings.manifest.test_connection.addEvent( 'action', OnTestConnectionClicked );
 	settings.manifest.config_refresh_rate.addEvent( 'action', OnRefreshRateChanged );
@@ -274,8 +283,6 @@ function InitializeSettings( settings )
 	SetupConnectionProfiles( settings );
 	AddProfileButtons( settings );
 	RegisterContentScriptNotifyHandlers( settings );
-	
-	this.settings = settings;
 }
 
 window.addEvent( 'domready', function () {

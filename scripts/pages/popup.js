@@ -1,5 +1,4 @@
 var store = new Store( 'settings' );
-var profiles = new ProfileManager();
 
 function refresh()
 {
@@ -10,7 +9,7 @@ function refresh()
 function setMaxSpeedText()
 {
 	getMaxSpeed( function( data ) {
-		$('#speed-input').val( data.speedlimit );
+		$('#speed-input').val( data ? data.speedlimit : '' );
 	});
 }
 
@@ -48,8 +47,8 @@ function moveQueueItem(nzoid, pos)
 		type: "POST",
 		url: sabApiUrl,
 		data: data,
-		username: profiles.getActiveProfile().username,
-		password: profiles.getActiveProfile().password,
+		username: activeProfile().username,
+		password: activeProfile().password,
 		success: function(data) { refresh() },
 		error: function() {
 			$('#error').html('Failed to move item, please check your connection to SABnzbd');
@@ -69,8 +68,8 @@ function queueItemAction(action, nzoid, callback)
 		type: "POST",
 		url: sabApiUrl,
 		data: data,
-		username: profiles.getActiveProfile().username,
-		password: profiles.getActiveProfile().password,
+		username: activeProfile().username,
+		password: activeProfile().password,
 		success: function(data) { refresh() },
 		error: function() {
 			$('#error').html('Failed to move item, please check your connection to SABnzbd');
@@ -290,9 +289,14 @@ function reDrawPopup() {
 	}
 }
 
+function OnProfileChanged( profileName )
+{
+	profiles.setActiveProfile( profileName );
+}
+
 $(document).ready( function() {
 	$('#open_sabnzbd').click( function() {
-		var profile = profiles.getActiveProfile();
+		var profile = activeProfile();
 		var url = $.url.parse( profile.url );
 		
 		var build = {
@@ -331,6 +335,21 @@ $(document).ready( function() {
 		}
 	});
 	
+	var profiles = store.get( 'profiles' );
+	for( var p in profiles ) {
+		$('#profiles').append(
+			$('<option>').attr({
+				value: p,
+				text: p
+			})
+		);
+	}
+	
+	$('#profiles')
+		.val( profiles.getActiveProfile().name )
+		.change( OnProfileChanged )
+		;
+	
 	setMaxSpeedText();
 });
 
@@ -339,7 +358,7 @@ var lastOpened = parseInt(localStorage["lastOpened"]);
 var closeWindow = false;
 if (lastOpened > 0) {
 	if (nowtime.getTime() - lastOpened < 700) { 
-		chrome.tabs.create({url: profiles.getActiveProfile().url});
+		chrome.tabs.create({url: activeProfile().url});
 		closeWindow = true;
 		window.close();
 	}

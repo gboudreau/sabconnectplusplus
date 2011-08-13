@@ -5,6 +5,11 @@ function background()
 	return chrome.extension.getBackgroundPage();
 }
 
+function activeProfile()
+{
+	return profiles.getActiveProfile().values;
+}
+
 function setPref(key, value) {
 	localStorage[key] = value;
 	
@@ -29,13 +34,13 @@ function checkEndSlash(input) {
 	}
 }
 
-function constructApiUrl() {
-	var profile = profiles.getActiveProfile();
+function constructApiUrl( profileValues ) {
+	var profile = profileValues || activeProfile();
 	return checkEndSlash( profile.url ) + 'api';
 }
 
-function constructApiPost() {
-	var profile = profiles.getActiveProfile();
+function constructApiPost( profileValues ) {
+	var profile = profileValues || activeProfile();
 	var data = {};
 	
 	var apikey = profile.api_key;

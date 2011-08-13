@@ -226,16 +226,16 @@ function fetchInfoError( XMLHttpRequest, textStatus, errorThrown, callback ) {
 	}
 }
 
-function testConnection( callback )
+function testConnection( profileValues, callback )
 {
-	fetchInfo( true, callback );
+	fetchInfo( true, callback, profileValues );
 }
 
 /**
  * quickUpdate
  *	 If set to true, will not update the graph ect, currently used when a queue item has been moved/deleted in order to refresh the queue list
  */
-function fetchInfo( quickUpdate, callback )
+function fetchInfo( quickUpdate, callback, profileValues )
 {
 	var params = {
 		mode: 'queue',
@@ -245,7 +245,8 @@ function fetchInfo( quickUpdate, callback )
 	sendSabRequest(
 		params,
 		bind( fetchInfoSuccess, _1, quickUpdate, callback ),
-		bind( fetchInfoError, _1, _2, _3, callback )
+		bind( fetchInfoError, _1, _2, _3, callback ),
+		profileValues
 		);
 }
 
@@ -282,18 +283,20 @@ function getMaxSpeed( success_callback )
 	sendSabRequest( params, success_callback );
 }
 
-function sendSabRequest( params, success_callback, error_callback )
+function sendSabRequest( params, success_callback, error_callback, profileValues )
 {
-	var sabApiUrl = constructApiUrl();
-	var data = constructApiPost();
+	var profile = profileValues || activeProfile();
+	
+	var sabApiUrl = constructApiUrl( profile );
+	var data = constructApiPost( profile );
 	data.output = 'json';
 	
 	$.ajax({
 		type: "GET",
 		url: sabApiUrl,
 		data: combine( data, params ),
-		username: profiles.getActiveProfile().username,
-		password: profiles.getActiveProfile().password,
+		username: profile.username,
+		password: profile.password,
 		dataType: 'json',
 		success: success_callback,
 		error: error_callback
@@ -404,8 +407,8 @@ function addToSABnzbd( request, sendResponse ) {
 		type: "GET",
 		url: sabApiUrl,
 		cache: false,
-		username : profiles.getActiveProfile().username,
-		password : profiles.getActiveProfile().password,
+		username : activeProfile().username,
+		password : activeProfile().password,
 		data: data,
 		dataType: 'json',
 		success: function() { sendResponse( {ret: 'success', data: data } ); },
@@ -484,15 +487,16 @@ function initializeProfile()
 		return;
 	}
 	
-	var activeProfile = store.get( 'active_profile' );
-	var profiles = store.get( 'profiles' );
-	if( !profiles.hasOwnProperty( activeProfile ) ) {
+	var profile = profiles.getActiveProfile();
+	if( !profile ) {
 		// For some reason the active profile does not exist
-		console.error( 'Profile \'' + activeProfile + '\' was not found in the list of existing profiles. A new active profile was chosen.' );
-		activeProfile = first( profiles );
+		console.warn( 'Last saved active profile was not found in the list of existing profiles. A new active profile was chosen.' );
+		
+		profile = profiles.getFirstProfile();
+		if( profile ) {
+			profiles.setActiveProfile( profile.name );
+		}
 	}
-	
-	//changeProfile( activeProfile );
 }
 
 function initializeBackgroundPage()
