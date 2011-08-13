@@ -1,3 +1,5 @@
+var profiles = new ProfileManager();
+
 function background()
 {
 	return chrome.extension.getBackgroundPage();
@@ -28,25 +30,25 @@ function checkEndSlash(input) {
 }
 
 function constructApiUrl() {
-	var url = background().store.get('sabnzbd_url');
-	return checkEndSlash( url ) + 'api';
+	var profile = profiles.getActiveProfile();
+	return checkEndSlash( profile.url ) + 'api';
 }
 
 function constructApiPost() {
-	var store = background().store;
+	var profile = profiles.getActiveProfile();
 	var data = {};
 	
-	var apikey = store.get( 'sabnzbd_api_key' );
+	var apikey = profile.api_key;
 	if( apikey ) {
 		data.apikey = apikey;
 	}
 
-	var username = store.get( 'sabnzbd_username' );
+	var username = profile.username;
 	if( username ) {
 		data.ma_username = username;
 	}
 
-	var password = store.get( 'sabnzbd_password' );
+	var password = profile.password;
 	if( password ) {
 		data.ma_password = password;
 	}

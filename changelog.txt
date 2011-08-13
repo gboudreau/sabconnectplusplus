@@ -1,6 +1,6 @@
 Version 0.5.6
 --------------
-
+Bugfix: [Issue 87]: nzbsrus.com changed their HTML in the browse & search pages.
 
 Version 0.5.5
 --------------

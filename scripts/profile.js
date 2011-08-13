@@ -10,31 +10,23 @@ function ProfileManager()
 /// exists with that name, an exception is thrown that is a string named
 /// 'already_exists'.
 /// @param profileName The name of the new profile.
-ProfileManager.prototype.add = function( profileName )
+ProfileManager.prototype.add = function( profileName, values )
 {
 	var profiles = store.get( 'profiles' );
 	if( profiles.hasOwnProperty( profileName ) ) {
 		throw 'already_exists';
 	}
-
-	var newProfile = {
-		'url': store.get( 'sabnzbd_url' ),
-		'api_key': store.get( 'sabnzbd_api_key' ),
-		'username': store.get( 'sabnzbd_username' ),
-		'password': store.get( 'sabnzbd_password' ),
-	};
 	
-	profiles[profileName] = newProfile;
+	profiles[profileName] = values;
 	store.set( 'profiles', profiles );
 	return true;
 }
 
-ProfileManager.prototype.edit = function( profileName )
+ProfileManager.prototype.edit = function( profileName, values )
 {
 	var profiles = store.get( 'profiles' );
 	
-	var profile = profiles[profileName];
-	if( !profile ) {
+	if( !profiles[profileName] ) {
 		throw 'profile_missing';
 	}
 	
@@ -48,12 +40,7 @@ ProfileManager.prototype.edit = function( profileName )
 		profileName = newProfileName;
 	}
 	
-	profile.url = store.get( 'sabnzbd_url' );
-	profile.api_key = store.get( 'sabnzbd_api_key' );
-	profile.username = store.get( 'sabnzbd_username' );
-	profile.password = store.get( 'sabnzbd_password' );
-	
-	profiles[profileName] = profile;
+	profiles[profileName] = values;
 	store.set( 'profiles', profiles );
 }
 
@@ -66,4 +53,16 @@ ProfileManager.prototype.remove = function( profileName )
 	
 	delete profiles[selectedProfile];
 	store.set( 'profiles', profiles );
+}
+
+ProfileManager.prototype.getActiveProfile = function()
+{
+	var activeProfile = store.get( 'active_profile' );
+	var profiles = store.get( 'profiles' );
+	return profiles[activeProfile];
+}
+
+ProfileManager.prototype.setActiveProfile = function( profileName )
+{
+	store.set( 'active_profile', profileName );
 }

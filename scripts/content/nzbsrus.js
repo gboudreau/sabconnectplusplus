@@ -115,7 +115,7 @@ function handleAllDownloadLinks() {
 	});
 	
 	// On search results (tabulated) pages:
-	$('a[title*="Download NZB"]').each(function() {
+	$.merge($('div[title*="Download NZB"] > a'), $('a[title*="Download NZB"]')).each(function() {
 		// Change the title to "Send to SABnzbd"
 		$(this).attr("title", "Send to SABnzbd");
 

@@ -1,4 +1,5 @@
 var store = new Store( 'settings' );
+var profiles = new ProfileManager();
 
 function refresh()
 {
@@ -47,8 +48,8 @@ function moveQueueItem(nzoid, pos)
 		type: "POST",
 		url: sabApiUrl,
 		data: data,
-		username: store.get('sabnzbd_username'),
-		password: store.get('sabnzbd_password'),
+		username: profiles.getActiveProfile().username,
+		password: profiles.getActiveProfile().password,
 		success: function(data) { refresh() },
 		error: function() {
 			$('#error').html('Failed to move item, please check your connection to SABnzbd');
@@ -68,8 +69,8 @@ function queueItemAction(action, nzoid, callback)
 		type: "POST",
 		url: sabApiUrl,
 		data: data,
-		username: store.get('sabnzbd_username'),
-		password: store.get('sabnzbd_password'),
+		username: profiles.getActiveProfile().username,
+		password: profiles.getActiveProfile().password,
 		success: function(data) { refresh() },
 		error: function() {
 			$('#error').html('Failed to move item, please check your connection to SABnzbd');
@@ -291,7 +292,8 @@ function reDrawPopup() {
 
 $(document).ready( function() {
 	$('#open_sabnzbd').click( function() {
-		var url = $.url.parse( store.get( 'sabnzbd_url' ) );
+		var profile = profiles.getActiveProfile();
+		var url = $.url.parse( profile.url );
 		
 		var build = {
 			protocol: url.protocol,
@@ -301,8 +303,8 @@ $(document).ready( function() {
 		}
 		
 		if( store.get( 'config_enable_automatic_authentication' ) ) {
-			build.user = store.get( 'sabnzbd_username' );
-			build.password = store.get( 'sabnzbd_password' );
+			build.user = profile.username;
+			build.password = profile.password;
 		}
 		
 		var test = $.url.build( build );
@@ -337,7 +339,7 @@ var lastOpened = parseInt(localStorage["lastOpened"]);
 var closeWindow = false;
 if (lastOpened > 0) {
 	if (nowtime.getTime() - lastOpened < 700) { 
-		chrome.tabs.create({url: store.get('sabnzbd_url')});
+		chrome.tabs.create({url: profiles.getActiveProfile().url});
 		closeWindow = true;
 		window.close();
 	}

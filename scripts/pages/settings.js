@@ -1,6 +1,7 @@
 var store = new Store( 'settings' );
 var popup = null;
 var profiles = new ProfileManager();
+var settings = null;
 
 var profileMissingErrorMsg =
 	'A connection profile exists in the popup but does not exist in localStorage for some reason. '+
@@ -148,10 +149,14 @@ function SetupConnectionProfiles( settings )
 		popup.add( p );
 	}
 
-	var activeProfile = store.get( 'active_profile' );
-	if( activeProfile) {
-		popup.setSelection( activeProfile );
-		background().changeProfile( activeProfile );
+	var profile = this.profiles.getActiveProfile();
+	if( profile) {
+		popup.setSelection( store.get( 'active_profile' ) );
+		
+		settings.manifest.sabnzbd_url.set( profile.url );
+		settings.manifest.sabnzbd_api_key.set( profile.api_key );
+		settings.manifest.sabnzbd_username.set( profile.username );
+		settings.manifest.sabnzbd_password.set( profile.password );
 	}
 }
 
@@ -159,7 +164,12 @@ function OnAddProfileClicked()
 {
 	try {
 		var profileName = store.get( 'profile_name' );
-		profiles.add( profileName );
+		profiles.add( profileName, {
+			'url': settings.manifest.sabnzbd_url.get(),
+			'api_key': settings.manifest.sabnzbd_api_key.get(),
+			'username': settings.manifest.sabnzbd_username.get(),
+			'password': settings.manifest.sabnzbd_password.get()
+		});
 		
 		popup.add( profileName );
 		popup.setSelection( profileName );
@@ -221,7 +231,16 @@ function OnDeleteProfileClicked()
 
 function OnProfileChanged( profileName )
 {
-	background().changeProfile( profileName );
+	profiles.setActiveProfile( profileName );
+	
+	var profile = profiles.getActiveProfile();
+	if( profile) {
+		settings.manifest.profile_name.set( profileName );
+		settings.manifest.sabnzbd_url.set( profile.url );
+		settings.manifest.sabnzbd_api_key.set( profile.api_key );
+		settings.manifest.sabnzbd_username.set( profile.username );
+		settings.manifest.sabnzbd_password.set( profile.password );
+	}
 }
 
 function AddProfileButtons( settings )
@@ -255,6 +274,8 @@ function InitializeSettings( settings )
 	SetupConnectionProfiles( settings );
 	AddProfileButtons( settings );
 	RegisterContentScriptNotifyHandlers( settings );
+	
+	this.settings = settings;
 }
 
 window.addEvent( 'domready', function () {

@@ -2,7 +2,6 @@
 var category_header_sites = ['nzbs.org', 'newzbin.com', 'newzxxx.com'];
 
 var defaultSettings = {
-	sabnzbd_url: 'http://localhost:8080/',
 	provider_newzbin: true,
 	provider_nzbmatrix: true,
 	provider_nzbclub: true,
@@ -38,7 +37,7 @@ function resetSettings()
 	store.fromObject( defaultSettings );
 }
 
-function changeProfile( profileName )
+/*function changeProfile( profileName )
 {
 	var profiles = store.get( 'profiles' );
 	var profile = profiles[profileName];
@@ -51,7 +50,7 @@ function changeProfile( profileName )
 	}
 	
 	store.set( 'active_profile', profileName );
-}
+}*/
 
 //file size formatter - takes an input in bytes
 function fileSizes(value, decimals)
@@ -293,8 +292,8 @@ function sendSabRequest( params, success_callback, error_callback )
 		type: "GET",
 		url: sabApiUrl,
 		data: combine( data, params ),
-		username: store.get('sabnzbd_username'),
-		password: store.get('sabnzbd_password'),
+		username: profiles.getActiveProfile().username,
+		password: profiles.getActiveProfile().password,
 		dataType: 'json',
 		success: success_callback,
 		error: error_callback
@@ -405,8 +404,8 @@ function addToSABnzbd( request, sendResponse ) {
 		type: "GET",
 		url: sabApiUrl,
 		cache: false,
-		username : store.get( 'sabnzbd_username' ),
-		password : store.get( 'sabnzbd_password' ),
+		username : profiles.getActiveProfile().username,
+		password : profiles.getActiveProfile().password,
 		data: data,
 		dataType: 'json',
 		success: function() { sendResponse( {ret: 'success', data: data } ); },
@@ -493,7 +492,7 @@ function initializeProfile()
 		activeProfile = first( profiles );
 	}
 	
-	changeProfile( activeProfile );
+	//changeProfile( activeProfile );
 }
 
 function initializeBackgroundPage()
