@@ -2,7 +2,6 @@
 var category_header_sites = ['nzbs.org', 'newzbin.com', 'newzxxx.com'];
 
 var defaultSettings = {
-	sabnzbd_url: 'http://localhost:8080/',
 	provider_newzbin: true,
 	provider_nzbmatrix: true,
 	provider_nzbclub: true,
@@ -26,6 +25,9 @@ var defaultSettings = {
 	config_hard_coded_category: '',
 	config_default_category: '',
 	config_enable_automatic_authentication: true,
+	profiles: {},
+	active_profile: '',
+	first_profile_initialized: false,
 };
 
 var store = new Store( 'settings', defaultSettings );
@@ -34,6 +36,21 @@ function resetSettings()
 {
 	store.fromObject( defaultSettings );
 }
+
+/*function changeProfile( profileName )
+{
+	var profiles = store.get( 'profiles' );
+	var profile = profiles[profileName];
+	if( profile ) {
+		store.set( 'profile_name', profileName );
+		store.set( 'sabnzbd_url', profile.url );
+		store.set( 'sabnzbd_api_key', profile.api_key );
+		store.set( 'sabnzbd_username', profile.username );
+		store.set( 'sabnzbd_password', profile.password );
+	}
+	
+	store.set( 'active_profile', profileName );
+}*/
 
 //file size formatter - takes an input in bytes
 function fileSizes(value, decimals)
@@ -209,16 +226,16 @@ function fetchInfoError( XMLHttpRequest, textStatus, errorThrown, callback ) {
 	}
 }
 
-function testConnection( callback )
+function testConnection( profileValues, callback )
 {
-	fetchInfo( true, callback );
+	fetchInfo( true, callback, profileValues );
 }
 
 /**
  * quickUpdate
  *	 If set to true, will not update the graph ect, currently used when a queue item has been moved/deleted in order to refresh the queue list
  */
-function fetchInfo( quickUpdate, callback )
+function fetchInfo( quickUpdate, callback, profileValues )
 {
 	var params = {
 		mode: 'queue',
@@ -228,7 +245,8 @@ function fetchInfo( quickUpdate, callback )
 	sendSabRequest(
 		params,
 		bind( fetchInfoSuccess, _1, quickUpdate, callback ),
-		bind( fetchInfoError, _1, _2, _3, callback )
+		bind( fetchInfoError, _1, _2, _3, callback ),
+		profileValues
 		);
 }
 
@@ -265,18 +283,20 @@ function getMaxSpeed( success_callback )
 	sendSabRequest( params, success_callback );
 }
 
-function sendSabRequest( params, success_callback, error_callback )
+function sendSabRequest( params, success_callback, error_callback, profileValues )
 {
-	var sabApiUrl = constructApiUrl();
-	var data = constructApiPost();
+	var profile = profileValues || activeProfile();
+	
+	var sabApiUrl = constructApiUrl( profile );
+	var data = constructApiPost( profile );
 	data.output = 'json';
 	
 	$.ajax({
 		type: "GET",
 		url: sabApiUrl,
 		data: combine( data, params ),
-		username: store.get('sabnzbd_username'),
-		password: store.get('sabnzbd_password'),
+		username: profile.username,
+		password: profile.password,
 		dataType: 'json',
 		success: success_callback,
 		error: error_callback
@@ -387,8 +407,8 @@ function addToSABnzbd( request, sendResponse ) {
 		type: "GET",
 		url: sabApiUrl,
 		cache: false,
-		username : store.get( 'sabnzbd_username' ),
-		password : store.get( 'sabnzbd_password' ),
+		username : activeProfile().username,
+		password : activeProfile().password,
 		data: data,
 		dataType: 'json',
 		success: function() { sendResponse( {ret: 'success', data: data } ); },
@@ -437,4 +457,53 @@ function OnRequest( request, sender, sendResponse )
 	sendResponse( response );
 }
 
-chrome.extension.onRequest.addListener( OnRequest );
+/// This function is limited usefulness and will be removed in
+/// a future version. This takes the current connection info
+/// and creates a default profile out of it for users updating to
+/// version 0.5.6
+function setupFirstTimeDefaultProfile()
+{
+	try {
+		var profiles = new ProfileManager();
+		profiles.add( 'Default' );
+		store.set( 'active_profile', 'Default' );
+	}
+	catch( e ) {
+		if( e == 'already_exists' ) {
+			alert( 'Default profile already exists for some reason. File a bug report on our Google Code page about this please.' );
+		}
+		else {
+			throw e;
+		}
+	}
+}
+
+function initializeProfile()
+{
+	var firstProfileInitialized = store.get( 'first_profile_initialized' );
+	if( !firstProfileInitialized ) {
+		setupFirstTimeDefaultProfile();
+		store.set( 'first_profile_initialized', true );
+		return;
+	}
+	
+	var profile = profiles.getActiveProfile();
+	if( !profile ) {
+		// For some reason the active profile does not exist
+		console.warn( 'Last saved active profile was not found in the list of existing profiles. A new active profile was chosen.' );
+		
+		profile = profiles.getFirstProfile();
+		if( profile ) {
+			profiles.setActiveProfile( profile.name );
+		}
+	}
+}
+
+function initializeBackgroundPage()
+{
+	chrome.extension.onRequest.addListener( OnRequest );
+	initializeProfile();
+}
+
+initializeBackgroundPage();
+

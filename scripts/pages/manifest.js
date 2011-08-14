@@ -3,6 +3,8 @@ this.manifest = {
 	'icon': 'images/sab2_48.png',
 	'alignment': [
 		[
+			//'profile',
+			'profile_name',
 			'sabnzbd_url',
 			'sabnzbd_api_key',
 			'sabnzbd_username',
@@ -23,6 +25,41 @@ this.manifest = {
 	],
 	'settings': [
 		// Connections Tab
+		{
+			'tab': 'Connection',
+			'group': 'Connection Information',
+			'name': 'profile_popup',
+			'type': 'popupButton',
+			'label': 'Connection Profile:'
+		},
+		{
+			'tab': 'Connection',
+			'group': 'Connection Information',
+			'name': 'profile_add',
+			'type': 'button',
+			'text': 'Add'
+		},
+		{
+			'tab': 'Connection',
+			'group': 'Connection Information',
+			'name': 'profile_edit',
+			'type': 'button',
+			'text': 'Edit'
+		},
+		{
+			'tab': 'Connection',
+			'group': 'Connection Information',
+			'name': 'profile_delete',
+			'type': 'button',
+			'text': 'Delete'
+		},
+		{
+			'tab': 'Connection',
+			'group': 'Connection Information',
+			'name': 'profile_name',
+			'type': 'text',
+			'label': 'Profile Name:'
+		},
 		{
 			'tab': 'Connection',
 			'group': 'Connection Information',

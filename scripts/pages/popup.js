@@ -9,7 +9,7 @@ function refresh()
 function setMaxSpeedText()
 {
 	getMaxSpeed( function( data ) {
-		$('#speed-input').val( data.speedlimit );
+		$('#speed-input').val( data ? data.speedlimit : '' );
 	});
 }
 
@@ -47,8 +47,8 @@ function moveQueueItem(nzoid, pos)
 		type: "POST",
 		url: sabApiUrl,
 		data: data,
-		username: store.get('sabnzbd_username'),
-		password: store.get('sabnzbd_password'),
+		username: activeProfile().username,
+		password: activeProfile().password,
 		success: function(data) { refresh() },
 		error: function() {
 			$('#error').html('Failed to move item, please check your connection to SABnzbd');
@@ -68,8 +68,8 @@ function queueItemAction(action, nzoid, callback)
 		type: "POST",
 		url: sabApiUrl,
 		data: data,
-		username: store.get('sabnzbd_username'),
-		password: store.get('sabnzbd_password'),
+		username: activeProfile().username,
+		password: activeProfile().password,
 		success: function(data) { refresh() },
 		error: function() {
 			$('#error').html('Failed to move item, please check your connection to SABnzbd');
@@ -289,9 +289,39 @@ function reDrawPopup() {
 	}
 }
 
+function OnProfileChanged( event )
+{
+	var profileName = event.target.value;
+	profiles.setActiveProfile( profileName );
+	
+	var tabs = chrome.extension.getViews( {type: 'tab'} );
+	for( var t in tabs ) {
+		var tab = tabs[t];
+		if( tab.is_sabconnect_settings ) {
+			tab.changeActiveProfile( profileName );
+		}
+	}
+	
+	setMaxSpeedText();
+}
+
+function populateProfileList()
+{
+	var profiles = store.get( 'profiles' );
+	for( var p in profiles ) {
+		$('#profiles').append(
+			$('<option>').attr({
+				value: p,
+				text: p
+			})
+		);
+	}
+}
+
 $(document).ready( function() {
 	$('#open_sabnzbd').click( function() {
-		var url = $.url.parse( store.get( 'sabnzbd_url' ) );
+		var profile = activeProfile();
+		var url = $.url.parse( profile.url );
 		
 		var build = {
 			protocol: url.protocol,
@@ -301,8 +331,8 @@ $(document).ready( function() {
 		}
 		
 		if( store.get( 'config_enable_automatic_authentication' ) ) {
-			build.user = store.get( 'sabnzbd_username' );
-			build.password = store.get( 'sabnzbd_password' );
+			build.user = profile.username;
+			build.password = profile.password;
 		}
 		
 		var test = $.url.build( build );
@@ -329,6 +359,11 @@ $(document).ready( function() {
 		}
 	});
 	
+	populateProfileList();
+	
+	$('#profiles').val( profiles.getActiveProfile().name );
+	$('#profiles').change( OnProfileChanged );
+	
 	setMaxSpeedText();
 });
 
@@ -337,7 +372,7 @@ var lastOpened = parseInt(localStorage["lastOpened"]);
 var closeWindow = false;
 if (lastOpened > 0) {
 	if (nowtime.getTime() - lastOpened < 700) { 
-		chrome.tabs.create({url: store.get('sabnzbd_url')});
+		chrome.tabs.create({url: activeProfile().url});
 		closeWindow = true;
 		window.close();
 	}
