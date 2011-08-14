@@ -289,9 +289,33 @@ function reDrawPopup() {
 	}
 }
 
-function OnProfileChanged( profileName )
+function OnProfileChanged( event )
 {
+	var profileName = event.target.value;
 	profiles.setActiveProfile( profileName );
+	
+	var tabs = chrome.extension.getViews( {type: 'tab'} );
+	for( var t in tabs ) {
+		var tab = tabs[t];
+		if( tab.is_sabconnect_settings ) {
+			tab.changeActiveProfile( profileName );
+		}
+	}
+	
+	setMaxSpeedText();
+}
+
+function populateProfileList()
+{
+	var profiles = store.get( 'profiles' );
+	for( var p in profiles ) {
+		$('#profiles').append(
+			$('<option>').attr({
+				value: p,
+				text: p
+			})
+		);
+	}
 }
 
 $(document).ready( function() {
@@ -335,20 +359,10 @@ $(document).ready( function() {
 		}
 	});
 	
-	var profiles = store.get( 'profiles' );
-	for( var p in profiles ) {
-		$('#profiles').append(
-			$('<option>').attr({
-				value: p,
-				text: p
-			})
-		);
-	}
+	populateProfileList();
 	
-	$('#profiles')
-		.val( profiles.getActiveProfile().name )
-		.change( OnProfileChanged )
-		;
+	$('#profiles').val( profiles.getActiveProfile().name );
+	$('#profiles').change( OnProfileChanged );
 	
 	setMaxSpeedText();
 });

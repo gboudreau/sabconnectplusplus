@@ -2,6 +2,10 @@ var store = new Store( 'settings' );
 var popup = null;
 var settings = null;
 
+// This variable serves as a way for the popup (and other pages in the future)
+// to determine if this Document object is the settings page.
+this.is_sabconnect_settings = true;
+
 var profileMissingErrorMsg =
 	'A connection profile exists in the popup but does not exist in localStorage for some reason. '+
 	'Please file a bug at the SABconnect++ Google Code page if you see this message and explain '+
