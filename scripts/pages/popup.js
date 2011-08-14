@@ -90,7 +90,7 @@ function togglePause() {
 	}
 	
 	var sabApiUrl = constructApiUrl();
-	var data = constructApiPost(true);
+	var data = constructApiPost();
 	data.mode = mode;
 	
 	$.ajax({

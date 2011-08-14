@@ -393,7 +393,7 @@ function addToSABnzbd( request, sendResponse ) {
 	var nzbname = request.nzbname;
 	
 	var sabApiUrl = constructApiUrl();
-	var data = constructApiPost(true);
+	var data = constructApiPost();
 	data.mode = mode;
 	data.name = nzburl;
 	data.output = 'json';
