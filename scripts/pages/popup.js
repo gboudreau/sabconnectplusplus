@@ -303,6 +303,7 @@ function OnProfileChanged( event )
 	}
 	
 	setMaxSpeedText();
+	refresh();
 }
 
 function populateProfileList()
