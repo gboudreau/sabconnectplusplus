@@ -2,7 +2,7 @@
 var category_header_sites = ['nzbs.org', 'newzbin.com', 'newzxxx.com'];
 
 var defaultSettings = {
-	sabnzbd_url: '',
+	sabnzbd_url: 'http://localhost:8080/',
 	sabnzbd_api_key: '',
 	sabnzbd_username: '',
 	sabnzbd_password: '',
@@ -40,21 +40,6 @@ function resetSettings()
 {
 	store.fromObject( defaultSettings );
 }
-
-/*function changeProfile( profileName )
-{
-	var profiles = store.get( 'profiles' );
-	var profile = profiles[profileName];
-	if( profile ) {
-		store.set( 'profile_name', profileName );
-		store.set( 'sabnzbd_url', profile.url );
-		store.set( 'sabnzbd_api_key', profile.api_key );
-		store.set( 'sabnzbd_username', profile.username );
-		store.set( 'sabnzbd_password', profile.password );
-	}
-	
-	store.set( 'active_profile', profileName );
-}*/
 
 //file size formatter - takes an input in bytes
 function fileSizes(value, decimals)
