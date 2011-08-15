@@ -32,6 +32,11 @@ var defaultSettings = {
 
 var store = new Store( 'settings', defaultSettings );
 
+store.set( 'sabnzbd_url', 'test1' );
+store.set( 'sabnzbd_api_key', 'test2' );
+store.set( 'sabnzbd_username', 'test3' );
+store.set( 'sabnzbd_password', 'test4' );
+
 function resetSettings()
 {
 	store.fromObject( defaultSettings );
@@ -458,14 +463,25 @@ function OnRequest( request, sender, sendResponse )
 }
 
 /// This function is limited usefulness and will be removed in
+/// a future version.
+function getOldProfileValues()
+{
+	return {
+		'url': store.get( 'sabnzbd_url' ),
+		'api_key': store.get( 'sabnzbd_api_key' ),
+		'username': store.get( 'sabnzbd_username' ),
+		'password': store.get( 'sabnzbd_password' )
+	}
+}
+
+/// This function is limited usefulness and will be removed in
 /// a future version. This takes the current connection info
 /// and creates a default profile out of it for users updating to
 /// version 0.5.6
 function setupFirstTimeDefaultProfile()
 {
 	try {
-		var profiles = new ProfileManager();
-		profiles.add( 'Default' );
+		profiles.add( 'Default', getOldProfileValues() );
 		store.set( 'active_profile', 'Default' );
 	}
 	catch( e ) {
