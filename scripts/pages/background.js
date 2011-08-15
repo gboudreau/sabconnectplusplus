@@ -2,6 +2,10 @@
 var category_header_sites = ['nzbs.org', 'newzbin.com', 'newzxxx.com'];
 
 var defaultSettings = {
+	sabnzbd_url: '',
+	sabnzbd_api_key: '',
+	sabnzbd_username: '',
+	sabnzbd_password: '',
 	provider_newzbin: true,
 	provider_nzbmatrix: true,
 	provider_nzbclub: true,
