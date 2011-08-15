@@ -32,11 +32,6 @@ var defaultSettings = {
 
 var store = new Store( 'settings', defaultSettings );
 
-store.set( 'sabnzbd_url', 'test1' );
-store.set( 'sabnzbd_api_key', 'test2' );
-store.set( 'sabnzbd_username', 'test3' );
-store.set( 'sabnzbd_password', 'test4' );
-
 function resetSettings()
 {
 	store.fromObject( defaultSettings );
