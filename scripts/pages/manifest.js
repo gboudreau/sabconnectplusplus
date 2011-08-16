@@ -29,22 +29,22 @@ this.manifest = {
 			'tab': 'Connection',
 			'group': 'Connection Information',
 			'name': 'profile_popup',
-			'type': 'popupButton',
+			'type': 'popupButton',//'listBox',
 			'label': 'Connection Profile:'
 		},
 		{
 			'tab': 'Connection',
 			'group': 'Connection Information',
-			'name': 'profile_add',
+			'name': 'profile_create',
 			'type': 'button',
-			'text': 'Add'
+			'text': 'Create'
 		},
 		{
 			'tab': 'Connection',
 			'group': 'Connection Information',
-			'name': 'profile_edit',
+			'name': 'profile_duplicate',
 			'type': 'button',
-			'text': 'Edit'
+			'text': 'Duplicate'
 		},
 		{
 			'tab': 'Connection',

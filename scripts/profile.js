@@ -55,6 +55,13 @@ ProfileManager.prototype.remove = function( profileName )
 	return newActive;
 }
 
+ProfileManager.prototype.setProfile = function( profileData )
+{
+	var profiles = store.get( 'profiles' );
+	profiles[profileData.name] = profileData.values;
+	store.set( 'profiles', profiles );
+}
+
 ProfileManager.prototype.getProfile = function( profileName )
 {
 	if( !profileName ) {
@@ -89,4 +96,10 @@ ProfileManager.prototype.getFirstProfile = function()
 ProfileManager.prototype.setActiveProfile = function( profileName )
 {
 	store.set( 'active_profile', profileName );
+}
+
+ProfileManager.prototype.contains = function( profileName )
+{
+	var profiles = store.get( 'profiles' );
+	return profiles.hasOwnProperty( profileName );
 }

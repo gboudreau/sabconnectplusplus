@@ -165,29 +165,67 @@ function getConnectionValues()
 	};
 }
 
-function OnAddProfileClicked()
+function setConnectionValues( profileName, url, api_key, username, password )
+{
+	settings.manifest.profile_name.set( profileName );
+	settings.manifest.sabnzbd_url.set( url, true );
+	settings.manifest.sabnzbd_api_key.set( api_key, true );
+	settings.manifest.sabnzbd_username.set( username, true );
+	settings.manifest.sabnzbd_password.set( password, true );
+}
+
+function generateUniqueName( name )
+{
+	var newName = name;
+	var counter = 1;
+	
+	while( profiles.contains( newName ) ) {
+		newName = name + counter++;
+	}
+	
+	return newName;
+}
+
+function OnCreateProfileClicked()
 {
 	try {
+		var name = generateUniqueName( 'New Profile' );
+		
+		setConnectionValues( name, '', '', '', '' );
+		profiles.add( name, getConnectionValues() );
+		profiles.setActiveProfile( name );
+		
+		popup.add( name );
+		popup.setSelection( name );
+		/*
 		var profileName = store.get( 'profile_name' );
 		profiles.add( profileName, getConnectionValues() );
 		profiles.setActiveProfile( profileName );
 		
 		popup.add( profileName );
 		popup.setSelection( profileName );
+		*/
 	}
 	catch( e ) {
-		if( e == 'already_exists' ) {
-			alert( 'A connection profile with that name already exists. Please choose another name.' );
-		}
-		else {
-			throw e;
-		}
+		throw e;
 	}
 }
 
-function OnEditProfileClicked()
+function OnDuplicateProfileClicked()
 {
 	try {
+		var activeProfile = profiles.getActiveProfile();
+		var name = generateUniqueName( activeProfile.name );
+		
+		var values = activeProfile.values;
+		setConnectionValues( name, values.url, values.api_key, values.username, values.password );
+		profiles.add( name, activeProfile.values );
+		profiles.setActiveProfile( name );
+		
+		popup.add( name );
+		popup.setSelection( name );
+		
+		/*
 		var profileName = popup.getSelection();
 		var newProfileName = store.get( 'profile_name' );
 		
@@ -196,20 +234,10 @@ function OnEditProfileClicked()
 		if( profileName != newProfileName ) {
 			popup.rename( profileName, newProfileName );
 		}
+		*/
 	}
 	catch( e ) {
-		if( e == 'profile_missing' ) {
-			alert( profileMissingErrorMsg );
-		}
-		else if( e == 'renamed_exists' ) {
-			alert(
-				'This connection profile is being edited to have a different profile name that '+
-				'already exists. Please change the name of this profile so that it is unique.'
-				);
-		}
-		else {
-			throw e;
-		}
+		throw e;
 	}
 }
 
@@ -241,11 +269,7 @@ function changeActiveProfile( profileName )
 	
 	var profile = profiles.getActiveProfile().values;
 	if( profile) {
-		settings.manifest.profile_name.set( profileName );
-		settings.manifest.sabnzbd_url.set( profile.url );
-		settings.manifest.sabnzbd_api_key.set( profile.api_key );
-		settings.manifest.sabnzbd_username.set( profile.username );
-		settings.manifest.sabnzbd_password.set( profile.password );
+		setConnectionValues( profileName, profile.url, profile.api_key, profile.username, profile.password );
 	}
 }
 
@@ -254,23 +278,35 @@ function OnProfileChanged( profileName )
 	changeActiveProfile( profileName );
 }
 
+function OnConnectionFieldEdited( fieldName, value )
+{
+	var profile = profiles.getActiveProfile();
+	profile.values[fieldName] = value;
+	profiles.setProfile( profile );
+}
+
 function AddProfileButtons( settings )
 {
 	var m = settings.manifest;
-	m.profile_add.bundle.inject( m.profile_popup.bundle );
-	m.profile_edit.bundle.inject( m.profile_popup.bundle );
+	m.profile_create.bundle.inject( m.profile_popup.bundle );
+	m.profile_duplicate.bundle.inject( m.profile_popup.bundle );
 	m.profile_delete.bundle.inject( m.profile_popup.bundle );
 	
 	m.profile_popup.container.setStyle( 'display', 'inline-block' );
 	m.profile_popup.container.setStyle( 'margin-right', '10');
 	m.profile_popup.element.setStyle( 'width', '150');
-	m.profile_add.bundle.setStyle( 'display', 'inline-block');
-	m.profile_edit.bundle.setStyle( 'display', 'inline-block');
+	m.profile_create.bundle.setStyle( 'display', 'inline-block');
+	m.profile_duplicate.bundle.setStyle( 'display', 'inline-block');
 	m.profile_delete.bundle.setStyle( 'display', 'inline-block');
 	
-	m.profile_add.addEvent( 'action', OnAddProfileClicked );
-	m.profile_edit.addEvent( 'action', OnEditProfileClicked );
+	m.profile_create.addEvent( 'action', OnCreateProfileClicked );
+	m.profile_duplicate.addEvent( 'action', OnDuplicateProfileClicked );
 	m.profile_delete.addEvent( 'action', OnDeleteProfileClicked );
+	
+	m.sabnzbd_url.addEvent( 'action', bind( OnConnectionFieldEdited, 'url', _1 ) );
+	m.sabnzbd_api_key.addEvent( 'action', bind( OnConnectionFieldEdited, 'api_key', _1 ) );
+	m.sabnzbd_username.addEvent( 'action', bind( OnConnectionFieldEdited, 'username', _1 ) );
+	m.sabnzbd_password.addEvent( 'action', bind( OnConnectionFieldEdited, 'password', _1 ) );
 }
 
 function InitializeSettings( settings )
