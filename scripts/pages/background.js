@@ -233,8 +233,8 @@ function fetchInfo( quickUpdate, callback, profileValues )
 	
 	sendSabRequest(
 		params,
-		bind( fetchInfoSuccess, _1, quickUpdate, callback ),
-		bind( fetchInfoError, _1, _2, _3, callback ),
+		function(data) { fetchInfoSuccess( data, quickUpdate, callback ) },
+		function(_1, _2, _3) { fetchInfoError( _1, _2, _3, callback ) },
 		profileValues
 		);
 }

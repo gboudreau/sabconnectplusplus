@@ -56,7 +56,10 @@ function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 	console.log("Sending to SABnzbd:");
 	console.log(request);
 	
-	chrome.extension.sendRequest( request, bind( onResponseAdd, _1, addLink ) );
+	chrome.extension.sendRequest(
+		request,
+		function(response) { onResponseAdd( response, addLink ) }
+		);
 }
 
 function GetSetting( setting, callback )

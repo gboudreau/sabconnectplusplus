@@ -303,17 +303,17 @@ function AddProfileButtons( settings )
 	m.profile_duplicate.addEvent( 'action', OnDuplicateProfileClicked );
 	m.profile_delete.addEvent( 'action', OnDeleteProfileClicked );
 	
-	m.sabnzbd_url.addEvent( 'action', bind( OnConnectionFieldEdited, 'url', _1 ) );
-	m.sabnzbd_api_key.addEvent( 'action', bind( OnConnectionFieldEdited, 'api_key', _1 ) );
-	m.sabnzbd_username.addEvent( 'action', bind( OnConnectionFieldEdited, 'username', _1 ) );
-	m.sabnzbd_password.addEvent( 'action', bind( OnConnectionFieldEdited, 'password', _1 ) );
+	m.sabnzbd_url.addEvent( 'action', function(v) { OnConnectionFieldEdited( 'url', v ) } );
+	m.sabnzbd_api_key.addEvent( 'action', function(v) { OnConnectionFieldEdited( 'api_key', v ) } );
+	m.sabnzbd_username.addEvent( 'action', function(v) { OnConnectionFieldEdited( 'username', v ) } );
+	m.sabnzbd_password.addEvent( 'action', function(v) { OnConnectionFieldEdited( 'password', v ) } );
 }
 
 function InitializeSettings( settings )
 {
 	this.settings = settings;
 	
-	settings.manifest.config_reset.addEvent( 'action', bind( OnResetConfigClicked, settings ) );
+	settings.manifest.config_reset.addEvent( 'action', OnResetConfigClicked );
 	settings.manifest.test_connection.addEvent( 'action', OnTestConnectionClicked );
 	settings.manifest.config_refresh_rate.addEvent( 'action', OnRefreshRateChanged );
 	settings.manifest.config_enable_context_menu.addEvent( 'action', OnToggleContextMenu );
