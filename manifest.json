@@ -36,7 +36,6 @@
 			],
 			"js": [
 				"third_party/jquery/jquery-1.4.2.min.js",
-				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/newzbin.js"
 			]
@@ -54,7 +53,6 @@
 			],
 			"js": [
 				"third_party/jquery/jquery-1.4.2.min.js",
-				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/nzbmatrix.js"
 			],
@@ -70,7 +68,6 @@
 			],
 			"js": [
 				"third_party/jquery/jquery-1.4.2.min.js",
-				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/nzbclub.js"
 			],
@@ -85,7 +82,6 @@
 			],
 			"js": [
 				"third_party/jquery/jquery-1.4.2.min.js",
-				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/bintube.js"
 			],
@@ -100,7 +96,6 @@
 			],
 			"js": [
 				"third_party/jquery/jquery-1.4.2.min.js",
-				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/nzbsorg.js"
 			],
@@ -143,7 +138,6 @@
 			],
 			"js": [
 				"third_party/jquery/jquery-1.4.2.min.js",
-				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/binsearch.js"
 			],
@@ -170,7 +164,6 @@
 			],
 			"js": [
 				"third_party/jquery/jquery-1.4.2.min.js",
-				"scripts/bind.js",
 				"scripts/content/common.js",
 				"scripts/content/nzbindex.js"
 			],
@@ -189,7 +182,6 @@
 			],
 			"js": [
 				"third_party/jquery/jquery-1.4.2.min.js",
-				"scripts/bind.js",
 				"scripts/content/common.js",
 				"third_party/webtoolkit/webtoolkit.base64.js",
 				"scripts/content/nzbsrus.js"
@@ -209,7 +201,6 @@
 			],
 			"js": [
 				"third_party/jquery/jquery-1.4.2.min.js",
-				"scripts/bind.js",
 				"scripts/content/common.js",
 				"third_party/webtoolkit/webtoolkit.base64.js",
 				"scripts/content/nzb.su.js"
@@ -229,7 +220,6 @@
 			],
 			"js": [
 				"third_party/jquery/jquery-1.4.2.min.js",
-				"scripts/bind.js",
 				"scripts/content/common.js",
 				"third_party/webtoolkit/webtoolkit.base64.js",
 				"scripts/content/fanzub.js"
