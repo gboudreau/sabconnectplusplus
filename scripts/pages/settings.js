@@ -197,14 +197,6 @@ function OnCreateProfileClicked()
 		
 		popup.add( name );
 		popup.setSelection( name );
-		/*
-		var profileName = store.get( 'profile_name' );
-		profiles.add( profileName, getConnectionValues() );
-		profiles.setActiveProfile( profileName );
-		
-		popup.add( profileName );
-		popup.setSelection( profileName );
-		*/
 	}
 	catch( e ) {
 		throw e;
@@ -224,17 +216,6 @@ function OnDuplicateProfileClicked()
 		
 		popup.add( name );
 		popup.setSelection( name );
-		
-		/*
-		var profileName = popup.getSelection();
-		var newProfileName = store.get( 'profile_name' );
-		
-		profiles.edit( profileName, getConnectionValues() );
-		
-		if( profileName != newProfileName ) {
-			popup.rename( profileName, newProfileName );
-		}
-		*/
 	}
 	catch( e ) {
 		throw e;
@@ -285,6 +266,17 @@ function OnConnectionFieldEdited( fieldName, value )
 	profiles.setProfile( profile );
 }
 
+function OnProfileNameChanged( value )
+{
+	var profileName = profiles.getActiveProfile().name;
+	var newProfileName = settings.manifest.profile_name.get();
+	if( profileName != newProfileName ) {
+		popup.rename( profileName, newProfileName );
+		profiles.edit( profileName, getConnectionValues(), newProfileName );
+		profiles.setActiveProfile( newProfileName );
+	}
+}
+
 function AddProfileButtons( settings )
 {
 	var m = settings.manifest;
@@ -307,6 +299,8 @@ function AddProfileButtons( settings )
 	m.sabnzbd_api_key.addEvent( 'action', function(v) { OnConnectionFieldEdited( 'api_key', v ) } );
 	m.sabnzbd_username.addEvent( 'action', function(v) { OnConnectionFieldEdited( 'username', v ) } );
 	m.sabnzbd_password.addEvent( 'action', function(v) { OnConnectionFieldEdited( 'password', v ) } );
+	
+	m.profile_name.element.addEvent( 'blur', OnProfileNameChanged );
 }
 
 function InitializeSettings( settings )
@@ -328,3 +322,17 @@ function InitializeSettings( settings )
 window.addEvent( 'domready', function () {
 	new FancySettings.initWithManifest( InitializeSettings );
 });
+
+window.onbeforeunload = function() {
+	var profile_name = settings.manifest.profile_name.get();
+	if( profiles.getActiveProfile().name !== profile_name ) {
+		var msg =
+			'You have made changes to the active profile\'s name, ' +
+			'but it has not been saved. Click out of the "Profile Name" ' +
+			'text field to save the changes. You may also leave the ' +
+			'options page now to discard those changes.'
+			;
+			
+		return msg;
+	}
+};

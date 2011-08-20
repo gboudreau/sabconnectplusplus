@@ -18,7 +18,7 @@ ProfileManager.prototype.add = function( profileName, values )
 	store.set( 'profiles', profiles );
 }
 
-ProfileManager.prototype.edit = function( profileName, values )
+ProfileManager.prototype.edit = function( profileName, values, newProfileName )
 {
 	var profiles = store.get( 'profiles' );
 	
@@ -26,7 +26,6 @@ ProfileManager.prototype.edit = function( profileName, values )
 		throw 'profile_missing';
 	}
 	
-	var newProfileName = store.get( 'profile_name' );
 	if( profileName != newProfileName ) {
 		if( profiles.hasOwnProperty( newProfileName ) ) {
 			throw 'renamed_exists';
