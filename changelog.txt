@@ -1,3 +1,7 @@
+Version 0.5.7
+--------------
+
+
 Version 0.5.6
 --------------
 Feature: [Issue 85]: Save multiple SABnzbd connections with quick change option from popup.
