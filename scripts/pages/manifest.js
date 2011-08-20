@@ -312,8 +312,7 @@ this.manifest = {
 			'type': 'description',
 			'text':
 					'Below are the category settings provided by SABconnect++. For more information regarding categories,\
-					please read the <a href="http://code.google.com/p/sabconnectplusplus/wiki/Categories">wiki page</a>\
-					for more information.'
+					please read the <a href="http://code.google.com/p/sabconnectplusplus/wiki/Categories">wiki page</a>.'
 		},
 		{
 			'tab': 'Configuration',
