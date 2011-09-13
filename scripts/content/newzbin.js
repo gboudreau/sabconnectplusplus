@@ -74,6 +74,14 @@ function handleAllDownloadLinks() {
         });
         return false;
     });
+    
+    // If we are on a report's page, add the download link here
+    if (result=location.href.match(/browse\/post\/(\d+)(\/.*)?$/)) {
+        var nzbid = result[1];
+        var element = $('div.main table tr')[2];
+        $(element).after('<tr><th>Download:</th><td><a href="/browse/post/' + nzbid + '/nzb" id="sabnzbddownloadlink"><img src="' + chrome.extension.getURL('images/sab2_16.png') + '" width="16" height="16" /> Download with SABnzbd</a></td></tr>');
+        $('#sabnzbddownloadlink').click(addToSABnzbdFromIconClick);
+    }
 }
 
 $(document).ready(function() {

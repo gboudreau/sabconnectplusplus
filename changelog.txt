@@ -1,6 +1,6 @@
 Version 0.5.7
 --------------
-
+Change [Issue 37]: 1-Click on individual posts on newzbin, not just search list (Thanks fabian)
 
 Version 0.5.6
 --------------
