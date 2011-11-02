@@ -1,88 +1,69 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="css/popup.css" />
-<script type="text/javascript" src="third_party/jquery/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="third_party/jquery/jquery.jqote.min.js"></script>
-<script type="text/javascript" src="third_party/jquery/jquery-ui-1.7.2.sortable.min.js"></script>
-<script type="text/javascript" src="third_party/jquery/jquery.urldecoder.min.js"></script>
-<script type="text/javascript" src="third_party/jgcharts/jgcharts.pack.js"></script>
-<script type="text/javascript" src="third_party/fancy-settings/lib/store.js"></script>
-<script type="text/javascript" src="scripts/profile.js"></script>
-<script type="text/javascript" src="scripts/pages/common.js"></script>
-<script type="text/javascript" src="scripts/pages/popup.js"></script>
-
-<script type="text/html" id="template">
-<![CDATA[
-<li id="<%= this.slot.nzo_id %>" class="item">
-	<div class="file-<%= this.slot.status %> filename"><%= this.slot.filename %></div>
-	
-	<div class="controls">
-		<% if ( this.slot.status == "Paused" ) { %>
-			<a class="resumeItem lowOpacity" href=""><img src="<%= this.playImg %>" /></a>
-		<% } else { %>
-			<a class="pauseItem lowOpacity" href=""><img src="<%= this.pauseImg %>" /></a>
-		<% } %>
-		<a class="deleteItem lowOpacity" href=""><img src="<%= this.deleteImg %>" /></a>
-	</div>
-	
-	<div class="float-fix"></div>
-	<% if ( this.slot.percentage != "0" ) { %>
-	<div class="progressBarContainer">
-		<div class="progressBarInner" style="width:<%= this.slot.percentage %>%"></div>
-	</div>
-	<% } %>
-
-</li>
-]]>
-</script>
-
-<script type="text/html" id="errors">
-<![CDATA[
-<li class="error">
-	<%= this.error %>
-</li>
-]]>
-</script>
-
+	<link rel="stylesheet" type="text/css" href="third_party/jquery/ui-lightness/jquery-ui.custom.css" />
+	<link rel="stylesheet" type="text/css" href="third_party/jquery/jquery.mCustomScrollbar.css" />
+	<link rel="stylesheet" type="text/css" href="css/popup.css" />
+	<script type="text/javascript" src="third_party/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="third_party/jquery/jquery-ui.custom.min.js"></script>
+	<script type="text/javascript" src="third_party/jquery/jquery.jqote2.min.js"></script>
+	<script type="text/javascript" src="third_party/jquery/jquery.easing.js"></script>
+	<script type="text/javascript" src="third_party/jquery/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="third_party/jquery/jquery.mCustomScrollbar.js"></script>
+	<script type="text/javascript" src="third_party/fancy-settings/lib/store.js"></script>
+	<script type="text/javascript" src="scripts/pages/common.js"></script>
+	<script type="text/javascript" src="scripts/pages/popup.js"></script>
 </head>
+
 <body>
+<script id="list-item" type="text/x-jqote-template">
+<![CDATA[
+	<li class="list-item">
+		<span class="item-title">Title of NZB download</span>
+		<div class="controller" id="cancel"/>
+		<div class="controller" id="pause"/>
+		<div class="controller" id="play"/>
+		<div class="progress-bar"/>
+	</li>
+]]>
+</script>
 
-<div id="sabInfo">
-	<div id="sab-errors"></div>
-	
-	<div>
-		Active Profile: <select id="profiles"></select>
+<div id="container">
+	<div id="tabs">
+		<ul>
+			<li><a href="#queue-tab">Queue</a></li>
+			<li><a href="#graph-tab">Graph</a></li>
+		</ul>
+		
+		<div id="queue-tab">
+			<div id="list-container">
+			<div id="mcs_container">
+			<div class="customScrollBox">
+			<div class="container">
+			<div class="content">
+				<ul id="list"></ul>
+			</div>
+			<div class="dragger_container">
+			<div class="dragger"></div>
+			</div>
+			</div>
+			</div>
+			</div>
+		</div>
+		
+		<div id="graph-tab">
+		</div>
 	</div>
 
-	<div class="col-left">
-		<span id="sab-status"></span><br />
-		<div id="sab-timeleft"></div>
+	<div id="button-container">
+		<div id="button-margin">
+			<button id="toggle_pause" type="button">Pause All</button>
+			<button id="sabnzbd" type="button">SABnzbd+</button>
+			<button id="refresh" type="button">Refresh</button>
+			<button id="options" type="button">Options</button>
+		</div>
 	</div>
-
-	<div class="col-right">
-		<div id="sab-speed"></div>
-		<span id="sab-sizeleft"></span>
-	</div>
-	<div class="float-fix"></div>
-	
-	<div id="graph"></div>
-	
-	<ul id="sab-queue"></ul>
 </div>
 
-<div class="menu">
-	<hr />
-	<div id="open_sabnzbd">Open SABnzbd</div>
-	<hr />
-	<div id="extension_settings">Extension Settings</div>
-	<hr />
-	<div id="refresh">Refresh</div>
-	<hr />
-	<div>
-		Max Speed: <input id="speed-input" type="text"/> Kbps <button id="set-speed">Set</button>
-	</div>
-</div>
 </body>
 </html>
