@@ -1,122 +1,166 @@
-body {
-	margin: 4px;
-	width: 600px;
-	height: 350px;
-	border: 1px solid black;
-	padding: 0;
-	/*font-size: 10px;*/
+body { 
+    overflow: hidden;
+    margin: 0;
+    padding: 4px;
+    font-family: tahoma, sans-serif;
+    width: 230px;
 }
 
-#container {
-	display: table;
-	width: 100%;
-	height: 100%;
+.menu div {
+    background-color: white;
+    color: black;
+    font-size: 11px;
+    padding: 4px 14px;
+    white-space: nowrap;
 }
 
-#list-container {
-	float: left;
-	padding: 10px 20px 10px 10px;
-	width: 80%;
-	height: 100%;
-	background-color: #FAD275;
+.menu div:hover { 
+    background-color: #316AC5;
+    color: white;
+    cursor: pointer;
 }
 
-#list {
-	padding: 0;
-	margin: 0;
-	width: 100%;
-	height: 100%;
+.menu div span {
+    float: right;
 }
 
-#button-container {
-	display: table-cell;
-	vertical-align: top;
-	width: 100px;
-	height: 100%;
-	background-color: #f5f5f5;
+hr {
+    margin: 2px 0;
 }
 
-#button-margin {
-	margin: 2px;
-	text-align: center;
+#sabInfo { 
+    color: black;
+    font-size: 11px;
+    padding: 10px;
 }
 
-#tabs {
-	display: table-cell;
+#sabInfo .label { 
+    font-weight: bold;
+    width:140px;
+    display:inline-block;
 }
 
-#queue-tab {
-	padding: 0;
-	/*overflow: hidden;*/
+.status {
+    padding: 4px;
+    text-transform: uppercase;
 }
 
-.list-item {
-	box-sizing: border-box;
-	border: 1px solid black;
-	margin: 0 0 3px 0;
-	width: 100%;
-	height: 60px;
-	background-color: #FFF5E3;
+.Idle {
+    background-color: yellow;
 }
 
-.progress-bar {
-	height: 13px;
-	margin: 40px 3px 0 3px;
+.Paused {
+    background-color: red;
 }
 
-.ui-progressbar-value
+.Downloading {
+    background-color: lime;
+}
+
+#sab-status {
+    padding: 1px 3px;
+}
+
+#sab-speed {
+    font-weight: bold;
+}
+
+.speed {
+    float: right;
+}
+
+
+.file-Downloading {
+    color: green;
+}
+
+.file-Paused {
+    color: #ccc;
+}
+
+
+.float-fix {
+    clear:both;
+}
+
+
+.progressBarContainer {
+width: 198px;
+height: 2px;
+background-color: #333;
+border: 2px solid #333;
+}
+
+.progressBarInner {
+height: 100%;
+background-color: lime;
+}
+
+
+
+ul#sab-queue {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul#sab-queue li.item {
+    margin: 5px 0;
+    padding: 3px;
+    border: 1px solid #fff;
+}
+
+.controls {
+    float: right;
+}
+
+div.filename {
+    float: left;
+    width:160px;
+    overflow: hidden;
+}
+
+.lowOpacity {
+    opacity: 0.2;
+}
+
+.filename {
+    cursor: move;
+}
+
+
+
+.col-left, .col-right {
+    width:49%;
+    float: left;
+    line-height: 20px;
+}
+
+.col-right {
+    text-align: right;
+}
+
+.col-container {
+    overflow: auto;
+}
+
+li.highlight {
+    background-color: #eee;
+    border: 1px solid #ccc !important;
+}
+
+#graph-inner {
+    height: 75px;
+}
+
+#errors-container {
+    background-color: #ffd3d3;
+    padding: 2px 4px;
+    border: 1px solid #ff8383;
+    margin: 4px 0 20px 0;
+}
+
+#speed-input
 {
-	background-image: url(../third_party/jquery/ui-lightness/images/pbar-ani.gif);
+	width: 50px;
 }
-
-.controller {
-	float: right;
-	width: 16px;
-	height: 16px;
-	margin: 2px;
-}
-
-.controller#cancel {
-	background-image: url(../images/controller-cancel.png);
-}
-
-.controller#play {
-	background-image: url(../images/controller-play.png);
-}
-
-.controller#pause {
-	background-image: url(../images/controller-pause.png);
-}
-
-.item-title {
-	float: left;
-	font-family: arial;
-	font-size: 12px;
-	margin: 3px 0 0 3px;
-}
-
-/*button > span.ui-button-text {
-	font-size: 10px;
-}*/
-
-button {
-	width: 100%;
-	height: 25px;
-	margin: 0 0 3px 0;
-}
-
-ul, li {
-	list-style-type: none;
-}
-
-/*
-	#demo-frame > div.demo { padding: 10px !important; }
-	.scroll-pane { overflow: auto; width: 99%; float:left; }
-	.scroll-content { width: 2440px; float: left; }
-	.scroll-content-item { width: 100px; height: 100px; float: left; margin: 10px; font-size: 3em; line-height: 96px; text-align: center; }
-	.scroll-bar-wrap { clear: left; padding: 0 4px 0 2px; margin: 0 -1px -1px -1px; }
-	.scroll-bar-wrap .ui-slider { background: none; border:0; height: 2em; margin: 0 auto;  }
-	.scroll-bar-wrap .ui-handle-helper-parent { position: relative; width: 100%; height: 100%; margin: 0 auto; }
-	.scroll-bar-wrap .ui-slider-handle { top:.2em; height: 1.5em; }
-	.scroll-bar-wrap .ui-slider-handle .ui-icon { margin: -8px auto 0; position: relative; top: 50%; }
-*/
