@@ -1,6 +1,7 @@
 Version 0.5.7
 --------------
 Change [Issue 37]: 1-Click on individual posts on newzbin, not just search list (Thanks fabian)
+Bugfix [Issue 107]: nzbxxx.com 1-click was not working due to incorrect API URL usage.
 
 Version 0.5.6
 --------------
