@@ -5,16 +5,25 @@ function findNZBId(elem) {
 	var url = $(elem).attr('href');
 
 	var hostname = window.location.href.substr(0, window.location.href.indexOf('/', 8));
-	if (hostname.indexOf('nzbxxx') != -1) {
-		url = url.replace('nzb-download', 'api-nzb-download') + '&apikey=' + nzbxxx_apikey + '&username=' + nzbxxx_username;
-	} else {
-		// 0.5+ needs nzb-details not nzb-download in url
+	if( hostname.indexOf('nzbxxx') != -1 ) {
+		var nzbid = 0;
+		
+		var matches = url.match( /id\=(\d+)\&/i );
+		if( matches.length > 1 ) {
+			nzbid = matches[1];
+		}
+		
+		url = 'http://api.nzbxxx.com/v1.1/download.php?id=' + nzbid + '&username=' + nzbxxx_username + '&apikey=' + nzbxxx_apikey;
+		//url += '&apikey=' + nzbxxx_apikey + '&username=' + nzbxxx_username;
+	}
+	else {
 		url = url.replace('nzb-download', 'nzb-details');
+		
+		if( url.indexOf(hostname) == -1 ) {
+			url = hostname + url
+		}
 	}
-	
-	if (url.indexOf(hostname) == -1) {
-		url = hostname + url
-	}
+
 	return url;
 }
 
