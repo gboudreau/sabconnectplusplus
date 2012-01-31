@@ -52,28 +52,28 @@ function addToSABnzbdFromNZBORG() {
 		this.value = "Sending...";
 		$(this).css('color', 'green');
 
+		var isSearch = false;
+        $('h3').each(function() {
+            if ($(this).html().indexOf('Search NZBs') != -1 || $(this).html().indexOf('Browse All NZBs') != -1) {
+                isSearch = true;
+            } else {
+                var re = new RegExp('>([^<]+)</a> &gt;.+>([^<]+)</a> &gt;[ ]*(.+)');
+                var m = re.exec($(this).html());
+                if (m != null) {
+                    for (var i=1; i<m.length; i++) {
+                        if (m[i] == 'Home') { continue; }
+                        if (category != null) {
+                            category += '.' + m[i];
+                        } else {
+                            category = m[i];
+                        }
+                    }
+                }
+            }
+        });
 	    $('tr.selected input:checked').each(function() {
-			var isSearch = false;
-			$('h3').each(function() {
-				if ($(this).html().indexOf('Search NZBs') != -1 || $(this).html().indexOf('Browse All NZBs') != -1) {
-					isSearch = true;
-				} else {
-					var re = new RegExp('>([^<]+)</a> &gt;.+>([^<]+)</a> &gt;[ ]*(.+)');
-					var m = re.exec($(this).html());
-					if (m != null) {
-						for (var i=1; i<m.length; i++) {
-							if (m[i] == 'Home') { continue; }
-							if (category != null) {
-								category += '.' + m[i];
-							} else {
-								category = m[i];
-							}
-						}
-					}
-				}
-			});
 			if (isSearch) {
-				$(this).parent().parent().parent().find('td').each(function() {
+				$(this).parent().parent().find('td').each(function() {
 					if ($(this).html().indexOf('index.php?action=browse&amp;catid=') != -1) {
 						var re = new RegExp('<a.+>[ ]*(.+)[ ]*</a>');
 						var m = re.exec($(this).html());
@@ -90,6 +90,7 @@ function addToSABnzbdFromNZBORG() {
 			nzburl += '&h=' + hash;
 			addToSABnzbd(addLink, nzburl, "addurl", null, category);
 		});
+		
 		this.value = 'Sent to SABnzbd!';
 		$(this).css('color', 'red');
 		sendToSabButton = this;
