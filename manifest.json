@@ -1,6 +1,6 @@
 {
 	"name": "SABconnect++",
-	"version": "0.5.7",
+	"version": "0.5.8",
 	"description": "SABnzbd extension for Google Chrome.",
 	"background_page": "background.html",
 	"options_page": "settings.html",
@@ -29,8 +29,8 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"http://*.newzbin.com/*",
-				"https://*.newzbin.com/*",
+				"http://*.newzbin2.es/*",
+				"https://*.newzbin2.es/*",
 				"http://*.newzxxx.com/*",
 				"https://*.newzxxx.com/*"
 			],

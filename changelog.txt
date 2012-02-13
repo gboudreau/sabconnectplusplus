@@ -1,3 +1,7 @@
+Version 0.5.8
+--------------
+Change [Issue 124]: Added newzbin2.es and removed old newzbin.com
+
 Version 0.5.7
 --------------
 Change [Issue 37]: 1-Click on individual posts on newzbin, not just search list (Thanks fabian)
