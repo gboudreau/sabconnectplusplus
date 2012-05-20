@@ -96,7 +96,7 @@ function Initialize( provider, refresh_function, callback )
 		action: 'initialize',
 		provider: provider
 	}
-	
+		
 	chrome.extension.sendRequest( request, function( response ) {
 		if( response.enabled ) {
 			callback();
