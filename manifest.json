@@ -89,20 +89,6 @@
 		},
 		{
 			"matches": [
-				"http://*.nzbs.org/",
-				"http://*.nzbs.org/*",
-				"https://*.nzbs.org/",
-				"https://*.nzbs.org/*"
-			],
-			"js": [
-				"third_party/jquery/jquery-1.4.2.min.js",
-				"scripts/content/common.js",
-				"scripts/content/nzbsorg.js"
-			],
-			"all_frames": true
-		},
-		{
-			"matches": [
 				"http://*.binsearch.info/",
 				"http://*.binsearch.info/*",
 				"https://*.binsearch.info/",
@@ -197,13 +183,17 @@
 				"https://*.nzb.su/",
 				"https://*.nzb.su/*",
 				"https://nzb.su/",
-				"https://nzb.su/*"
+				"https://nzb.su/*",
+				"http://*.nzbs.org/",
+				"http://*.nzbs.org/*",
+				"https://*.nzbs.org/",
+				"https://*.nzbs.org/*"
 			],
 			"js": [
 				"third_party/jquery/jquery-1.4.2.min.js",
 				"scripts/content/common.js",
 				"third_party/webtoolkit/webtoolkit.base64.js",
-				"scripts/content/nzb.su.js"
+				"scripts/content/newznab.js"
 			],
 			"all_frames": true
 		},

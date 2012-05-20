@@ -4,15 +4,17 @@ var category = null;
 
 function findNZBId(elem) {
 	var url = $(elem).attr('href');
-
+	var baseurl = window.location.protocol + '//' + window.location.host;
 	var nzbid = url.substr(url.indexOf('/getnzb/')+8);
-	nzbid = nzbid.substr(0, nzbid.indexOf('/'));
-	url = 'http://www.nzb.su/getnzb/' + nzbid + '.nzb';
+	if (nzbid.indexOf('/') != -1) {
+		nzbid = nzbid.substr(0, nzbid.indexOf('/'));
+	}
+	url = baseurl + '/getnzb/' + nzbid + '.nzb';
 
 	return url;
 }
 
-function addToSABnzbdFromNZBdotsu() {
+function addToSABnzbdFromNewznab() {
 	if (this.nodeName.toUpperCase() == 'INPUT') {
 		this.value = "Sending...";
 		$(this).css('color', 'green');
@@ -24,7 +26,7 @@ function addToSABnzbdFromNZBdotsu() {
 			var tr = $(this).parent().parent();
 			var a = tr.find('a[title="Send to SABnzbd"]');
 
-			// Find the newzbin id from the href
+			// Find the nzb id from the href
 			nzburl = findNZBId(a);
 			if (nzburl) {
 				category = tr.find('a[href*="/browse?"]')[1].innerText.replace(' > ', '.');
@@ -80,7 +82,7 @@ function handleAllDownloadLinks() {
 	// List view: add a button above the list to send selected NZBs to SAB
 	$('input[class="nzb_multi_operations_sab"]').each(function() {
 		$(this).css('display', 'inline-block');
-		$(this).click(addToSABnzbdFromNZBdotsu);
+		$(this).click(addToSABnzbdFromNewznab);
     });
 
 	$.merge($('a[title="Download Nzb"]'), $('a[title="Download NZB"]')).each(function() {
@@ -93,7 +95,7 @@ function handleAllDownloadLinks() {
 
 		// Change the on click handler to send to sabnzbd
 		// this is the <a>
-		$(this).click(addToSABnzbdFromNZBdotsu);
+		$(this).click(addToSABnzbdFromNewznab);
 	});
 }
 
