@@ -195,6 +195,7 @@
 				"third_party/webtoolkit/webtoolkit.base64.js",
 				"scripts/content/newznab.js"
 			],
+			"css": ["css/newznab.css"],
 			"all_frames": true
 		},
 		{
