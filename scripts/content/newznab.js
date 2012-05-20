@@ -16,6 +16,7 @@ function findNZBId(elem) {
 
 function addToSABnzbdFromNewznab() {
 	if (this.nodeName.toUpperCase() == 'INPUT') {
+		var new_txt = this.value.replace('Send', 'Sent');
 		this.value = "Sending...";
 		$(this).css('color', 'green');
 
@@ -29,21 +30,27 @@ function addToSABnzbdFromNewznab() {
 			// Find the nzb id from the href
 			nzburl = findNZBId(a);
 			if (nzburl) {
-				category = tr.find('a[href*="/browse?"]')[1].innerText.replace(' > ', '.');
+				category = null;
+				try {
+					category = tr.find('a[href*="/browse?"]')[1].innerText.replace(' > ', '.');
+				} catch (ex) { }
 
 				addLink = a;
 
 				// Add the authentication to the link about to be fetched
 				nzburl += '?i=' + user + '&r=' + rss_hash;
+				// TODO: make this optional
+				nzburl += '&del=1';
 
 				addToSABnzbd(addLink, nzburl, "addurl", null, category);
+				this.checked = false;
 			}
 		});
-		this.value = 'Sent to SAB!';
+		this.value = new_txt;
 		$(this).css('color', 'red');
 		sendToSabButton = this;
 		
-		setTimeout(function(){ sendToSabButton.value = 'Send to SAB'; $(sendToSabButton).css('color', '#888'); }, 4000);
+		setTimeout(function(){ sendToSabButton.value = sendToSabButton.value.replace('Sent', 'Send'); $(sendToSabButton).css('color', '#888'); }, 4000);
 
 		return false;
 	} else {
@@ -70,6 +77,8 @@ function addToSABnzbdFromNewznab() {
 
 			// Add the authentication to the link about to be fetched
 			nzburl += '?i=' + user + '&r=' + rss_hash;
+			// TODO: make this optional
+			nzburl += '&del=1';
 
 			addToSABnzbd(addLink, nzburl, "addurl", null, category);
 
@@ -83,7 +92,12 @@ function handleAllDownloadLinks() {
 	$('input[class="nzb_multi_operations_sab"]').each(function() {
 		$(this).css('display', 'inline-block');
 		$(this).click(addToSABnzbdFromNewznab);
-    });
+	});
+	$('.nzb_multi_operations_cart').each(function() {
+		var button = '<input type="button" name="sab" value="Send to SABnzbd" class="submit" />';
+		$(this).after(button);
+		$(this).parent().find('input[name="sab"]').first().click(addToSABnzbdFromNewznab);
+	});
 
 	$.merge($('a[title="Download Nzb"]'), $('a[title="Download NZB"]')).each(function() {
 		// Change the title to "Send to SABnzbd"
