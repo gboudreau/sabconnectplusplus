@@ -1,104 +1,107 @@
-var nzburl;
-var addLink;
-var category = null;
 
-function findNZBId(elem) {
-	var url = $(elem).attr('href');
-	var baseurl = window.location.protocol + '//' + window.location.host;
-	var nzbid = url.substr(url.indexOf('/getnzb/')+8);
-	if (nzbid.indexOf('/') != -1) {
-		nzbid = nzbid.substr(0, nzbid.indexOf('/'));
-	}
-	url = baseurl + '/getnzb/' + nzbid + '.nzb';
+var rssUrl = $('link[type="application/rss+xml"]').attr('href'),
+	queryString = '?i=' + rssUrl.match(/i=(\d+)/)[1] + '&r=' + rssUrl.match(/r=(\w+)/)[1];
 
-	return url;
-}
+Initialize('nzbs', null, function() {
 
-function addToSABnzbdFromNewznab() {
-	if (this.nodeName.toUpperCase() == 'INPUT') {
-		this.value = "Sending...";
-		$(this).css('color', 'green');
-
-		var user = $('input[name="UID"]').val();
-		var rss_hash = $('input[name="RSSTOKEN"]').val();
-
-	    $('table.data input:checked').each(function() {
-			var tr = $(this).parent().parent();
-			var a = tr.find('a[title="Send to SABnzbd"]');
-
-			// Find the nzb id from the href
-			nzburl = findNZBId(a);
-			if (nzburl) {
-				category = tr.find('a[href*="/browse?"]')[1].innerText.replace(' > ', '.');
-
-				addLink = a;
-
-				// Add the authentication to the link about to be fetched
-				nzburl += '?i=' + user + '&r=' + rss_hash;
-
-				addToSABnzbd(addLink, nzburl, "addurl", null, category);
-			}
-		});
-		this.value = 'Sent to SAB!';
-		$(this).css('color', 'red');
-		sendToSabButton = this;
+	// List view: Loop through each download link and add a one click link next the title
+	$('#browsetable tr:gt(0)').each(function() {
+	
+		var $tr = $(this),
+			img = chrome.extension.getURL('/images/sab2_16.png'),			
+			href = $tr.find('.icon_nzb a').attr('href'),
+			link = '<a style="margin-right: 3px; position: relative; top: 3px;" class="addSABnzbd" href="' + href + '"><img src="' + img + '" /></a>';
+			
+		$tr.find('td.item label').prepend(link);
 		
-		setTimeout(function(){ sendToSabButton.value = 'Send to SAB'; $(sendToSabButton).css('color', '#888'); }, 4000);
-
-		return false;
-	} else {
-		// Find the newzbin id from the href
-		nzburl = findNZBId(this);
-		if (nzburl) {
-			// Set the image to an in-progress image
-			var img = chrome.extension.getURL('images/sab2_16_fetching.png');
-			$(this).css('background-image', 'url('+img+')');
-
-			category = null;
-			if ($('#nzb_multi_operations_form').length == 0) {
-				category = $(this).parent().parent().parent().parent().find('a[href*="/browse?"]')[1].innerText.replace(' > ', '.');
-			} else {
-				try {
-					category = $(this).parent().parent().parent().find('a[href*="/browse?"]')[1].innerText.replace(' > ', '.');
-				} catch (ex) { }
-			}
-
-			addLink = this;
-
-			var user = $('input[name="UID"]').val();
-			var rss_hash = $('input[name="RSSTOKEN"]').val();
-
-			// Add the authentication to the link about to be fetched
-			nzburl += '?i=' + user + '&r=' + rss_hash;
-
-			addToSABnzbd(addLink, nzburl, "addurl", null, category);
-
-			return false;
-		}
-	}
-}
-
-function handleAllDownloadLinks() {
-	// List view: add a button above the list to send selected NZBs to SAB
-	$('input[class="nzb_multi_operations_sab"]').each(function() {
-		$(this).css('display', 'inline-block');
-		$(this).click(addToSABnzbdFromNewznab);
-    });
-
-	$.merge($('a[title="Download Nzb"]'), $('a[title="Download NZB"]')).each(function() {
-		// Change the title to "Send to SABnzbd"
-		$(this).attr("title", "Send to SABnzbd");
-
-		// Change the nzb download image
-		var img = chrome.extension.getURL('images/sab2_16.png');
-		$(this).parent().css('background-image', 'url('+img+')');
-
-		// Change the on click handler to send to sabnzbd
-		// this is the <a>
-		$(this).click(addToSABnzbdFromNewznab);
+		$tr.find('a.addSABnzbd')
+			.on('click', function() {
+				addNzbFromTr($(this).closest('tr'));
+				return false;
+			})
+		;
 	});
+
+	// Details view: Find the download button, and prepend a sabnzbd button
+	$('table.details tr:last td:nth-child(2)').each(function() {
+	
+		var $this = $(this),
+			img = chrome.extension.getURL('/images/sab2_16.png'),
+			href = 	$this.find('.icon_nzb a').attr('href'),
+			link = '<div class="icon"><a class="addSABnzbdDetails" href="' + href + '"><img src="' + img + '" /></a></div>';
+			
+		$this
+			.prepend(link)
+			.find('a.addSABnzbdDetails')
+			.on('click', function() {
+				addNzbParametersAndDownload(
+					this,
+					$(this).attr('href'),
+					$('table.details tr:nth-child(2) td:nth-child(2) a').text().match(/^([^-]+)/)[1]
+				)
+			;
+			return false;
+		});
+	});
+	
+	// List view: add a button above the list to send selected NZBs to SAB
+	$('input.nzb_multi_operations_cart').each(function() {
+	
+		var $this = $(this),
+			button = '<input type="button" value="Send to SABnzbd" class="submit multiDownload" />';
+			
+		$this.after(button);
+		
+		$this
+			.parent()
+			.find('input.multiDownload')
+			.on('click', {selector: 'input:checked'}, addMultipleToSABnzbdFromNZBORG)
+		;
+	});
+	
+	// Cart page	
+	if ($('#main h1').text() === 'My Cart') {
+	
+		$('.nzb_multi_operations')
+			.prepend('<input type="button" value="Send Cart to SABnzbd" class="submit cartDownload" />')
+			.find('input.cartDownload')
+			.on('click', {selector: 'tr:gt(0)'}, addMultipleToSABnzbdFromNZBORG)
+		;
+	}
+});
+
+function addMultipleToSABnzbdFromNZBORG(e) {
+
+	var $this = $(this);
+
+	$this.val("Sending...").css('color', 'orange');	
+	
+	$('#browsetable ' + e.data.selector).each(function() {
+		addNzbFromTr($(this).closest('tr'));
+	});
+
+	$this.val('Sent to SABnzbd!').css('color', 'green');
+
+	setTimeout(function(){
+		$this.val('Send to SABnzbd').css('color', '#888');
+	}, 4000);
+
+	return false;
 }
 
-Initialize( 'nzb', null, function() {
-	handleAllDownloadLinks();
-});
+function addNzbFromTr($tr) {
+
+	var $a = $tr.find('a.addSABnzbd');
+	
+	addNzbParametersAndDownload(
+		$a.get(0),
+		$a.attr('href'),
+		$tr.find('td:nth-child(3) a').text().match(/^([^-]+)/)[1]
+	);
+}
+
+// http://nzbs.org/getnzb/abef39dde2baaad865adecb95e5eb26d
+function addNzbParametersAndDownload(addLink, nzburl, category) {
+
+	addToSABnzbd(addLink, 'https://nzbs.org'+nzburl+queryString, "addurl", null, category);
+}

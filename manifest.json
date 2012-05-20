@@ -35,7 +35,7 @@
 				"https://*.newzxxx.com/*"
 			],
 			"js": [
-				"third_party/jquery/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.7.2.min.js",
 				"scripts/content/common.js",
 				"scripts/content/newzbin.js"
 			]
@@ -52,7 +52,7 @@
 				"https://*.nzbxxx.com/*"
 			],
 			"js": [
-				"third_party/jquery/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.7.2.min.js",
 				"scripts/content/common.js",
 				"scripts/content/nzbmatrix.js"
 			],
@@ -67,7 +67,7 @@
 				"https://*.nzbclub.com/*"
 			],
 			"js": [
-				"third_party/jquery/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.7.2.min.js",
 				"scripts/content/common.js",
 				"scripts/content/nzbclub.js"
 			],
@@ -81,7 +81,7 @@
 				"https://*.bintube.com/*"
 			],
 			"js": [
-				"third_party/jquery/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.7.2.min.js",
 				"scripts/content/common.js",
 				"scripts/content/bintube.js"
 			],
@@ -123,7 +123,7 @@
  				"https://binsear.ch/*"
 			],
 			"js": [
-				"third_party/jquery/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.7.2.min.js",
 				"scripts/content/common.js",
 				"scripts/content/binsearch.js"
 			],
@@ -149,7 +149,7 @@
 				"https://nzbindex.nl/*"
 			],
 			"js": [
-				"third_party/jquery/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.7.2.min.js",
 				"scripts/content/common.js",
 				"scripts/content/nzbindex.js"
 			],
@@ -167,7 +167,7 @@
 				"https://nzbsrus.com/*"
 			],
 			"js": [
-				"third_party/jquery/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.7.2.min.js",
 				"scripts/content/common.js",
 				"third_party/webtoolkit/webtoolkit.base64.js",
 				"scripts/content/nzbsrus.js"
@@ -190,7 +190,7 @@
 				"https://*.nzbs.org/*"
 			],
 			"js": [
-				"third_party/jquery/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.7.2.min.js",
 				"scripts/content/common.js",
 				"third_party/webtoolkit/webtoolkit.base64.js",
 				"scripts/content/newznab.js"
@@ -209,7 +209,7 @@
 				"https://fanzub.com/*"
 			],
 			"js": [
-				"third_party/jquery/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.7.2.min.js",
 				"scripts/content/common.js",
 				"third_party/webtoolkit/webtoolkit.base64.js",
 				"scripts/content/fanzub.js"
@@ -228,7 +228,7 @@
 				"https://dognzb.cr/*"
 			],
 			"js": [
-				"third_party/jquery/jquery-1.4.2.min.js",
+				"third_party/jquery/jquery-1.7.2.min.js",
 				"scripts/content/common.js",
 				"third_party/webtoolkit/webtoolkit.base64.js",
 				"scripts/content/dognzb.js"
