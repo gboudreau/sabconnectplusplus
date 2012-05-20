@@ -215,6 +215,25 @@
 				"scripts/content/fanzub.js"
 			],
 			"all_frames": true
+		},
+		{
+			"matches": [
+				"http://*.dognzb.cr/",
+				"http://*.dognzb.cr/*",
+				"http://dognzb.cr/",
+				"http://dognzb.cr/*",
+				"https://*.dognzb.cr/",
+				"https://*.dognzb.cr/*",
+				"https://dognzb.cr/",
+				"https://dognzb.cr/*"
+			],
+			"js": [
+				"third_party/jquery/jquery-1.4.2.min.js",
+				"scripts/content/common.js",
+				"third_party/webtoolkit/webtoolkit.base64.js",
+				"scripts/content/dognzb.js"
+			],
+			"all_frames": true
 		}
 	]
 }
