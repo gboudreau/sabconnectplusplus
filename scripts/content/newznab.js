@@ -46,7 +46,7 @@
 		);
 	}
 		
-	Initialize('nzbs', null, function() {
+	Initialize('nzb', null, function() {
 
 		// List view: Loop through each #browsetable row and add a one click link next the title
 		$('#browsetable tr:gt(0)').each(function() {

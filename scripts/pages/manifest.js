@@ -139,9 +139,9 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_nzbs',
+			'name': 'provider_nzb',
 			'type': 'checkbox',
-			'label': 'nzbs.org'
+			'label': 'Newznab (nzbs.org, nzb.su)'
 		},
 		{
 			'tab': 'Providers',
@@ -163,13 +163,6 @@ this.manifest = {
 			'name': 'provider_nzbsrus',
 			'type': 'checkbox',
 			'label': 'nzbsrus.com'
-		},
-		{
-			'tab': 'Providers',
-			'group': '1-Click NZB downloading',
-			'name': 'provider_nzb',
-			'type': 'checkbox',
-			'label': 'nzb.su'
 		},
 		{
 			'tab': 'Providers',
