@@ -67,7 +67,10 @@
 		});
 	
 		// Details view: Find the download buttons, and prepend a sabnzbd button
-		$('table.details tr:last td:nth-child(2)').each(function() {
+		$.merge(
+		    $('table#detailstable tr:last').prev().find('td:nth-child(2)'), // nzb.su
+		    $('table.details tr:last td:nth-child(2)') // nzbs.org
+		).each(function() {
 		
 			var $tdWithButtons = $(this),
 				href = 	$tdWithButtons.find('.icon_nzb a').attr('href'),
@@ -79,12 +82,18 @@
 				.find('a.addSABnzbdDetails')
 				.add('#infohead .addSABnzbdDetails')
 				.on('click', function() {
+				    var category = null;
+				    if ($('table.details tr:nth-child(2) td:nth-child(2) a').text().match(/^\s*([^< -]+)/)) { // nzbs.org
+				        category = $.trim($('table.details tr:nth-child(2) td:nth-child(2) a').text().match(/^\s*([^< -]+)/)[1]);
+				    } else if ($('table#detailstable tr:nth-child(4) td:nth-child(2) a').text().match(/^\s*([^< -]+)/)) { // nzb.su
+				        category = $.trim($('table#detailstable tr:nth-child(4) td:nth-child(2) a').text().match(/^\s*([^< -]+)/)[1]);
+				    }
 					addToSABnzbd(
 						this,
 						baseUrl+$(this).attr('href')+queryString,
 						'addurl',
 						null, 
-						$('table.details tr:nth-child(2) td:nth-child(2) a').text().match(/^([^-]+)/)[1]
+						category
 					);
 					return false;
 				})
