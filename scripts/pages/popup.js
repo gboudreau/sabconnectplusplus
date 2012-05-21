@@ -13,7 +13,7 @@ function setMaxSpeedText()
 	});
 }
 
-/// @param speed Maximum speed in Kbps
+/// @param speed Maximum speed in KBps
 function setMaxSpeed( speed )
 {
 	var background = chrome.extension.getBackgroundPage();
