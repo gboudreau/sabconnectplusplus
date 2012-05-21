@@ -30,12 +30,19 @@
 	
 		var $anchor = $tr.find('a.addSABnzbd');
 		
+		var category = null;
+		if ($.trim($tr.parent().find('tr:nth-child(1)').find('th:nth-child(2)').text().toLowerCase()) == 'category') {
+		    category = $.trim($tr.find('td:nth-child(2) a').text().match(/^\s*([^> -]+)/)[1]);
+		} else if ($.trim($tr.parent().find('tr:nth-child(1)').find('th:nth-child(3)').text().toLowerCase()) == 'category') {
+		    category = $.trim($tr.find('td:nth-child(3) a').text().match(/^\s*([^> -]+)/)[1]);
+		}
+		
 		addToSABnzbd(
 			$anchor.get(0),
 			baseUrl + $anchor.attr('href') + queryString,
 			'addurl',
 			null, 
-			$tr.find('td:nth-child(3) a').text().match(/^([^-]+)/)[1]
+			category
 		);
 	}
 		
