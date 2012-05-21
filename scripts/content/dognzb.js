@@ -21,7 +21,7 @@ function addToSABnzbdFromDognzb() {
 			// Find the nzb id from the href
 			nzburl = findNZBId(a);
 			if (nzburl) {
-				category = null;
+    			category = tr.find('span[class~="labelstyle-444444"]').text();
 
 				addLink = a;
 
@@ -46,7 +46,8 @@ function addToSABnzbdFromDognzb() {
 			var img = chrome.extension.getURL('images/sab2_16_fetching.png');
 			$(this).css('background-image', 'url('+img+')');
 
-			category = null;
+			var tr = $(this).parent().parent();
+			category = tr.find('span[class~="labelstyle-444444"]').text();
 
 			addLink = this;
 			
