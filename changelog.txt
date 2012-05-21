@@ -1,40 +1,45 @@
+Version 0.5.9
+-------------
+Added support for dognzb.cr (thanks to commits from wolrah & gboudreau)
+Bugfix: now working with the new nzbs.org (thanks to commits from wolrah, jdart & gboudreau)
+
 Version 0.5.8
---------------
+-------------
 Change [Issue 124]: Added newzbin2.es and removed old newzbin.com
 
 Version 0.5.7
---------------
+-------------
 Change [Issue 37]: 1-Click on individual posts on newzbin, not just search list (Thanks fabian)
 Bugfix [Issue 107]: nzbxxx.com 1-click was not working due to incorrect API URL usage.
 
 Version 0.5.6
---------------
+-------------
 Feature: [Issue 85]: Save multiple SABnzbd connections with quick change option from popup.
 Bugfix: [Issue 87]: nzbsrus.com changed their HTML in the browse & search pages.
 
 Version 0.5.5
---------------
+-------------
 Feature: [Issue 51]: Max Speed for SABnzbd can now be set in the popup. You can press the ENTER key in the input field to accept the changes or click the "Set" button.
 Bugfix: [Issue 81]: nzb.su anime series page doesn't have 1-click.
 
 Version 0.5.4
---------------
+-------------
 Change: The "nice names" for binsearch.info have been simplified. Thanks to "thibaut....@gmail.com" for this.
 Change: The Categories section of the Configuration tab in Options now has a summary paragraph with a link to the Categories wiki page on our Google Code project page.
 Bugfix: (Regression) [Issue 77] "Open SABnzbd" link in the popup was not working for https connections.
 
 Version 0.5.3
---------------
+-------------
 Feature: New option to enable automatic authentication. This feature automatically provides your SABnzbd username & password to SABnzbd through URL parameters so you don't have to type in your username & password manually when you click the "Open SABnzbd" button in the popup. Enabled by default.
 Change: If options are changed in the extension, tabs currently open for indexer sites automatically pick up those changes. Previously the website had to be refreshed by the user to pick up changes in options (such as nzbxxx username & api key).
 
 Version 0.5.2
---------------
+-------------
 Bugfix: X-DNZB-Category was not working on compatible sites.
 Bugfix: NZBmatrix was not working in iframes (Issue 60)
 
 Version 0.5.1
---------------
+-------------
 Change: Fresh new icon (the smaller 16x16 icon remains the same)
 Change: 'Notification Timeout' setting now defaults to 10 seconds (previously defaulted to Disabled).
 Bugfix: (Regression) 'Enable Context Menu' option was not working.
@@ -43,7 +48,7 @@ Bugfix: Renamed the display options check boxes in settings to mean the reverse 
 Bugfix: (Regression) 'Pause Queue' popup option was missing.
 
 Version 0.5.0
---------------
+-------------
 Feature: "Send link to SABnzbd" link added to chrome context menu for http links. Note that this feature is not intended to be used on links that will require authentication.
 Feature: New setting in options page to enable/disable the new context menu.
 Feature: Added support for fanzub
