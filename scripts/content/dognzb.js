@@ -4,14 +4,11 @@ var category = null;
 
 function findNZBId(elem) {
 	nzbid = $(elem).attr('id');
-	console.log('nzbid = ' + nzbid);
 	url = 'http://dognzb.cr/fetch/' + nzbid;
-	console.log('url = ' + url);
-
 	return url;
 }
 
-function addToSABnzbdFromNewznab() {
+function addToSABnzbdFromDognzb() {
 	var rss_hash = $('input[name="rsstoken"]').val();
 	if (this.nodeName.toUpperCase() == 'INPUT') {
 		this.value = "Sending...";
@@ -68,7 +65,7 @@ function handleAllDownloadLinks() {
 	// List view: add a button above the list to send selected NZBs to SAB
 	$('input[class="nzb_multi_operations_sab"]').each(function() {
 		$(this).css('display', 'inline-block');
-		$(this).click(addToSABnzbdFromNewznab);
+		$(this).click(addToSABnzbdFromDognzb);
     });
 
 	$('div[title="Download NZB"]').each(function() {
@@ -89,10 +86,10 @@ function handleAllDownloadLinks() {
 		// Change the on click handler to send to sabnzbd
 		// this is the <a>
 		$(this).removeAttr("onClick");
-		$(this).click(addToSABnzbdFromNewznab);
+		$(this).click(addToSABnzbdFromDognzb);
 	});
 }
 
-Initialize( 'nzb', null, function() {
+Initialize( 'dognzb', null, function() {
 	handleAllDownloadLinks();
 });

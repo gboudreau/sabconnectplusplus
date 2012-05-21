@@ -16,6 +16,7 @@ var defaultSettings = {
 	provider_nzbsrus: true,
 	provider_nzb: true,
 	provider_fanzub: true,
+	provider_dognzb: true,
 	use_name_binsearch: true,
 	use_name_nzbindex: true,
 	nzbxxx_username: '',

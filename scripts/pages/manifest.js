@@ -181,6 +181,13 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
+			'name': 'provider_dognzb',
+			'type': 'checkbox',
+			'label': 'dognzb.cr'
+		},
+		{
+			'tab': 'Providers',
+			'group': '1-Click NZB downloading',
 			'name': 'provider_notice',
 			'type': 'description',
 			'text':
