@@ -1,9 +1,9 @@
 
 (function() { // Encapsulate
 
-	var rssUrl = $('link[type="application/rss+xml"]').attr('href'),
-		queryString = '?i=' + rssUrl.match(/i=(\d+)/)[1] + '&r=' + rssUrl.match(/r=(\w+)/)[1],
-		oneClickImgTag = '<img src="' + chrome.extension.getURL('/images/sab2_16.png') + '" />';	
+	var queryString = '?i=' + $('[name=UID]').val() + '&r=' + $('[name=RSSTOKEN]').val() + '&del=1',
+		oneClickImgTag = '<img src="' + chrome.extension.getURL('/images/sab2_16.png') + '" />',
+		baseUrl = 'https://'+window.location.host;
 	
 	function addMany(e) {
 	
@@ -17,7 +17,7 @@
 	
 		$button.val('Sent to SABnzbd!').css('color', 'green');
 	
-		setTimeout(function(){
+		setTimeout(function() {
 			$button.val('Send to SABnzbd').css('color', '#888');
 		}, 4000);
 	
@@ -32,8 +32,8 @@
 		
 		addToSABnzbd(
 			$anchor.get(0),
-			'https://nzbs.org'+$anchor.attr('href')+queryString,
-			"addurl",
+			baseUrl + $anchor.attr('href') + queryString,
+			'addurl',
 			null, 
 			$tr.find('td:nth-child(3) a').text().match(/^([^-]+)/)[1]
 		);
@@ -45,10 +45,11 @@
 		$('#browsetable tr:gt(0)').each(function() {
 		
 			var $tr = $(this),
-				href = $tr.find('.icon_nzb a').attr('href'),
-				link = '<a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a>';
+				href = $tr.find('.icon_nzb a').attr('href');
 				
-			$tr.find('td.item label').prepend(link);
+			$tr.find('td.item label')
+				.prepend('<a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a>')
+			;
 			
 			$tr.find('a.addSABnzbd')
 				.on('click', function() {
@@ -73,8 +74,8 @@
 				.on('click', function() {
 					addToSABnzbd(
 						this,
-						'https://nzbs.org'+$(this).attr('href')+queryString,
-						"addurl",
+						baseUrl+$(this).attr('href')+queryString,
+						'addurl',
 						null, 
 						$('table.details tr:nth-child(2) td:nth-child(2) a').text().match(/^([^-]+)/)[1]
 					);
@@ -83,15 +84,12 @@
 			;
 		});
 		
-		
 		// List view: add a button above the list to send selected NZBs to SAB
-		$('input.nzb_multi_operations_cart').each(function() {
-		
-			$(this).after('<input type="button" value="Send to SABnzbd" class="multiDownload" />')
-				.siblings('input.multiDownload')
-				.on('click', {selector: 'input:checked'}, addMany)
-			;
-		});
+		$('input.nzb_multi_operations_cart')
+			.after('<input type="button" value="Send to SABnzbd" class="multiDownload" />')
+			.siblings('input.multiDownload')
+			.on('click', {selector: 'input:checked'}, addMany)
+		;
 		
 		// Cart page: add a button above the list to send all NZBs to SAB
 		if ($('#main h1').text() === 'My Cart') {
