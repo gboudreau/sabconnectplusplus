@@ -1,8 +1,11 @@
 {
 	"name": "SABconnect++",
 	"version": "0.5.9",
+	"manifest_version": 2,
 	"description": "SABnzbd extension for Google Chrome.",
-	"background_page": "background.html",
+	"background": {
+        "page": "background.html"
+	},
 	"options_page": "settings.html",
 	"browser_action": {
 		"default_icon": "images/sab2_16.png",
@@ -24,7 +27,20 @@
 		"https://*/*",
 		"tabs",
 		"notifications",
-		"contextMenus"
+		"contextMenus",
+		"background"
+	],
+	"web_accessible_resources": [
+	    "images/sab2_16.png",
+	    "images/sab2_48.png",
+	    "images/sab2_16_red.png",
+	    "images/sab2_16_green.png",
+	    "images/sab2_16_fetching.png",
+	    "images/sab2_16_blue.png",
+	    "images/nzbmatrix_button.gif",
+	    "images/messagebox_critical.png",
+	    "images/control_play.png",
+	    "images/control_pause.png"
 	],
 	"content_scripts": [
 		{
@@ -187,7 +203,11 @@
 				"http://*.nzbs.org/",
 				"http://*.nzbs.org/*",
 				"https://*.nzbs.org/",
-				"https://*.nzbs.org/*"
+				"https://*.nzbs.org/*",
+				"http://*.nzbhq.com/",
+				"http://*.nzbhq.com/*",
+				"https://*.nzbhq.com/",
+				"https://*.nzbhq.com/*"
 			],
 			"js": [
 				"third_party/jquery/jquery-1.7.2.min.js",

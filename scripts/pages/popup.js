@@ -369,7 +369,7 @@ $(document).ready( function() {
 });
 
 var nowtime = new Date();
-var lastOpened = parseInt(localStorage["lastOpened"]);
+var lastOpened = parseInt(getPref("lastOpened"));
 var closeWindow = false;
 if (lastOpened > 0) {
 	if (nowtime.getTime() - lastOpened < 700) { 
@@ -379,6 +379,6 @@ if (lastOpened > 0) {
 	}
 }
 if (!closeWindow) {
-	localStorage["lastOpened"] = nowtime.getTime();
+	setPref("lastOpened", nowtime.getTime());
 	window.onload = function() { SetupTogglePause(); reDrawPopup(); };
 }
