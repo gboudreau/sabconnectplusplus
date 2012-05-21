@@ -2,9 +2,14 @@
 (function() { // Encapsulate
 
 	var queryString = '?i=' + $('[name=UID]').val() + '&r=' + $('[name=RSSTOKEN]').val() + '&del=1',
-		oneClickImgTag = '<img src="' + chrome.extension.getURL('/images/sab2_16.png') + '" />',
-		baseUrl = 'https://'+window.location.host;
-	
+		oneClickImgTag = '<img src="' + chrome.extension.getURL('/images/sab2_16.png') + '" />';
+
+	if (window.location.host.indexOf('nzbhq.com') > -1) {
+	    var baseUrl = 'http://'+window.location.host;
+	} else {
+		var baseUrl = 'https://'+window.location.host;
+	}
+			
 	function addMany(e) {
 	
 		var $button = $(this);
@@ -85,6 +90,8 @@
 				    var category = null;
 				    if ($('table.details tr:nth-child(2) td:nth-child(2) a').text().match(/^\s*([^< -]+)/)) { // nzbs.org
 				        category = $.trim($('table.details tr:nth-child(2) td:nth-child(2) a').text().match(/^\s*([^< -]+)/)[1]);
+    				} else if ($('table#detailstable tr:nth-child(3) td:nth-child(2) a').text().match(/^\s*([^< -]+)/)) { // nzbs.org
+    				    category = $.trim($('table#detailstable tr:nth-child(3) td:nth-child(2) a').text().match(/^\s*([^< -]+)/)[1]);
 				    } else if ($('table#detailstable tr:nth-child(4) td:nth-child(2) a').text().match(/^\s*([^< -]+)/)) { // nzb.su
 				        category = $.trim($('table#detailstable tr:nth-child(4) td:nth-child(2) a').text().match(/^\s*([^< -]+)/)[1]);
 				    }
