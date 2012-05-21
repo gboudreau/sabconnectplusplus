@@ -17,7 +17,7 @@ function findNZBId(elem) {
 		//url += '&apikey=' + nzbxxx_apikey + '&username=' + nzbxxx_username;
 	}
 	else {
-		url = url.replace('nzb-download', 'nzb-details');
+		url = url.replace('nzb-download', '/nzb-details');
 		
 		if( url.indexOf(hostname) == -1 ) {
 			url = hostname + url
