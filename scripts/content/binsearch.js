@@ -27,7 +27,7 @@ function addToSABnzbdFromBinsearch()
 					nice_name = $(a[i]).parent().parent().find('td')[2].getElementsByTagName('span')[0].innerText;
 				}
 			}
-			addToSABnzbd(addLink, 'http://binsearch.info/?action=nzb&' + a[i].name + '=1', "addurl", nice_name, category);
+			addToSABnzbd(addLink, 'https://binsearch.info/?action=nzb&' + a[i].name + '=1', "addurl", nice_name, category);
 		}
 	}
 	return false;

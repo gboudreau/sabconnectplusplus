@@ -2,7 +2,8 @@ Version 0.5.9
 -------------
 Added support for dognzb.cr (thanks to commits from wolrah & gboudreau)
 Added support for www.nzbhq.com
-Bugfix: now working with the new nzbs.org (thanks to commits from wolrah, jdart & gboudreau)
+Bugfix: Now working with the new nzbs.org (thanks to commits from wolrah, jdart & gboudreau)
+Bugfix: Always use https for binsearch.info URLs.
 
 Version 0.5.8
 -------------
