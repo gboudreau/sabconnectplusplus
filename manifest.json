@@ -10,10 +10,7 @@
 	"browser_action": {
 		"default_icon": "images/sab2_16.png",
 		"default_title": "SABnzbd",
-		"popup": {
-			"height": 200,
-			"path": "popup.html"
-		}
+		"default_popup": "popup.html"
 	},
 	"icons":
 	{
