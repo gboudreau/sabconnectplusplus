@@ -1,3 +1,7 @@
+Version 0.5.10
+--------------
+Bugfix: Missing profiles names from select box in popup
+
 Version 0.5.9
 -------------
 Added support for dognzb.cr (thanks to commits from wolrah & gboudreau)

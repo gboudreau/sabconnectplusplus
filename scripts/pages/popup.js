@@ -311,10 +311,10 @@ function populateProfileList()
 	var profiles = store.get( 'profiles' );
 	for( var p in profiles ) {
 		$('#profiles').append(
-			$('<option>').attr({
-				value: p,
-				text: p
-			})
+            $('<option>').attr({
+    			value: p,
+    			text: p
+    		}).html(p)
 		);
 	}
 }
