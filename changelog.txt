@@ -1,3 +1,7 @@
+Version 0.5.11
+--------------
+Bugfix: missing queued items and graph in popup
+
 Version 0.5.10
 --------------
 Bugfix: Missing profiles names from select box in popup
