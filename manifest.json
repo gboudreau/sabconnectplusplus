@@ -1,16 +1,16 @@
 {
 	"name": "SABconnect++",
 	"version": "0.5.10",
-	"manifest_version": 2,
 	"description": "SABnzbd extension for Google Chrome.",
-	"background": {
-        "page": "background.html"
-	},
+	"background_page": "background.html",
 	"options_page": "settings.html",
 	"browser_action": {
 		"default_icon": "images/sab2_16.png",
 		"default_title": "SABnzbd",
-		"default_popup": "popup.html"
+		"popup": {
+			"height": 200,
+			"path": "popup.html"
+		}
 	},
 	"icons":
 	{
@@ -24,20 +24,7 @@
 		"https://*/*",
 		"tabs",
 		"notifications",
-		"contextMenus",
-		"background"
-	],
-	"web_accessible_resources": [
-	    "images/sab2_16.png",
-	    "images/sab2_48.png",
-	    "images/sab2_16_red.png",
-	    "images/sab2_16_green.png",
-	    "images/sab2_16_fetching.png",
-	    "images/sab2_16_blue.png",
-	    "images/nzbmatrix_button.gif",
-	    "images/messagebox_critical.png",
-	    "images/control_play.png",
-	    "images/control_pause.png"
+		"contextMenus"
 	],
 	"content_scripts": [
 		{
