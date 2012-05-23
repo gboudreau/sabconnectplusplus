@@ -141,7 +141,7 @@ this.manifest = {
 			'group': '1-Click NZB downloading',
 			'name': 'provider_nzb',
 			'type': 'checkbox',
-			'label': 'Newznab (nzbs.org, nzb.su)'
+			'label': 'Newznab (nzbs.org, nzb.su, nzbhq.com)'
 		},
 		{
 			'tab': 'Providers',
