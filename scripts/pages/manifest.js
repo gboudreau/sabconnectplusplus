@@ -181,6 +181,13 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
+			'name': 'provider_yubse',
+			'type': 'checkbox',
+			'label': 'yubse.com'
+		},
+		{
+			'tab': 'Providers',
+			'group': '1-Click NZB downloading',
 			'name': 'provider_notice',
 			'type': 'description',
 			'text':
@@ -203,7 +210,13 @@ this.manifest = {
 			'type': 'checkbox',
 			'label': 'nzbindex.com: Use display name instead of NZB filename.'
 		},
-		
+		{
+			'tab': 'Providers',
+			'group': 'Display Options',
+			'name': 'use_name_yubse',
+			'type': 'checkbox',
+			'label': 'yubse.com: Use display name instead of NZB filename.'
+		},
 		// Providers Tab, NZBXXX.com section
 		{
 			'tab': 'Providers',
