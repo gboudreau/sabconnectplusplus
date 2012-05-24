@@ -239,6 +239,26 @@
 				"scripts/content/dognzb.js"
 			],
 			"all_frames": true
-		}
+		},
+		{
+			"matches": [ 
+				"http://*.yubse.com/", 
+				"http://*.yubse.com/*", 
+				"http://yubse.com/", 
+				"http://yubse.com/*", 
+				"https://*.yubse.com/", 
+				"https://*.yubse.com/*", 
+				"https://yubse.com/", 
+				"https://yubse.com/*", 
+				"http://beta.yubse.com/*"
+			],
+			"js": [ 
+				"third_party/jquery/jquery-1.7.2.min.js", 
+				"scripts/content/common.js", 
+				"third_party/webtoolkit/webtoolkit.base64.js", 
+				"scripts/content/yubse.js" 
+			],
+			"all_frames": true
+		} 
 	]
 }
