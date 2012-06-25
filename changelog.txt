@@ -1,3 +1,7 @@
+Version 0.5.12
+--------------
+Bugfix: Don't send default category for NZBMatrix downloads
+
 Version 0.5.11
 --------------
 Bugfix: missing queued items and graph in popup

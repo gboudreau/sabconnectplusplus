@@ -359,6 +359,12 @@ function DoesSiteSupportCatHeader( nzburl )
 	return supported;
 }
 
+function DoesSABHandleCategoryForSite( nzburl )
+{
+    // SABnzbd only handle categories for NZBMatrix at this time
+    return nzburl.indexOf('nzbmatrix') != -1;
+}
+
 function SetupCategoryHeader( request, data, nzburl )
 {
 	// Only use auto-categorization if "Use X-DNZB-Category" is false (0), or if the index site doesn't support the X-DNZB-Category HTTP header
@@ -373,7 +379,7 @@ function SetupCategoryHeader( request, data, nzburl )
 			data.cat = hardcodedCategory;
 		} else if( request.category ) {
 			data.cat = request.category;
-		} else if( defaultCategory ) {
+		} else if( defaultCategory && !DoesSABHandleCategoryForSite( nzburl )) {
 			data.cat = defaultCategory;
 		}
 	}
