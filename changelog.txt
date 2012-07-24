@@ -1,3 +1,7 @@
+Version 0.5.13
+--------------
+Added support for Newzxxx2.ch
+
 Version 0.5.12
 --------------
 Bugfix: Don't send default category for NZBMatrix downloads
