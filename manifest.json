@@ -32,7 +32,9 @@
 				"http://*.newzbin2.es/*",
 				"https://*.newzbin2.es/*",
 				"http://*.newzxxx.com/*",
-				"https://*.newzxxx.com/*"
+				"https://*.newzxxx.com/*",
+				"http://*.newzxxx2.ch/*",
+				"https://*.newzxxx2.ch/*"
 			],
 			"js": [
 				"third_party/jquery/jquery-1.7.2.min.js",
