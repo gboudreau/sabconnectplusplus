@@ -1,9 +1,7 @@
-Version 0.5.13
---------------
-Added support for Newzxxx2.ch
-
 Version 0.5.12
 --------------
+Added support for yubse.com (thanks tofito)
+Added support for Newzxxx2.ch
 Bugfix: Don't send default category for NZBMatrix downloads
 
 Version 0.5.11
