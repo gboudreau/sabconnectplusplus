@@ -7,20 +7,23 @@ Install SABconnect++ at our [Chrome Web Store page](https://chrome.google.com/we
 Features:
 
   * One-click NZB downloads for the following sites:
-    * newzbin.com
-    * nzbmatrix.com
-    * nzbxxx.com
-    * nzbs.org
-    * nzbclub.com
-    * bintube.com
     * binsearch.info (binsearch.net)
-    * nzbindex.com (nzbindex.nl)
-    * nzbsrus.com
+    * bintube.com
+    * fanzub.com
+    * newzbin.com
     * newzleech.com
+    * newzxxx2.ch ![alt text](http://i52.tinypic.com/15nlzid.png "NEW")
     * nzb.su
-    * fanzub.com ![alt text](http://i52.tinypic.com/15nlzid.png "NEW")
-  * Context menu option for sending links to SABnzbd ![alt text](http://i52.tinypic.com/15nlzid.png "NEW")
-  * Brand new options page that looks consistent with Chrome's own options layout ![alt text](http://i52.tinypic.com/15nlzid.png "NEW")
+    * nzbclub.com
+    * nzbhq.com ![alt text](http://i52.tinypic.com/15nlzid.png "NEW")
+    * nzbindex.com (nzbindex.nl)
+    * nzbmatrix.com
+    * nzbs.org
+    * nzbsrus.com
+    * nzbxxx.com
+    * yubse.com ![alt text](http://i52.tinypic.com/15nlzid.png "NEW")
+  * Context menu option for sending links to SABnzbd
+  * Options page that looks consistent with Chrome's own options layout
   * Download speed graph
   * Pause individual downloads
   * Pause all downloads
