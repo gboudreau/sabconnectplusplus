@@ -182,8 +182,24 @@ function reDrawPopup() {
 	// Grab a list of jobs (array of slot objects from the json API)
 	var jobs = JSON.parse(getPref('queue'));
 	$.each(jobs, function(i, slot) {
-		data['slot'] = slot;
-		$('#template').jqote(data).appendTo($('#sab-queue'));
+	    // Replaced jqote, which doesn't work in Chrome extensions, when using manifest v2.
+		var el = '<li id="' + slot.nzo_id + '" class="item">'
+		    + '<div class="file-' + slot.status + ' filename">' + slot.filename + '</div>'
+		    + '<div class="controls">';
+		if ( slot.status == "Paused" ) {
+		    el += '<a class="resumeItem lowOpacity" href=""><img src="' + date.playImg + '" /></a>';
+	    } else {
+		    el += '<a class="pauseItem lowOpacity" href=""><img src="' + data.pauseImg + '" /></a>';
+	    }
+	    el += '<a class="deleteItem lowOpacity" href=""><img src="' + data.deleteImg + '" /></a>'
+        	+ '</div>'
+        	+ '<div class="float-fix"></div>';
+        if (slot.percentage != "0") {
+            el += '<div class="progressBarContainer"><div class="progressBarInner" style="width:' + slot.percentage + '%"></div></div>';
+        }
+        el += '</li>';
+
+		$(el).appendTo($('#sab-queue'));
 	});
 	
 	// The controls are low transparency until the user hovers over the parent item
@@ -271,21 +287,15 @@ function reDrawPopup() {
 	});
 	
 	if( store.get( 'config_enable_graph' ) == '1' ) {
-		var api = new jGCharts.Api();
-		var url = api.make({
-			data : JSON.parse(getPref('speedlog')), //MANDATORY
-			type : 'lc',
-			fillarea : true, //default false
-			fillbottom : true, //default false
-			size : '220x75'
-		})
-		
-		// Let the image load first so as to not make it flicker.
-		var graph = new Image();
-		graph.src = url;
-		graph.onload = function() {
-			$('#graph').html('').append($('<div id="graph-inner"></div>').append(this));
-		};
+		$('#graph').gchart({
+		    type: 'line',
+		    series: [$.gchart.series('Speed', JSON.parse(getPref('speedlog')), 'blue')],
+		    /*axes: [
+		        $.gchart.axis('left', 0, 2000, 'blue', 'right'),
+                $.gchart.axis('left', ['kbps'], [50], 'blue', 'right')],*/
+		    width: 220,
+		    height: 75
+		});
 	}
 }
 

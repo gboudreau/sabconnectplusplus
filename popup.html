@@ -4,39 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="css/popup.css" />
 <script type="text/javascript" src="third_party/jquery/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="third_party/jquery/jquery.jqote.min.js"></script>
 <script type="text/javascript" src="third_party/jquery/jquery-ui-1.8.20.sortable.min.js"></script>
 <script type="text/javascript" src="third_party/jquery/jquery.urldecoder.min.js"></script>
-<script type="text/javascript" src="third_party/jgcharts/jgcharts.pack.js"></script>
+<script type="text/javascript" src="third_party/jgcharts/jquery.gchart.js"></script>
 <script type="text/javascript" src="third_party/fancy-settings/lib/store.js"></script>
 <script type="text/javascript" src="scripts/profile.js"></script>
 <script type="text/javascript" src="scripts/pages/common.js"></script>
 <script type="text/javascript" src="scripts/pages/popup.js"></script>
-
-<script type="text/html" id="template">
-<![CDATA[
-<li id="<%= this.slot.nzo_id %>" class="item">
-	<div class="file-<%= this.slot.status %> filename"><%= this.slot.filename %></div>
-	
-	<div class="controls">
-		<% if ( this.slot.status == "Paused" ) { %>
-			<a class="resumeItem lowOpacity" href=""><img src="<%= this.playImg %>" /></a>
-		<% } else { %>
-			<a class="pauseItem lowOpacity" href=""><img src="<%= this.pauseImg %>" /></a>
-		<% } %>
-		<a class="deleteItem lowOpacity" href=""><img src="<%= this.deleteImg %>" /></a>
-	</div>
-	
-	<div class="float-fix"></div>
-	<% if ( this.slot.percentage != "0" ) { %>
-	<div class="progressBarContainer">
-		<div class="progressBarInner" style="width:<%= this.slot.percentage %>%"></div>
-	</div>
-	<% } %>
-
-</li>
-]]>
-</script>
 
 <script type="text/html" id="errors">
 <![CDATA[
