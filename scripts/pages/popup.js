@@ -287,16 +287,36 @@ function reDrawPopup() {
 	});
 	
 	if( store.get( 'config_enable_graph' ) == '1' ) {
-		$('#graph').gchart({
-		    type: 'line',
-		    series: [$.gchart.series('Speed', JSON.parse(getPref('speedlog')), 'blue')],
-		    /*axes: [
-		        $.gchart.axis('left', 0, 2000, 'blue', 'right'),
-                $.gchart.axis('left', ['kbps'], [50], 'blue', 'right')],*/
-		    width: 220,
-		    height: 75
-		});
+		var line1 = JSON.parse(getPref('speedlog'));
+		if (line1.sum() == 0) {
+		    $('#graph').hide();
+		} else {
+		    $('#graph').html('');
+		    $('#graph').show();
+    		var plot1 = $.jqplot('graph', [line1], {
+    		    seriesColors: ['#696'],
+                axes: {yaxis: {min: 0}, xaxis: {min: 1, max: 10, numberTicks: 5, tickOptions: {showLabel: false}}},
+                seriesDefaults: { 
+                    fill: true,
+                    fillAndStroke: true,
+                    fillColor: '#ADA',
+                    showMarker: false,
+                    pointLabels: { show: true } 
+                },
+                grid: {
+                    drawGridLines: false,
+                    gridLineColor: '#FFF',
+                    shadow: false,
+                    background: '#FFF',
+                    borderWidth: 0.2
+                }
+            });
+		}
 	}
+}
+
+Array.prototype.sum = function() {
+    return this.reduce(function(a,b){return a+b;});
 }
 
 function OnProfileChanged( event )

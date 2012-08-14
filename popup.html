@@ -6,11 +6,15 @@
 <script type="text/javascript" src="third_party/jquery/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="third_party/jquery/jquery-ui-1.8.20.sortable.min.js"></script>
 <script type="text/javascript" src="third_party/jquery/jquery.urldecoder.min.js"></script>
-<script type="text/javascript" src="third_party/jgcharts/jquery.gchart.js"></script>
 <script type="text/javascript" src="third_party/fancy-settings/lib/store.js"></script>
 <script type="text/javascript" src="scripts/profile.js"></script>
 <script type="text/javascript" src="scripts/pages/common.js"></script>
 <script type="text/javascript" src="scripts/pages/popup.js"></script>
+
+<script type="text/javascript" src="third_party/jqplot/jquery.jqplot.js"></script>
+<script type="text/javascript" src="third_party/jqplot/jqplot.barRenderer.js"></script>
+<script type="text/javascript" src="third_party/jqplot/jqplot.pointLabels.js"></script>
+<link rel="stylesheet" type="text/css" href="third_party/jqplot/jquery.jqplot.css" />
 
 <script type="text/html" id="errors">
 <![CDATA[
@@ -41,7 +45,7 @@
 	</div>
 	<div class="float-fix"></div>
 	
-	<div id="graph"></div>
+	<div id="graph" style="height:75px;width:220px"></div>
 	
 	<ul id="sab-queue"></ul>
 </div>

@@ -1,3 +1,8 @@
+Version 0.5.13
+--------------
+Improvement: Somehow improved the graph. Doesn't show when empty, etc.
+Task: updated Chrome extension manifest to latest version (2). Previous version (1) will be deprecated in Chrome soon, so this was needed to keep the extension working.
+
 Version 0.5.12
 --------------
 Added support for yubse.com (thanks tofito)
