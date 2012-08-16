@@ -22,6 +22,7 @@ Features:
     * nzbsrus.com
     * nzbxxx.com
     * yubse.com ![alt text](http://i52.tinypic.com/15nlzid.png "NEW")
+    * mysterbin.com ![alt text](http://i52.tinypic.com/15nlzid.png "NEW")
   * Context menu option for sending links to SABnzbd
   * Options page that looks consistent with Chrome's own options layout
   * Download speed graph
