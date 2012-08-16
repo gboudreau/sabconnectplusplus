@@ -12,6 +12,7 @@ var defaultSettings = {
 	provider_bintube: true,
 	provider_nzbs: true,
 	provider_binsearch: true,
+    provider_mysterbin: true,
 	provider_nzbindex: true,
 	provider_nzbsrus: true,
 	provider_nzb: true,
