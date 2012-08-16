@@ -1,5 +1,6 @@
 Version 0.5.13
 --------------
+Added support for mysterbin.com (thanks mattb3)
 Improvement: Somehow improved the graph. Doesn't show when empty, etc.
 Task: updated Chrome extension manifest to latest version (2). Previous version (1) will be deprecated in Chrome soon, so this was needed to keep the extension working.
 
