@@ -288,11 +288,13 @@ function reDrawPopup() {
 	
 	if( store.get( 'config_enable_graph' ) == '1' ) {
 		var line1 = JSON.parse(getPref('speedlog'));
-		if (line1.sum() == 0) {
+		if (line1.sum() == 0 || status == 'Idle') {
 		    $('#graph').hide();
 		} else {
 		    $('#graph').html('');
 		    $('#graph').show();
+		    $('body').css({height: 'none'});
+		    $('html').css({height: 'none'});
     		var plot1 = $.jqplot('graph', [line1], {
     		    seriesColors: ['#696'],
                 axes: {yaxis: {min: 0}, xaxis: {min: 1, max: 10, numberTicks: 5, tickOptions: {showLabel: false}}},
@@ -312,7 +314,14 @@ function reDrawPopup() {
                 }
             });
 		}
+	} else {
+	    // Graph is disabled
+	    $('#graph').hide();
 	}
+    var newHeight = $('#sabInfo').height() + $('.menu').height() + 28;
+    console.log(newHeight)
+    $('body').css({height: newHeight+'px'});
+    $('html').css({height: newHeight+'px'});
 }
 
 Array.prototype.sum = function() {

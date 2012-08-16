@@ -149,8 +149,9 @@ li.highlight {
     border: 1px solid #ccc !important;
 }
 
-#graph-inner {
-    height: 75px;
+#graph {
+	height: 75px;
+	width: 220px;
 }
 
 #errors-container {
