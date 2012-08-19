@@ -29,6 +29,7 @@ var defaultSettings = {
 	config_enable_context_menu: true,
 	config_enable_notifications: true,
 	config_notification_timeout: 10,
+    config_use_user_categories: false,
 	config_use_category_header: false,
 	config_hard_coded_category: '',
 	config_default_category: '',
@@ -36,6 +37,7 @@ var defaultSettings = {
 	profiles: {},
 	active_profile: '',
 	first_profile_initialized: false,
+    active_category: '*'
 };
 
 var store = new Store( 'settings', defaultSettings );
@@ -371,18 +373,26 @@ function SetupCategoryHeader( request, data, nzburl )
 	// Only use auto-categorization if "Use X-DNZB-Category" is false (0), or if the index site doesn't support the X-DNZB-Category HTTP header
 	var useCatHeader = store.get('config_use_category_header');
 	console.log( 'config_use_category_header = ' + useCatHeader );
+
+    var useUserCats = store.get('config_use_user_categories');
 	
 	if( !useCatHeader || !DoesSiteSupportCatHeader( nzburl ) ) {
-		var hardcodedCategory = store.get( 'config_hard_coded_category' );
-		var defaultCategory = store.get( 'config_default_category' );
-		
-		if( hardcodedCategory ) {
-			data.cat = hardcodedCategory;
-		} else if( request.category ) {
-			data.cat = request.category;
-		} else if( defaultCategory && !DoesSABHandleCategoryForSite( nzburl )) {
-			data.cat = defaultCategory;
-		}
+        if (!useUserCats) {
+            var hardcodedCategory = store.get( 'config_hard_coded_category' );
+            var defaultCategory = store.get( 'config_default_category' );
+            
+            if( hardcodedCategory ) {
+                data.cat = hardcodedCategory;
+            } else if( request.category ) {
+                data.cat = request.category;
+            } else if( defaultCategory && !DoesSABHandleCategoryForSite( nzburl )) {
+                data.cat = defaultCategory;
+            }
+        }
+        else
+        {
+            data.cat = store.get('active_category');
+        }
 	}
 }
 
@@ -451,6 +461,13 @@ function OnRequest( request, sender, sendResponse )
 	case 'addToSABnzbd':
 		addToSABnzbd( request, sendResponse );
 		return;
+    case 'get_categories':
+        var params = {
+            action: 'sendSabRequest',
+            mode: 'get_cats'
+        }
+        sendSabRequest(params, sendResponse);
+        return;
 	}
 	
 	sendResponse( response );

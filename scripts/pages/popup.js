@@ -358,6 +358,30 @@ function populateProfileList()
 	}
 }
 
+function OnCategoryChanged(event)
+{
+    var categoryName = event.target.value;
+    store.set('active_category', categoryName);
+
+    setMaxSpeedText();
+    refresh();
+}
+
+function populateAndSetCategoryList()
+{
+    var params = {
+        action: 'get_categories'
+    }
+    chrome.extension.sendRequest(params, function(data) {
+        for (i = 0; i < data.categories.length; i++) {
+            var cat = '<option value="' + data.categories[i] + '">' + data.categories[i] + '</option>';
+            $('#userCategory').append(cat);
+        }
+        $('#userCategory').val(store.get('active_category'));
+        $('#userCategory').change(OnCategoryChanged);
+    });
+}
+
 $(document).ready( function() {
 	$('#open_sabnzbd').click( function() {
 		var profile = activeProfile();
@@ -398,11 +422,16 @@ $(document).ready( function() {
 			setMaxSpeed( $('#speed-input').val() );
 		}
 	});
-	
+
 	populateProfileList();
 	
 	$('#profiles').val( profiles.getActiveProfile().name );
 	$('#profiles').change( OnProfileChanged );
+
+    if (store.get('config_use_user_categories')) {
+        $('#user_category').css("display", "block");
+        populateAndSetCategoryList();
+    }
 	
 	setMaxSpeedText();
 });
