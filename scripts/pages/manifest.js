@@ -334,6 +334,13 @@ this.manifest = {
 					'Below are the category settings provided by SABconnect++. For more information regarding categories,\
 					please read the <a href="http://code.google.com/p/sabconnectplusplus/wiki/Categories">wiki page</a>.'
 		},
+        {
+            'tab': 'Configuration',
+            'group': 'Categories',
+            'name': 'config_use_user_categories',
+            'type': 'checkbox',
+            'label': 'Override the category with the one chosen from the menu. The list of categories is loaded by SABnzbd.'
+        },
 		{
 			'tab': 'Configuration',
 			'group': 'Categories',
