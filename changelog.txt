@@ -1,3 +1,7 @@
+Version 0.5.14
+--------------
+Added ability to override categories from popup menu (thanks mattb3)
+
 Version 0.5.13
 --------------
 Added support for mysterbin.com (thanks mattb3)
