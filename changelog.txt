@@ -1,3 +1,6 @@
+Version 0.5.15
+--------------
+
 Version 0.5.14
 --------------
 Added ability to override categories from popup menu (thanks mattb3)
