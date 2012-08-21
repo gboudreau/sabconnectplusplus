@@ -1,6 +1,7 @@
 Version 0.5.14
 --------------
 Added ability to override categories from popup menu (thanks mattb3)
+Fix for non-working NZBRus (thanks rolfwessels)
 
 Version 0.5.13
 --------------
