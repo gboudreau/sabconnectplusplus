@@ -120,7 +120,7 @@ function addToSABnzbdFromNZBsRusCont()
                    console.log("----------");
                    console.log(res);
                    for (var i = 0; i < res.results.length; i++) {
-                       var record = res.results[0];
+                       var record = res.results[i];
                        if (record.id == nzbId) {
                            key = record.key;
                            break;
@@ -140,13 +140,12 @@ function addToSABnzbdFromNZBsRusCont()
 
 function handleAllDownloadLinks() {
 	// On details pages:
+    var img = chrome.extension.getURL('images/sab2_48.png');
     $('img[title*="Download NZB"]').each(function () {
-        // Change the title to "Send to SABnzbd"
-        $(this).attr("title", "Send to SABnzbd");
-
         // Change the nzb download image
-        var img = chrome.extension.getURL('images/sab2_16.png');
         $(this).hide('slow', function () {
+            // Change the title to "Send to SABnzbd"
+            $(this).attr("title", "Send to SABnzbd");
             $(this).attr("src", img);
             $(this).show('slow');
             // Change the on click handler to send to sabnzbd
@@ -158,23 +157,22 @@ function handleAllDownloadLinks() {
         
     });
 	
-	// On search results (tabulated) pages:
-    $.merge($('div[title*="Download NZB"] > a'), $('a[title*="Download NZB"]')).each(function () {
-        // Change the title to "Send to SABnzbd"
-        $(this).parent().hide('slow', function () {
-            $(this).attr("title", "Send to SABnzbd");
-
-            // Change the nzb download image
-            var img = chrome.extension.getURL('images/sab2_16.png');
-            $(this).parent().css('background-image', 'url(' + img + ')');
-            $(this).parent().css('background-size', '25px');
-            $(this).parent().css('background-repeat', 'no-repeat');
-            $(this).parent().show('slow');
-            // Change the on click handler to send to sabnzbd
-            // this is the <a>
-            $(this).click(addToSABnzbdFromNZBsRus);
-        })
-    });
+  // On search results (tabulated) pages:
+  $('div.dlnzb').each(function () {
+       $(this).hide('slow', function () {
+          
+          // Change the nzb download image
+          var link = $(this).find('a');
+          link.attr("title", "Send to SABnzbd");
+          link.attr("onclick", "");
+          link.click(addToSABnzbdFromNZBsRus);
+          
+          $(this).css('background', 'url(' + img + ') 0 0 no-repeat');
+          $(this).css('background-size', '25px');
+          $(this).show('slow');
+      })
+  });
+ 
 	
 	// Remove AJAX pager & search
 	$('a[onclick*="pager(this)"]').each(function() {
