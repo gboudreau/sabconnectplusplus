@@ -1,5 +1,7 @@
 Version 0.5.15
 --------------
+More NZBRus fixes
+Fix for missing notification icon
 
 Version 0.5.14
 --------------
