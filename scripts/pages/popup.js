@@ -303,7 +303,7 @@ function reDrawPopup() {
                     fillAndStroke: true,
                     fillColor: '#ADA',
                     showMarker: false,
-                    pointLabels: { show: true } 
+                    pointLabels: { show: false } 
                 },
                 grid: {
                     drawGridLines: false,
