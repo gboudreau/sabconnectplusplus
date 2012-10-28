@@ -63,13 +63,14 @@ function addToSABnzbdFromDognzb() {
 }
 
 function handleAllDownloadLinks() {
-	// List view: add a button above the list to send selected NZBs to SAB
-	$('input[class="nzb_multi_operations_sab"]').each(function() {
-		$(this).css('display', 'inline-block');
-		$(this).click(addToSABnzbdFromDognzb);
-    });
+       //XXX: Needs to be fixed with new site layout
+       // List view: add a button above the list to send selected NZBs to SAB
+       //$('input[class="nzb_multi_operations_sab"]').each(function() {
+       //	$(this).css('display', 'inline-block');
+       //	$(this).click(addToSABnzbdFromDognzb);
+       //});
 
-	$('div[title="Download NZB"]').each(function() {
+	$('div[class="dog-icon-download "]').each(function() {
 		// Change the title to "Send to SABnzbd"
 		$(this).attr("title", "Send to SABnzbd");
 
