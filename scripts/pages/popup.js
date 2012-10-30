@@ -187,7 +187,7 @@ function reDrawPopup() {
 		    + '<div class="file-' + slot.status + ' filename">' + slot.filename + '</div>'
 		    + '<div class="controls">';
 		if ( slot.status == "Paused" ) {
-		    el += '<a class="resumeItem lowOpacity" href=""><img src="' + date.playImg + '" /></a>';
+		    el += '<a class="resumeItem lowOpacity" href=""><img src="' + data.playImg + '" /></a>';
 	    } else {
 		    el += '<a class="pauseItem lowOpacity" href=""><img src="' + data.pauseImg + '" /></a>';
 	    }
