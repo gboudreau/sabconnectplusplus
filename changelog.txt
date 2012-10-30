@@ -1,3 +1,8 @@
+Version 0.5.17
+--------------
+Bugfix: popup was broken when an item was paused. (thanks eegeeZA)
+Bugfix: Fixed download button on dognzb.cr (thanks VTWoods)
+
 Version 0.5.16
 --------------
 Bugfix: Remove unneeded labels on graph
