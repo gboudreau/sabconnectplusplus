@@ -247,7 +247,7 @@ function fetchInfo( quickUpdate, callback, profileValues )
 
 function displayNotifications()
 {
-	if( store.get('config_notification_timeout') == 65536 ) {
+	if( store.get('config_notification_timeout') != '65535' ) {
 		var params = {
 			mode: 'history',
 			limit: '10'
