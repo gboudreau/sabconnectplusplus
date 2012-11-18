@@ -305,13 +305,6 @@ this.manifest = {
 		{
 			'tab': 'Configuration',
 			'group': 'General',
-			'name': 'config_enable_notifications',
-			'type': 'checkbox',
-			'label': 'Enable Notifications'
-		},
-		{
-			'tab': 'Configuration',
-			'group': 'General',
 			'name': 'config_enable_automatic_authentication',
 			'type': 'checkbox',
 			'label': 'Enable Automatic Authentication (insecure)'
