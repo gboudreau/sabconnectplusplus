@@ -38,7 +38,7 @@
 		}
 		
 		addToSABnzbd(
-			$anchor.get(0),
+			null,
 			baseUrl + href + queryString,
 			'addurl',
 			null, 
