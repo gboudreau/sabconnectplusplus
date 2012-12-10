@@ -9,20 +9,15 @@ Features:
   * One-click NZB downloads for the following sites:
     * binsearch.info (binsearch.net)
     * bintube.com
+    * dognzb.com
     * fanzub.com
-    * newzbin.com
-    * newzleech.com
-    * newzxxx2.ch ![alt text](http://i52.tinypic.com/15nlzid.png "NEW")
-    * nzb.su
+    * mysterbin.com
+    * nzb.su (Now better!)
     * nzbclub.com
-    * nzbhq.com ![alt text](http://i52.tinypic.com/15nlzid.png "NEW")
     * nzbindex.com (nzbindex.nl)
-    * nzbmatrix.com
     * nzbs.org
     * nzbsrus.com
-    * nzbxxx.com
-    * yubse.com ![alt text](http://i52.tinypic.com/15nlzid.png "NEW")
-    * mysterbin.com ![alt text](http://i52.tinypic.com/15nlzid.png "NEW")
+    * yubse.com
   * Context menu option for sending links to SABnzbd
   * Options page that looks consistent with Chrome's own options layout
   * Download speed graph

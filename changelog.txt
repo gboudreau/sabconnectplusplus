@@ -1,3 +1,8 @@
+Version 0.5.18
+--------------
+Better nzb.su implementation (thanks Benni-chan)
+Removed NZBMatrix & Newzbin support (sites are gone)
+
 Version 0.5.17
 --------------
 Bugfix: popup was broken when an item was paused. (thanks eegeeZA)
