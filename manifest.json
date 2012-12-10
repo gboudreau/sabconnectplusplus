@@ -41,9 +41,9 @@
 				"http://*.nzbclub.com/",
 				"http://*.nzbclub.com/*",
 				"https://*.nzbclub.com/",
-				"https://*.nzbclub.com/*"
+				"https://*.nzbclub.com/*",
 				"http://nzbclub.com/*",
-				"https://nzbclub.com/",
+				"https://nzbclub.com/"
 			],
 			"js": [
 				"third_party/jquery/jquery-1.7.2.min.js",
@@ -57,9 +57,9 @@
 				"http://*.bintube.com/",
 				"http://*.bintube.com/*",
 				"https://*.bintube.com/",
-				"https://*.bintube.com/*"
+				"https://*.bintube.com/*",
 				"http://bintube.com/*",
-				"https://bintube.com/",
+				"https://bintube.com/"
 			],
 			"js": [
 				"third_party/jquery/jquery-1.7.2.min.js",
@@ -176,7 +176,7 @@
 				"http://*.nzbs.org/",
 				"http://*.nzbs.org/*",
 				"https://*.nzbs.org/",
-				"https://*.nzbs.org/*",
+				"https://*.nzbs.org/*"
 			],
 			"js": [
 				"third_party/jquery/jquery-1.7.2.min.js",
