@@ -38,44 +38,12 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"http://*.newzbin2.es/*",
-				"https://*.newzbin2.es/*",
-				"http://*.newzxxx.com/*",
-				"https://*.newzxxx.com/*",
-				"http://*.newzxxx2.ch/*",
-				"https://*.newzxxx2.ch/*"
-			],
-			"js": [
-				"third_party/jquery/jquery-1.7.2.min.js",
-				"scripts/content/common.js",
-				"scripts/content/newzbin.js"
-			]
-		},
-		{
-			"matches": [
-				"http://*.nzbmatrix.com/",
-				"http://*.nzbmatrix.com/*",
-				"https://*.nzbmatrix.com/",
-				"https://*.nzbmatrix.com/*",
-				"http://*.nzbxxx.com/",
-				"http://*.nzbxxx.com/*",
-				"https://*.nzbxxx.com/",
-				"https://*.nzbxxx.com/*"
-			],
-			"js": [
-				"third_party/jquery/jquery-1.7.2.min.js",
-				"scripts/content/common.js",
-				"scripts/content/nzbmatrix.js"
-			],
-			"css": ["css/nzbmatrix.css"],
-			"all_frames": true
-		},
-		{
-			"matches": [
 				"http://*.nzbclub.com/",
 				"http://*.nzbclub.com/*",
 				"https://*.nzbclub.com/",
 				"https://*.nzbclub.com/*"
+				"http://nzbclub.com/*",
+				"https://nzbclub.com/",
 			],
 			"js": [
 				"third_party/jquery/jquery-1.7.2.min.js",
@@ -90,6 +58,8 @@
 				"http://*.bintube.com/*",
 				"https://*.bintube.com/",
 				"https://*.bintube.com/*"
+				"http://bintube.com/*",
+				"https://bintube.com/",
 			],
 			"js": [
 				"third_party/jquery/jquery-1.7.2.min.js",
@@ -207,10 +177,6 @@
 				"http://*.nzbs.org/*",
 				"https://*.nzbs.org/",
 				"https://*.nzbs.org/*",
-				"http://*.nzbhq.com/",
-				"http://*.nzbhq.com/*",
-				"https://*.nzbhq.com/",
-				"https://*.nzbhq.com/*"
 			],
 			"js": [
 				"third_party/jquery/jquery-1.7.2.min.js",
