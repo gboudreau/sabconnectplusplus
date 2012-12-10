@@ -89,23 +89,22 @@
 	Initialize('nzb', null, function() {
 		
 		// this handles all inline download buttons for single nzb files
-		$('tr[id^="guid"] td:last-child').each(function() {
+		$('div.icon_nzb').each(function() {
+		
 			var  $tr = $(this),
-				href = $(this).find('.icon_nzb a').attr('href');
+				href = $(this).children("a").attr('href');
 			
 			$tr
-				.prepend('<div class="icon"><a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a></div>')
+				.before('<div class="icon"><a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a></div>')
 			;
 			
-			$tr.find('a.addSABnzbd')
+			$tr.parent().find('a.addSABnzbd')
 				.on('click', function() {
 					addOne($(this).closest('tr'));
-					console.log($(this).closest('tr'));
 					return false;
 				})
 			;
 		});
-		
 		
 		// List view: add a button above the list to send selected NZBs to SAB
 		$('input.nzb_multi_operations_cart')
