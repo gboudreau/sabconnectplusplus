@@ -1,3 +1,7 @@
+Version 0.5.20
+--------------
+Shorter notifications timeout available (1, 2, 3, 5 seconds)
+
 Version 0.5.19
 --------------
 Added support for arbitrary Newznab providers.

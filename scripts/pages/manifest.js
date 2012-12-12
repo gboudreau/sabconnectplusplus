@@ -233,6 +233,10 @@ this.manifest = {
 			'options':
 			[
 				[ 0, 'Disabled' ],
+				[ 1, '1 second' ],
+				[ 2, '2 seconds' ],
+				[ 3, '3 seconds' ],
+				[ 5, '5 seconds' ],
 				[ 10, '10 seconds' ],
 				[ 15, '15 seconds' ],
 				[ 20, '20 seconds' ],
