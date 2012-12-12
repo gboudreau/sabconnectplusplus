@@ -17,7 +17,7 @@ function ContextClicked( info, tab )
 		nzburl: info.linkUrl
 	};
 	
-	addToSABnzbd( AddLinkResult, request );
+	addToSABnzbd( request, AddLinkResult );
 }
 
 function CreateContextMenuResult()
