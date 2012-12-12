@@ -170,7 +170,7 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'providers_newznab',
+			'name': 'provider_newznab',
 			'type': 'text',
 			'label': 'Newznab Providers (coma-separated list of hostnames):'
 		},
