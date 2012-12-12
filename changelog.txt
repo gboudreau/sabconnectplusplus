@@ -2,6 +2,7 @@ Version 0.5.20
 --------------
 Shorter notifications timeout available (1, 2, 3, 5 seconds)
 Bugfix: right-click "Send link to SAB" never worked. Now it should work, at least on sites that don't require a login to download NZBs.
+Bugfix: support for arbitrary Newznab providers setting wasn't saved correctly.
 
 Version 0.5.19
 --------------

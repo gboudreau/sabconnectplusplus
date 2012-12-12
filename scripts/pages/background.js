@@ -15,7 +15,7 @@ var defaultSettings = {
 	provider_nzbdotsu: true,
 	provider_fanzub: true,
 	provider_yubse: true,
-	provider_newznab: 'nzbs.org, your_newznab.com*',
+	provider_newznab: 'nzbs.org, your_newznab.com',
 	use_name_binsearch: true,
 	use_name_nzbindex: true,
 	use_name_yubse: true,

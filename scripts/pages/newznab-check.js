@@ -2,7 +2,7 @@ String.prototype.trim = function(){return this.replace(/^\s+|\s+$/g, '');};
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if (changeInfo.status == 'complete') {
-        var newznab_urls = store.get('providers_newznab').split(',');
+        var newznab_urls = store.get('provider_newznab').split(',');
         for (var i = 0; i < newznab_urls.length; i++) {
             var newznab_url = newznab_urls[i];
             if (tab.url.match('https?://.*' + newznab_url.trim() + '.*')) {
