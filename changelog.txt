@@ -1,3 +1,7 @@
+Version 0.5.21
+--------------
+Bugfix: Newznab sites: select all checkbox would break the 'Send to SAB' top button
+
 Version 0.5.20
 --------------
 Shorter notifications timeout available (1, 2, 3, 5 seconds)

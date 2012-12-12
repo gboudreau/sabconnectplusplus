@@ -16,7 +16,7 @@
 	
 		$button.val("Sending...").css('color', 'orange');	
 		
-		$('#browsetable ' + e.data.selector).each(function() {
+		$('#browsetable td ' + e.data.selector).each(function() {
 			addOne($(this).closest('tr'));
 		});
 	
