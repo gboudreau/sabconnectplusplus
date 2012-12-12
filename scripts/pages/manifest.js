@@ -232,7 +232,7 @@ this.manifest = {
 			'label': 'Notification Timeout:',
 			'options':
 			[
-				[ 0, 'Disabled' ],
+				[ 0, 'No timeout' ],
 				[ 10, '10 seconds' ],
 				[ 15, '15 seconds' ],
 				[ 20, '20 seconds' ],
@@ -242,7 +242,8 @@ this.manifest = {
 				[ 120, '2 minutes' ],
 				[ 300, '5 minutes' ],
 				[ 1800, '30 minutes' ],
-				[ 3600, '1 hour' ]
+				[ 3600, '1 hour' ],
+				[ 65535, 'Disabled' ]
 			]
 		},
 		{
@@ -258,13 +259,6 @@ this.manifest = {
 			'name': 'config_enable_context_menu',
 			'type': 'checkbox',
 			'label': 'Enable Context Menu'
-		},
-		{
-			'tab': 'Configuration',
-			'group': 'General',
-			'name': 'config_enable_notifications',
-			'type': 'checkbox',
-			'label': 'Enable Notifications'
 		},
 		{
 			'tab': 'Configuration',
