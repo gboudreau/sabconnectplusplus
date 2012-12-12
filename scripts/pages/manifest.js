@@ -11,10 +11,6 @@ this.manifest = {
 			'sabnzbd_password'
 		],
 		[
-			'nzbxxx_username',
-			'nzbxxx_api_key'
-		],
-		[
 			'config_hard_coded_category',
 			'config_default_category'
 		],
@@ -111,20 +107,6 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_newzbin',
-			'type': 'checkbox',
-			'label': 'Newzbin / Newzxxx *'
-		},
-		{
-			'tab': 'Providers',
-			'group': '1-Click NZB downloading',
-			'name': 'provider_nzbmatrix',
-			'type': 'checkbox',
-			'label': 'NZBMatrix / NZBxxx *'
-		},
-		{
-			'tab': 'Providers',
-			'group': '1-Click NZB downloading',
 			'name': 'provider_nzbclub',
 			'type': 'checkbox',
 			'label': 'nzbclub.com'
@@ -139,9 +121,9 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_nzb',
+			'name': 'provider_nzbdotsu',
 			'type': 'checkbox',
-			'label': 'Newznab (nzbs.org, nzb.su, nzbhq.com)'
+			'label': 'nzb.su'
 		},
 		{
 			'tab': 'Providers',
@@ -181,13 +163,6 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_dognzb',
-			'type': 'checkbox',
-			'label': 'dognzb.cr'
-		},
-		{
-			'tab': 'Providers',
-			'group': '1-Click NZB downloading',
 			'name': 'provider_yubse',
 			'type': 'checkbox',
 			'label': 'yubse.com'
@@ -195,11 +170,9 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_notice',
-			'type': 'description',
-			'text':
-					'<br />* This provider requires authentication credentials (which must be provided\
-					in SABnzbd settings) and/or credit to be used.'
+			'name': 'providers_newznab',
+			'type': 'text',
+			'label': 'Newznab Providers (coma-separated list of hostnames):'
 		},
 		
 		// Providers Tab, display section
@@ -223,21 +196,6 @@ this.manifest = {
 			'name': 'use_name_yubse',
 			'type': 'checkbox',
 			'label': 'yubse.com: Use display name instead of NZB filename.'
-		},
-		// Providers Tab, NZBXXX.com section
-		{
-			'tab': 'Providers',
-			'group': 'NZBXXX.com',
-			'name': 'nzbxxx_username',
-			'type': 'text',
-			'label': 'Username:'
-		},
-		{
-			'tab': 'Providers',
-			'group': 'NZBXXX.com',
-			'name': 'nzbxxx_api_key',
-			'type': 'text',
-			'label': 'API Key:'
 		},
 		
 		// Configuration Tab, General section

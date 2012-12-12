@@ -86,7 +86,7 @@
 		);
 	}
 		
-	Initialize('nzb', null, function() {
+	Initialize('nzbdotsu', null, function() {
 		
 		// this handles all inline download buttons for single nzb files
 		$('div.icon_nzb').each(function() {

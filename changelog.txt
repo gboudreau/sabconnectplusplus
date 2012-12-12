@@ -1,3 +1,9 @@
+Version 0.5.19
+--------------
+Added support for arbitrary Newznab providers.
+Newznab (nzbs.org, etc.): Added 1-click button in Cover view
+Removed NZBMatrix & Newzbin settings (sites are gone).
+
 Version 0.5.18
 --------------
 Better nzb.su implementation (thanks Benni-chan)

@@ -4,10 +4,10 @@
 	var queryString = '?i=' + $('[name=UID]').val() + '&r=' + $('[name=RSSTOKEN]').val() + '&del=1',
 		oneClickImgTag = '<img src="' + chrome.extension.getURL('/images/sab2_16.png') + '" />';
 
-	if (window.location.host.indexOf('nzbhq.com') > -1) {
-	    var baseUrl = 'http://'+window.location.host;
+	if (window.location.href.indexOf('https://') > -1) {
+	    var baseUrl = 'https://'+window.location.host;
 	} else {
-		var baseUrl = 'https://'+window.location.host;
+		var baseUrl = 'http://'+window.location.host;
 	}
 			
 	function addMany(e) {
@@ -51,9 +51,26 @@
 		);
 	}
 		
-	Initialize('nzb', null, function() {
+	Initialize('newznab', null, function() {
+        
+		// Cover view: Loop through each #coverstable and #browselongtable row and add a one click link next to the download link
+		$.merge($('#coverstable > tbody > tr:gt(0)'), $('#browselongtable > tbody > tr:gt(0)')).each(function() {
+			var $tr = $(this),
+				href = $tr.find('.icon_nzb a').attr('href');
 
-		// List view: Loop through each #browsetable row and add a one click link next the title
+			$tr.find('div.icon_nzb')
+				.before('<div class="icon"><a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a></div>')
+			;
+			
+			$tr.find('a.addSABnzbd')
+				.on('click', function() {
+					addOne($(this).closest('tr'));
+					return false;
+				})
+			;
+		});
+
+		// List view: Loop through each #browsetable row and add a one click link next to the title
 		$('#browsetable tr:gt(0)').each(function() {
 		
 			var $tr = $(this),

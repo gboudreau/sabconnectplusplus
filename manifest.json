@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "SABconnect++",
-	"version": "0.5.18",
+	"version": "0.5.19",
 	"description": "SABnzbd extension for Google Chrome.",
 	"background": {
             "page": "background.html"
@@ -169,22 +169,6 @@
 				"third_party/webtoolkit/webtoolkit.base64.js",
 				"scripts/content/nzbsrus.js"
 			],
-			"all_frames": true
-		},
-		{
-			"matches": [
-				"http://*.nzbs.org/",
-				"http://*.nzbs.org/*",
-				"https://*.nzbs.org/",
-				"https://*.nzbs.org/*"
-			],
-			"js": [
-				"third_party/jquery/jquery-1.7.2.min.js",
-				"scripts/content/common.js",
-				"third_party/webtoolkit/webtoolkit.base64.js",
-				"scripts/content/newznab.js"
-			],
-			"css": ["css/newznab.css"],
 			"all_frames": true
 		},
 		{
