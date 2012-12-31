@@ -2,6 +2,7 @@ Version 0.5.21
 --------------
 Bugfix: Newznab sites: select all checkbox would break the 'Send to SAB' top button
 Improved fanzub support (thanks Benni-chan)
+Added support for nzbx.co (thanks sharkuw)
 
 Version 0.5.20
 --------------

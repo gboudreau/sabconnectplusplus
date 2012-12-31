@@ -107,6 +107,13 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
+			'name': 'provider_nzbx',
+			'type': 'checkbox',
+			'label': 'nzbx.co'
+		},
+		{
+			'tab': 'Providers',
+			'group': '1-Click NZB downloading',
 			'name': 'provider_nzbclub',
 			'type': 'checkbox',
 			'label': 'nzbclub.com'
@@ -176,6 +183,13 @@ this.manifest = {
 		},
 		
 		// Providers Tab, display section
+		{
+			'tab': 'Providers',
+			'group': 'Display Options',
+			'name': 'use_name_nzbx',
+			'type': 'checkbox',
+			'label': 'nzbx.co: Use display name instead of NZB filename.'
+		},
 		{
 			'tab': 'Providers',
 			'group': 'Display Options',

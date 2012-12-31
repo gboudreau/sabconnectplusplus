@@ -247,6 +247,25 @@
 				"scripts/content/yubse.js" 
 			],
 			"all_frames": true
-		} 
+		},
+		{
+			"matches": [ 
+				"http://*.nzbx.co/", 
+				"http://*.nzbx.co/*", 
+				"http://nzbx.co/", 
+				"http://nzbx.co/*",
+				"https://*.nzbx.co/", 
+				"https://*.nzbx.co/*", 
+				"https://nzbx.co/", 
+				"https://nzbx.co/*"
+			],
+			"js": [ 
+				"third_party/jquery/jquery-1.7.2.min.js", 
+				"scripts/content/common.js", 
+				"third_party/webtoolkit/webtoolkit.base64.js", 
+				"scripts/content/nzbx.js" 
+			],
+			"all_frames": true
+		}
 	]
 }
