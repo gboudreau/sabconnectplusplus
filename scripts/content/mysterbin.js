@@ -3,7 +3,7 @@ function addToSABnzbdFromMysterbin() {
     var img = chrome.extension.getURL('images/sab2_16_fetching.png');
     $(this).find('img').attr("src", img);
 
-    var nzburl = "http://www.mysterbin.com/" + $(this).attr('href');
+    var nzburl = "/" + $(this).attr('href');
     var addLink = this;
 
     addToSABnzbd(addLink, nzburl, "addurl");
@@ -17,7 +17,7 @@ function addAllToSABnzbdFromMysterbin() {
     $(this).find('img').attr("src", img);
 
     var cboxes = document.getElementsByTagName('input');
-    var nzburl = "http://www.mysterbin.com/nzb?";
+    var nzburl = "/nzb?";
 
     // build the url for multiple nzbs
     for (var i=0, len=cboxes.length; i<len; ++i) {
