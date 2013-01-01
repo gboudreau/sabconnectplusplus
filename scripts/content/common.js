@@ -38,6 +38,10 @@ function onResponseAdd( response, addLink )
 
 function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 	
+	if(nzburl.substring(0, 1) == "/") {
+		nzburl = window.location.protocol + "//" + window.location.host + nzburl;
+	}
+	
 	var request = {
 		action: 'addToSABnzbd',
 		nzburl: nzburl,
