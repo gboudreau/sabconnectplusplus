@@ -1,11 +1,10 @@
-
 function onResponseAdd( response, addLink )
 {
 	switch( response.ret ) {
 	case 'error' :
 		alert("Could not contact SABnzbd \n Check it is running and your settings are correct");
 		var img = chrome.extension.getURL('images/sab2_16_red.png');
-		if ($(this).find('img').length > 0) {
+		if ($(addLink).find('img').length > 0) {
 			$(addLink).find('img').attr("src", img);
 		} else {
 			$(addLink).css('background-image', 'url('+img+')');
@@ -16,7 +15,7 @@ function onResponseAdd( response, addLink )
 		if (response.data.error) {
 			alert(response.data.error);
 			var img = chrome.extension.getURL('images/sab2_16_red.png');
-			if ($(this).find('img').length > 0) {
+			if ($(addLink).find('img').length > 0) {
 				$(addLink).find('img').attr("src", img);
 			} else {
 				$(addLink).css('background-image', 'url('+img+')');
