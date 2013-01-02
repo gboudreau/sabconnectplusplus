@@ -6,18 +6,16 @@ function addToSABnzbdFromNZBX() {
     var img = chrome.extension.getURL('images/sab2_16_fetching.png');
     $(this).find('img').first().attr("src", img);
     
-	var href = $(this).attr('href');
-    var nzburl = 'http://nzbx.co' + href;
+	var nzburl = $(this).attr('href');
     var addLink = $(this).parent();
     
 	if (use_nice_name_nzbx == '1') {
-		var split = href.indexOf("*|*");
+		var split = nzburl.indexOf("*|*");
 		if(split != -1) {
-			var nice_name = href.substring(split + 3);
+			var nice_name = nzburl.substring(split + 3);
 		}
 	}
 	
-    //addToSABnzbd(addLink, nzburl, "addurl");
 	addToSABnzbd(addLink, nzburl, "addurl", nice_name);
     return false;
 }
