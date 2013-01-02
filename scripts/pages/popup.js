@@ -167,7 +167,7 @@ function buildPauseDiv(msg, overridePaused) {
 			30:		"30 minutes",
 			60: 	"1 hour",
 			180:	"3 hours",
-			369:	"6 hours",
+			360:	"6 hours",
 			NaN:	"Other..."
 		}
 		for(var minutes in durations) {
