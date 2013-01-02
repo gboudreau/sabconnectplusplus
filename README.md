@@ -7,6 +7,7 @@ Install SABconnect++ at our [Chrome Web Store page](https://chrome.google.com/we
 Features:
 
   * One-click NZB downloads for the following sites:
+    * nzbx.co
     * binsearch.info (binsearch.net)
     * bintube.com
     * dognzb.com
