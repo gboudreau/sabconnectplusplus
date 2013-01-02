@@ -4,7 +4,7 @@ var category = null;
 
 function findNZBId(elem) {
 	nzbid = $(elem).attr('id');
-	url = '/fetch/' + nzbid;
+	url = 'http://dognzb.cr/fetch/' + nzbid;
 	return url;
 }
 

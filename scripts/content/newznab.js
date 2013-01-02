@@ -3,6 +3,12 @@
 
 	var queryString = '?i=' + $('[name=UID]').val() + '&r=' + $('[name=RSSTOKEN]').val() + '&del=1',
 		oneClickImgTag = '<img src="' + chrome.extension.getURL('/images/sab2_16.png') + '" />';
+
+	if (window.location.href.indexOf('https://') > -1) {
+	    var baseUrl = 'https://'+window.location.host;
+	} else {
+		var baseUrl = 'http://'+window.location.host;
+	}
 			
 	function addMany(e) {
 	
@@ -38,7 +44,7 @@
 		
 		addToSABnzbd(
 			$anchor.get(0),
-			$anchor.attr('href') + queryString,
+			baseUrl + $anchor.attr('href') + queryString,
 			'addurl',
 			null, 
 			category
@@ -108,7 +114,7 @@
 				    }
 					addToSABnzbd(
 						this,
-						$(this).attr('href')+queryString,
+						baseUrl+$(this).attr('href')+queryString,
 						'addurl',
 						null, 
 						category
