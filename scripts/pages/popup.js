@@ -1,4 +1,4 @@
-var store = new Store( 'settings' );
+﻿var store = new Store( 'settings' );
 
 function refresh()
 {
@@ -167,11 +167,14 @@ function reDrawPopup() {
 	$.each(fields, function(i, field) {
 		var value = getPref(field);
 		$('#sab-' + field).html(value);
-		$('#sab-' + field).html(value);
 	});
 	
 	var status = getPref('status');
 	$('#sab-status').removeClass().addClass(status);
+	
+	if(paused) {
+		$("#sab-timeleft").html("&#8734;");
+	}
 	
 	var data = {
 		'playImg':chrome.extension.getURL('images/control_play.png'),
