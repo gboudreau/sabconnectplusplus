@@ -1,4 +1,4 @@
-var store = new Store( 'settings' );
+﻿var store = new Store( 'settings' );
 
 function refresh()
 {
@@ -80,7 +80,19 @@ function queueItemAction(action, nzoid, callback)
 var paused = false;
 var oldPos = -1;
 
-function togglePause() {
+function durationPause(e) {
+	var val = parseInt($(this).val());
+	if(isNaN(val)) {
+		val = parseInt(window.prompt("Duration (minutes)"));
+	}
+	if(val > 0) {
+		togglePause(val);
+	} else {
+		$(this).val(0);
+	}
+}
+
+function togglePause(duration) {	
 	if (paused) {
 		var mode = 'resume';
 		var wasPaused = true;
@@ -91,7 +103,13 @@ function togglePause() {
 	
 	var sabApiUrl = constructApiUrl();
 	var data = constructApiPost();
+	
 	data.mode = mode;
+	if(mode == "pause" && typeof duration == "number") {
+		data.mode = "config";
+		data.name = "set_pause";
+		data.value = duration;
+	}
 	
 	$.ajax({
 		type: "GET",
@@ -103,7 +121,7 @@ function togglePause() {
 			} else {
 				var msg = 'Resume Queue';
 			}
-			$('#togglePause').html(msg);
+			$('#togglePause').replaceWith(buildPauseDiv(msg, !wasPaused));
 			
 			refresh();
 		},
@@ -125,10 +143,42 @@ function SetupTogglePause() {
 		var img = '<img src="' + pauseImg +'" />';
 		var msg = 'Pause Queue';
 	}
-	$('.menu').prepend('<hr /><div id="togglePause">' + msg + '</div>');
-	$('#togglePause').click(function() {
-		togglePause();
-	});
+	
+	$(".menu").prepend("<hr>", buildPauseDiv(msg));
+	
+	$(".menu").on("click", "select", function(e) { e.stopPropagation(); });
+	$(".menu").on("change", "#pause-duration", durationPause);
+	$(".menu").on("click", "#togglePause", togglePause);
+}
+
+function buildPauseDiv(msg, overridePaused) {
+	var pauseState = overridePaused;
+	if(typeof pauseState == "undefined") {
+		pauseState = getPref('paused');
+	}
+	var $div = $("<div id='togglePause'><span style='float:none;'>"+ msg +" </span></div");
+	
+	if(!pauseState) {
+		var selectDuration = $("<select id='pause-duration'></select>");
+		var durations = {
+			0:		"&#8734;",
+			5:		"5 minutes",
+			15:		"15 minutes",
+			30:		"30 minutes",
+			60: 	"1 hour",
+			180:	"3 hours",
+			360:	"6 hours",
+			NaN:	"Other..."
+		}
+		for(var minutes in durations) {
+			var intMinutes = parseInt(minutes);
+			selectDuration.append($("<option value='"+ intMinutes +"'>"+durations[minutes]+"</option>"));
+		}
+		
+		$div.append(selectDuration);
+	}
+	
+	return $div;
 }
 
 function getSortItemPos(id) {
@@ -167,11 +217,19 @@ function reDrawPopup() {
 	$.each(fields, function(i, field) {
 		var value = getPref(field);
 		$('#sab-' + field).html(value);
-		$('#sab-' + field).html(value);
 	});
 	
 	var status = getPref('status');
 	$('#sab-status').removeClass().addClass(status);
+	
+	if(paused) {
+		var remaining = getPref("pause_int");
+		if(remaining == 0) { //"0"
+			$("#sab-timeleft").html("&#8734;");
+		} else {
+			$("#sab-timeleft").html(remaining);
+		}
+	}
 	
 	var data = {
 		'playImg':chrome.extension.getURL('images/control_play.png'),

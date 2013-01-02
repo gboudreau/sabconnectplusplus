@@ -201,6 +201,9 @@ function fetchInfoSuccess( data, quickUpdate, callback )
 
 	setPref( 'status', data ? data.queue.status : '' );
 	setPref( 'paused', data ? data.queue.paused : '' );
+	if(data.queue.paused) {
+		setPref("pause_int", data.queue.pause_int);
+	}
 	
 	updateBadge( data );
 	updateBackground( data );
