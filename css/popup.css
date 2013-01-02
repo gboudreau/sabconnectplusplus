@@ -52,6 +52,9 @@ hr {
 .Paused {
     background-color: red;
 }
+	.Paused ~ #sab-timeleft {
+		font-weight: bold;
+	}
 
 .Downloading {
     background-color: lime;
