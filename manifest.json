@@ -1,14 +1,17 @@
 {
 	"manifest_version": 2,
 	"name": "SABconnect++",
-	"version": "0.5.23",
+	"version": "0.5.22",
 	"description": "SABnzbd extension for Google Chrome.",
 	"background": {
             "page": "background.html"
 	},
 	"options_page": "settings.html",
 	"browser_action": {
-		"default_icon": "images/sab2_16.png",
+		"default_icon": {
+		    "19": "images/sab2_19.png",
+		    "38": "images/sab2_38.png"
+		},
 		"default_title": "SABnzbd",
 		"default_popup": "popup.html"
 	},

@@ -1,8 +1,6 @@
-Version 0.5.23
---------------
-
 Version 0.5.22
 --------------
+Improvement: Better looking icons, in particular in the action bar
 Improvement: Ability to pause for X minutes (thanks jsterken)
 Improvement: Code improvement on how domain and protocol are handled, when sending a link to SAB. Solves part of the NZBClub problem. (thanks jsterken)
 Bugfix: SAB icon would not change to the red error icons, when an error occurred when sending a link to SAB. (thanks jsterken)
