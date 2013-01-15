@@ -1,3 +1,6 @@
+Version 0.5.23
+--------------
+
 Version 0.5.22
 --------------
 Improvement: Better looking icons, in particular in the action bar
