@@ -49,12 +49,12 @@
         
 		// Cover view: Loop through each #coverstable and #browselongtable row and add a one click link next to the download link
 		$.merge($('#coverstable > tbody > tr:gt(0)'), $('#browselongtable > tbody > tr:gt(0)')).each(function() {
-			var $tr = $(this),
-				href = $tr.find('.icon_nzb a').attr('href');
+			var $tr = $(this);
 
-			$tr.find('div.icon_nzb')
-				.before('<div class="icon"><a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a></div>')
-			;
+			$("div.icon_nzb", $tr).each(function() {
+				var href = $("a", this).attr("href");
+				$(this).before('<div class="icon"><a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a></div>')
+			});
 			
 			$tr.find('a.addSABnzbd')
 				.on('click', function() {
