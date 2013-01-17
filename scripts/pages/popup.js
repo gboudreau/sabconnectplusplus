@@ -1,4 +1,74 @@
-﻿var store = new Store( 'settings' );
+﻿var store = new Store('settings', {}, undefined, storeReady_popup);
+
+function storeReady_popup() {
+	var nowtime = new Date();
+	var lastOpened = parseInt(getPref("lastOpened"));
+	var closeWindow = false;
+	if (lastOpened > 0) {
+		if (nowtime.getTime() - lastOpened < 700) { 
+			chrome.tabs.create({url: activeProfile().url});
+			closeWindow = true;
+			window.close();
+		}
+	}
+	if (!closeWindow) {
+		setPref("lastOpened", nowtime.getTime());
+		SetupTogglePause();
+		reDrawPopup();
+	}
+
+	$('#open_sabnzbd').click( function() {
+		var profile = activeProfile();
+		var url = $.url.parse( profile.url );
+		
+		var build = {
+			protocol: url.protocol,
+			host: url.host,
+			port: url.port,
+			path: url.path,
+		}
+		
+		if( store.get( 'config_enable_automatic_authentication' ) ) {
+			build.user = profile.username;
+			build.password = profile.password;
+		}
+		
+		var test = $.url.build( build );
+		
+		chrome.tabs.create( { url: $.url.build( build ) } );
+	});
+
+	$('#extension_settings').click( function() {
+		chrome.tabs.create({url: 'settings.html'});
+	});
+
+	$('#refresh').click( function() {
+		refresh();
+	});
+
+	$('#set-speed').click( function() {
+		setMaxSpeed( $('#speed-input').val() );
+	});
+
+	$('#speed-input').keydown( function( event ) {
+		var code = event.keyCode || event.which;
+		if( code == 13 ) { // Enter pressed
+			setMaxSpeed( $('#speed-input').val() );
+		}
+	});
+
+	populateProfileList();
+
+	$('#profiles').val( profiles.getActiveProfile().name );
+	$('#profiles').change( OnProfileChanged );
+
+	if (store.get('config_use_user_categories')) {
+		$('#user_category').css("display", "block");
+		populateAndSetCategoryList();
+	}
+
+	setMaxSpeedText();
+}
 
 function refresh()
 {
@@ -377,7 +447,7 @@ function reDrawPopup() {
 	    $('#graph').hide();
 	}
     var newHeight = $('#sabInfo').height() + $('.menu').height() + 28;
-    console.log(newHeight)
+    console.log('newHeight: ' + newHeight)
     $('body').css({height: newHeight+'px'});
     $('html').css({height: newHeight+'px'});
 }
@@ -438,73 +508,4 @@ function populateAndSetCategoryList()
         $('#userCategory').val(store.get('active_category'));
         $('#userCategory').change(OnCategoryChanged);
     });
-}
-
-$(document).ready( function() {
-	$('#open_sabnzbd').click( function() {
-		var profile = activeProfile();
-		var url = $.url.parse( profile.url );
-		
-		var build = {
-			protocol: url.protocol,
-			host: url.host,
-			port: url.port,
-			path: url.path,
-		}
-		
-		if( store.get( 'config_enable_automatic_authentication' ) ) {
-			build.user = profile.username;
-			build.password = profile.password;
-		}
-		
-		var test = $.url.build( build );
-		
-		chrome.tabs.create( { url: $.url.build( build ) } );
-	});
-
-	$('#extension_settings').click( function() {
-		chrome.tabs.create({url: 'settings.html'});
-	});
-
-	$('#refresh').click( function() {
-		refresh();
-	});
-	
-	$('#set-speed').click( function() {
-		setMaxSpeed( $('#speed-input').val() );
-	});
-	
-	$('#speed-input').keydown( function( event ) {
-		var code = event.keyCode || event.which;
-		if( code == 13 ) { // Enter pressed
-			setMaxSpeed( $('#speed-input').val() );
-		}
-	});
-
-	populateProfileList();
-	
-	$('#profiles').val( profiles.getActiveProfile().name );
-	$('#profiles').change( OnProfileChanged );
-
-    if (store.get('config_use_user_categories')) {
-        $('#user_category').css("display", "block");
-        populateAndSetCategoryList();
-    }
-	
-	setMaxSpeedText();
-});
-
-var nowtime = new Date();
-var lastOpened = parseInt(getPref("lastOpened"));
-var closeWindow = false;
-if (lastOpened > 0) {
-	if (nowtime.getTime() - lastOpened < 700) { 
-		chrome.tabs.create({url: activeProfile().url});
-		closeWindow = true;
-		window.close();
-	}
-}
-if (!closeWindow) {
-	setPref("lastOpened", nowtime.getTime());
-	window.onload = function() { SetupTogglePause(); reDrawPopup(); };
 }

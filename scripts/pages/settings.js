@@ -1,4 +1,9 @@
-var store = new Store( 'settings' );
+var store = new Store('settings', undefined, undefined, storeReady_settings);
+
+function storeReady_settings() {
+	new FancySettings.initWithManifest( InitializeSettings );
+}
+
 var popup = null;
 var settings = null;
 
@@ -318,10 +323,6 @@ function InitializeSettings( settings )
 	AddProfileButtons( settings );
 	RegisterContentScriptNotifyHandlers( settings );
 }
-
-window.addEvent( 'domready', function () {
-	new FancySettings.initWithManifest( InitializeSettings );
-});
 
 window.onbeforeunload = function() {
 	var profile_name = settings.manifest.profile_name.get();

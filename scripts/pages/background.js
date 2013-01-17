@@ -37,7 +37,16 @@ var defaultSettings = {
     active_category: '*'
 };
 
-var store = new Store( 'settings', defaultSettings );
+var store = new Store( 'settings', defaultSettings, undefined, storeReady_background );
+
+function storeReady_background() {
+	startTimer();
+	
+	initializeBackgroundPage();
+	
+	//context_menu.js
+	SetupContextMenu();
+}
 
 function resetSettings()
 {
@@ -323,10 +332,6 @@ function refresh( quick, callback )
 
 var gTimer;
 
-$(document).ready(function() {
-	startTimer();
-});
-
 function restartTimer()
 {
 	if( gTimer ) {
@@ -532,5 +537,4 @@ function initializeBackgroundPage()
 	initializeProfile();
 }
 
-initializeBackgroundPage();
 

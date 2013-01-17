@@ -36,7 +36,8 @@
 		"https://*/*",
 		"tabs",
 		"notifications",
-		"contextMenus"
+		"contextMenus",
+		"storage"
 	],
 	"content_scripts": [
 		{
