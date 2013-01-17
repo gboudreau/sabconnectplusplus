@@ -1,5 +1,6 @@
 Version 0.5.23
 --------------
+Improvement: one-click support for binsearch.info
 
 Version 0.5.22
 --------------
