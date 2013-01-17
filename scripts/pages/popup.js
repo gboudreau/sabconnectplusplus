@@ -308,7 +308,10 @@ function reDrawPopup() {
 	};
 	
 	// Grab a list of jobs (array of slot objects from the json API)
-	var jobs = JSON.parse(getPref('queue'));
+	var queue = getPref("queue");
+	var jobs = [];
+	if(typeof queue != "undefined")
+		jobs = JSON.parse(getPref('queue'));
 	$.each(jobs, function(i, slot) {
 	    // Replaced jqote, which doesn't work in Chrome extensions, when using manifest v2.
 		var el = '<li id="' + slot.nzo_id + '" class="item">'
@@ -415,7 +418,11 @@ function reDrawPopup() {
 	});
 	
 	if( store.get( 'config_enable_graph' ) == '1' ) {
-		var line1 = JSON.parse(getPref('speedlog'));
+		var speedlog = getPref('speedlog');
+		var line1 = [0];
+		if(typeof speedlog != "undefined") {
+			line1 = JSON.parse(speedlog);
+		}
 		if (line1.sum() == 0 || status == 'Idle') {
 		    $('#graph').hide();
 		} else {
