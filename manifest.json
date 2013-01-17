@@ -3,6 +3,7 @@
 	"name": "SABconnect++",
 	"version": "0.5.23",
 	"description": "SABnzbd extension for Google Chrome.",
+	"minimum_chrome_version": "23.0",
 	"background": {
             "page": "background.html"
 	},
