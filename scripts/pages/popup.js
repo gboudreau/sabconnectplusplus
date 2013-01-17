@@ -447,7 +447,6 @@ function reDrawPopup() {
 	    $('#graph').hide();
 	}
     var newHeight = $('#sabInfo').height() + $('.menu').height() + 28;
-    console.log('newHeight: ' + newHeight)
     $('body').css({height: newHeight+'px'});
     $('html').css({height: newHeight+'px'});
 }
