@@ -5,7 +5,7 @@ var defaultSettings = {
 	sabnzbd_url: 'http://localhost:8080/',
 	sabnzbd_api_key: '',
 	sabnzbd_username: '',
-	sabnzbd_password: '',
+	//sabnzbd_password: '',
 	provider_nzbx: true,
 	provider_nzbclub: true,
 	provider_bintube: true,
@@ -182,7 +182,6 @@ function fetchInfoSuccess( data, quickUpdate, callback )
 	// Will cause problems if the error pref is used elsewhere to report other errors
 	setPref('error', '');
 	setPref('timeleft', data ? data.queue.timeleft : '0' );
-	
 	if(data) {
 		// Convert to bytes
 		var bytesPerSec = parseFloat(data.queue.kbpersec)*1024;
@@ -196,7 +195,7 @@ function fetchInfoSuccess( data, quickUpdate, callback )
 	if( !quickUpdate ) {
 		updateSpeedLog( data );
 	}
-	
+
 	var queueSize = '';
 	if( data && data.queue.mbleft > 0 ) {
 		// Convert to bytes
