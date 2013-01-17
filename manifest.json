@@ -3,6 +3,7 @@
 	"name": "SABconnect++",
 	"version": "0.5.23",
 	"description": "SABnzbd extension for Google Chrome.",
+	"minimum_chrome_version": "23.0",
 	"background": {
 			"scripts": [
 				"third_party/jquery/jquery-1.7.2.min.js",
