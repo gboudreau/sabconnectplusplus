@@ -37,7 +37,7 @@ var defaultSettings = {
     active_category: '*'
 };
 
-var store = new Store( 'settings', defaultSettings, undefined, storeReady_background );
+var store = new StoreClass( 'settings', defaultSettings, undefined, storeReady_background );
 
 function storeReady_background() {
 	startTimer();

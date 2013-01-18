@@ -1,4 +1,4 @@
-var store = new Store('settings', undefined, undefined, storeReady_settings);
+var store = new StoreClass('settings', undefined, undefined, storeReady_settings);
 
 function storeReady_settings() {
 	new FancySettings.initWithManifest( InitializeSettings );

@@ -1,5 +1,5 @@
 var profiles = new ProfileManager();
-
+var StoreClass = StoreSync;
 function background()
 {
 	return chrome.extension.getBackgroundPage();
