@@ -1,4 +1,4 @@
-﻿var store = new StoreClass('settings', {}, undefined, storeReady_popup);
+﻿var store = new StoreClass('sabsettings', {}, undefined, storeReady_popup);
 
 function storeReady_popup() {
 	var nowtime = new Date();
