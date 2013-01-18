@@ -133,7 +133,7 @@ function NotifyTabRefresh()
 	chrome.windows.getAll( {populate: true}, function( windows ) {
 		Array.each( windows, function( window ) {
 			Array.each( window.tabs, function( tab ) {
-				chrome.tabs.sendRequest( tab.id, { action: 'refresh_settings' } );
+				chrome.tabs.sendMessage( tab.id, { action: 'refresh_settings' } );
 			});
 		});
 	});

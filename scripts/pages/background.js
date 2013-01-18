@@ -532,7 +532,7 @@ function initializeProfile()
 
 function initializeBackgroundPage()
 {
-	chrome.extension.onRequest.addListener( OnRequest );
+	chrome.extension.onMessage.addListener( OnRequest );
 	initializeProfile();
 }
 

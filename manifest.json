@@ -4,7 +4,17 @@
 	"version": "0.5.23",
 	"description": "SABnzbd extension for Google Chrome.",
 	"background": {
-            "page": "background.html"
+			"scripts": [
+				"third_party/jquery/jquery-1.7.2.min.js",
+				"third_party/fancy-settings/lib/store.js",
+				"scripts/convert.js",
+				"scripts/utility.js",
+				"scripts/profile.js",
+				"scripts/pages/common.js",
+				"scripts/pages/background.js",
+				"scripts/pages/context_menu.js",
+				"scripts/pages/newznab-check.js"
+			]
 	},
 	"options_page": "settings.html",
 	"browser_action": {

@@ -506,7 +506,7 @@ function populateAndSetCategoryList()
     var params = {
         action: 'get_categories'
     }
-    chrome.extension.sendRequest(params, function(data) {
+    chrome.extension.sendMessage(params, function(data) {
         for (i = 0; i < data.categories.length; i++) {
             var cat = '<option value="' + data.categories[i] + '">' + data.categories[i] + '</option>';
             $('#userCategory').append(cat);
