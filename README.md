@@ -26,5 +26,6 @@ Features:
   * Pause all downloads
   * Remove individual downloads
   * Desktop notifications (Download Complete/Failed)
+  * Storage sync for settings
 
 SABconnect++ is a fork of the now unmaintained Chrome extension [SABconnect](http://code.google.com/p/sabconnect/).
