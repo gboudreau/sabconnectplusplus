@@ -325,6 +325,7 @@ function InitializeSettings( settings )
 }
 
 window.onbeforeunload = function() {
+	store.queueCommit();
 	var profile_name = settings.manifest.profile_name.get();
 	if( profiles.getActiveProfile().name !== profile_name ) {
 		var msg =
