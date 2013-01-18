@@ -5,7 +5,7 @@ var defaultSettings = {
 	sabnzbd_url: 'http://localhost:8080/',
 	sabnzbd_api_key: '',
 	sabnzbd_username: '',
-	sabnzbd_password: '',
+	//sabnzbd_password: '',
 	provider_nzbx: true,
 	provider_nzbclub: true,
 	provider_bintube: true,
@@ -37,7 +37,16 @@ var defaultSettings = {
     active_category: '*'
 };
 
-var store = new Store( 'settings', defaultSettings );
+var store = new StoreClass( 'sabsettings', defaultSettings, undefined, storeReady_background );
+
+function storeReady_background() {
+	startTimer();
+	
+	initializeBackgroundPage();
+	
+	//context_menu.js
+	SetupContextMenu();
+}
 
 function resetSettings()
 {
@@ -173,7 +182,6 @@ function fetchInfoSuccess( data, quickUpdate, callback )
 	// Will cause problems if the error pref is used elsewhere to report other errors
 	setPref('error', '');
 	setPref('timeleft', data ? data.queue.timeleft : '0' );
-	
 	if(data) {
 		// Convert to bytes
 		var bytesPerSec = parseFloat(data.queue.kbpersec)*1024;
@@ -187,7 +195,7 @@ function fetchInfoSuccess( data, quickUpdate, callback )
 	if( !quickUpdate ) {
 		updateSpeedLog( data );
 	}
-	
+
 	var queueSize = '';
 	if( data && data.queue.mbleft > 0 ) {
 		// Convert to bytes
@@ -322,10 +330,6 @@ function refresh( quick, callback )
 }
 
 var gTimer;
-
-$(document).ready(function() {
-	startTimer();
-});
 
 function restartTimer()
 {
@@ -528,9 +532,8 @@ function initializeProfile()
 
 function initializeBackgroundPage()
 {
-	chrome.extension.onRequest.addListener( OnRequest );
+	chrome.extension.onMessage.addListener( OnRequest );
 	initializeProfile();
 }
 
-initializeBackgroundPage();
 

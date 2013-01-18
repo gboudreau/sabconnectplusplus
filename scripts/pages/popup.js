@@ -1,4 +1,74 @@
-﻿var store = new Store( 'settings' );
+﻿var store = new StoreClass('sabsettings', {}, undefined, storeReady_popup);
+
+function storeReady_popup() {
+	var nowtime = new Date();
+	var lastOpened = parseInt(getPref("lastOpened"));
+	var closeWindow = false;
+	if (lastOpened > 0) {
+		if (nowtime.getTime() - lastOpened < 700) { 
+			chrome.tabs.create({url: activeProfile().url});
+			closeWindow = true;
+			window.close();
+		}
+	}
+	if (!closeWindow) {
+		setPref("lastOpened", nowtime.getTime());
+		SetupTogglePause();
+		reDrawPopup();
+	}
+
+	$('#open_sabnzbd').click( function() {
+		var profile = activeProfile();
+		var url = $.url.parse( profile.url );
+		
+		var build = {
+			protocol: url.protocol,
+			host: url.host,
+			port: url.port,
+			path: url.path,
+		}
+		
+		if( store.get( 'config_enable_automatic_authentication' ) ) {
+			build.user = profile.username;
+			build.password = profile.password;
+		}
+		
+		var test = $.url.build( build );
+		
+		chrome.tabs.create( { url: $.url.build( build ) } );
+	});
+
+	$('#extension_settings').click( function() {
+		chrome.tabs.create({url: 'settings.html'});
+	});
+
+	$('#refresh').click( function() {
+		refresh();
+	});
+
+	$('#set-speed').click( function() {
+		setMaxSpeed( $('#speed-input').val() );
+	});
+
+	$('#speed-input').keydown( function( event ) {
+		var code = event.keyCode || event.which;
+		if( code == 13 ) { // Enter pressed
+			setMaxSpeed( $('#speed-input').val() );
+		}
+	});
+
+	populateProfileList();
+
+	$('#profiles').val( profiles.getActiveProfile().name );
+	$('#profiles').change( OnProfileChanged );
+
+	if (store.get('config_use_user_categories')) {
+		$('#user_category').css("display", "block");
+		populateAndSetCategoryList();
+	}
+
+	setMaxSpeedText();
+}
 
 function refresh()
 {
@@ -238,7 +308,10 @@ function reDrawPopup() {
 	};
 	
 	// Grab a list of jobs (array of slot objects from the json API)
-	var jobs = JSON.parse(getPref('queue'));
+	var queue = getPref("queue");
+	var jobs = [];
+	if(typeof queue != "undefined")
+		jobs = JSON.parse(getPref('queue'));
 	$.each(jobs, function(i, slot) {
 	    // Replaced jqote, which doesn't work in Chrome extensions, when using manifest v2.
 		var el = '<li id="' + slot.nzo_id + '" class="item">'
@@ -345,7 +418,11 @@ function reDrawPopup() {
 	});
 	
 	if( store.get( 'config_enable_graph' ) == '1' ) {
-		var line1 = JSON.parse(getPref('speedlog'));
+		var speedlog = getPref('speedlog');
+		var line1 = [0];
+		if(typeof speedlog != "undefined") {
+			line1 = JSON.parse(speedlog);
+		}
 		if (line1.sum() == 0 || status == 'Idle') {
 		    $('#graph').hide();
 		} else {
@@ -377,7 +454,6 @@ function reDrawPopup() {
 	    $('#graph').hide();
 	}
     var newHeight = $('#sabInfo').height() + $('.menu').height() + 28;
-    console.log(newHeight)
     $('body').css({height: newHeight+'px'});
     $('html').css({height: newHeight+'px'});
 }
@@ -430,7 +506,7 @@ function populateAndSetCategoryList()
     var params = {
         action: 'get_categories'
     }
-    chrome.extension.sendRequest(params, function(data) {
+    chrome.extension.sendMessage(params, function(data) {
         for (i = 0; i < data.categories.length; i++) {
             var cat = '<option value="' + data.categories[i] + '">' + data.categories[i] + '</option>';
             $('#userCategory').append(cat);
@@ -438,73 +514,4 @@ function populateAndSetCategoryList()
         $('#userCategory').val(store.get('active_category'));
         $('#userCategory').change(OnCategoryChanged);
     });
-}
-
-$(document).ready( function() {
-	$('#open_sabnzbd').click( function() {
-		var profile = activeProfile();
-		var url = $.url.parse( profile.url );
-		
-		var build = {
-			protocol: url.protocol,
-			host: url.host,
-			port: url.port,
-			path: url.path,
-		}
-		
-		if( store.get( 'config_enable_automatic_authentication' ) ) {
-			build.user = profile.username;
-			build.password = profile.password;
-		}
-		
-		var test = $.url.build( build );
-		
-		chrome.tabs.create( { url: $.url.build( build ) } );
-	});
-
-	$('#extension_settings').click( function() {
-		chrome.tabs.create({url: 'settings.html'});
-	});
-
-	$('#refresh').click( function() {
-		refresh();
-	});
-	
-	$('#set-speed').click( function() {
-		setMaxSpeed( $('#speed-input').val() );
-	});
-	
-	$('#speed-input').keydown( function( event ) {
-		var code = event.keyCode || event.which;
-		if( code == 13 ) { // Enter pressed
-			setMaxSpeed( $('#speed-input').val() );
-		}
-	});
-
-	populateProfileList();
-	
-	$('#profiles').val( profiles.getActiveProfile().name );
-	$('#profiles').change( OnProfileChanged );
-
-    if (store.get('config_use_user_categories')) {
-        $('#user_category').css("display", "block");
-        populateAndSetCategoryList();
-    }
-	
-	setMaxSpeedText();
-});
-
-var nowtime = new Date();
-var lastOpened = parseInt(getPref("lastOpened"));
-var closeWindow = false;
-if (lastOpened > 0) {
-	if (nowtime.getTime() - lastOpened < 700) { 
-		chrome.tabs.create({url: activeProfile().url});
-		closeWindow = true;
-		window.close();
-	}
-}
-if (!closeWindow) {
-	setPref("lastOpened", nowtime.getTime());
-	window.onload = function() { SetupTogglePause(); reDrawPopup(); };
 }

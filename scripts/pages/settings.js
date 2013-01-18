@@ -1,4 +1,9 @@
-var store = new Store( 'settings' );
+var store = new StoreClass('sabsettings', undefined, undefined, storeReady_settings);
+
+function storeReady_settings() {
+	new FancySettings.initWithManifest( InitializeSettings );
+}
+
 var popup = null;
 var settings = null;
 
@@ -128,7 +133,7 @@ function NotifyTabRefresh()
 	chrome.windows.getAll( {populate: true}, function( windows ) {
 		Array.each( windows, function( window ) {
 			Array.each( window.tabs, function( tab ) {
-				chrome.tabs.sendRequest( tab.id, { action: 'refresh_settings' } );
+				chrome.tabs.sendMessage( tab.id, { action: 'refresh_settings' } );
 			});
 		});
 	});
@@ -319,11 +324,8 @@ function InitializeSettings( settings )
 	RegisterContentScriptNotifyHandlers( settings );
 }
 
-window.addEvent( 'domready', function () {
-	new FancySettings.initWithManifest( InitializeSettings );
-});
-
 window.onbeforeunload = function() {
+	store.queueCommit();
 	var profile_name = settings.manifest.profile_name.get();
 	if( profiles.getActiveProfile().name !== profile_name ) {
 		var msg =
