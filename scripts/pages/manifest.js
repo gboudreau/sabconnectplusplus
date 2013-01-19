@@ -99,6 +99,7 @@ this.manifest = {
 			'group': '1-Click NZB downloading',
 			'name': 'provider_description',
 			'type': 'description',
+			'sync': true,
 			'text':
 					'This is a list of currently supported providers. For each provider that is\
 					enabled, 1-click NZB downloading will be supported. This sends the NZB to SABnzbd\
@@ -109,6 +110,7 @@ this.manifest = {
 			'group': '1-Click NZB downloading',
 			'name': 'provider_nzbx',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'nzbx.co'
 		},
 		{
@@ -116,6 +118,7 @@ this.manifest = {
 			'group': '1-Click NZB downloading',
 			'name': 'provider_nzbclub',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'nzbclub.com'
 		},
 		{
@@ -123,6 +126,7 @@ this.manifest = {
 			'group': '1-Click NZB downloading',
 			'name': 'provider_bintube',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'bintube.com'
 		},
 		{
@@ -130,6 +134,7 @@ this.manifest = {
 			'group': '1-Click NZB downloading',
 			'name': 'provider_nzbdotsu',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'nzb.su'
 		},
 		{
@@ -137,6 +142,7 @@ this.manifest = {
 			'group': '1-Click NZB downloading',
 			'name': 'provider_binsearch',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'binsearch.info'
 		},
 		{
@@ -144,6 +150,7 @@ this.manifest = {
 			'group': '1-Click NZB downloading',
 			'name': 'provider_mysterbin',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'mysterbin.com'
 		},
 		{
@@ -151,6 +158,7 @@ this.manifest = {
 			'group': '1-Click NZB downloading',
 			'name': 'provider_nzbindex',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'nzbindex.com'
 		},
 		{
@@ -158,6 +166,7 @@ this.manifest = {
 			'group': '1-Click NZB downloading',
 			'name': 'provider_nzbsrus',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'nzbsrus.com'
 		},
 		{
@@ -165,6 +174,7 @@ this.manifest = {
 			'group': '1-Click NZB downloading',
 			'name': 'provider_fanzub',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'fanzub.com'
 		},
 		{
@@ -172,6 +182,7 @@ this.manifest = {
 			'group': '1-Click NZB downloading',
 			'name': 'provider_yubse',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'yubse.com'
 		},
 		{
@@ -179,6 +190,7 @@ this.manifest = {
 			'group': '1-Click NZB downloading',
 			'name': 'provider_newznab',
 			'type': 'text',
+			'sync': true,
 			'label': 'Newznab Providers (coma-separated list of hostnames):'
 		},
 		
@@ -188,6 +200,7 @@ this.manifest = {
 			'group': 'Display Options',
 			'name': 'use_name_nzbx',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'nzbx.co: Use display name instead of NZB filename.'
 		},
 		{
@@ -195,6 +208,7 @@ this.manifest = {
 			'group': 'Display Options',
 			'name': 'use_name_binsearch',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'binsearch.info: Use display name instead of NZB filename.'
 		},
 		{
@@ -202,6 +216,7 @@ this.manifest = {
 			'group': 'Display Options',
 			'name': 'use_name_nzbindex',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'nzbindex.com: Use display name instead of NZB filename.'
 		},
 		{
@@ -209,6 +224,7 @@ this.manifest = {
 			'group': 'Display Options',
 			'name': 'use_name_yubse',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'yubse.com: Use display name instead of NZB filename.'
 		},
 		

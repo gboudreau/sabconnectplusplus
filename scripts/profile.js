@@ -88,7 +88,7 @@ ProfileManager.prototype.getProfile = function( profileName )
 
 ProfileManager.prototype.getActiveProfile = function()
 {
-	var profileName = store.get( 'active_profile' );
+	var profileName = getPref( 'active_profile' );
 	return this.getProfile( profileName );
 }
 
@@ -100,7 +100,7 @@ ProfileManager.prototype.getFirstProfile = function()
 
 ProfileManager.prototype.setActiveProfile = function( profileName )
 {
-	store.set( 'active_profile', profileName );
+	setPref( 'active_profile', profileName );
 }
 
 ProfileManager.prototype.contains = function( profileName )

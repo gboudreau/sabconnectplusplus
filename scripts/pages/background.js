@@ -5,7 +5,6 @@ var defaultSettings = {
 	sabnzbd_url: 'http://localhost:8080/',
 	sabnzbd_api_key: '',
 	sabnzbd_username: '',
-	//sabnzbd_password: '',
 	provider_nzbx: true,
 	provider_nzbclub: true,
 	provider_bintube: true,
@@ -32,7 +31,6 @@ var defaultSettings = {
 	config_default_category: '',
 	config_enable_automatic_authentication: true,
 	profiles: {},
-	active_profile: '',
 	first_profile_initialized: false,
     active_category: '*'
 };
@@ -497,7 +495,7 @@ function setupFirstTimeDefaultProfile()
 {
 	try {
 		profiles.add( 'Default', getOldProfileValues() );
-		store.set( 'active_profile', 'Default' );
+		profiles.setActiveProfile("Default");
 	}
 	catch( e ) {
 		if( e == 'already_exists' ) {
