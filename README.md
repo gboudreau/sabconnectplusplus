@@ -7,7 +7,6 @@ Install SABconnect++ at our [Chrome Web Store page](https://chrome.google.com/we
 Features:
 
   * One-click NZB downloads for the following sites:
-    * nzbx.co
     * binsearch.info (binsearch.net)
     * bintube.com
     * dognzb.com
@@ -18,7 +17,9 @@ Features:
     * nzbindex.com (nzbindex.nl)
     * nzbs.org
     * nzbsrus.com
+    * nzbx.co
     * yubse.com
+    * Any Newznab-based indexer
   * Context menu option for sending links to SABnzbd
   * Options page that looks consistent with Chrome's own options layout
   * Download speed graph
