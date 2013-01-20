@@ -85,22 +85,6 @@
 		},
 		{
 			"matches": [
-				"http://*.mysterbin.com/",
-				"http://*.mysterbin.com/*",
-				"https://*.mysterbin.com/",
-				"https://*.mysterbin.com/*",
-                "http://mysterbin.com/*",
-                "https://mysterbin.com/*"
-			],
-			"js": [
-				"third_party/jquery/jquery-1.7.2.min.js",
-				"scripts/content/common.js",
-				"scripts/content/mysterbin.js"
-			],
-			"all_frames": true
-		},
-		{
-			"matches": [
 				"http://*.binsearch.info/",
 				"http://*.binsearch.info/*",
 				"https://*.binsearch.info/",
@@ -183,25 +167,6 @@
 				"scripts/content/common.js",
 				"third_party/webtoolkit/webtoolkit.base64.js",
 				"scripts/content/nzbsrus.js"
-			],
-			"all_frames": true
-		},
-		{
-			"matches": [
-				"http://*.nzb.su/",
-				"http://*.nzb.su/*",
-				"http://nzb.su/",
-				"http://nzb.su/*",
-				"https://*.nzb.su/",
-				"https://*.nzb.su/*",
-				"https://nzb.su/",
-				"https://nzb.su/*"
-			],
-			"js": [
-				"third_party/jquery/jquery-1.7.2.min.js",
-				"scripts/content/common.js",
-				"third_party/webtoolkit/webtoolkit.base64.js",
-				"scripts/content/nzbdotsu.js"
 			],
 			"all_frames": true
 		},

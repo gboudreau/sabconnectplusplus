@@ -132,26 +132,10 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_nzbdotsu',
-			'type': 'checkbox',
-			'sync': true,
-			'label': 'nzb.su'
-		},
-		{
-			'tab': 'Providers',
-			'group': '1-Click NZB downloading',
 			'name': 'provider_binsearch',
 			'type': 'checkbox',
 			'sync': true,
 			'label': 'binsearch.info'
-		},
-		{
-			'tab': 'Providers',
-			'group': '1-Click NZB downloading',
-			'name': 'provider_mysterbin',
-			'type': 'checkbox',
-			'sync': true,
-			'label': 'mysterbin.com'
 		},
 		{
 			'tab': 'Providers',
