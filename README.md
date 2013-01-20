@@ -11,6 +11,7 @@ Features:
     * bintube.com
     * dognzb.com
     * fanzub.com
+    * nzb.su
     * nzbclub.com
     * nzbindex.com (nzbindex.nl)
     * nzbsrus.com
