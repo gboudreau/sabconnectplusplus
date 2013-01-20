@@ -72,7 +72,7 @@ function GetSetting( setting, callback )
 		setting: setting
 	}
 	
-	chrome.extension.sendRequest( request, function( response ) {
+	chrome.extension.sendMessage( request, function( response ) {
 		var value = response.value;
 		
 		if( typeof value == 'undefined' || value == null ) {
@@ -100,7 +100,7 @@ function Initialize( provider, refresh_function, callback )
 		provider: provider
 	}
 		
-	chrome.extension.sendRequest( request, function( response ) {
+	chrome.extension.sendMessage( request, function( response ) {
 		if( response.enabled ) {
 			callback();
 		}
