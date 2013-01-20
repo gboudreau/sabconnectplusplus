@@ -16,7 +16,13 @@ function addToSABnzbdFromNZBX() {
 		}
 	}
 	
-	addToSABnzbd(addLink, nzburl, "addurl", nice_name);
+	var category;
+	var $tr = $(this).closest('tr');
+	if ($tr.find('td:nth-child(1) a.btn-inverse').length == 1) {
+        category = $.trim($tr.find('td:nth-child(1) a.btn-inverse').text().match(/^\s*([^> -]+)/)[1]);
+	}
+	
+	addToSABnzbd(addLink, nzburl, "addurl", nice_name, category);
     return false;
 }
 

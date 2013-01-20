@@ -1,7 +1,8 @@
 Version 0.6.0
 -------------
 New feature: Settings are now synced to and from your Google account, if you enabled sync in Chrome.
-Improvement: one-click support for binsearch.info
+Improvement: One-click support for binsearch.info
+Improvement: Added category for nzbx.co one-click
 
 Version 0.5.22
 --------------
