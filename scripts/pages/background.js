@@ -1,5 +1,6 @@
 // List of sites that send the X-DNZB-Category HTTP header
-var category_header_sites = ['nzbs.org', 'newzbin2.es', 'newzxxx.com'];
+//var category_header_sites = ['nzbs.org', 'newzbin2.es', 'newzxxx.com'];
+var category_header_sites = [];
 
 var defaultSettings = {
 	sabnzbd_url: 'http://localhost:8080/',
@@ -15,7 +16,7 @@ var defaultSettings = {
 	provider_nzbdotsu: true,
 	provider_fanzub: true,
 	provider_yubse: true,
-	provider_newznab: 'nzbs.org, your_newznab.com',
+	provider_newznab: 'your_newznab.com, some_other_newznab.com',
 	use_name_binsearch: true,
 	use_name_nzbindex: true,
 	use_name_yubse: true,
