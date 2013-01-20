@@ -1,7 +1,7 @@
-Version 0.5.23
---------------
+Version 0.6.0
+-------------
+New feature: Settings are now synced to and from your Google account, if you enabled sync in Chrome.
 Improvement: one-click support for binsearch.info
-New feature: Chrome storage sync
 
 Version 0.5.22
 --------------

@@ -33,7 +33,8 @@ var defaultSettings = {
 	config_enable_automatic_authentication: true,
 	profiles: {},
 	first_profile_initialized: false,
-    active_category: '*'
+    active_category: '*',
+    settings_synced: false
 };
 
 var store = new StoreClass( 'settings', defaultSettings, undefined, storeReady_background );
@@ -532,6 +533,27 @@ function initializeProfile()
 function initializeBackgroundPage()
 {
 	chrome.extension.onMessage.addListener( OnRequest );
+
+    // Migration from localStorage to chrome.storage.sync
+	var settingsSynced = store.get( 'settings_synced' );
+	if( !settingsSynced ) {
+	    console.log("Need to migrate settings to synced-setings.")
+	    // Didn't yet migrate old settings to synced-settings
+		var oldStore = new Store( 'settings', defaultSettings, undefined, function(){
+		    oldStore.toObject(function(o){
+                for (var key in o) {
+                    var value = localStorage.getItem("store.settings." + key);
+                    if (value !== null) {
+                        value = JSON.parse(value);
+                	    console.log("Migrating " + key + " = " + value);
+                        store.set( key, value );
+                    }
+        		}
+        		store.set( 'settings_synced', true );
+		    });
+		});
+	}
+
 	initializeProfile();
 }
 
