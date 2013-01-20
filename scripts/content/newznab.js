@@ -28,6 +28,12 @@
 	function addOne($tr) { 
 	
 		var $anchor = $tr.find('a.addSABnzbd');
+
+        // Set the image to an in-progress image
+        var img = chrome.extension.getURL('images/sab2_16_fetching.png');
+		if ($($anchor.get(0)).find('img').length > 0) {
+			$($anchor.get(0)).find('img').attr("src", img);
+		}
 		
 		var category = null;
 		if ($.trim($tr.parent().find('tr:nth-child(1)').find('th:nth-child(2)').text().toLowerCase()) == 'category') {
