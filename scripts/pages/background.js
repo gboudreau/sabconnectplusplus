@@ -464,14 +464,14 @@ function OnRequest( request, sender, sendResponse )
 		break;
 	case 'addToSABnzbd':
 		addToSABnzbd( request, sendResponse );
-		return;
+		return true; // return true to be able to receive a response after this function returns.
     case 'get_categories':
         var params = {
             action: 'sendSabRequest',
             mode: 'get_cats'
         }
         sendSabRequest(params, sendResponse);
-        return;
+        return true;
 	}
 	
 	sendResponse( response );
