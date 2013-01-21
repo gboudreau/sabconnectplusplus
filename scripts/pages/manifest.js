@@ -108,18 +108,10 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_nzbx',
+			'name': 'provider_binsearch',
 			'type': 'checkbox',
 			'sync': true,
-			'label': 'nzbx.co'
-		},
-		{
-			'tab': 'Providers',
-			'group': '1-Click NZB downloading',
-			'name': 'provider_nzbclub',
-			'type': 'checkbox',
-			'sync': true,
-			'label': 'nzbclub.com'
+			'label': 'binsearch.info'
 		},
 		{
 			'tab': 'Providers',
@@ -132,18 +124,18 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_nzbdotsu',
+			'name': 'provider_fanzub',
 			'type': 'checkbox',
 			'sync': true,
-			'label': 'nzb.su'
+			'label': 'fanzub.com'
 		},
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_binsearch',
+			'name': 'provider_nzbclub',
 			'type': 'checkbox',
 			'sync': true,
-			'label': 'binsearch.info'
+			'label': 'nzbclub.com'
 		},
 		{
 			'tab': 'Providers',
@@ -164,10 +156,18 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_fanzub',
+			'name': 'provider_nzbdotsu',
 			'type': 'checkbox',
 			'sync': true,
-			'label': 'fanzub.com'
+			'label': 'nzb.su'
+		},
+		{
+			'tab': 'Providers',
+			'group': '1-Click NZB downloading',
+			'name': 'provider_nzbx',
+			'type': 'checkbox',
+			'sync': true,
+			'label': 'nzbx.co'
 		},
 		{
 			'tab': 'Providers',
