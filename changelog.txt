@@ -1,3 +1,7 @@
+Version 0.6.2
+-------------
+Re-added: dognzb.cr
+
 Version 0.6.1
 -------------
 Re-added: nzb.su

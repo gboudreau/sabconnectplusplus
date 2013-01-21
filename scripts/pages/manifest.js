@@ -124,6 +124,14 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
+			'name': 'provider_dognzb',
+			'type': 'checkbox',
+			'sync': true,
+			'label': 'dognzb.cr'
+		},
+		{
+			'tab': 'Providers',
+			'group': '1-Click NZB downloading',
 			'name': 'provider_fanzub',
 			'type': 'checkbox',
 			'sync': true,
