@@ -28,9 +28,9 @@ function storeReady_popup() {
 			path: url.path,
 		}
 		
-		if( (store.get( 'config_enable_automatic_authentication' )) && (checkUserCredentials( profile.username, profile.password )) ) {
-			build.user = profile.username;
-			build.password = profile.password;
+		if( store.get( 'config_enable_automatic_authentication' ) ) {
+			build.user = encodeURIComponent(profile.username);
+			build.password = encodeURIComponent(profile.password);
 		}
 		
 		var test = $.url.build( build );
@@ -514,11 +514,4 @@ function populateAndSetCategoryList()
         $('#userCategory').val(store.get('active_category'));
         $('#userCategory').change(OnCategoryChanged);
     });
-}
-
-function checkUserCredentials ( user, pass )
-{
-    if( user.indexOf('?') != -1 ) return false;
-    if( pass.indexOf('?') != -1 ) return false;
-    return true;
 }
