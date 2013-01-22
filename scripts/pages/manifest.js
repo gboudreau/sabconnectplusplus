@@ -305,7 +305,7 @@ this.manifest = {
 			'group': 'General',
 			'name': 'config_enable_automatic_authentication',
 			'type': 'checkbox',
-			'label': 'Enable Automatic Authentication (insecure)<br /><b>Note:</b> Credentials containing a \'?\' will be ignored'
+			'label': 'Enable Automatic Authentication (insecure)'
 		},
 		{
 			'tab': 'Configuration',
