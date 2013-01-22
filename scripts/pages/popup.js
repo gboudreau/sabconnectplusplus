@@ -29,8 +29,8 @@ function storeReady_popup() {
 		}
 		
 		if( store.get( 'config_enable_automatic_authentication' ) ) {
-			build.user = encodeURIComponent(profile.username);
-			build.password = encodeURIComponent(profile.password);
+			build.user = $.url.encode(profile.username);
+			build.password = $.url.encode(profile.password);
 		}
 		
 		var test = $.url.build( build );
