@@ -33,8 +33,6 @@ function storeReady_popup() {
 			build.password = $.url.encode(profile.password);
 		}
 		
-		var test = $.url.build( build );
-		
 		chrome.tabs.create( { url: $.url.build( build ) } );
 	});
 
