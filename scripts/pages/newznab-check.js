@@ -16,12 +16,12 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
                 break;
             }
         }
-        if ( (!found_nab) ) {
+        if ( (!found_nab) && (tab.url.indexOf('http') == 0) ) {
             chrome.tabs.executeScript(null, {file: "third_party/jquery/jquery-1.7.2.min.js"});
             chrome.tabs.executeScript(null, {file: "third_party/jquery/jquery.notify.js"});
             chrome.tabs.executeScript(null, {file: "scripts/content/common.js"});
             chrome.tabs.executeScript(null, {file: "scripts/pages/newznab-autoadd.js"});
-            chrome.tabs.insertCSS(null, {file: "css/nabnotify.css});
+            chrome.tabs.insertCSS(null, {file: "css/nabnotify.css"});
         }
     }
 });

@@ -1,4 +1,4 @@
-$(document).ready(function () { // Encapsulate
+(function () { // Encapsulate
 
     /*
         New indexes are frequently requested in sabconnectplusplus
@@ -23,7 +23,7 @@ $(document).ready(function () { // Encapsulate
         var thishost = (window.location.hostname.match(/([^.]+)\.\w{2,3}(?:\.\w{2})?$/) || [])[0];
         var request = {
                 action: 'get_setting',
-                setting: 'nabignore.' + thishost;
+                setting: 'nabignore.' + thishost
         };
         chrome.extension.sendMessage( request, function( response ) {
             $('body').prepend(
@@ -35,8 +35,8 @@ $(document).ready(function () { // Encapsulate
                 )
             );
             $('.notification.autonabSticky').notify();
-            $('.notification.autonabSticky#autonabIgnore').click(function(){});
-            $('.notification.autonabSticky#autonabEnable').click(function(){});
+            $('#autonabIgnore').click(function(){});
+            $('#autonabEnable').click(function(){});
         });
     }
-});
+})();
