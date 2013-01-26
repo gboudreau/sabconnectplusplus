@@ -449,6 +449,12 @@ function GetSetting( request, response )
 	response.value = store.get( request.setting );
 }
 
+function SetSetting( request, response )
+{
+	store.set( request.setting, request.value );
+	response.value = true;
+}
+
 function OnRequest( request, sender, sendResponse )
 {
 	var response = {
@@ -459,19 +465,22 @@ function OnRequest( request, sender, sendResponse )
 	case 'initialize':
 		InitializeContentScript( request, response );
 		break;
+	case 'set_setting':
+		SetSetting( request, response );
+		break;
 	case 'get_setting':
 		GetSetting( request, response );
 		break;
 	case 'addToSABnzbd':
 		addToSABnzbd( request, sendResponse );
 		return true; // return true to be able to receive a response after this function returns.
-    case 'get_categories':
-        var params = {
-            action: 'sendSabRequest',
-            mode: 'get_cats'
-        }
-        sendSabRequest(params, sendResponse);
-        return true;
+	case 'get_categories':
+		var params = {
+		action: 'sendSabRequest',
+		mode: 'get_cats'
+		}
+		sendSabRequest(params, sendResponse);
+		return true;
 	}
 	
 	sendResponse( response );
