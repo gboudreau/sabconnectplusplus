@@ -16,5 +16,10 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
                 break;
             }
         }
+        if ( (!found_nab) ) {
+            chrome.tabs.executeScript(null, {file: "third_party/jquery/jquery-1.7.2.min.js"});
+            chrome.tabs.executeScript(null, {file: "scripts/content/common.js"});
+            chrome.tabs.executeScript(null, {file: "scripts/pages/newznab-autoadd.js"});
+        }
     }
 });
