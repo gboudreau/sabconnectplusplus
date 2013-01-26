@@ -18,8 +18,10 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         }
         if ( (!found_nab) ) {
             chrome.tabs.executeScript(null, {file: "third_party/jquery/jquery-1.7.2.min.js"});
+            chrome.tabs.executeScript(null, {file: "third_party/jquery/jquery.notify.js"});
             chrome.tabs.executeScript(null, {file: "scripts/content/common.js"});
             chrome.tabs.executeScript(null, {file: "scripts/pages/newznab-autoadd.js"});
+            chrome.tabs.insertCSS(null, {file: "css/nabnotify.css});
         }
     }
 });
