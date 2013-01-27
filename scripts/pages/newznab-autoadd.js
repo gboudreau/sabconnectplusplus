@@ -19,7 +19,7 @@
         };
         chrome.extension.sendMessage( request, function( response ) {
             if ( response.value == true )
-                true;
+                return;
             $('body').prepend(
                 $('<div>').addClass('notification autonabSticky hide').prepend(
                     $('<p>Sabconnect++ can setup to work with this site. What would you like to do:</p>').append(
