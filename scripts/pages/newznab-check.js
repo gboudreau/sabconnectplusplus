@@ -7,8 +7,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         var parsedurl = $.url.parse( tab.url );
         var host = (parsedurl.host.match(/([^.]+)\.\w{2,3}(?:\.\w{2})?$/) || [])[0]
         for (var i = 0; i < newznab_urls.length; i++) {
-            var newznab_url = newznab_urls[i];
-            if (tab.url.match('https?://.*' + newznab_url.trim() + '.*')) {
+            var newznab_url = newznab_urls[i].trim();
+            if (newznab_url.length > 0 && tab.url.match('https?://.*' + newznab_url + '.*')) {
                 chrome.tabs.executeScript(tabId, {file: "third_party/jquery/jquery-1.7.2.min.js"});
                 chrome.tabs.executeScript(tabId, {file: "scripts/content/common.js"});
                 chrome.tabs.executeScript(tabId, {file: "third_party/webtoolkit/webtoolkit.base64.js"});
