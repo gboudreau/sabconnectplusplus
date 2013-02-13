@@ -148,18 +148,6 @@ function queueItemAction(action, nzoid, callback)
 var paused = false;
 var oldPos = -1;
 
-function durationPause(e) {
-	var val = parseInt($(this).val());
-	if(isNaN(val)) {
-		val = parseInt(window.prompt("Duration (minutes)"));
-	}
-	if(val > 0) {
-		togglePause(val);
-	} else {
-		$(this).val(0);
-	}
-}
-
 function togglePause(duration) {	
 	if (paused) {
 		var mode = 'resume';
@@ -215,7 +203,6 @@ function SetupTogglePause() {
 	$(".menu").prepend("<hr>", buildPauseDiv(msg));
 	
 	$(".menu").on("click", "select", function(e) { e.stopPropagation(); });
-	$(".menu").on("change", "#pause-duration", durationPause);
 	$(".menu").on("click", "#togglePause", togglePause);
 }
 
