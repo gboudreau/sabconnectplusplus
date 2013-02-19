@@ -1,3 +1,7 @@
+Version 0.6.3
+Improvement: Added multi-select to nzbx.co
+Bugfix: nzbx.co no category failure fixed
+
 Version 0.6.2
 -------------
 Re-added: dognzb.cr
