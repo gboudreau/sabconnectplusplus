@@ -57,7 +57,9 @@ function handleAllDownloadLinks() {
 	multi
 		.css("margin-right", 10)
 		.click(addSelected);
-	$("#multi-download").before(multi);
+	$("#multi-download")
+		.before(multi)
+		.parents("div").first().css("width", "auto");
 }
 
 function RefreshSettings()
