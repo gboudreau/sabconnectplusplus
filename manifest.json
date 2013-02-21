@@ -131,7 +131,13 @@
 		},
 		{
 			"matches": [ "*://*.nzbx.co/*" ],
+			"exclude_matches": [ "*://mega.nzbx.co/*" ],
 			"js": [	"scripts/content/nzbx.js" ],
+			"all_frames": true
+		},
+		{
+			"matches": [ "*://mega.nzbx.co/*" ],
+			"js": [	"scripts/content/nzbmegasearch.js" ],
 			"all_frames": true
 		}
 		
