@@ -1,4 +1,13 @@
+Version 0.6.5
+-------------
+Added support for nzbsrus.com categories
+
+Version 0.6.4
+-------------
+...
+
 Version 0.6.3
+-------------
 Added support for mega.nzbx.co
 Improvement: Added multi-select to nzbx.co
 Bugfix: nzbx.co no category failure fixed

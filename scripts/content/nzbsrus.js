@@ -31,22 +31,21 @@ function addToSABnzbdFromNZBsRus() {
 		var img = chrome.extension.getURL('images/sab2_16_fetching.png');
 		if ($(this).find('img').length > 0) {
 			$(this).find('img').attr("src", img);
-
-			categoryIsNext = false;
-			$('td').each(function() {
-				if (categoryIsNext == true) {
-					category = $(this).find('a').text();
-					categoryIsNext = false;
-				}
-				if ($(this).text() == 'NewsGroup') {
-					categoryIsNext = true;
-				}
-			});
+            var cat_el = $('td.row2').filter(function() { return $(this).html() == 'Category'; }).parent().find('td.row1');
+            if (cat_el) {
+                category = cat_el.text();
+                if (category.indexOf('[') != -1) {
+                    category = $.trim(category.split('[')[0]);
+                }
+            }
 		} else {
 			$(this).css('background-image', 'url('+img+')');
 			$(this).css('background-size', '25px');
 			$(this).css('background-repeat', 'no-repeat');
-			category = $(this).parent().parent().parent().find('div[class="newsg"]').find('a')[1].innerText;
+			var title = $(this).parent().parent().parent().find('a.catimg').attr('title');
+			if (title && title.indexOf(':') != -1) {
+    			category = $.trim(title.split(':')[1]);
+			}
 		}
 		addLink = this;
 
@@ -152,9 +151,6 @@ function handleAllDownloadLinks() {
             // this is the <img>, parent is the <a>
             $(this).parent().click(addToSABnzbdFromNZBsRus);
         })
-        
-
-        
     });
 	
   // On search results (tabulated) pages:
