@@ -13,7 +13,6 @@ var defaultSettings = {
 	provider_nzbclub: true,
 	provider_nzbindex: true,
 	provider_nzbsrus: true,
-	provider_nzbdotsu: true,
 	provider_nzbx: true,
 	provider_yubse: true,
 	provider_newznab: 'your_newznab.com, some_other_newznab.com',

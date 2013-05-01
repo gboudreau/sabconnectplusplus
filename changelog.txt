@@ -1,6 +1,7 @@
 Version 0.6.5
 -------------
 Added support for nzbsrus.com categories
+Removed nzb.su from the list of providers; it's now a Newznab indexer
 
 Version 0.6.4
 -------------

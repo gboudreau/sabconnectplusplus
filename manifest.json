@@ -62,7 +62,6 @@
 				"*://*.nzbindex.com/*",
 				"*://*.nzbindex.nl/*",
 				"*://*.nzbsrus.com/*",		
-				"*://*.nzb.su/*",
 				"*://*.fanzub.com/*",
 				"*://*.dognzb.cr/*",
 				"*://*.yubse.com/*",
@@ -107,11 +106,6 @@
 		{
 			"matches": [ "*://*.nzbsrus.com/*" ],
 			"js": [	"scripts/content/nzbsrus.js" ],
-			"all_frames": true
-		},
-		{
-			"matches": [ "*://*.nzb.su/*" ],
-			"js": [ "scripts/content/nzbdotsu.js" ],
 			"all_frames": true
 		},
 		{
