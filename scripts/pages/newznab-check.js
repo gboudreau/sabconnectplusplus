@@ -3,7 +3,10 @@ String.prototype.trim = function(){return this.replace(/^\s+|\s+$/g, '');};
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if (changeInfo.status == 'complete') {
         var found_nab = false;
-        var newznab_urls = store.get('provider_newznab').split(',');
+        var newznab_urls_pre = store.get('provider_newznab');
+        if (typeof newznab_urls_pre == 'undefined')
+            return;
+        var newznab_urls = newznab_urls_pre.split(',');
         var parsedurl = $.url.parse( tab.url );
         var host = (parsedurl.host.match(/([^.]+)\.\w{2,3}(?:\.\w{2})?$/) || [])[0]
         for (var i = 0; i < newznab_urls.length; i++) {
