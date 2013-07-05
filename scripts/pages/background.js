@@ -15,6 +15,7 @@ var defaultSettings = {
 	provider_nzbsrus: true,
 	provider_nzbx: true,
 	provider_yubse: true,
+	provider_omgwtfnzbs: true,
 	provider_newznab: 'your_newznab.com, some_other_newznab.com',
 	use_name_binsearch: true,
 	use_name_nzbindex: true,
