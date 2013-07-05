@@ -15,6 +15,7 @@ Features:
     * nzbindex.com (nzbindex.nl)
     * nzbsrus.com
     * nzbx.co
+    * omgwtfnzbs.org
     * yubse.com
     * Any Newznab-based indexer
   * Context menu option for sending links to SABnzbd
