@@ -180,6 +180,14 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
+			'name': 'provider_omgwtfnzbs',
+			'type': 'checkbox',
+			'sync': true,
+			'label': 'omgwtfnzbs.com'
+		},		
+		{
+			'tab': 'Providers',
+			'group': '1-Click NZB downloading',
 			'name': 'provider_newznab',
 			'type': 'text',
 			'sync': true,

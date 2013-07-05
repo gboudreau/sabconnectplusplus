@@ -65,7 +65,8 @@
 				"*://*.fanzub.com/*",
 				"*://*.dognzb.cr/*",
 				"*://*.yubse.com/*",
-				"*://*.nzbx.co/*"
+				"*://*.nzbx.co/*",
+				"*://*.omgwtfnzbs.org/*"
 			],
 			"js": [
 				"third_party/jquery/jquery-1.7.2.min.js",
@@ -133,7 +134,12 @@
 			"matches": [ "*://mega.nzbx.co/*" ],
 			"js": [	"scripts/content/nzbmegasearch.js" ],
 			"all_frames": true
-		}
+		},
+		{
+			"matches": [ "*://omgwtfnzbs.org/*" ],
+			"js": [	"scripts/content/omgwtfnzbs.js" ],
+			"all_frames": true
+		}		
 		
 	]
 }
