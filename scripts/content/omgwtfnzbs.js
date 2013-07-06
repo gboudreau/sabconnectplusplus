@@ -43,10 +43,23 @@ function addToSABnzbdFromOmgwtfnzbs() {
 		url = "https://api.omgwtfnzbs.org/sn.php?";
 	}
 	
-	// Get the NZB ID
+	// Build up the URL to the API for direct downloading by getting the NZB Id, Username and API Key
 	url = url + 'id=' + getNzbId(nzburl) + '&user=' + getUserName() + '&api=' + getApiKey();
-		
-    addToSABnzbd(addLink, url, "addurl");
+	
+	// Get the category		
+	var category = $.trim($(this).parents('tr:first').children('.nzbt_type').children('.linky').html().match(/^\s*([^:]+)/)[1]);	
+	
+	if (category === null) {
+		category = "default";
+	}
+	
+	// Send the NZB to SABnzbd
+    addToSABnzbd(
+    		addLink, 
+    		url, 
+    		"addurl",
+    		null,
+    		category);
     
     return false;	
 }
