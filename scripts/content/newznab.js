@@ -2,22 +2,22 @@
 (function() { // Encapsulate
 
 	var queryString = '?i=' + $('[name=UID]').val() + '&r=' + $('[name=RSSTOKEN]').val() + '&del=1',
-		oneClickImgTag = '<img src="' + chrome.extension.getURL('/images/sab2_16.png') + '" />';
+		oneClickImgTag = '<img style="vertical-align:baseline" src="' + chrome.extension.getURL('/images/sab2_16.png') + '" />';
 			
 	function addMany(e) {
 	
 		var $button = $(this);
-	
-		$button.val("Sending...").css('color', 'orange');	
 		
-		$('#browsetable td ' + e.data.selector).each(function() {
+		$button.val("Sending...");
+		
+		$('#browsetable ' + e.data.selector).each(function() {
 			addOne($(this).closest('tr'));
 		});
 	
-		$button.val('Sent to SABnzbd!').css('color', 'green');
+		$button.val('Sent to SABnzbd!');
 	
 		setTimeout(function() {
-			$button.val('Send to SABnzbd').css('color', '#888');
+			$button.val('Send to SABnzbd');
 		}, 4000);
 	
 		return false;
@@ -53,82 +53,112 @@
 		
 	Initialize('newznab', null, function() {
         
-		// Cover view: Loop through each #coverstable and #browselongtable row and add a one click link next to the download link
-		$.merge($('#coverstable > tbody > tr:gt(0)'), $('#browselongtable > tbody > tr:gt(0)')).each(function() {
-			var $tr = $(this);
+	    if ($('a.addSABnzbd').length == 0) {
+    		// Cover view: Loop through each #coverstable and #browselongtable row and add a one click link next to the download link
+    		$.merge($('#coverstable > tbody > tr:gt(0)'), $('#browselongtable > tbody > tr:gt(0)')).each(function() {
+    			var $tr = $(this);
 
-			$("div.icon_nzb", $tr).each(function() {
-				var href = $("a", this).attr("href");
-				$(this).before('<div class="icon"><a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a></div>')
-			});
+    			$("div.icon_nzb", $tr).each(function() {
+    				var href = $("a", this).attr("href");
+    				$(this).before('<div class="icon"><a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a></div>')
+    			});
 			
-			$tr.find('a.addSABnzbd')
-				.on('click', function() {
-					addOne($(this).closest('tr'));
-					return false;
-				})
-			;
-		});
+    			$tr.find('a.addSABnzbd')
+    				.on('click', function() {
+    					addOne($(this).closest('tr'));
+    					return false;
+    				})
+    			;
+    		});
+		}
 
-		// List view: Loop through each #browsetable row and add a one click link next to the title
-		$('#browsetable tr:gt(0)').each(function() {
-		
-			var $tr = $(this),
-				href = $tr.find('.icon_nzb a').attr('href');
-				
-			$tr.find('a[href^="/details/"]:not([href*="#"])').parent()
-				.prepend('<a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a>')
-			;
+	    if ($('a.addSABnzbd').length == 0) {
+    		// List view: Loop through each #browsetable row and add a one click link next to the title
+    		$('#browsetable tr:gt(0)').each(function() {
+    			var $tr = $(this),
+    				href = $tr.find('.icon_nzb a').attr('href');
+
+				if (typeof href == 'undefined') {
+				    // On My Cart page, there is (sometimes?) no download button.
+				    // Let's just use the details link, and replace 'details' with 'getnzb'.
+				    href = $tr.find('a[href^="/details/"]:not([href*="#"])').attr('href').replace('details', 'getnzb');
+				}
+
+    			$tr.find('a[href^="/details/"]:not([href*="#"])').parent()
+    				.prepend('<a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a>')
+    			;
 			
-			$tr.find('a.addSABnzbd')
-				.on('click', function() {
-					addOne($(this).closest('tr'));
-					return false;
-				})
-			;
-		});
-	
-		// Details view: Find the download buttons, and prepend a sabnzbd button
-		$('table#detailstable .icon_nzb').parents('td').each(function() {
-		
-			var $tdWithButtons = $(this),
-				href = 	$tdWithButtons.find('.icon_nzb a').attr('href'),
-				oneClickButton = '<div class="icon"><a class="addSABnzbdDetails" href="' + href + '">' + oneClickImgTag + '</a></div>';
+    			$tr.find('a.addSABnzbd')
+    				.on('click', function() {
+    					addOne($(this).closest('tr'));
+    					return false;
+    				})
+    			;
+    		});
+        }
 
-			$('#infohead').append(oneClickButton);
+	    if ($('a.addSABnzbd').length == 0) {
+    		// Details view (etc.)
+    		$('div.icon_nzb').each(function() {
+    			var  $tr = $(this),
+    				href = $(this).children("a").attr('href');
 
-			$tdWithButtons.prepend(oneClickButton)
-				.find('a.addSABnzbdDetails')
-				.add('#infohead .addSABnzbdDetails')
-				.on('click', function() {
-				    var category = null;
-				    if ($('table#detailstable a[href^="/browse?t="]')) {
-				        category = $.trim($('table#detailstable a[href^="/browse?t="]').text().match(/^\s*([^< -]+)/)[1]);
-				    }
-					addToSABnzbd(
-						this,
-						$(this).attr('href')+queryString,
-						'addurl',
-						null, 
-						category
-					);
-					return false;
-				})
-			;
-		});
+    			$tr
+    				.before('<div class="icon"><a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a></div>')
+    			;
+
+    			$tr.parent().find('a.addSABnzbd')
+    				.on('click', function() {
+    					addOne($(this).closest('tr'));
+    					return false;
+    				})
+    			;
+    		});
+		}
+
+	    if ($('a.addSABnzbdDetails').length == 0) {
+    		// Details view: Find the download buttons, and prepend a sabnzbd button
+    		$('table#detailstable .icon_nzb').parents('td').each(function() {
+    			var $tdWithButtons = $(this),
+    				href = 	$tdWithButtons.find('.icon_nzb a').attr('href'),
+    				oneClickButton = '<div class="icon"><a class="addSABnzbdDetails" href="' + href + '">' + oneClickImgTag + '</a></div>';
+
+    			$('#infohead').append(oneClickButton);
+
+    			$tdWithButtons.prepend(oneClickButton)
+    				.find('a.addSABnzbdDetails')
+    				.add('#infohead .addSABnzbdDetails')
+    				.on('click', function() {
+    				    var category = null;
+    				    if ($('table#detailstable a[href^="/browse?t="]')) {
+    				        category = $.trim($('table#detailstable a[href^="/browse?t="]').text().match(/^\s*([^< -]+)/)[1]);
+    				    }
+    					addToSABnzbd(
+    						this,
+    						$(this).attr('href')+queryString,
+    						'addurl',
+    						null, 
+    						category
+    					);
+    					return false;
+    				})
+    			;
+    		});
+	    }
 		
-		// List view: add a button above the list to send selected NZBs to SAB
-		$('input.nzb_multi_operations_cart')
-			.after('<input type="button" value="Send to SABnzbd" class="multiDownload" />')
-			.siblings('input.multiDownload')
-			.on('click', {selector: 'input:checked'}, addMany)
-		;
+		if ($('[value="Send to SABnzbd"]').length == 0) {
+    		// List view: add a button above the list to send selected NZBs to SAB
+    		$('input.nzb_multi_operations_cart')
+    			.after(' <input type="button" class="btn btn-info btn-mini multiDownload" value="Send to SABnzbd" />')
+    			.siblings('input.multiDownload')
+    			.on('click', {selector: 'td input:checked'}, addMany)
+    		;
+		}
 		
 		// Cart page: add a button above the list to send all NZBs to SAB
-		if ($('#main h1').text() === 'My Cart') {
-		
+		if ($('#main h1').text() === 'My Cart' || $('.container h1').text() === 'My Cart') {
 			$('.nzb_multi_operations')
-				.prepend('<input type="button" value="Send Cart to SABnzbd" class="cartDownload" />')
+				.append('<input type="button" value="Send Cart to SABnzbd" class="btn btn-info btn-mini cartDownload" />')
 				.find('input.cartDownload')
 				.on('click', {selector: 'tr:gt(0)'}, addMany)
 			;
