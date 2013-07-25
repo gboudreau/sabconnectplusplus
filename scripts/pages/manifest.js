@@ -184,7 +184,15 @@ this.manifest = {
 			'type': 'checkbox',
 			'sync': true,
 			'label': 'omgwtfnzbs.org'
-		},		
+		},	
+		{
+			'tab': 'Providers',
+			'group': '1-Click NZB downloading',
+			'name': 'provider_nzbrss',
+			'type': 'checkbox',
+			'sync': true,
+			'label': 'nzb-rss.com'
+		},					
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
