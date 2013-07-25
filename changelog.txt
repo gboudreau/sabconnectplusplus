@@ -1,3 +1,7 @@
+Version 0.6.8
+-------------
+Added support for nzb-rss.com (thanks brandon-barker)
+
 Version 0.6.7
 -------------
 Improved Newznab support (tested on nzb.su): one-click links in details page, fixed cart, fixed double links
