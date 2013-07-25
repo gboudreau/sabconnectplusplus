@@ -66,7 +66,8 @@
 				"*://*.dognzb.cr/*",
 				"*://*.yubse.com/*",
 				"*://*.nzbx.co/*",
-				"*://*.omgwtfnzbs.org/*"
+				"*://*.omgwtfnzbs.org/*",
+				"*://*.nzb-rss.com/*"
 			],
 			"js": [
 				"third_party/jquery/jquery-1.7.2.min.js",
@@ -139,7 +140,12 @@
 			"matches": [ "*://omgwtfnzbs.org/*" ],
 			"js": [	"scripts/content/omgwtfnzbs.js" ],
 			"all_frames": true
-		}		
+		},
+		{
+			"matches": [ "*://*.nzb-rss.com/*" ],
+			"js": [	"scripts/content/nzbrss.js" ],
+			"all_frames": true
+		}			
 		
 	]
 }
