@@ -7,7 +7,10 @@ function onResponseAdd( response, addLink )
 		if ($(addLink).find('img').length > 0) {
 			$(addLink).find('img').attr("src", img);
 		} else {
-			$(addLink).css('background-image', 'url('+img+')');
+			// Prevent updating the background image of Bootstrap buttons
+			if ($(addLink).hasClass('btn') == false) { 
+				$(addLink).css('background-image', 'url('+img+')');
+			}
 		}
 		break;
 	case 'success':
@@ -18,7 +21,10 @@ function onResponseAdd( response, addLink )
 			if ($(addLink).find('img').length > 0) {
 				$(addLink).find('img').attr("src", img);
 			} else {
-				$(addLink).css('background-image', 'url('+img+')');
+				// Prevent updating the background image of Bootstrap buttons
+				if ($(addLink).hasClass('btn') == false) { 				
+					$(addLink).css('background-image', 'url('+img+')');
+				}
 			}
 			return;
 		}
@@ -28,7 +34,10 @@ function onResponseAdd( response, addLink )
 		} else if (addLink.nodeName && addLink.nodeName.toUpperCase() == 'INPUT' && addLink.value == 'Sent to SABnzbd!') {
 			// Nothing; handled in nzbsorg.js
 		} else {
-			$(addLink).css('background-image', 'url('+img+')');
+			// Prevent updating the background image of Bootstrap buttons
+			if ($(addLink).hasClass('btn') == false) { 
+				$(addLink).css('background-image', 'url('+img+')');
+			}
 		}
 		break;
 	default:
