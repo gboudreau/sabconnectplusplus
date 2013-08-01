@@ -1,3 +1,7 @@
+Version 0.6.9
+-------------
+Removed support for nzbx.co (read here to know why it shut down: http://www.dslreports.com/forum/r28443268-nzbx.co-shuts-down)
+
 Version 0.6.8
 -------------
 Added support for nzb-rss.com (thanks brandon-barker)

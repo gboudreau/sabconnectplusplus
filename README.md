@@ -14,7 +14,6 @@ Features:
     * nzbclub.com
     * nzbindex.com (nzbindex.nl)
     * nzbsrus.com
-    * nzbx.co
     * omgwtfnzbs.org
     * yubse.com
     * Any Newznab-based indexer
