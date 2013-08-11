@@ -61,7 +61,6 @@
 				"*://*.binsear.ch/*",
 				"*://*.nzbindex.com/*",
 				"*://*.nzbindex.nl/*",
-				"*://*.nzbsrus.com/*",		
 				"*://*.fanzub.com/*",
 				"*://*.dognzb.cr/*",
 				"*://*.yubse.com/*",
@@ -102,11 +101,6 @@
 				"*://*.nzbindex.nl/*"
 			],
 			"js": [	"scripts/content/nzbindex.js" ],
-			"all_frames": true
-		},
-		{
-			"matches": [ "*://*.nzbsrus.com/*" ],
-			"js": [	"scripts/content/nzbsrus.js" ],
 			"all_frames": true
 		},
 		{

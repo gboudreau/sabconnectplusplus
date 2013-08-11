@@ -12,7 +12,6 @@ var defaultSettings = {
 	provider_fanzub: true,
 	provider_nzbclub: true,
 	provider_nzbindex: true,
-	provider_nzbsrus: true,
 	provider_yubse: true,
 	provider_omgwtfnzbs: true,
 	provider_nzbrss: true,

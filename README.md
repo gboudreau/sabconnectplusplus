@@ -13,7 +13,6 @@ Features:
     * fanzub.com
     * nzbclub.com
     * nzbindex.com (nzbindex.nl)
-    * nzbsrus.com
     * omgwtfnzbs.org
     * yubse.com
     * Any Newznab-based indexer

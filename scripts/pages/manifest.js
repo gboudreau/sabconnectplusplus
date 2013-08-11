@@ -156,14 +156,6 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_nzbsrus',
-			'type': 'checkbox',
-			'sync': true,
-			'label': 'nzbsrus.com'
-		},
-		{
-			'tab': 'Providers',
-			'group': '1-Click NZB downloading',
 			'name': 'provider_yubse',
 			'type': 'checkbox',
 			'sync': true,

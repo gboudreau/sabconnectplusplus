@@ -4,6 +4,7 @@ Removed support for nzbx.co (read here to know why it shut down: http://www.dslr
 
 Version 0.6.8
 -------------
+Removed support for nzbsrus.com (read here to know why it shut down: http://sickbeard.com/forums/viewtopic.php?f=3&t=7596)
 Added support for nzb-rss.com (thanks brandon-barker)
 
 Version 0.6.7
