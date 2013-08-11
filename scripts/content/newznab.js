@@ -73,18 +73,12 @@
 		}
 
 	    if ($('a.addSABnzbd').length == 0) {
-    		// List view: Loop through each #browsetable row and add a one click link next to the title
-    		$('#browsetable tr:gt(0)').each(function() {
-    			var $tr = $(this),
+    		// List view: Loop through all the td.check items and add a one-click link next the nearby title
+    		$('td.check').each(function() {
+    			var $tr = $(this).parent(),
     				href = $tr.find('.icon_nzb a').attr('href');
 
-				if (typeof href == 'undefined') {
-				    // On My Cart page, there is (sometimes?) no download button.
-				    // Let's just use the details link, and replace 'details' with 'getnzb'.
-				    href = $tr.find('a[href^="/details/"]:not([href*="#"])').attr('href').replace('details', 'getnzb');
-				}
-
-    			$tr.find('a[href^="/details/"]:not([href*="#"])').parent()
+    			$tr.find('a.title').parent()
     				.prepend('<a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a>')
     			;
 			
