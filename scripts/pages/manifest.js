@@ -310,6 +310,15 @@ this.manifest = {
 					'Below are the category settings provided by SABconnect++. For more information regarding categories,\
 					please read the <a href="http://code.google.com/p/sabconnectplusplus/wiki/Categories">wiki page</a>.'
 		},
+		{
+			'tab': 'Configuration',
+			'group': 'Categories',
+			'name': 'config_ignore_categories',
+			'type': 'checkbox',
+			'label': 'Do not attempt to pass category names, forcing SABnzbd to use group names in the NZB instead.\
+					 This will ignore <b>all</b> of the following category options. Note that some indexers (newznab, etc.)\
+					 embed category names in the nzb itself.'
+		},
         {
             'tab': 'Configuration',
             'group': 'Categories',
