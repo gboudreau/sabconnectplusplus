@@ -413,7 +413,8 @@ function addToSABnzbd( request, sendResponse ) {
 		data.nzbname = nzbname;
 	}
 	
-	SetupCategoryHeader( request, data, nzburl );
+	if (!store.get('config_ignore_categories'))
+		SetupCategoryHeader( request, data, nzburl );
 
 	$.ajax({
 		type: "GET",
