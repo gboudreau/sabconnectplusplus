@@ -1,3 +1,5 @@
+var ignoreCats;
+
 function onResponseAdd( response, addLink )
 {
 	switch( response.ret ) {
@@ -61,7 +63,10 @@ function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 		request.nzbname = nice_name;
 	}
 
-	if (typeof category != 'undefined' && category != null) {
+	GetSetting('config_ignore_categories', function( value ) {
+		ignoreCats = value;
+	});
+	if (!ignoreCats && typeof category != 'undefined' && category != null) {
 		request.category = category;
 	}
 	

@@ -24,6 +24,7 @@ var defaultSettings = {
 	config_enable_context_menu: true,
 	config_enable_notifications: true,
 	config_notification_timeout: 10,
+	config_ignore_categories: false,
     config_use_user_categories: false,
 	config_use_category_header: false,
 	config_hard_coded_category: '',
