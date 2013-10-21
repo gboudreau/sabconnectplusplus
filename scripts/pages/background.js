@@ -36,6 +36,8 @@ var defaultSettings = {
     settings_synced: false
 };
 
+var notification_container = [];
+
 var store = new StoreClass( 'settings', defaultSettings, undefined, storeReady_background );
 
 function storeReady_background() {
@@ -153,17 +155,44 @@ function displayNotificationCallback( data )
 				}
 				notification.show();
 				localStorage[key] = true;
-				console.log("Notification posted!");
 				
 				var notifyTimeout = store.get( 'config_notification_timeout' );
 				if( notifyTimeout !== '0' ) {
-					console.log( "notifications_timeout set to " + notifyTimeout + " seconds" );
-					setTimeout( function() { notification.cancel(); }, notifyTimeout * 1000 );
+					console.log( "Notification posted with timeout: " + notifyTimeout + " seconds" );
+					var notif_temp = [ notification, notifyTimeout ];
+					notification_container.push( notif_temp );
+				} else {
+					console.log( "Notification posted with timeout: no timeout" );
 				}
 			}
 		}
 	}
 }
+
+function displayNotificationCycle ( )
+{
+	var al = notification_container.length, notification_temp = [];
+	for ( var i = 0; i < al; i++ )
+	{
+		var notif = notification_container[i];
+		var notification = notif.shift();
+		var timeout = notif.shift();
+		if ( timeout <= 1 )
+		{
+			console.log( "Notification timeout reached, killing popup" );
+			notification.cancel();
+		}
+		else
+		{
+			var notif_temp = [ notification, timeout - 1 ];
+			notification_temp.push( notif_temp );
+		}
+	}
+	notification_container = notification_temp;
+	setTimeout( displayNotificationCycle, 1000 );
+}
+setTimeout( displayNotificationCycle, 1000 );
+
 
 function fetchInfoSuccess( data, quickUpdate, callback )
 {
