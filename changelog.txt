@@ -1,5 +1,7 @@
 Version 0.6.9
 -------------
+Change notification mechanism to use a single timeout handler, rather than one per notification. Fixes #99.
+Bugfix for some Newznab themes: show the notification over other UI elements
 Added setting to not send any categories to SAB, and let it try to guess it from the .nzb content instead. Default to off for now (i.e. same behaviour as before)
 
 Version 0.6.8
