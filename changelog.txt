@@ -1,3 +1,7 @@
+Version 0.6.10
+--------------
+Bugfix for dognzbd. Fixes #106.
+
 Version 0.6.9
 -------------
 Change notification mechanism to use a single timeout handler, rather than one per notification. Fixes #99.
