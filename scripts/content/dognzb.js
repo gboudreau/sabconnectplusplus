@@ -72,23 +72,25 @@ function handleAllDownloadLinks() {
 
 	$('div[class="dog-icon-download "]').each(function() {
 		// Change the title to "Send to SABnzbd"
-		$(this).attr("title", "Send to SABnzbd");
+		newlink = $('<div></div>').attr("title", "Send to SABnzbd");
+		newlink.addClass('dog-icon-download');
 
 		// Change the nzb download image
 		var img = chrome.extension.getURL('images/sab2_16.png');
-		$(this).css('background-image', 'url('+img+')');
-		$(this).css('background-position', '0 0');
+		newlink.css('background-image', 'url('+img+')');
+		newlink.css('background-position', '0 0');
 		
 		// Extract NZB id from onClick and set to ID attribute
 		
 		var nzbid = $(this).attr('onClick');
 		var nzbid = nzbid.split('\'')[1];
-		$(this).attr("id", nzbid);
+		newlink.attr("id", nzbid);
 
 		// Change the on click handler to send to sabnzbd
 		// this is the <a>
-		$(this).removeAttr("onClick");
-		$(this).click(addToSABnzbdFromDognzb);
+		//$(this).removeAttr("onClick");
+		newlink.click(addToSABnzbdFromDognzb);
+		$(this).replaceWith(newlink);
 	});
 }
 
