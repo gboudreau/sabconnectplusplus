@@ -70,10 +70,10 @@ function handleAllDownloadLinks() {
        //	$(this).click(addToSABnzbdFromDognzb);
        //});
 
-	$('div[class="dog-icon-download "]').each(function() {
+	$('div[class="dog-icon-download"]').not('.sabcpp-fake-godnzb-marker').each(function() {
 		// Change the title to "Send to SABnzbd"
 		newlink = $('<div></div>').attr("title", "Send to SABnzbd");
-		newlink.addClass('dog-icon-download');
+		newlink.addClass('dog-icon-download').addClass('sabcpp-fake-dognzb-marker');
 
 		// Change the nzb download image
 		var img = chrome.extension.getURL('images/sab2_16.png');
@@ -96,4 +96,11 @@ function handleAllDownloadLinks() {
 
 Initialize( 'dognzb', null, function() {
 	handleAllDownloadLinks();
+	sabcppDogCheck = function(){
+		if($('div[class="dog-icon-download"]').not('.sabcpp-fake-godnzb-marker').length >= 1) {
+			handleAllDownloadLinks();
+		}
+		setTimeout(sabcppDogCheck, 1000);
+	};
+        setTimeout(sabcppDogCheck, 1000);
 });
