@@ -1,3 +1,7 @@
+Version 0.6.11
+--------------
+More bugfixes for dognzbd. Fixes #96, #102.
+
 Version 0.6.10
 --------------
 Bugfix for dognzbd. Fixes #106.
