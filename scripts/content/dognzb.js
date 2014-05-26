@@ -79,6 +79,7 @@ function handleAllDownloadLinks() {
 		var img = chrome.extension.getURL('images/sab2_16.png');
 		newlink.css('background-image', 'url('+img+')');
 		newlink.css('background-position', '0 0');
+		newlink.css('background-size', 'inherit');
 		
 		// Extract NZB id from onClick and set to ID attribute
 		
