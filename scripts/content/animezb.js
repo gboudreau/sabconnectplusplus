@@ -39,7 +39,7 @@ function handleAllDownloadLinks() {
 }
 
 function addDownloadAllButton() {
-	$('form button').each(function() {
+	$('div[class=row] form button[class*="btn-sm"]').each(function() {
 	    var img = chrome.extension.getURL('/images/sab2_16.png');
 	    var href = $(this).attr('href');
 	    var link = '<input type="button" id="addMultiSABnzbd" value="Send to SABnzbd" class="btn btn-sm btn-primary" style="width:120px">';
