@@ -10,6 +10,7 @@ var defaultSettings = {
 	provider_bintube: true,
 	provider_dognzb: true,
 	provider_fanzub: true,
+	provider_animezb: true,
 	provider_nzbclub: true,
 	provider_nzbindex: true,
 	provider_yubse: true,
