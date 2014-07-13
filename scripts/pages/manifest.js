@@ -99,6 +99,7 @@ this.manifest = {
 			'group': '1-Click NZB downloading',
 			'name': 'provider_description',
 			'type': 'description',
+			'sync': true,
 			'text':
 					'This is a list of currently supported providers. For each provider that is\
 					enabled, 1-click NZB downloading will be supported. This sends the NZB to SABnzbd\
@@ -107,71 +108,81 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_nzbclub',
+			'name': 'provider_binsearch',
 			'type': 'checkbox',
-			'label': 'nzbclub.com'
+			'sync': true,
+			'label': 'binsearch.info'
 		},
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
 			'name': 'provider_bintube',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'bintube.com'
 		},
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
-			'name': 'provider_nzbdotsu',
+			'name': 'provider_dognzb',
 			'type': 'checkbox',
-			'label': 'nzb.su'
-		},
-		{
-			'tab': 'Providers',
-			'group': '1-Click NZB downloading',
-			'name': 'provider_binsearch',
-			'type': 'checkbox',
-			'label': 'binsearch.info'
-		},
-		{
-			'tab': 'Providers',
-			'group': '1-Click NZB downloading',
-			'name': 'provider_mysterbin',
-			'type': 'checkbox',
-			'label': 'mysterbin.com'
-		},
-		{
-			'tab': 'Providers',
-			'group': '1-Click NZB downloading',
-			'name': 'provider_nzbindex',
-			'type': 'checkbox',
-			'label': 'nzbindex.com'
-		},
-		{
-			'tab': 'Providers',
-			'group': '1-Click NZB downloading',
-			'name': 'provider_nzbsrus',
-			'type': 'checkbox',
-			'label': 'nzbsrus.com'
+			'sync': true,
+			'label': 'dognzb.cr'
 		},
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
 			'name': 'provider_fanzub',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'fanzub.com'
+		},
+		{
+			'tab': 'Providers',
+			'group': '1-Click NZB downloading',
+			'name': 'provider_nzbclub',
+			'type': 'checkbox',
+			'sync': true,
+			'label': 'nzbclub.com'
+		},
+		{
+			'tab': 'Providers',
+			'group': '1-Click NZB downloading',
+			'name': 'provider_nzbindex',
+			'type': 'checkbox',
+			'sync': true,
+			'label': 'nzbindex.com'
 		},
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
 			'name': 'provider_yubse',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'yubse.com'
 		},
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
+			'name': 'provider_omgwtfnzbs',
+			'type': 'checkbox',
+			'sync': true,
+			'label': 'omgwtfnzbs.org'
+		},	
+		{
+			'tab': 'Providers',
+			'group': '1-Click NZB downloading',
+			'name': 'provider_nzbrss',
+			'type': 'checkbox',
+			'sync': true,
+			'label': 'nzb-rss.com'
+		},					
+		{
+			'tab': 'Providers',
+			'group': '1-Click NZB downloading',
 			'name': 'provider_newznab',
 			'type': 'text',
+			'sync': true,
 			'label': 'Newznab Providers (coma-separated list of hostnames):'
 		},
 		
@@ -181,6 +192,7 @@ this.manifest = {
 			'group': 'Display Options',
 			'name': 'use_name_binsearch',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'binsearch.info: Use display name instead of NZB filename.'
 		},
 		{
@@ -188,6 +200,7 @@ this.manifest = {
 			'group': 'Display Options',
 			'name': 'use_name_nzbindex',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'nzbindex.com: Use display name instead of NZB filename.'
 		},
 		{
@@ -195,6 +208,7 @@ this.manifest = {
 			'group': 'Display Options',
 			'name': 'use_name_yubse',
 			'type': 'checkbox',
+			'sync': true,
 			'label': 'yubse.com: Use display name instead of NZB filename.'
 		},
 		
@@ -295,6 +309,15 @@ this.manifest = {
 			'text':
 					'Below are the category settings provided by SABconnect++. For more information regarding categories,\
 					please read the <a href="http://code.google.com/p/sabconnectplusplus/wiki/Categories">wiki page</a>.'
+		},
+		{
+			'tab': 'Configuration',
+			'group': 'Categories',
+			'name': 'config_ignore_categories',
+			'type': 'checkbox',
+			'label': 'Do not attempt to pass category names, forcing SABnzbd to use group names in the NZB instead.\
+					 This will ignore <b>all</b> of the following category options. Note that some indexers (newznab, etc.)\
+					 embed category names in the nzb itself.'
 		},
         {
             'tab': 'Configuration',

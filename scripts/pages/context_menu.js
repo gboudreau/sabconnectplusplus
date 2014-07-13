@@ -66,5 +66,3 @@ function SetupContextMenu()
 		DestroyContextMenu();
 	}
 }
-
-SetupContextMenu();

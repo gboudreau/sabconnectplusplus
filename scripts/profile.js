@@ -10,12 +10,12 @@ ProfileManager.prototype.count = function()
 ProfileManager.prototype.add = function( profileName, values )
 {
 	var profiles = store.get( 'profiles' );
-	if( profiles.hasOwnProperty( profileName ) ) {
+	if(typeof profiles == "object" && profiles.hasOwnProperty( profileName ) ) {
 		throw 'already_exists';
 	}
 	
 	profiles[profileName] = values;
-	store.set( 'profiles', profiles );
+	this.saveProfiles(profiles);
 }
 
 ProfileManager.prototype.edit = function( profileName, values, newProfileName )
@@ -36,7 +36,7 @@ ProfileManager.prototype.edit = function( profileName, values, newProfileName )
 	}
 	
 	profiles[profileName] = values;
-	store.set( 'profiles', profiles );
+	this.saveProfiles(profiles);
 }
 
 ProfileManager.prototype.remove = function( profileName )
@@ -47,7 +47,7 @@ ProfileManager.prototype.remove = function( profileName )
 	}
 	
 	delete profiles[profileName];
-	store.set( 'profiles', profiles );
+	this.saveProfiles(profiles);
 	
 	var newActive = first( profiles );
 	this.setActiveProfile( newActive );
@@ -58,7 +58,7 @@ ProfileManager.prototype.setProfile = function( profileData )
 {
 	var profiles = store.get( 'profiles' );
 	profiles[profileData.name] = profileData.values;
-	store.set( 'profiles', profiles );
+	this.saveProfiles(profiles);
 }
 
 ProfileManager.prototype.getProfile = function( profileName )
@@ -74,6 +74,12 @@ ProfileManager.prototype.getProfile = function( profileName )
 		return null;
 	}
 	
+	var password = getPref("profile_pass" + profileName);
+	if(password === null || password === "null" || typeof password == "undefined") {
+		password = "";
+	}
+	profiles[profileName]["password"] = password;
+	
 	return {
 		'name': profileName,
 		'values': profiles[profileName]
@@ -82,7 +88,7 @@ ProfileManager.prototype.getProfile = function( profileName )
 
 ProfileManager.prototype.getActiveProfile = function()
 {
-	var profileName = store.get( 'active_profile' );
+	var profileName = getPref( 'active_profile' );
 	return this.getProfile( profileName );
 }
 
@@ -94,11 +100,23 @@ ProfileManager.prototype.getFirstProfile = function()
 
 ProfileManager.prototype.setActiveProfile = function( profileName )
 {
-	store.set( 'active_profile', profileName );
+	setPref( 'active_profile', profileName );
 }
 
 ProfileManager.prototype.contains = function( profileName )
 {
 	var profiles = store.get( 'profiles' );
 	return profiles.hasOwnProperty( profileName );
+}
+
+ProfileManager.prototype.saveProfiles = function(profiles) {
+	//discard passwords
+	for(var profileName in profiles) {
+		var profile = profiles[profileName];
+		if(profile.hasOwnProperty("password")) {
+			setPref("profile_pass" + profileName, profile.password);
+			delete profile.password;
+		}
+	}
+	store.set( 'profiles', profiles );
 }

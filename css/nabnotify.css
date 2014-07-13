@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+.autonabSticky p { float:left; padding:0px; margin:0px; margin-left:10px; line-height:45px; color:#fff; font-size:12px;}
+.autonabSticky p a { color:#fbffa2; }
+.autonabSticky a.close { float:right; margin:13px 10px 0px 0px; color:#fff; font-size: 14px;}
+.autonabSticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999999999;
+    width: 100%;
+    border-bottom: 3px solid #fff !important;
+    height: 45px;
+    background-color: #91BD09;
+    box-shadow: 1px 1px 7px #676767;
+}

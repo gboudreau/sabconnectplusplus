@@ -3,7 +3,7 @@ function addToSABnzbdFromNZBCLUB() {
     var img = chrome.extension.getURL('images/sab2_16_fetching.png');
     $(this).find('img').first().attr("src", img);
     
-    var nzburl = 'http://nzbclub.com' + $(this).attr('href');
+    var nzburl = $(this).attr('href');
     var addLink = $(this).parent();
     	
     addToSABnzbd(addLink, nzburl, "addurl");

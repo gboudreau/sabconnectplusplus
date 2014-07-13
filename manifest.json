@@ -1,14 +1,29 @@
 {
 	"manifest_version": 2,
 	"name": "SABconnect++",
-	"version": "0.5.21",
+	"version": "0.6.13",
 	"description": "SABnzbd extension for Google Chrome.",
+	"minimum_chrome_version": "23.0",
 	"background": {
-            "page": "background.html"
+			"scripts": [
+				"third_party/jquery/jquery-1.7.2.min.js",
+				"third_party/jquery/jquery.urldecoder.min.js",
+				"third_party/fancy-settings/lib/store.js",
+				"scripts/convert.js",
+				"scripts/utility.js",
+				"scripts/profile.js",
+				"scripts/pages/common.js",
+				"scripts/pages/background.js",
+				"scripts/pages/context_menu.js",
+				"scripts/pages/newznab-check.js"
+			]
 	},
 	"options_page": "settings.html",
 	"browser_action": {
-		"default_icon": "images/sab2_16.png",
+		"default_icon": {
+		    "19": "images/sab2_19.png",
+		    "38": "images/sab2_38.png"
+		},
 		"default_title": "SABnzbd",
 		"default_popup": "popup.html"
 	},
@@ -29,224 +44,90 @@
 	],
 	"permissions":
 	[
-		"http://*/*",
-		"https://*/*",
+		"*://*/*",
 		"tabs",
 		"notifications",
-		"contextMenus"
+		"contextMenus",
+		"storage"
 	],
 	"content_scripts": [
 		{
 			"matches": [
-				"http://*.nzbclub.com/",
-				"http://*.nzbclub.com/*",
-				"https://*.nzbclub.com/",
-				"https://*.nzbclub.com/*",
-				"http://nzbclub.com/*",
-				"https://nzbclub.com/"
+				"*://*.nzbclub.com/*",
+				"*://*.bintube.com/*",
+				"*://*.binsearch.info/*",
+				"*://*.binsearch.net/*",
+				"*://*.binsearch.co.uk/*",
+				"*://*.binsear.ch/*",
+				"*://*.nzbindex.com/*",
+				"*://*.nzbindex.nl/*",
+				"*://*.fanzub.com/*",
+				"*://*.dognzb.cr/*",
+				"*://*.yubse.com/*",
+				"*://*.omgwtfnzbs.org/*",
+				"*://*.nzb-rss.com/*"
 			],
 			"js": [
 				"third_party/jquery/jquery-1.7.2.min.js",
 				"scripts/content/common.js",
-				"scripts/content/nzbclub.js"
+				"third_party/webtoolkit/webtoolkit.base64.js"
 			],
+			"all_frames": true
+		},
+		
+		{
+			"matches": [ "*://*.nzbclub.com/*" ],
+			"js": [	"scripts/content/nzbclub.js" ],
+			"all_frames": true
+		},
+		{
+			"matches": [ "*://*.bintube.com/*" ],
+			"js": [ "scripts/content/bintube.js" ],
 			"all_frames": true
 		},
 		{
 			"matches": [
-				"http://*.bintube.com/",
-				"http://*.bintube.com/*",
-				"https://*.bintube.com/",
-				"https://*.bintube.com/*",
-				"http://bintube.com/*",
-				"https://bintube.com/"
+				"*://*.binsearch.info/*",
+				"*://*.binsearch.net/*",
+				"*://*.binsearch.co.uk/*",
+				"*://*.binsear.ch/*" 				
 			],
-			"js": [
-				"third_party/jquery/jquery-1.7.2.min.js",
-				"scripts/content/common.js",
-				"scripts/content/bintube.js"
-			],
+			"js": [	"scripts/content/binsearch.js" ],
 			"all_frames": true
 		},
 		{
-			"matches": [
-				"http://*.mysterbin.com/",
-				"http://*.mysterbin.com/*",
-				"https://*.mysterbin.com/",
-				"https://*.mysterbin.com/*",
-                "http://mysterbin.com/*",
-                "https://mysterbin.com/*"
+			"matches" : [ 
+				"*://*.nzbindex.com/*",
+				"*://*.nzbindex.nl/*"
 			],
-			"js": [
-				"third_party/jquery/jquery-1.7.2.min.js",
-				"scripts/content/common.js",
-				"scripts/content/mysterbin.js"
-			],
+			"js": [	"scripts/content/nzbindex.js" ],
 			"all_frames": true
 		},
 		{
-			"matches": [
-				"http://*.binsearch.info/",
-				"http://*.binsearch.info/*",
-				"https://*.binsearch.info/",
-				"https://*.binsearch.info/*",
-				"http://binsearch.info/",
-				"http://binsearch.info/*",
-				"https://binsearch.info/",
-				"https://binsearch.info/*",
-				"http://*.binsearch.net/",
-				"http://*.binsearch.net/*",
-				"https://*.binsearch.net/",
-				"https://*.binsearch.net/*",
-				"http://binsearch.net/",
-				"http://binsearch.net/*",
-				"https://binsearch.net/",
- 				"https://binsearch.net/*",
- 				"http://*.binsearch.co.uk/",
- 				"http://*.binsearch.co.uk/*",
- 				"https://*.binsearch.co.uk/",
- 				"https://*.binsearch.co.uk/*",
- 				"http://binsearch.co.uk/",
- 				"http://binsearch.co.uk/*",
- 				"https://binsearch.co.uk/",
- 				"https://binsearch.co.uk/*",
- 				"http://*.binsear.ch/",
- 				"http://*.binsear.ch/*",
- 				"https://*.binsear.ch/",
- 				"https://*.binsear.ch/*",
- 				"http://binsear.ch/",
- 				"http://binsear.ch/*",
- 				"https://binsear.ch/",
- 				"https://binsear.ch/*"
-			],
-			"js": [
-				"third_party/jquery/jquery-1.7.2.min.js",
-				"scripts/content/common.js",
-				"scripts/content/binsearch.js"
-			],
+			"matches": [ "*://*.fanzub.com/*" ],
+			"js": [	"scripts/content/fanzub.js"	],
 			"all_frames": true
 		},
 		{
-			"matches": [
-				"http://*.nzbindex.com/",
-				"http://*.nzbindex.com/*",
-				"https://*.nzbindex.com/",
-				"https://*.nzbindex.com/*",
-				"http://nzbindex.com/",
-				"http://nzbindex.com/*",
-				"https://nzbindex.com/",
-				"https://nzbindex.com/*",
-				"http://*.nzbindex.nl/",
-				"http://*.nzbindex.nl/*",
-				"https://*.nzbindex.nl/",
-				"https://*.nzbindex.nl/*",
-				"http://nzbindex.nl/",
-				"http://nzbindex.nl/*",
-				"https://nzbindex.nl/",
-				"https://nzbindex.nl/*"
-			],
-			"js": [
-				"third_party/jquery/jquery-1.7.2.min.js",
-				"scripts/content/common.js",
-				"scripts/content/nzbindex.js"
-			],
+			"matches": [ "*://*.dognzb.cr/*" ],
+			"js": [	"scripts/content/dognzb.js"	],
 			"all_frames": true
 		},
 		{
-			"matches": [
-				"http://*.nzbsrus.com/",
-				"http://*.nzbsrus.com/*",
-				"https://*.nzbsrus.com/",
-				"https://*.nzbsrus.com/*",
-				"http://nzbsrus.com/",
-				"http://nzbsrus.com/*",
-				"https://nzbsrus.com/",
-				"https://nzbsrus.com/*"
-			],
-			"js": [
-				"third_party/jquery/jquery-1.7.2.min.js",
-				"scripts/content/common.js",
-				"third_party/webtoolkit/webtoolkit.base64.js",
-				"scripts/content/nzbsrus.js"
-			],
+			"matches": [ "*://*.yubse.com/*" ],
+			"js": [ "scripts/content/yubse.js" ],
 			"all_frames": true
 		},
 		{
-			"matches": [
-				"http://*.nzb.su/",
-				"http://*.nzb.su/*",
-				"http://nzb.su/",
-				"http://nzb.su/*",
-				"https://*.nzb.su/",
-				"https://*.nzb.su/*",
-				"https://nzb.su/",
-				"https://nzb.su/*"
-			],
-			"js": [
-				"third_party/jquery/jquery-1.7.2.min.js",
-				"scripts/content/common.js",
-				"third_party/webtoolkit/webtoolkit.base64.js",
-				"scripts/content/nzbdotsu.js"
-			],
+			"matches": [ "*://omgwtfnzbs.org/*" ],
+			"js": [	"scripts/content/omgwtfnzbs.js" ],
 			"all_frames": true
 		},
 		{
-			"matches": [
-				"http://*.fanzub.com/",
-				"http://*.fanzub.com/*",
-				"http://fanzub.com/",
-				"http://fanzub.com/*",
-				"https://*.fanzub.com/",
-				"https://*.fanzub.com/*",
-				"https://fanzub.com/",
-				"https://fanzub.com/*"
-			],
-			"js": [
-				"third_party/jquery/jquery-1.7.2.min.js",
-				"scripts/content/common.js",
-				"third_party/webtoolkit/webtoolkit.base64.js",
-				"scripts/content/fanzub.js"
-			],
+			"matches": [ "*://*.nzb-rss.com/*" ],
+			"js": [	"scripts/content/nzbrss.js" ],
 			"all_frames": true
-		},
-		{
-			"matches": [
-				"http://*.dognzb.cr/",
-				"http://*.dognzb.cr/*",
-				"http://dognzb.cr/",
-				"http://dognzb.cr/*",
-				"https://*.dognzb.cr/",
-				"https://*.dognzb.cr/*",
-				"https://dognzb.cr/",
-				"https://dognzb.cr/*"
-			],
-			"js": [
-				"third_party/jquery/jquery-1.7.2.min.js",
-				"scripts/content/common.js",
-				"third_party/webtoolkit/webtoolkit.base64.js",
-				"scripts/content/dognzb.js"
-			],
-			"all_frames": true
-		},
-		{
-			"matches": [ 
-				"http://*.yubse.com/", 
-				"http://*.yubse.com/*", 
-				"http://yubse.com/", 
-				"http://yubse.com/*", 
-				"https://*.yubse.com/", 
-				"https://*.yubse.com/*", 
-				"https://yubse.com/", 
-				"https://yubse.com/*", 
-				"http://beta.yubse.com/*"
-			],
-			"js": [ 
-				"third_party/jquery/jquery-1.7.2.min.js", 
-				"scripts/content/common.js", 
-				"third_party/webtoolkit/webtoolkit.base64.js", 
-				"scripts/content/yubse.js" 
-			],
-			"all_frames": true
-		} 
+		}			
+		
 	]
 }

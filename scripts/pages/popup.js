@@ -1,4 +1,72 @@
-var store = new Store( 'settings' );
+﻿var store = new StoreClass('settings', {}, undefined, storeReady_popup);
+
+function storeReady_popup() {
+	var nowtime = new Date();
+	var lastOpened = parseInt(getPref("lastOpened"));
+	var closeWindow = false;
+	if (lastOpened > 0) {
+		if (nowtime.getTime() - lastOpened < 700) { 
+			chrome.tabs.create({url: activeProfile().url});
+			closeWindow = true;
+			window.close();
+		}
+	}
+	if (!closeWindow) {
+		setPref("lastOpened", nowtime.getTime());
+		SetupTogglePause();
+		reDrawPopup();
+	}
+
+	$('#open_sabnzbd').click( function() {
+		var profile = activeProfile();
+		var url = $.url.parse( profile.url );
+		
+		var build = {
+			protocol: url.protocol,
+			host: url.host,
+			port: url.port,
+			path: url.path,
+		}
+		
+		if( store.get( 'config_enable_automatic_authentication' ) ) {
+			build.user = $.url.encode(profile.username);
+			build.password = $.url.encode(profile.password);
+		}
+		
+		chrome.tabs.create( { url: $.url.build( build ) } );
+	});
+
+	$('#extension_settings').click( function() {
+		chrome.tabs.create({url: 'settings.html'});
+	});
+
+	$('#refresh').click( function() {
+		refresh();
+	});
+
+	$('#set-speed').click( function() {
+		setMaxSpeed( $('#speed-input').val() );
+	});
+
+	$('#speed-input').keydown( function( event ) {
+		var code = event.keyCode || event.which;
+		if( code == 13 ) { // Enter pressed
+			setMaxSpeed( $('#speed-input').val() );
+		}
+	});
+
+	populateProfileList();
+
+	$('#profiles').val( profiles.getActiveProfile().name );
+	$('#profiles').change( OnProfileChanged );
+
+	if (store.get('config_use_user_categories')) {
+		$('#user_category').css("display", "block");
+		populateAndSetCategoryList();
+	}
+
+	setMaxSpeedText();
+}
 
 function refresh()
 {
@@ -80,7 +148,19 @@ function queueItemAction(action, nzoid, callback)
 var paused = false;
 var oldPos = -1;
 
-function togglePause() {
+function durationPause(e) {
+	var val = parseInt($(this).val());
+	if(isNaN(val)) {
+		val = parseInt(window.prompt("Duration (minutes)"));
+	}
+	if(val > 0) {
+		togglePause(val);
+	} else {
+		$(this).val(0);
+	}
+}
+
+function togglePause(duration) {	
 	if (paused) {
 		var mode = 'resume';
 		var wasPaused = true;
@@ -91,7 +171,13 @@ function togglePause() {
 	
 	var sabApiUrl = constructApiUrl();
 	var data = constructApiPost();
+	
 	data.mode = mode;
+	if(mode == "pause" && typeof duration == "number") {
+		data.mode = "config";
+		data.name = "set_pause";
+		data.value = duration;
+	}
 	
 	$.ajax({
 		type: "GET",
@@ -103,7 +189,7 @@ function togglePause() {
 			} else {
 				var msg = 'Resume Queue';
 			}
-			$('#togglePause').html(msg);
+			$('#togglePause').replaceWith(buildPauseDiv(msg, !wasPaused));
 			
 			refresh();
 		},
@@ -125,10 +211,42 @@ function SetupTogglePause() {
 		var img = '<img src="' + pauseImg +'" />';
 		var msg = 'Pause Queue';
 	}
-	$('.menu').prepend('<hr /><div id="togglePause">' + msg + '</div>');
-	$('#togglePause').click(function() {
-		togglePause();
-	});
+	
+	$(".menu").prepend("<hr>", buildPauseDiv(msg));
+	
+	$(".menu").on("click", "select", function(e) { e.stopPropagation(); });
+	$(".menu").on("change", "#pause-duration", durationPause);
+	$(".menu").on("click", "#togglePause", togglePause);
+}
+
+function buildPauseDiv(msg, overridePaused) {
+	var pauseState = overridePaused;
+	if(typeof pauseState == "undefined") {
+		pauseState = getPref('paused');
+	}
+	var $div = $("<div id='togglePause'><span style='float:none;'>"+ msg +" </span></div");
+	
+	if(!pauseState) {
+		var selectDuration = $("<select id='pause-duration'></select>");
+		var durations = {
+			0:		"&#8734;",
+			5:		"5 minutes",
+			15:		"15 minutes",
+			30:		"30 minutes",
+			60: 	"1 hour",
+			180:	"3 hours",
+			360:	"6 hours",
+			NaN:	"Other..."
+		}
+		for(var minutes in durations) {
+			var intMinutes = parseInt(minutes);
+			selectDuration.append($("<option value='"+ intMinutes +"'>"+durations[minutes]+"</option>"));
+		}
+		
+		$div.append(selectDuration);
+	}
+	
+	return $div;
 }
 
 function getSortItemPos(id) {
@@ -167,11 +285,19 @@ function reDrawPopup() {
 	$.each(fields, function(i, field) {
 		var value = getPref(field);
 		$('#sab-' + field).html(value);
-		$('#sab-' + field).html(value);
 	});
 	
 	var status = getPref('status');
 	$('#sab-status').removeClass().addClass(status);
+	
+	if(paused) {
+		var remaining = getPref("pause_int");
+		if(remaining == 0) { //"0"
+			$("#sab-timeleft").html("&#8734;");
+		} else {
+			$("#sab-timeleft").html(remaining);
+		}
+	}
 	
 	var data = {
 		'playImg':chrome.extension.getURL('images/control_play.png'),
@@ -180,7 +306,10 @@ function reDrawPopup() {
 	};
 	
 	// Grab a list of jobs (array of slot objects from the json API)
-	var jobs = JSON.parse(getPref('queue'));
+	var queue = getPref("queue");
+	var jobs = [];
+	if(typeof queue != "undefined")
+		jobs = JSON.parse(getPref('queue'));
 	$.each(jobs, function(i, slot) {
 	    // Replaced jqote, which doesn't work in Chrome extensions, when using manifest v2.
 		var el = '<li id="' + slot.nzo_id + '" class="item">'
@@ -287,7 +416,11 @@ function reDrawPopup() {
 	});
 	
 	if( store.get( 'config_enable_graph' ) == '1' ) {
-		var line1 = JSON.parse(getPref('speedlog'));
+		var speedlog = getPref('speedlog');
+		var line1 = [0];
+		if(typeof speedlog != "undefined") {
+			line1 = JSON.parse(speedlog);
+		}
 		if (line1.sum() == 0 || status == 'Idle') {
 		    $('#graph').hide();
 		} else {
@@ -319,7 +452,6 @@ function reDrawPopup() {
 	    $('#graph').hide();
 	}
     var newHeight = $('#sabInfo').height() + $('.menu').height() + 28;
-    console.log(newHeight)
     $('body').css({height: newHeight+'px'});
     $('html').css({height: newHeight+'px'});
 }
@@ -372,7 +504,7 @@ function populateAndSetCategoryList()
     var params = {
         action: 'get_categories'
     }
-    chrome.extension.sendRequest(params, function(data) {
+    chrome.extension.sendMessage(params, function(data) {
         for (i = 0; i < data.categories.length; i++) {
             var cat = '<option value="' + data.categories[i] + '">' + data.categories[i] + '</option>';
             $('#userCategory').append(cat);
@@ -380,73 +512,4 @@ function populateAndSetCategoryList()
         $('#userCategory').val(store.get('active_category'));
         $('#userCategory').change(OnCategoryChanged);
     });
-}
-
-$(document).ready( function() {
-	$('#open_sabnzbd').click( function() {
-		var profile = activeProfile();
-		var url = $.url.parse( profile.url );
-		
-		var build = {
-			protocol: url.protocol,
-			host: url.host,
-			port: url.port,
-			path: url.path,
-		}
-		
-		if( store.get( 'config_enable_automatic_authentication' ) ) {
-			build.user = profile.username;
-			build.password = profile.password;
-		}
-		
-		var test = $.url.build( build );
-		
-		chrome.tabs.create( { url: $.url.build( build ) } );
-	});
-
-	$('#extension_settings').click( function() {
-		chrome.tabs.create({url: 'settings.html'});
-	});
-
-	$('#refresh').click( function() {
-		refresh();
-	});
-	
-	$('#set-speed').click( function() {
-		setMaxSpeed( $('#speed-input').val() );
-	});
-	
-	$('#speed-input').keydown( function( event ) {
-		var code = event.keyCode || event.which;
-		if( code == 13 ) { // Enter pressed
-			setMaxSpeed( $('#speed-input').val() );
-		}
-	});
-
-	populateProfileList();
-	
-	$('#profiles').val( profiles.getActiveProfile().name );
-	$('#profiles').change( OnProfileChanged );
-
-    if (store.get('config_use_user_categories')) {
-        $('#user_category').css("display", "block");
-        populateAndSetCategoryList();
-    }
-	
-	setMaxSpeedText();
-});
-
-var nowtime = new Date();
-var lastOpened = parseInt(getPref("lastOpened"));
-var closeWindow = false;
-if (lastOpened > 0) {
-	if (nowtime.getTime() - lastOpened < 700) { 
-		chrome.tabs.create({url: activeProfile().url});
-		closeWindow = true;
-		window.close();
-	}
-}
-if (!closeWindow) {
-	setPref("lastOpened", nowtime.getTime());
-	window.onload = function() { SetupTogglePause(); reDrawPopup(); };
 }

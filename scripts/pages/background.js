@@ -1,21 +1,21 @@
 // List of sites that send the X-DNZB-Category HTTP header
-var category_header_sites = ['nzbs.org', 'newzbin2.es', 'newzxxx.com'];
+//var category_header_sites = ['nzbs.org', 'newzbin2.es', 'newzxxx.com'];
+var category_header_sites = [];
 
 var defaultSettings = {
 	sabnzbd_url: 'http://localhost:8080/',
 	sabnzbd_api_key: '',
 	sabnzbd_username: '',
-	sabnzbd_password: '',
-	provider_nzbclub: true,
-	provider_bintube: true,
 	provider_binsearch: true,
-    provider_mysterbin: true,
-	provider_nzbindex: true,
-	provider_nzbsrus: true,
-	provider_nzbdotsu: true,
+	provider_bintube: true,
+	provider_dognzb: true,
 	provider_fanzub: true,
+	provider_nzbclub: true,
+	provider_nzbindex: true,
 	provider_yubse: true,
-	provider_newznab: 'nzbs.org, your_newznab.com',
+	provider_omgwtfnzbs: true,
+	provider_nzbrss: true,
+	provider_newznab: 'your_newznab.com, some_other_newznab.com',
 	use_name_binsearch: true,
 	use_name_nzbindex: true,
 	use_name_yubse: true,
@@ -24,18 +24,30 @@ var defaultSettings = {
 	config_enable_context_menu: true,
 	config_enable_notifications: true,
 	config_notification_timeout: 10,
+	config_ignore_categories: false,
     config_use_user_categories: false,
 	config_use_category_header: false,
 	config_hard_coded_category: '',
 	config_default_category: '',
 	config_enable_automatic_authentication: true,
 	profiles: {},
-	active_profile: '',
 	first_profile_initialized: false,
-    active_category: '*'
+    active_category: '*',
+    settings_synced: false
 };
 
-var store = new Store( 'settings', defaultSettings );
+var notification_container = [];
+
+var store = new StoreClass( 'settings', defaultSettings, undefined, storeReady_background );
+
+function storeReady_background() {
+	startTimer();
+	
+	initializeBackgroundPage();
+	
+	//context_menu.js
+	SetupContextMenu();
+}
 
 function resetSettings()
 {
@@ -143,17 +155,44 @@ function displayNotificationCallback( data )
 				}
 				notification.show();
 				localStorage[key] = true;
-				console.log("Notification posted!");
 				
 				var notifyTimeout = store.get( 'config_notification_timeout' );
 				if( notifyTimeout !== '0' ) {
-					console.log( "notifications_timeout set to " + notifyTimeout + " seconds" );
-					setTimeout( function() { notification.cancel(); }, notifyTimeout * 1000 );
+					console.log( "Notification posted with timeout: " + notifyTimeout + " seconds" );
+					var notif_temp = [ notification, notifyTimeout ];
+					notification_container.push( notif_temp );
+				} else {
+					console.log( "Notification posted with timeout: no timeout" );
 				}
 			}
 		}
 	}
 }
+
+function displayNotificationCycle ( )
+{
+	var al = notification_container.length, notification_temp = [];
+	for ( var i = 0; i < al; i++ )
+	{
+		var notif = notification_container[i];
+		var notification = notif.shift();
+		var timeout = notif.shift();
+		if ( timeout <= 1 )
+		{
+			console.log( "Notification timeout reached, killing popup" );
+			notification.cancel();
+		}
+		else
+		{
+			var notif_temp = [ notification, timeout - 1 ];
+			notification_temp.push( notif_temp );
+		}
+	}
+	notification_container = notification_temp;
+	setTimeout( displayNotificationCycle, 1000 );
+}
+setTimeout( displayNotificationCycle, 1000 );
+
 
 function fetchInfoSuccess( data, quickUpdate, callback )
 {
@@ -171,7 +210,6 @@ function fetchInfoSuccess( data, quickUpdate, callback )
 	// Will cause problems if the error pref is used elsewhere to report other errors
 	setPref('error', '');
 	setPref('timeleft', data ? data.queue.timeleft : '0' );
-	
 	if(data) {
 		// Convert to bytes
 		var bytesPerSec = parseFloat(data.queue.kbpersec)*1024;
@@ -185,7 +223,7 @@ function fetchInfoSuccess( data, quickUpdate, callback )
 	if( !quickUpdate ) {
 		updateSpeedLog( data );
 	}
-	
+
 	var queueSize = '';
 	if( data && data.queue.mbleft > 0 ) {
 		// Convert to bytes
@@ -199,6 +237,9 @@ function fetchInfoSuccess( data, quickUpdate, callback )
 
 	setPref( 'status', data ? data.queue.status : '' );
 	setPref( 'paused', data ? data.queue.paused : '' );
+	if(data.queue.paused) {
+		setPref("pause_int", data.queue.pause_int);
+	}
 	
 	updateBadge( data );
 	updateBackground( data );
@@ -318,10 +359,6 @@ function refresh( quick, callback )
 
 var gTimer;
 
-$(document).ready(function() {
-	startTimer();
-});
-
 function restartTimer()
 {
 	if( gTimer ) {
@@ -405,7 +442,8 @@ function addToSABnzbd( request, sendResponse ) {
 		data.nzbname = nzbname;
 	}
 	
-	SetupCategoryHeader( request, data, nzburl );
+	if (!store.get('config_ignore_categories'))
+		SetupCategoryHeader( request, data, nzburl );
 
 	$.ajax({
 		type: "GET",
@@ -440,6 +478,12 @@ function GetSetting( request, response )
 	response.value = store.get( request.setting );
 }
 
+function SetSetting( request, response )
+{
+	store.set( request.setting, request.value );
+	response.value = true;
+}
+
 function OnRequest( request, sender, sendResponse )
 {
 	var response = {
@@ -450,19 +494,22 @@ function OnRequest( request, sender, sendResponse )
 	case 'initialize':
 		InitializeContentScript( request, response );
 		break;
+	case 'set_setting':
+		SetSetting( request, response );
+		break;
 	case 'get_setting':
 		GetSetting( request, response );
 		break;
 	case 'addToSABnzbd':
 		addToSABnzbd( request, sendResponse );
-		return;
-    case 'get_categories':
-        var params = {
-            action: 'sendSabRequest',
-            mode: 'get_cats'
-        }
-        sendSabRequest(params, sendResponse);
-        return;
+		return true; // return true to be able to receive a response after this function returns.
+	case 'get_categories':
+		var params = {
+		action: 'sendSabRequest',
+		mode: 'get_cats'
+		}
+		sendSabRequest(params, sendResponse);
+		return true;
 	}
 	
 	sendResponse( response );
@@ -488,7 +535,7 @@ function setupFirstTimeDefaultProfile()
 {
 	try {
 		profiles.add( 'Default', getOldProfileValues() );
-		store.set( 'active_profile', 'Default' );
+		profiles.setActiveProfile("Default");
 	}
 	catch( e ) {
 		if( e == 'already_exists' ) {
@@ -523,9 +570,29 @@ function initializeProfile()
 
 function initializeBackgroundPage()
 {
-	chrome.extension.onRequest.addListener( OnRequest );
+	chrome.extension.onMessage.addListener( OnRequest );
+
+    // Migration from localStorage to chrome.storage.sync
+	var settingsSynced = store.get( 'settings_synced' );
+	if( !settingsSynced ) {
+	    console.log("Need to migrate settings to synced-setings.")
+	    // Didn't yet migrate old settings to synced-settings
+		var oldStore = new Store( 'settings', defaultSettings, undefined, function(){
+		    oldStore.toObject(function(o){
+                for (var key in o) {
+                    var value = localStorage.getItem("store.settings." + key);
+                    if (value !== null) {
+                        value = JSON.parse(value);
+                	    console.log("Migrating " + key + " = " + value);
+                        store.set( key, value );
+                    }
+        		}
+        		store.set( 'settings_synced', true );
+		    });
+		});
+	}
+
 	initializeProfile();
 }
 
-initializeBackgroundPage();
 

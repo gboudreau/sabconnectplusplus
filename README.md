@@ -11,13 +11,11 @@ Features:
     * bintube.com
     * dognzb.com
     * fanzub.com
-    * mysterbin.com
-    * nzb.su (Now better!)
     * nzbclub.com
     * nzbindex.com (nzbindex.nl)
-    * nzbs.org
-    * nzbsrus.com
+    * omgwtfnzbs.org
     * yubse.com
+    * Any Newznab-based indexer
   * Context menu option for sending links to SABnzbd
   * Options page that looks consistent with Chrome's own options layout
   * Download speed graph
@@ -25,5 +23,6 @@ Features:
   * Pause all downloads
   * Remove individual downloads
   * Desktop notifications (Download Complete/Failed)
+  * Storage sync for settings
 
 SABconnect++ is a fork of the now unmaintained Chrome extension [SABconnect](http://code.google.com/p/sabconnect/).

@@ -1,6 +1,80 @@
+Version 0.6.13
+--------------
+Fix icon size on dognzbd.
+
+Version 0.6.11
+--------------
+More bugfixes for dognzbd. Fixes #96, #102.
+
+Version 0.6.10
+--------------
+Bugfix for dognzbd. Fixes #106.
+
+Version 0.6.9
+-------------
+Change notification mechanism to use a single timeout handler, rather than one per notification. Fixes #99.
+Bugfix for some Newznab themes: show the notification over other UI elements
+Added setting to not send any categories to SAB, and let it try to guess it from the .nzb content instead. Default to off for now (i.e. same behaviour as before)
+
+Version 0.6.8
+-------------
+Improved nzbs.org support (and all Newznab at the same time)
+Removed support for nzbx.co (read here to know why it shut down: http://www.dslreports.com/forum/r28443268-nzbx.co-shuts-down)
+Removed support for nzbsrus.com (read here to know why it shut down: http://sickbeard.com/forums/viewtopic.php?f=3&t=7596)
+Added support for nzb-rss.com (thanks brandon-barker)
+
+Version 0.6.7
+-------------
+Improved Newznab support (tested on nzb.su): one-click links in details page, fixed cart, fixed double links
+Added support for omgwtfnzbs.org: added categories (thanks brandon-barker)
+
+Version 0.6.6
+-------------
+Added support for omgwtfnzbs.org (thanks brandon-barker)
+
+Version 0.6.5
+-------------
+Added support for nzbsrus.com categories
+Removed nzb.su from the list of providers; it's now a Newznab indexer
+
+Version 0.6.4
+-------------
+...
+
+Version 0.6.3
+-------------
+Added support for mega.nzbx.co
+Improvement: Added multi-select to nzbx.co
+Bugfix: nzbx.co no category failure fixed
+
+Version 0.6.2
+-------------
+Re-added: dognzb.cr
+
+Version 0.6.1
+-------------
+Re-added: nzb.su
+
+Version 0.6.0
+-------------
+New feature: Settings are now synced to and from your Google account, if you enabled sync in Chrome.
+Improvement: One-click support for binsearch.info
+Improvement: Added category for nzbx.co one-click
+Removed: nzb.su, mysterbin.com support (sites are gone)
+
+Version 0.5.22
+--------------
+Improvement: Better looking icons, in particular in the action bar
+Improvement: Ability to pause for X minutes (thanks jsterken)
+Improvement: Code improvement on how domain and protocol are handled, when sending a link to SAB. Solves part of the NZBClub problem. (thanks jsterken)
+Bugfix: SAB icon would not change to the red error icons, when an error occurred when sending a link to SAB. (thanks jsterken)
+Bugfix: Newznab providers: when a cover has multiple releases, send the correct URL to SAB (was always sending the 1st release URL) (thanks jsterken)
+
 Version 0.5.21
 --------------
 Bugfix: Newznab sites: select all checkbox would break the 'Send to SAB' top button
+Improved fanzub support (thanks Benni-chan)
+Added support for nzbx.co (thanks sharkuw)
 
 Version 0.5.20
 --------------

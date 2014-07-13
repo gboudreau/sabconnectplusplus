@@ -1,3 +1,4 @@
+var ignoreCats;
 
 function onResponseAdd( response, addLink )
 {
@@ -5,10 +6,13 @@ function onResponseAdd( response, addLink )
 	case 'error' :
 		alert("Could not contact SABnzbd \n Check it is running and your settings are correct");
 		var img = chrome.extension.getURL('images/sab2_16_red.png');
-		if ($(this).find('img').length > 0) {
+		if ($(addLink).find('img').length > 0) {
 			$(addLink).find('img').attr("src", img);
 		} else {
-			$(addLink).css('background-image', 'url('+img+')');
+			// Prevent updating the background image of Bootstrap buttons
+			if ($(addLink).hasClass('btn') == false) { 
+				$(addLink).css('background-image', 'url('+img+')');
+			}
 		}
 		break;
 	case 'success':
@@ -16,10 +20,13 @@ function onResponseAdd( response, addLink )
 		if (response.data.error) {
 			alert(response.data.error);
 			var img = chrome.extension.getURL('images/sab2_16_red.png');
-			if ($(this).find('img').length > 0) {
+			if ($(addLink).find('img').length > 0) {
 				$(addLink).find('img').attr("src", img);
 			} else {
-				$(addLink).css('background-image', 'url('+img+')');
+				// Prevent updating the background image of Bootstrap buttons
+				if ($(addLink).hasClass('btn') == false) { 				
+					$(addLink).css('background-image', 'url('+img+')');
+				}
 			}
 			return;
 		}
@@ -29,7 +36,10 @@ function onResponseAdd( response, addLink )
 		} else if (addLink.nodeName && addLink.nodeName.toUpperCase() == 'INPUT' && addLink.value == 'Sent to SABnzbd!') {
 			// Nothing; handled in nzbsorg.js
 		} else {
-			$(addLink).css('background-image', 'url('+img+')');
+			// Prevent updating the background image of Bootstrap buttons
+			if ($(addLink).hasClass('btn') == false) { 
+				$(addLink).css('background-image', 'url('+img+')');
+			}
 		}
 		break;
 	default:
@@ -38,6 +48,10 @@ function onResponseAdd( response, addLink )
 }
 
 function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
+	
+	if(nzburl.substring(0, 1) == "/") {
+		nzburl = window.location.protocol + "//" + window.location.host + nzburl;
+	}
 	
 	var request = {
 		action: 'addToSABnzbd',
@@ -49,14 +63,17 @@ function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 		request.nzbname = nice_name;
 	}
 
-	if (typeof category != 'undefined' && category != null) {
+	GetSetting('config_ignore_categories', function( value ) {
+		ignoreCats = value;
+	});
+	if (!ignoreCats && typeof category != 'undefined' && category != null) {
 		request.category = category;
 	}
 	
 	console.log("Sending to SABnzbd:");
 	console.log(request);
 	
-	chrome.extension.sendRequest(
+	chrome.extension.sendMessage(
 		request,
 		function(response) { onResponseAdd( response, addLink ) }
 		);
@@ -69,7 +86,7 @@ function GetSetting( setting, callback )
 		setting: setting
 	}
 	
-	chrome.extension.sendRequest( request, function( response ) {
+	chrome.extension.sendMessage( request, function( response ) {
 		var value = response.value;
 		
 		if( typeof value == 'undefined' || value == null ) {
@@ -97,7 +114,7 @@ function Initialize( provider, refresh_function, callback )
 		provider: provider
 	}
 		
-	chrome.extension.sendRequest( request, function( response ) {
+	chrome.extension.sendMessage( request, function( response ) {
 		if( response.enabled ) {
 			callback();
 		}
@@ -119,4 +136,4 @@ function OnRequest( request, sender, onResponse )
 	}
 };
 
-chrome.extension.onRequest.addListener( OnRequest );
+chrome.extension.onMessage.addListener( OnRequest );

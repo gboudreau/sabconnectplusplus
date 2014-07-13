@@ -4,7 +4,7 @@ var category = null;
 
 function findNZBId(elem) {
 	nzbid = $(elem).attr('id');
-	url = 'http://dognzb.cr/fetch/' + nzbid;
+	url = '/fetch/' + nzbid;
 	return url;
 }
 
@@ -70,28 +70,38 @@ function handleAllDownloadLinks() {
        //	$(this).click(addToSABnzbdFromDognzb);
        //});
 
-	$('div[class="dog-icon-download "]').each(function() {
+	$('div[class="dog-icon-download"]').not('.sabcpp-fake-godnzb-marker').each(function() {
 		// Change the title to "Send to SABnzbd"
-		$(this).attr("title", "Send to SABnzbd");
+		newlink = $('<div></div>').attr("title", "Send to SABnzbd");
+		newlink.addClass('dog-icon-download').addClass('sabcpp-fake-dognzb-marker');
 
 		// Change the nzb download image
 		var img = chrome.extension.getURL('images/sab2_16.png');
-		$(this).css('background-image', 'url('+img+')');
-		$(this).css('background-position', '0 0');
+		newlink.css('background-image', 'url('+img+')');
+		newlink.css('background-position', '0 0');
+		newlink.css('background-size', 'inherit');
 		
 		// Extract NZB id from onClick and set to ID attribute
 		
 		var nzbid = $(this).attr('onClick');
 		var nzbid = nzbid.split('\'')[1];
-		$(this).attr("id", nzbid);
+		newlink.attr("id", nzbid);
 
 		// Change the on click handler to send to sabnzbd
 		// this is the <a>
-		$(this).removeAttr("onClick");
-		$(this).click(addToSABnzbdFromDognzb);
+		//$(this).removeAttr("onClick");
+		newlink.click(addToSABnzbdFromDognzb);
+		$(this).replaceWith(newlink);
 	});
 }
 
 Initialize( 'dognzb', null, function() {
 	handleAllDownloadLinks();
+	sabcppDogCheck = function(){
+		if($('div[class="dog-icon-download"]').not('.sabcpp-fake-godnzb-marker').length >= 1) {
+			handleAllDownloadLinks();
+		}
+		setTimeout(sabcppDogCheck, 1000);
+	};
+        setTimeout(sabcppDogCheck, 1000);
 });
