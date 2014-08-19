@@ -302,6 +302,13 @@ this.manifest = {
 		{
 			'tab': 'Configuration',
 			'group': 'General',
+			'name': 'config_enable_automatic_detection',
+			'type': 'checkbox',
+			'label': 'Enable Automatic Newznab Detection (can slow down some sites)'
+		},
+		{
+			'tab': 'Configuration',
+			'group': 'General',
 			'name': 'config_reset',
 			'type': 'button',
 			'label': 'Click to reset all settings to default:',
