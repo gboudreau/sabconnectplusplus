@@ -25,8 +25,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         }
         if ( (!found_nab) && (tab.url.indexOf('http') == 0) ) {
             var nabenabled = store.get( 'nabignore.' + host );
-            var nabdetection = store.get('config_enable_automatic_detection');
-            if ( nabdetection && !nabenabled ) {
+            if ( !nabenabled ) {
                 chrome.tabs.executeScript(tabId, {file: "third_party/jquery/jquery-1.7.2.min.js"});
                 chrome.tabs.executeScript(tabId, {file: "third_party/jquery/jquery.notify.js"});
                 chrome.tabs.executeScript(tabId, {file: "scripts/content/common.js"});
