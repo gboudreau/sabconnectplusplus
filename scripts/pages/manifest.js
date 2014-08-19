@@ -297,7 +297,14 @@ this.manifest = {
 			'group': 'General',
 			'name': 'config_enable_automatic_authentication',
 			'type': 'checkbox',
-			'label': 'Enable Automatic Authentication (insecure)'
+			'label': 'Enable Automatic  (insecure)'
+		},
+		{
+			'tab': 'Configuration',
+			'group': 'General',
+			'name': 'config_enable_automatic_detection',
+			'type': 'checkbox',
+			'label': 'Enable Automatic Newznab Detection (can slow down some sites)'
 		},
 		{
 			'tab': 'Configuration',

@@ -31,6 +31,7 @@ var defaultSettings = {
 	config_hard_coded_category: '',
 	config_default_category: '',
 	config_enable_automatic_authentication: true,
+	config_enable_automatic_detection: true,
 	profiles: {},
 	first_profile_initialized: false,
     active_category: '*',
