@@ -17,6 +17,7 @@ var defaultSettings = {
 	provider_omgwtfnzbs: true,
 	provider_nzbrss: true,
 	provider_newznab: 'your_newznab.com, some_other_newznab.com',
+	provider_usenet4ever: true,
 	use_name_binsearch: true,
 	use_name_nzbindex: true,
 	use_name_yubse: true,
