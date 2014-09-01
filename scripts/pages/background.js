@@ -133,42 +133,53 @@ function displayNotificationCallback( data )
 		return;
 	}
 	
-	for (var i=0; i<data.history.slots.length; i++) {
-		var dl = data.history.slots[i];
-		var key = 'past_dl-' + dl.name + '-' + dl.bytes;
-		if (typeof localStorage[key] == 'undefined') {
+	data.history.slots.forEach(function(entry)
+	{
+		// console.log(entry);
+        var key = 'past_dl-' + entry.name + '-' + entry.bytes;
+		if (typeof localStorage[key] == 'undefined')
+        {
 			console.log("Possible History notification:");
-			console.log(dl);
+			console.log(entry.name);
+            
 			// Only notify when post-processing is complete
-			if (dl.action_line == '') {
-				if (dl.fail_message != '') {
-					var fail_msg = dl.fail_message.split('<')[0];
-					var notification = webkitNotifications.createNotification(
-					  'images/sab2_48.png',
-					  'Download Failed',
-					  dl.name + ': ' + fail_msg
+			if (entry.action_line == '')
+            {
+            	chrome.notifications.onButtonClicked.addListener(function(notId, buttonIndex) {
+            		chrome.tabs.create({url: 'file:///'+entry.storage}, function(tab) { console.log("opening tab"); });
+            	});
+				if (entry.fail_message != '')
+                {
+					var fail_msg = entry.fail_message.split('<')[0];
+					var notification = chrome.notifications.create(
+                        entry.name,
+                        {
+                            type:    'basic',
+                            iconUrl: 'images/sab2_48.png',
+                            title:   'Download Failed',
+                            message: entry.name + ': ' + fail_msg,
+                            buttons: [{ title: entry.storage  }]
+                        },
+                        function(notId) { console.log("notification for "+notId); }
 					);
 				} else {
-					var notification = webkitNotifications.createNotification(
-					  'images/sab2_48.png',
-					  'Download Complete',
-					  dl.name
+					var notification = chrome.notifications.create(
+                        entry.name,
+                        {
+                            type:    'basic',
+                            iconUrl: 'images/sab2_48.png',
+                            title:   'Download Complete',
+                            message: entry.name,
+                            buttons: [{ title: entry.storage  }]
+                        },
+                        function(notId) { console.log("notification for "+notId); }
 					);
 				}
-				notification.show();
-				localStorage[key] = true;
 				
-				var notifyTimeout = store.get( 'config_notification_timeout' );
-				if( notifyTimeout !== '0' ) {
-					console.log( "Notification posted with timeout: " + notifyTimeout + " seconds" );
-					var notif_temp = [ notification, notifyTimeout ];
-					notification_container.push( notif_temp );
-				} else {
-					console.log( "Notification posted with timeout: no timeout" );
-				}
+				localStorage[key] = true;
 			}
 		}
-	}
+    });
 }
 
 function displayNotificationCycle ( )
