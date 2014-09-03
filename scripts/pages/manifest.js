@@ -193,6 +193,14 @@ this.manifest = {
 			'sync': true,
 			'label': 'Newznab Providers (coma-separated list of hostnames):'
 		},
+		{
+			'tab': 'Providers',
+			'group': '1-Click NZB downloading',
+			'name': 'provider_usenet4ever',
+			'type': 'checkbox',
+			'sync': true,
+			'label': 'usenet4ever.info'
+		},
 		
 		// Providers Tab, display section
 		{

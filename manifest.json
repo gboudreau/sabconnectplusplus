@@ -66,7 +66,8 @@
 				"*://*.dognzb.cr/*",
 				"*://*.yubse.com/*",
 				"*://*.omgwtfnzbs.org/*",
-				"*://*.nzb-rss.com/*"
+				"*://*.nzb-rss.com/*",
+                "*://*.usenet4ever.info/*"
 			],
 			"js": [
 				"third_party/jquery/jquery-1.7.2.min.js",
@@ -133,7 +134,12 @@
 			"matches": [ "*://*.nzb-rss.com/*" ],
 			"js": [	"scripts/content/nzbrss.js" ],
 			"all_frames": true
-		}			
+		},
+		{
+            "all_frames": true,
+            "js": [ "scripts/content/usenet4ever.js" ],
+            "matches": [ "*://*.usenet4ever.info/*" ]
+        }			
 		
 	]
 }
