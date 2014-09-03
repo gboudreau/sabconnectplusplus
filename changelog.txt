@@ -2,6 +2,7 @@ Version 0.6.15
 --------------
 Added support for usenet4ever.info (thanks Marat Bedoev)
 Replaced (deprecated) webkit notifications with Chrome notifications (thanks Marat Bedoev)
+Option to disable Newznab auto detection (thanks Omri Iluz)
 
 Version 0.6.14
 --------------
