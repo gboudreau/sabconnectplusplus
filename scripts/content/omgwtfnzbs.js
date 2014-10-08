@@ -1,5 +1,5 @@
 function getNzbId(elem) {
-	var match = /&id=([0-9a-zA-Z]{5})/i.exec(elem);	
+	var match = /\?id=([0-9a-zA-Z]{5})/i.exec(elem);
 	
 	if (typeof match != 'undefined' && match != null) {
 		var nzbId = match[1];
@@ -37,10 +37,10 @@ function addToSABnzbdFromOmgwtfnzbs() {
     
     var nzburl = $(this).attr('href');	
     var addLink = this;	
-	var url = "http://api.omgwtfnzbs.org/sn.php?";
+	var url = "http://api.omgwtfnzbs.org/nzb/?";
 	
 	if (nzburl.indexOf('https://') == 0) {
-		url = "https://api.omgwtfnzbs.org/sn.php?";
+		url = "https://api.omgwtfnzbs.org/nzb/?";
 	}
 	
 	// Build up the URL to the API for direct downloading by getting the NZB Id, Username and API Key
