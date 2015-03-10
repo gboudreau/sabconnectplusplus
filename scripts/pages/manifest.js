@@ -148,6 +148,14 @@ this.manifest = {
 		{
 			'tab': 'Providers',
 			'group': '1-Click NZB downloading',
+			'name': 'provider_animenzb',
+			'type': 'checkbox',
+			'sync': true,
+			'label': 'animenzb.com'
+		},
+		{
+			'tab': 'Providers',
+			'group': '1-Click NZB downloading',
 			'name': 'provider_nzbclub',
 			'type': 'checkbox',
 			'sync': true,

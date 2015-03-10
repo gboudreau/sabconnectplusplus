@@ -1,3 +1,7 @@
+Version 0.6.17
+--------------
+Added support for animenzb.com (credit PPSlim)
+
 Version 0.6.16
 --------------
 Fixed omgwtfnzbs.org support

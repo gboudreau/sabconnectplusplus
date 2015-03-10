@@ -16,6 +16,7 @@ Features:
     * omgwtfnzbs.org
     * yubse.com
     * animezb.com
+    * animenzb.com
     * Any Newznab-based indexer
   * Context menu option for sending links to SABnzbd
   * Options page that looks consistent with Chrome's own options layout

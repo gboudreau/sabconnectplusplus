@@ -63,6 +63,8 @@
 				"*://*.nzbindex.nl/*",
 				"*://*.fanzub.com/*",
 				"*://*.animezb.com/*",
+				"*://animenzb.com/*",
+				"*://*.animenzb.com/*",
 				"*://*.dognzb.cr/*",
 				"*://*.yubse.com/*",
 				"*://*.omgwtfnzbs.org/*",
@@ -113,6 +115,14 @@
 		{
 			"matches": [ "*://*.animezb.com/*" ],
 			"js": [	"scripts/content/animezb.js" ],
+			"all_frames": true
+		},
+		{
+			"matches": [
+				"*://animenzb.com/*",
+				"*://*.animenzb.com/*"
+			],
+			"js": [ "scripts/content/animenzb.js" ],
 			"all_frames": true
 		},
 		{
