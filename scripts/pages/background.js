@@ -554,7 +554,7 @@ function setupFirstTimeDefaultProfile()
 	}
 	catch( e ) {
 		if( e == 'already_exists' ) {
-			alert( 'Default profile already exists for some reason. File a bug report on our Google Code page about this please.' );
+			alert( 'Default profile already exists for some reason. File a bug report in our Github repository about this please.' );
 		}
 		else {
 			throw e;
