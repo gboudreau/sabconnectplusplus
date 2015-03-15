@@ -9,7 +9,7 @@ function addToSABnzbdFromAnimenzb() {
 	try {
 		category = this.parent().parent().find('td > a > img').first().attr('alt').toLowerCase();
 	} catch (ex) { }
-        this.find('img').first().attr('src', img)
+        $(this).find('img').first().attr('src', img);
 	addToSABnzbd(addLink, nzburl, "addurl", null, category);
 
 	return false;
@@ -28,6 +28,6 @@ function handleAllDownloadLinks() {
 	});
 }
 
-Initialize( 'animeinzb', null, function() {
+Initialize( 'animenzb', null, function() {
 	handleAllDownloadLinks();
 });
