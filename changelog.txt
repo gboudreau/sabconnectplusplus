@@ -1,3 +1,8 @@
+Version 0.6.18
+--------------
+Corrected support for animenzb.com - Incorrectly named provider
+Removed exec bit from usenet4ever provider
+
 Version 0.6.17
 --------------
 Added support for animenzb.com (credit PPSlim)
