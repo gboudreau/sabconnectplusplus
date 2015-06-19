@@ -1,3 +1,11 @@
+Version 0.6.20
+--------------
+(again) Fixed nzbclub integration (thanks Mathias Rohnstock)
+
+Version 0.6.19
+--------------
+Fixed nzbclub integration (thanks Mathias Rohnstock)
+
 Version 0.6.18
 --------------
 Corrected support for animenzb.com - Incorrectly named provider
