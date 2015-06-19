@@ -14,8 +14,8 @@ function addToSABnzbdFromNZBCLUB() {
 function handleAllDownloadLinks() {
 	$('div.project-action > div > button[id="get"]').each(function() {
 	    var img = chrome.extension.getURL('/images/sab2_16.png');
-	    var href = "https://www.nzbclub.com/nzb_get/" + $(this).parent().parent().attr('collectionid');
-	    var link = '<a class="btn btn-xs btn-warning addSABnzbd" href="' + href + '"><img style="margin-top: auto; width: 14px; height: 14px; border-radius: 0%; margin-bottom: auto;" title="Send to SABnzbd" src="' + img + '" /> To SAB</a>';
+	    var href = "/nzb_get/" + $(this).parent().parent().attr('collectionid');
+	    var link = '<a class="addSABnzbd" href="' + href + '"><img style="margin-top: auto; width: 14px; height: 14px; border-radius: 0%; margin-bottom: auto;" title="Send to SABnzbd" src="' + img + '" /></a>';
 	    $(this).after(link);
 		$(this).parent().find('a[class="addSABnzbd"]').first().click(addToSABnzbdFromNZBCLUB);
 	});
