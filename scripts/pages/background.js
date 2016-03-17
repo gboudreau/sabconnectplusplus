@@ -586,6 +586,7 @@ function initializeProfile()
 function initializeBackgroundPage()
 {
 	chrome.extension.onMessage.addListener( OnRequest );
+	chrome.runtime.onMessageExternal.addListener( OnRequest );
 
     // Migration from localStorage to chrome.storage.sync
 	var settingsSynced = store.get( 'settings_synced' );
