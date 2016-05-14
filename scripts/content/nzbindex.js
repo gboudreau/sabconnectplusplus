@@ -1,5 +1,21 @@
 var use_nice_name_nzbindex;
 
+function getNameAndPW(){
+	// get the name and the passwod from the query
+	var queryString = document.location.search;
+	var queryInformation = { name: null, password: null };
+	if(queryString && queryString.length>0){
+		queryString = queryString.substr(1);
+	}	
+	var queries = queryString.split("&");
+	queries.forEach(function(query){
+		var pair = query.split("=");
+		queryInformation[pair[0]] = pair[1];
+	});
+	
+	return queryInformation;
+}
+
 function addToSABnzbdFromNzbindex() {
 	var addLink = this;
 

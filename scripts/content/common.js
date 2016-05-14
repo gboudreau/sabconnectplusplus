@@ -58,9 +58,9 @@ function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 		nzburl: nzburl,
 		mode: mode
 	};
-	
-	if (typeof nice_name != 'undefined' && nice_name != null) {
-		request.nzbname = nice_name;
+	var info = getNameAndPWFromQuery(nice_name);
+	if (info.NamePw != 'undefined' && info.NamePw != null) {
+		request.nzbname = info.NamePw;
 	}
 
 	GetSetting('config_ignore_categories', function( value ) {
@@ -134,6 +134,28 @@ function OnRequest( request, sender, onResponse )
 		CallRefreshFunction();
 		break;
 	}
+};
+
+
+function getNameAndPWFromQuery(niceName){
+	// get the name and the passwod from the query
+	var queryString = document.location.search;
+	var queryInformation = { name: niceName, password: null };
+	if(queryString && queryString.length>0){
+		queryString = queryString.substr(1);
+	}	
+	var queries = queryString.split("&");
+	queries.forEach(function(query){
+		var pair = decodeURIComponent(query).split("=");
+		queryInformation[pair[0]] = pair[1];
+	});
+	
+	queryInformation.NamePw = queryInformation.name;
+	if(queryInformation.password){
+		queryInformation.NamePw += "/" + queryInformation.password;
+	}
+	
+	return queryInformation;
 };
 
 chrome.extension.onMessage.addListener( OnRequest );
