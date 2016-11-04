@@ -20,7 +20,7 @@ function getApiKey() {
 		protocol = 'https';
 	}
 			
-	var apiHtml = $.ajax({url: protocol + "://omgwtfnzbs.org/account.php?action=api", async: false}).responseText;
+	var apiHtml = $.ajax({url: protocol + "://omgwtfnzbs.me/account.php?action=api", async: false}).responseText;
 	var apiKey = $(apiHtml).find('font[color="Orange"]').html();
 	
 	if (apiKey != null) {	
@@ -37,10 +37,10 @@ function addToSABnzbdFromOmgwtfnzbs() {
     
     var nzburl = $(this).attr('href');	
     var addLink = this;	
-	var url = "http://api.omgwtfnzbs.org/nzb/?";
+	var url = "http://api.omgwtfnzbs.me/nzb/?";
 	
 	if (nzburl.indexOf('https://') == 0) {
-		url = "https://api.omgwtfnzbs.org/nzb/?";
+		url = "https://api.omgwtfnzbs.me/nzb/?";
 	}
 	
 	// Build up the URL to the API for direct downloading by getting the NZB Id, Username and API Key
