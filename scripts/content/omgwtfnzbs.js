@@ -20,7 +20,7 @@ function getApiKey() {
 		protocol = 'https';
 	}
 			
-	var apiHtml = $.ajax({url: protocol + "://omgwtfnzbs.org/account.php?action=api", async: false}).responseText;
+	var apiHtml = $.ajax({url: protocol + "://omgwtfnzbs.me/account.php?action=api", async: false}).responseText;
 	var apiKey = $(apiHtml).find('font[color="Orange"]').html();
 	
 	if (apiKey != null) {	
@@ -37,17 +37,30 @@ function addToSABnzbdFromOmgwtfnzbs() {
     
     var nzburl = $(this).attr('href');	
     var addLink = this;	
-	var url = "http://api.omgwtfnzbs.org/nzb/?";
+	var url = "http://api.omgwtfnzbs.me/nzb/?";
 	
 	if (nzburl.indexOf('https://') == 0) {
-		url = "https://api.omgwtfnzbs.org/nzb/?";
+		url = "https://api.omgwtfnzbs.me/nzb/?";
 	}
 	
 	// Build up the URL to the API for direct downloading by getting the NZB Id, Username and API Key
 	url = url + 'id=' + getNzbId(nzburl) + '&user=' + getUserName() + '&api=' + getApiKey();
 	
 	// Get the category		
-	var category = $.trim($(this).parents('tr:first').children('.nzbt_type').children('.linky').html().match(/^\s*([^:]+)/)[1]);	
+	var category = null;
+	// find the category for the browse.php page
+	if($.trim($(this).parents('tr:first').children('.nzbt_type').children('.linky').html())) {
+		category = $.trim($(this).parents('tr:first').children('.nzbt_type').children('.linky').html().match(/^\s*([^:]+)/)[1]);
+	}
+	// find the category for the details.php page
+	else if ($( "#category" ).length != 0)
+	{
+		category = $.trim($("#category").text().match(/^\s*([^:]+)/)[1]);
+	}
+	// find the category for the trends.php page
+	else if ($(this).parents('.flag_float:first').children('.small_middle').children('.bmtip.cat_class').html()) {
+		category = $.trim($(this).parents('.flag_float:first').children('.small_middle').children('.bmtip.cat_class').html().match(/^\s*([^:]+)/)[1]);
+	}
 	
 	if (category === null) {
 		category = "default";
