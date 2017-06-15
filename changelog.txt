@@ -1,3 +1,7 @@
+Version 0.6.21
+--------------
+Added category discovery for details.php and trends.php on their website so that it sends to sabnzb with the proper category. Also the TLD has changed from omgwtfnzbs.org to omgwtfnzbs.me (thanks gewfie)
+
 Version 0.6.20
 --------------
 (again) Fixed nzbclub integration (thanks Mathias Rohnstock)
