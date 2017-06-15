@@ -136,7 +136,7 @@
 			"all_frames": true
 		},
 		{
-			"matches": [ "*://omgwtfnzbs.org/*" ],
+			"matches": [ "*://omgwtfnzbs.me/*" ],
 			"js": [	"scripts/content/omgwtfnzbs.js" ],
 			"all_frames": true
 		},
