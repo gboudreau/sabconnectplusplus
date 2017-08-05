@@ -1,4 +1,8 @@
-Version 0.6.21
+Version 0.6.23
+--------------
+Fixed omgwtfnzbs.me: send Category now on browse.php/details.php/trends.php pages; support for Cart; fixed README/label (thanks omgstaff)
+
+Version 0.6.22
 --------------
 Added category discovery for details.php and trends.php on their website so that it sends to sabnzb with the proper category. Also the TLD has changed from omgwtfnzbs.org to omgwtfnzbs.me (thanks gewfie)
 
