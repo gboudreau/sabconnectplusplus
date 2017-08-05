@@ -13,7 +13,7 @@ Features:
     * fanzub.com
     * nzbclub.com
     * nzbindex.com (nzbindex.nl)
-    * omgwtfnzbs.org
+    * omgwtfnzbs.me
     * yubse.com
     * animezb.com
     * animenzb.com
