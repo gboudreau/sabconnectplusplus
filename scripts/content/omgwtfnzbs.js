@@ -1,5 +1,5 @@
 function getNzbId(elem) {
-	var match = /\?id=([0-9a-zA-Z]{5})/i.exec(elem);
+	var match = /\?id=([0-9a-zA-Z]{5,6})/i.exec(elem);
 	
 	if (typeof match != 'undefined' && match != null) {
 		var nzbId = match[1];
