@@ -1,3 +1,7 @@
+Version 0.6.24
+--------------
+Fixed omgwtfnzbs.me: nzbId length has increased on site from 5 to 6 (thanks omgstaff)
+
 Version 0.6.23
 --------------
 Fixed omgwtfnzbs.me: send Category now on browse.php/details.php/trends.php pages; support for Cart; fixed README/label (thanks omgstaff)
