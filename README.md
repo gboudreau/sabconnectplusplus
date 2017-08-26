@@ -1,7 +1,8 @@
 
 **Important note:**
 Nobody is maintaining this codebase right now. Anyone who needs a fix will need to submit a Pull Request with the required changes.
---
+
+---
 
 SABconnect++ adds one-click 'Send to SABnzbd' buttons to many popular NZB index sites.
 
