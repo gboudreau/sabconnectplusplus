@@ -10,9 +10,14 @@ function getNzbId(elem) {
 }
 
 function getUserName() {
-	var usernameHtml = $("a[href='/account']").html();
-	var username = usernameHtml.replace(/<li>/, "");
-	username = username.replace(/<\/li>/, "");
+	var protocol = 'http';
+	
+	if (window.location.href.indexOf('https') == 0) {
+		protocol = 'https';
+	}
+	
+	var apiHtml = $.ajax({url: protocol + "://omgwtfnzbs.me/account.php?action=api", async: false}).responseText;
+	var username = apiHtml.match(/<sabuser>(.*)<\/sabuser>/)[1];
 	return username;
 }
 
@@ -24,7 +29,7 @@ function getApiKey() {
 	}
 			
 	var apiHtml = $.ajax({url: protocol + "://omgwtfnzbs.me/account.php?action=api", async: false}).responseText;
-	var apiKey = $(apiHtml).find('font[color="Orange"]').html();
+	var apiKey = apiHtml.match(/<sabapikey>(.*)<\/sabapikey>/)[1];
 	
 	if (apiKey != null) {	
 		return apiKey;
