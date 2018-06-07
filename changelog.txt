@@ -1,3 +1,8 @@
+
+Version 0.6.25
+--------------
+Fixed omgwtfnzbs.me: username changed in HTML (thanks omgstaff)
+
 Version 0.6.24
 --------------
 Fixed omgwtfnzbs.me: nzbId length has increased on site from 5 to 6 (thanks omgstaff)
