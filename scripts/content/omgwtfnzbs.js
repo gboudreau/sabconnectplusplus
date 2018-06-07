@@ -10,7 +10,10 @@ function getNzbId(elem) {
 }
 
 function getUserName() {
-	return $("a[href='/account']").html();
+	var usernameHtml = $("a[href='/account']").html();
+	var username = usernameHtml.replace(/<li>/, "");
+	username = username.replace(/<\/li>/, "");
+	return username;
 }
 
 function getApiKey() {
