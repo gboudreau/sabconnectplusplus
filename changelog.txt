@@ -1,3 +1,6 @@
+Version 0.6.26
+--------------
+omgwtfnzbs.me: Updated getUserName and getApiKey (thanks omgstaff)
 
 Version 0.6.25
 --------------
