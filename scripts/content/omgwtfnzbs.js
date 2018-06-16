@@ -106,7 +106,6 @@ function addToSABnzbdFromOmgwtfnzbs() {
 	// find the category for the browse.php page
 	if ($.trim($(this).parents('.nzbt_row').html())) {
 		category = $.trim($(this).parents('.nzbt_row').html());
-		console.log(category);
 		category = category.match(/<sabcategory>(.*)<\/sabcategory>/)[1];
 	}
 	// find the category for the details.php page
