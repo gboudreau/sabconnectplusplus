@@ -111,7 +111,8 @@ function addToSABnzbdFromOmgwtfnzbs() {
 	// find the category for the details.php page
 	else if ($( "#category" ).length != 0)
 	{
-		category = $.trim($("#category").text().match(/^\s*([^:]+)/)[1]);
+		category = $.trim($('#category').html());
+		category = category.match(/<sabcategory>(.*)<\/sabcategory>/)[1];
 	}
 	// find the category for the trends.php page
 	else if ($(this).parents('.flag_float:first').children('.small_middle').children('.bmtip.cat_class').html()) {
