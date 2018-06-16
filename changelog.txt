@@ -1,3 +1,7 @@
+Version 0.6.27
+--------------
+omgwtfnzbs.me: Cleaned up Category Discovery (thanks omgstaff)
+
 Version 0.6.26
 --------------
 omgwtfnzbs.me: Updated getUserName and getApiKey (thanks omgstaff)
