@@ -7,9 +7,9 @@
 		linkRelAlternate = $('link[rel=alternate]').attr('href');
 
 	if (linkRelAlternate) {
-		queryString = linkRelAlternate.match(/(i=.+$)/);		
-		if (queryString) {
-			queryString = '?' + queryString[0];
+		var found = linkRelAlternate.match(/([\?&]i=.+$)/);
+		if (found) {
+			queryString = '?' + found[0];
 		}
 	}
 
