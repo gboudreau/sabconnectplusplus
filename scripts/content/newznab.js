@@ -11,35 +11,35 @@
 		if (queryString) {
 			queryString = '?' + queryString[0];
 		}
-	} 
+	}
 
 	GetSetting('config_ignore_categories', function( value ) {
 		ignoreCats = value;
 	});
-			
+
 	function addMany(e) {
-	
+
 		var $button = $(this);
-		
+
 		$button.val("Sending...");
-		
+
 		$('#browsetable ' + e.data.selector).each(function() {
 			addOne($(this).closest('tr'));
 		});
-	
+
 		$button.val('Sent to SABnzbd!');
-	
+
 		setTimeout(function() {
 			$button.val('Send to SABnzbd');
 		}, 4000);
-	
+
 		return false;
 	}
-	
+
 	// $tr is a table row from #browsetable (one nzb)
 	// http://nzbs.org/getnzb/abef39dde2baaad865adecb95e5eb26d
-	function addOne($tr) { 
-	
+	function addOne($tr) {
+
 		var $anchor = $tr.find('a.addSABnzbd');
 
 		// Set the image to an in-progress image
@@ -48,7 +48,7 @@
 		if ($($anchor.get(0)).find('img').length > 0) {
 			$($anchor.get(0)).find('img').attr("src", img);
 		}
-		
+
 		var category = null;
 		if (!ignoreCats) {
 			if ($.trim($tr.parent().find('tr:nth-child(1)').find('th:nth-child(2)').text().toLowerCase()) == 'category') {
@@ -62,17 +62,17 @@
 			$anchor.get(0),
 			$anchor.attr('href') + queryString,
 			'addurl',
-			null, 
+			null,
 			category
 		);
 	}
-		
+
 	Initialize('newznab', null, function() {
-        
+
 		if ($('a.addSABnzbd').length == 0) {
 			// Cover view: Loop through each #coverstable and #browselongtable row and add a one click link next to the download link
 			$.merge(
-				$('#coverstable > tbody > tr:gt(0)'), 
+				$('#coverstable > tbody > tr:gt(0)'),
 				$('#browselongtable > tbody > tr:gt(0)')
 			).each(function() {
 				var $tr = $(this);
@@ -81,7 +81,7 @@
 					var href = $("a", this).attr("href");
 					$(this).before('<div class="icon"><a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a></div>')
 				});
-		
+
 				$tr.find('a.addSABnzbd')
 					.on('click', function() {
 						addOne($(this).closest('tr'));
@@ -100,7 +100,7 @@
 				$tr.find('a.title').parent()
 					.prepend('<a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a>')
 				;
-			
+
 				$tr.find('a.addSABnzbd')
 					.on('click', function() {
 						addOne($(this).closest('tr'));
@@ -150,7 +150,7 @@
 							this,
 							$(this).attr('href') + queryString,
 							'addurl',
-							null, 
+							null,
 							category
 						);
 						return false;
@@ -158,7 +158,7 @@
 				;
 			});
 		}
-		
+
 		if ($('[value="Send to SABnzbd"]').length == 0) {
 			// List view: add a button above the list to send selected NZBs to SAB
 			$('input.nzb_multi_operations_cart')
@@ -167,7 +167,7 @@
 				.on('click', {selector: 'td input:checked'}, addMany)
 			;
 		}
-		
+
 		// Cart page: add a button above the list to send all NZBs to SAB
 		if ($('#main h1').text() === 'My Cart' || $('.container h1').text() === 'My Cart') {
 			$('.nzb_multi_operations')
