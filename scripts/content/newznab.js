@@ -2,11 +2,20 @@
 (function() { // Encapsulate
 
 	var queryString = '?i=' + $('[name=UID]').val() + '&r=' + $('[name=RSSTOKEN]').val() + '&del=1',
-		oneClickImgTag = '<img style="vertical-align:baseline" src="' + chrome.extension.getURL('/images/sab2_16.png') + '" />';
-    var ignoreCats;
-    GetSetting('config_ignore_categories', function( value ) {
-        ignoreCats = value;
-    });
+		oneClickImgTag = '<img style="vertical-align:baseline" src="' + chrome.extension.getURL('/images/sab2_16.png') + '" />',
+		ignoreCats,
+		linkRelAlternate = $('link[rel=alternate]').attr('href');
+
+	if (linkRelAlternate) {
+		queryString = linkRelAlternate.match(/(i=.+$)/);		
+		if (queryString) {
+			queryString = '?' + queryString[0];
+		}
+	} 
+
+	GetSetting('config_ignore_categories', function( value ) {
+		ignoreCats = value;
+	});
 			
 	function addMany(e) {
 	
@@ -33,21 +42,22 @@
 	
 		var $anchor = $tr.find('a.addSABnzbd');
 
-        // Set the image to an in-progress image
-        var img = chrome.extension.getURL('images/sab2_16_fetching.png');
+		// Set the image to an in-progress image
+		var img = chrome.extension.getURL('images/sab2_16_fetching.png');
+
 		if ($($anchor.get(0)).find('img').length > 0) {
 			$($anchor.get(0)).find('img').attr("src", img);
 		}
 		
 		var category = null;
-        if (!ignoreCats) {
-    		if ($.trim($tr.parent().find('tr:nth-child(1)').find('th:nth-child(2)').text().toLowerCase()) == 'category') {
-    		    category = $.trim($tr.find('td:nth-child(2) a').text().match(/^\s*([^> -]+)/)[1]);
-    		} else if ($.trim($tr.parent().find('tr:nth-child(1)').find('th:nth-child(3)').text().toLowerCase()) == 'category') {
-    		    category = $.trim($tr.find('td:nth-child(3) a').text().match(/^\s*([^> -]+)/)[1]);
-    		}
-        }
-		
+		if (!ignoreCats) {
+			if ($.trim($tr.parent().find('tr:nth-child(1)').find('th:nth-child(2)').text().toLowerCase()) == 'category') {
+				category = $.trim($tr.find('td:nth-child(2) a').text().match(/^\s*([^> -]+)/)[1]);
+			} else if ($.trim($tr.parent().find('tr:nth-child(1)').find('th:nth-child(3)').text().toLowerCase()) == 'category') {
+				category = $.trim($tr.find('td:nth-child(3) a').text().match(/^\s*([^> -]+)/)[1]);
+			}
+		}
+
 		addToSABnzbd(
 			$anchor.get(0),
 			$anchor.attr('href') + queryString,
@@ -59,100 +69,103 @@
 		
 	Initialize('newznab', null, function() {
         
-	    if ($('a.addSABnzbd').length == 0) {
-    		// Cover view: Loop through each #coverstable and #browselongtable row and add a one click link next to the download link
-    		$.merge($('#coverstable > tbody > tr:gt(0)'), $('#browselongtable > tbody > tr:gt(0)')).each(function() {
-    			var $tr = $(this);
+		if ($('a.addSABnzbd').length == 0) {
+			// Cover view: Loop through each #coverstable and #browselongtable row and add a one click link next to the download link
+			$.merge(
+				$('#coverstable > tbody > tr:gt(0)'), 
+				$('#browselongtable > tbody > tr:gt(0)')
+			).each(function() {
+				var $tr = $(this);
 
-    			$("div.icon_nzb", $tr).each(function() {
-    				var href = $("a", this).attr("href");
-    				$(this).before('<div class="icon"><a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a></div>')
-    			});
-			
-    			$tr.find('a.addSABnzbd')
-    				.on('click', function() {
-    					addOne($(this).closest('tr'));
-    					return false;
-    				})
-    			;
-    		});
+				$("div.icon_nzb", $tr).each(function() {
+					var href = $("a", this).attr("href");
+					$(this).before('<div class="icon"><a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a></div>')
+				});
+		
+				$tr.find('a.addSABnzbd')
+					.on('click', function() {
+						addOne($(this).closest('tr'));
+						return false;
+					})
+				;
+			});
 		}
 
-	    if ($('a.addSABnzbd').length == 0) {
-    		// List view: Loop through all the td.check items and add a one-click link next the nearby title
-    		$('td.check').each(function() {
-    			var $tr = $(this).parent(),
-    				href = $tr.find('.icon_nzb a').attr('href');
+		if ($('a.addSABnzbd').length == 0) {
+			// List view: Loop through all the td.check items and add a one-click link next the nearby title
+			$('td.check').each(function() {
+				var $tr = $(this).parent(),
+					href = $tr.find('.icon_nzb a').attr('href') || $tr.find('a.icon_nzb').attr('href');
 
-    			$tr.find('a.title').parent()
-    				.prepend('<a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a>')
-    			;
+				$tr.find('a.title').parent()
+					.prepend('<a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a>')
+				;
 			
-    			$tr.find('a.addSABnzbd')
-    				.on('click', function() {
-    					addOne($(this).closest('tr'));
-    					return false;
-    				})
-    			;
-    		});
-        }
-
-	    if ($('a.addSABnzbd').length == 0) {
-    		// Details view (etc.)
-    		$('div.icon_nzb').each(function() {
-    			var  $tr = $(this),
-    				href = $(this).children("a").attr('href');
-
-    			$tr
-    				.before('<div class="icon"><a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a></div>')
-    			;
-
-    			$tr.parent().find('a.addSABnzbd')
-    				.on('click', function() {
-    					addOne($(this).closest('tr'));
-    					return false;
-    				})
-    			;
-    		});
+				$tr.find('a.addSABnzbd')
+					.on('click', function() {
+						addOne($(this).closest('tr'));
+						return false;
+					})
+				;
+			});
 		}
 
-	    if ($('a.addSABnzbdDetails').length == 0) {
-    		// Details view: Find the download buttons, and prepend a sabnzbd button
-    		$('table#detailstable .icon_nzb').parents('td').each(function() {
-    			var $tdWithButtons = $(this),
-    				href = 	$tdWithButtons.find('.icon_nzb a').attr('href'),
-    				oneClickButton = '<div class="icon"><a class="addSABnzbdDetails" href="' + href + '">' + oneClickImgTag + '</a></div>';
+		if ($('a.addSABnzbd').length == 0) {
+			// Details view (etc.)
+			$('div.icon_nzb').each(function() {
+				var $tr = $(this),
+					href = $(this).children("a").attr('href');
 
-    			$('#infohead').append(oneClickButton);
+				$tr
+					.before('<div class="icon"><a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a></div>')
+				;
 
-    			$tdWithButtons.prepend(oneClickButton)
-    				.find('a.addSABnzbdDetails')
-    				.add('#infohead .addSABnzbdDetails')
-    				.on('click', function() {
-    				    var category = null;
-    				    if ($('table#detailstable a[href^="/browse?t="]')) {
-    				        category = $.trim($('table#detailstable a[href^="/browse?t="]').text().match(/^\s*([^< -]+)/)[1]);
-    				    }
-    					addToSABnzbd(
-    						this,
-    						$(this).attr('href')+queryString,
-    						'addurl',
-    						null, 
-    						category
-    					);
-    					return false;
-    				})
-    			;
-    		});
-	    }
+				$tr.parent().find('a.addSABnzbd')
+					.on('click', function() {
+						addOne($(this).closest('tr'));
+						return false;
+					})
+				;
+			});
+		}
+
+		if ($('a.addSABnzbdDetails').length == 0) {
+			// Details view: Find the download buttons, and prepend a sabnzbd button
+			$('table#detailstable .icon_nzb').parents('td').each(function() {
+				var $tdWithButtons = $(this),
+					href = 	$tdWithButtons.find('.icon_nzb a').attr('href'),
+					oneClickButton = '<div class="icon"><a class="addSABnzbdDetails" href="' + href + '">' + oneClickImgTag + '</a></div>';
+
+				$('#infohead').append(oneClickButton);
+
+				$tdWithButtons.prepend(oneClickButton)
+					.find('a.addSABnzbdDetails')
+					.add('#infohead .addSABnzbdDetails')
+					.on('click', function() {
+						var category = null;
+						if ($('table#detailstable a[href^="/browse?t="]')) {
+							category = $.trim($('table#detailstable a[href^="/browse?t="]').text().match(/^\s*([^< -]+)/)[1]);
+						}
+						addToSABnzbd(
+							this,
+							$(this).attr('href') + queryString,
+							'addurl',
+							null, 
+							category
+						);
+						return false;
+					})
+				;
+			});
+		}
 		
 		if ($('[value="Send to SABnzbd"]').length == 0) {
-    		// List view: add a button above the list to send selected NZBs to SAB
-    		$('input.nzb_multi_operations_cart')
-    			.after(' <input type="button" class="btn btn-info btn-mini multiDownload" value="Send to SABnzbd" />')
-    			.siblings('input.multiDownload')
-    			.on('click', {selector: 'td input:checked'}, addMany)
-    		;
+			// List view: add a button above the list to send selected NZBs to SAB
+			$('input.nzb_multi_operations_cart')
+				.after(' <input type="button" class="btn btn-info btn-mini multiDownload" value="Send to SABnzbd" />')
+				.siblings('input.multiDownload')
+				.on('click', {selector: 'td input:checked'}, addMany)
+			;
 		}
 		
 		// Cart page: add a button above the list to send all NZBs to SAB
