@@ -1,3 +1,7 @@
+Version 0.6.29
+--------------
+Fix for autoscrolling webpages (thanks kbuffington)
+
 Version 0.6.28
 --------------
 DrunkenSlug.com: fixed how the query string is found in the page; fixed how the href is found in list view (thanks jdart)
