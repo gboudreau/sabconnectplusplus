@@ -12,7 +12,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         for (var i = 0; i < newznab_urls.length; i++) {
             var newznab_url = newznab_urls[i].trim();
             if (newznab_url.length > 0 && tab.url.match('https?://.*' + newznab_url + '.*')) {
-                chrome.tabs.executeScript(tabId, {file: "third_party/jquery/jquery-1.7.2.min.js"});
+                chrome.tabs.executeScript(tabId, {file: "third_party/jquery/jquery-1.9.1.min.js"});
                 chrome.tabs.executeScript(tabId, {file: "scripts/content/common.js"});
                 chrome.tabs.executeScript(tabId, {file: "third_party/webtoolkit/webtoolkit.base64.js"});
                 chrome.tabs.executeScript(tabId, {file: "scripts/content/newznab.js"});
@@ -27,7 +27,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
             var nabenabled = store.get( 'nabignore.' + host );
             var nabdetection = store.get('config_enable_automatic_detection');
             if ( nabdetection && !nabenabled ) {
-                chrome.tabs.executeScript(tabId, {file: "third_party/jquery/jquery-1.7.2.min.js"});
+                chrome.tabs.executeScript(tabId, {file: "third_party/jquery/jquery-1.9.1.min.js"});
                 chrome.tabs.executeScript(tabId, {file: "third_party/jquery/jquery.notify.js"});
                 chrome.tabs.executeScript(tabId, {file: "scripts/content/common.js"});
                 chrome.tabs.executeScript(tabId, {file: "scripts/pages/newznab-autoadd.js"});

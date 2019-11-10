@@ -6,7 +6,7 @@
 	"minimum_chrome_version": "23.0",
 	"background": {
 			"scripts": [
-				"third_party/jquery/jquery-1.7.2.min.js",
+				"third_party/jquery/jquery-1.9.1.min.js",
 				"third_party/jquery/jquery.urldecoder.min.js",
 				"third_party/fancy-settings/lib/store.js",
 				"scripts/convert.js",
@@ -72,13 +72,13 @@
                 "*://*.usenet4ever.info/*"
 			],
 			"js": [
-				"third_party/jquery/jquery-1.7.2.min.js",
+				"third_party/jquery/jquery-1.9.1.min.js",
 				"scripts/content/common.js",
 				"third_party/webtoolkit/webtoolkit.base64.js"
 			],
 			"all_frames": true
 		},
-		
+
 		{
 			"matches": [ "*://*.nzbclub.com/*" ],
 			"js": [	"scripts/content/nzbclub.js" ],
@@ -94,13 +94,13 @@
 				"*://*.binsearch.info/*",
 				"*://*.binsearch.net/*",
 				"*://*.binsearch.co.uk/*",
-				"*://*.binsear.ch/*" 				
+				"*://*.binsear.ch/*"
 			],
 			"js": [	"scripts/content/binsearch.js" ],
 			"all_frames": true
 		},
 		{
-			"matches" : [ 
+			"matches" : [
 				"*://*.nzbindex.com/*",
 				"*://*.nzbindex.nl/*"
 			],
@@ -149,7 +149,7 @@
             "all_frames": true,
             "js": [ "scripts/content/usenet4ever.js" ],
             "matches": [ "*://*.usenet4ever.info/*" ]
-        }			
-		
+        }
+
 	]
 }
