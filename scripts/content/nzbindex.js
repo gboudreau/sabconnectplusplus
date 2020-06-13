@@ -51,7 +51,7 @@ function handleAllDownloadLinks() {
             $(this).attr('x-nzbpatched', 'true');
             // add button to send checked items to SABConnect
             var img = chrome.extension.getURL('/images/sab2_16.png');
-            var link = '<input class="addSABnzbd" type="button" value="      Download selected" style="background-image: url(' + img + '); background-repeat: no-repeat; background-position: 3px 1px;" />';
+            var link = '<input class="addSABnzbd" x-nzbpatched="true" type="button" value="      Download selected" style="background-image: url(' + img + '); background-repeat: no-repeat; background-position: 3px 1px;" />';
             $(this).after(link);
             $(this).parent().find('input[class="addSABnzbd"]').first().click(addToSABnzbdFromNzbindex);
         }
@@ -62,8 +62,9 @@ function handleAllDownloadLinks() {
             $(this).attr('x-nzbpatched', 'true');
             var img = chrome.extension.getURL('/images/sab2_16.png');
             var href = $(this).attr('href');
-            var link = '<a class="addSABnzbdOnClick" x-nzbpatched="true" href="' + href + '"><img title="Send to SABnzbd" src="' + img + '" /></a> ';
+            var link = $('<a class="addSABnzbdOnClick" x-nzbpatched="true" href="' + href + '"><img title="Send to SABnzbd" src="' + img + '" /></a>');
             $(this).before(link);
+            $(link).click(addToSABnzbdFromNzbindex);
         }
     });
 
@@ -72,13 +73,11 @@ function handleAllDownloadLinks() {
             $(this).attr('x-nzbpatched', 'true');
             var img = chrome.extension.getURL('/images/sab2_16.png');
             var href = $(this).attr('href');
-            var link = '<a class="addSABnzbdOnClick" x-nzbpatched="true" href="' + href + '"><img title="Send to SABnzbd" src="' + img + '" /></a> ';
+            var link = $('<a class="addSABnzbdOnClick" x-nzbpatched="true" href="' + href + '"><img title="Send to SABnzbd" src="' + img + '" /></a> ');
             $(this).before(link);
+            $(link).click(addToSABnzbdFromNzbindex);
         }
     });
-
-    // Change the onclick handler to send to sabnzbd
-    $('.addSABnzbdOnClick').click(addToSABnzbdFromNzbindex);
 }
 
 function RefreshSettings() {
