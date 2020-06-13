@@ -1,3 +1,7 @@
+Version 0.6.31
+--------------
+Fix nzbindex (thanks gissehel)
+
 Version 0.6.30
 --------------
 Fix jqPlot (thanks flo333)
