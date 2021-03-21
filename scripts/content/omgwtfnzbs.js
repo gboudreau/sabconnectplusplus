@@ -139,8 +139,8 @@ function handleAllDownloadLinks() {
 	$('img[src="pics/dload.gif"]').each(function() {		
 		var href = $(this).parent().attr('href');
 		var img = chrome.extension.getURL('/images/sab2_16.png');
-		var link_mini = '<a class="addSABnzbd hastip" href="' + href + '" style="vertical-align: middle;"><img border="0" src="' + img + '" title="Send to SABnzbd" style="position:relative;margin-top:5px;width:16px;" /></a>&nbsp;';
-		var link_full = '<a class="addSABnzbd linky hastip" href="' + href + '"><img border="0" src="' + img + '" title="Send to SABnzbd" /> Send to SABnzbd</a>&nbsp;';
+		var link_mini = '<a class="addSABnzbd hastip" href="' + href + '" style="position:relative;margin-top:5px;width:16px;"><img border="0" src="' + img + '" title="Send to SABnzbd" /></a>&nbsp;';
+		var link_full = '<a class="addSABnzbd linky hastip" href="' + href + '" style="position:relative;margin-top:5px;width:16px;"><img border="0" src="' + img + '" title="Send to SABnzbd" /> Send to SABnzbd</a>&nbsp;';
 				
 		if ($(this).parent().hasClass('linky') === false) {			
 			$(this).parent().before(link_mini);
