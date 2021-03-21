@@ -1,3 +1,7 @@
+Version 0.6.32
+--------------
+Fix style for omgwtfnzbs.me #190 (thanks omgstaff)
+
 Version 0.6.31
 --------------
 Fix nzbindex (thanks gissehel)
