@@ -1,4 +1,41 @@
-Version 0.6.21
+Version 0.6.31
+--------------
+Fix nzbindex (thanks gissehel)
+
+Version 0.6.30
+--------------
+Fix jqPlot (thanks flo333)
+Replace 'KBps' with '%' for max speed
+
+Version 0.6.29
+--------------
+Fix for autoscrolling webpages (thanks kbuffington)
+
+Version 0.6.28
+--------------
+DrunkenSlug.com: fixed how the query string is found in the page; fixed how the href is found in list view (thanks jdart)
+
+Version 0.6.27
+--------------
+omgwtfnzbs.me: Cleaned up Category Discovery (thanks omgstaff)
+
+Version 0.6.26
+--------------
+omgwtfnzbs.me: Updated getUserName and getApiKey (thanks omgstaff)
+
+Version 0.6.25
+--------------
+Fixed omgwtfnzbs.me: username changed in HTML (thanks omgstaff)
+
+Version 0.6.24
+--------------
+Fixed omgwtfnzbs.me: nzbId length has increased on site from 5 to 6 (thanks omgstaff)
+
+Version 0.6.23
+--------------
+Fixed omgwtfnzbs.me: send Category now on browse.php/details.php/trends.php pages; support for Cart; fixed README/label (thanks omgstaff)
+
+Version 0.6.22
 --------------
 Added category discovery for details.php and trends.php on their website so that it sends to sabnzb with the proper category. Also the TLD has changed from omgwtfnzbs.org to omgwtfnzbs.me (thanks gewfie)
 

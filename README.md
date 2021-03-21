@@ -1,3 +1,9 @@
+
+**Important note:**
+Nobody is maintaining this codebase right now. Anyone who needs a fix will need to submit a Pull Request with the required changes.
+
+---
+
 SABconnect++ adds one-click 'Send to SABnzbd' buttons to many popular NZB index sites.
 
 You also get a taskbar button that allows you to keep an eye on your SABnzbd: current downloads, pause (individual downloads, or pause all), or remove individual queued downloads.
@@ -13,7 +19,7 @@ Features:
     * fanzub.com
     * nzbclub.com
     * nzbindex.com (nzbindex.nl)
-    * omgwtfnzbs.org
+    * omgwtfnzbs.me
     * yubse.com
     * animezb.com
     * animenzb.com
