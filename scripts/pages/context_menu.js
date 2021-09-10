@@ -34,7 +34,8 @@ function CreateContextMenuResult()
 function CreateContextMenu()
 {
 	var urlPatterns = [
-		'http://*/*'
+		'http://*/*',
+		'https://*/*'
 	]
 	
 	var properties = {
