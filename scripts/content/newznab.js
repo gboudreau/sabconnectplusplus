@@ -51,11 +51,11 @@
 
 		var category = null;
 		if (!ignoreCats) {
-			if ($.trim($tr.parent().find('tr:nth-child(1)').find('th:nth-child(2)').text().toLowerCase()) == 'category') {
-				category = $.trim($tr.find('td:nth-child(2) a').text().match(/^\s*([^> -]+)/)[1]);
-			} else if ($.trim($tr.parent().find('tr:nth-child(1)').find('th:nth-child(3)').text().toLowerCase()) == 'category') {
-				category = $.trim($tr.find('td:nth-child(3) a').text().match(/^\s*([^> -]+)/)[1]);
-			}
+			$tr.parent().find('tr:nth-child(1)').find('th').each(function(i) {
+				if (!category && $.trim($(this).text().toLowerCase()) === 'category') {
+					category = $.trim($tr.find(`td:nth-child(${i + 1}) a`).text().match(/^\s*([^> -]+)/)[1]);
+				}
+			});
 		}
 
 		addToSABnzbd(
