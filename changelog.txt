@@ -1,3 +1,7 @@
+Version 0.6.34
+--------------
+Fixed Generic newznab (drunkenslug) category detection (thanks jdart)
+
 Version 0.6.33
 --------------
 Enable context menu on https pages (thanks sakana280)
