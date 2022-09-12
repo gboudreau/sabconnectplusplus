@@ -50,7 +50,11 @@ function onResponseAdd( response, addLink )
 function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 	
 	if(nzburl.substring(0, 1) == "/") {
-		nzburl = window.location.protocol + "//" + window.location.host + nzburl;
+		var locHost = window.location.host;
+		if (locHost == "dognzb.cr") {
+			locHost = "dl.dognzb.cr";
+		}
+		nzburl = window.location.protocol + "//" + locHost + nzburl;
 	}
 	
 	var request = {
