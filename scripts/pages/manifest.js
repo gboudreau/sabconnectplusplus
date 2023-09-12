@@ -183,7 +183,7 @@ this.manifest = {
 			'name': 'provider_omgwtfnzbs',
 			'type': 'checkbox',
 			'sync': true,
-			'label': 'omgwtfnzbs.me'
+			'label': 'omgwtfnzbs.org'
 		},	
 		{
 			'tab': 'Providers',

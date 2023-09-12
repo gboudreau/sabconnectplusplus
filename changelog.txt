@@ -1,3 +1,7 @@
+Version 0.6.36
+--------------
+omgwtfnzbs TLD has changed from omgwtfnzbs.me back to omgwtfnzbs.org
+
 Version 0.6.35
 --------------
 Fixed downloads on Dognzb (thanks jeremybergen)

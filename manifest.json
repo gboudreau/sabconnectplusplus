@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "SABconnect++",
-	"version": "0.6.35",
+	"version": "0.6.36",
 	"description": "SABnzbd extension for Google Chrome.",
 	"minimum_chrome_version": "23.0",
 	"background": {
@@ -67,7 +67,7 @@
 				"*://*.animenzb.com/*",
 				"*://*.dognzb.cr/*",
 				"*://*.yubse.com/*",
-				"*://*.omgwtfnzbs.me/*",
+				"*://*.omgwtfnzbs.org/*",
 				"*://*.nzb-rss.com/*",
                 "*://*.usenet4ever.info/*"
 			],
@@ -136,7 +136,7 @@
 			"all_frames": true
 		},
 		{
-			"matches": [ "*://omgwtfnzbs.me/*" ],
+			"matches": [ "*://omgwtfnzbs.org/*" ],
 			"js": [	"scripts/content/omgwtfnzbs.js" ],
 			"all_frames": true
 		},

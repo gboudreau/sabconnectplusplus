@@ -16,7 +16,7 @@ function getUserName() {
 		protocol = 'https';
 	}
 	
-	var apiHtml = $.ajax({url: protocol + "://omgwtfnzbs.me/account.php?action=api", async: false}).responseText;
+	var apiHtml = $.ajax({url: protocol + "://omgwtfnzbs.org/account.php?action=api", async: false}).responseText;
 	var username = apiHtml.match(/<sabuser>(.*)<\/sabuser>/)[1];
 	return username;
 }
@@ -28,7 +28,7 @@ function getApiKey() {
 		protocol = 'https';
 	}
 			
-	var apiHtml = $.ajax({url: protocol + "://omgwtfnzbs.me/account.php?action=api", async: false}).responseText;
+	var apiHtml = $.ajax({url: protocol + "://omgwtfnzbs.org/account.php?action=api", async: false}).responseText;
 	var apiKey = apiHtml.match(/<sabapikey>(.*)<\/sabapikey>/)[1];
 	
 	if (apiKey != null) {	
@@ -62,7 +62,7 @@ function addMany(e) {
 
 function addOne(nzbid,cat) {
 	var addLink = this;	
-	var url = "https://api.omgwtfnzbs.me/nzb/?";
+	var url = "https://api.omgwtfnzbs.org/nzb/?";
 	
 	// Build up the URL to the API for direct downloading by getting the NZB Id, Username and API Key
 	url = url + 'id=' + nzbid + '&user=' + getUserName() + '&api=' + getApiKey();
@@ -92,10 +92,10 @@ function addToSABnzbdFromOmgwtfnzbs() {
     
     var nzburl = $(this).attr('href');	
     var addLink = this;	
-	var url = "https://api.omgwtfnzbs.me/nzb/?";
+	var url = "https://api.omgwtfnzbs.org/nzb/?";
 	
 	if (nzburl.indexOf('http://') == 0) {
-		url = "http://api.omgwtfnzbs.me/nzb/?";
+		url = "http://api.omgwtfnzbs.org/nzb/?";
 	}
 	
 	// Build up the URL to the API for direct downloading by getting the NZB Id, Username and API Key
