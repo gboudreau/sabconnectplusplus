@@ -2,7 +2,7 @@ function addToSABnzbdFromAnimezb() {
 	var addLink = this;
 	
     // Set the image to an in-progress image
-    var img = chrome.extension.getURL('images/sab2_16_fetching.png');
+    var img = chrome.runtime.getURL('images/sab2_16_fetching.png');
 	var nzburl = this.href;
 
 	var category = null;
@@ -30,7 +30,7 @@ function addMultiToSABnzbdFromAnimezb() {
 
 function handleAllDownloadLinks() {
 	$('table[id="search-results"] td:nth-child(2) a').each(function() {
-	    var img = chrome.extension.getURL('/images/sab2_16.png');
+	    var img = chrome.runtime.getURL('/images/sab2_16.png');
 	    var href = $(this).attr('href');
 	    var link = '<a class="addSABnzbd" href="' + href + '"><img title="Send to SABnzbd" src="' + img + '" /></a>&nbsp;&nbsp;';
 	    $(this).before(link);
@@ -40,7 +40,7 @@ function handleAllDownloadLinks() {
 
 function addDownloadAllButton() {
 	$('div[class=row] form button[class*="btn-sm"]').each(function() {
-	    var img = chrome.extension.getURL('/images/sab2_16.png');
+	    var img = chrome.runtime.getURL('/images/sab2_16.png');
 	    var href = $(this).attr('href');
 	    var link = '<input type="button" id="addMultiSABnzbd" value="Send to SABnzbd" class="btn btn-sm btn-primary" style="width:120px">';
 	    $(this).after(link);

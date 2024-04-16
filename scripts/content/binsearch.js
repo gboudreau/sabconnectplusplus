@@ -18,7 +18,7 @@ function oneClick() {
 function addOne(addLink) {
 	var $addLink = $(addLink);
     // Set the image to an in-progress image
-    var img = chrome.extension.getURL('images/sab2_16_fetching.png');
+    var img = chrome.runtime.getURL('images/sab2_16_fetching.png');
 	if ($addLink.find('img').length > 0) {
 	    $addLink.find('img').attr("src", img);
 	} else {
@@ -43,7 +43,7 @@ function addOne(addLink) {
 }
 
 function handleAllDownloadLinks() {
-	var img = chrome.extension.getURL('/images/sab2_16.png');
+	var img = chrome.runtime.getURL('/images/sab2_16.png');
 
 	$(".xMenuT input[type=checkbox]").each(function() {
 		var href = '/?action=nzb&' + $(this).attr("name") + '=1';

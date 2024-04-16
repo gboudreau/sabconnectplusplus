@@ -1,6 +1,6 @@
 function addToSABnzbdFromNzbrss() {
     // Set the image to an in-progress image
-    var img = chrome.extension.getURL('images/sab2_16_fetching.png');
+    var img = chrome.runtime.getURL('images/sab2_16_fetching.png');
 
     // Only replace the image if it isn't a Bootstrap button style
     if ($(this).hasClass('btn') == false) {    	
@@ -27,7 +27,7 @@ function handleAllDownloadLinks() {
 		// Prevent it from detecting the NZB link in the Breadcrumbs on the NZB page
 		if ($(this).parents('ul').hasClass('breadcrumb') == false) {
 			var href = $(this).attr('href').replace("/nzb/", "/get/");
-			var img = chrome.extension.getURL('/images/sab2_16.png');
+			var img = chrome.runtime.getURL('/images/sab2_16.png');
 			var link = '<a class="addSABnzbd" href="' + href + '"><img border="0" src="' + img + '" title="Send to SABnzbd" /></a>&nbsp;';
 			$(this).before(link);
 		}

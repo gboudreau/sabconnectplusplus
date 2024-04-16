@@ -203,11 +203,11 @@ function SetupTogglePause() {
 	paused = getPref('paused');
 
 	if (paused) {
-		var playImg = chrome.extension.getURL('images/control_play.png');
+		var playImg = chrome.runtime.getURL('images/control_play.png');
 		var img = '<img src="' + playImg +'" />';
 		var msg = 'Resume Queue';
 	} else {
-		var pauseImg = chrome.extension.getURL('images/control_pause.png');
+		var pauseImg = chrome.runtime.getURL('images/control_pause.png');
 		var img = '<img src="' + pauseImg +'" />';
 		var msg = 'Pause Queue';
 	}
@@ -300,9 +300,9 @@ function reDrawPopup() {
 	}
 	
 	var data = {
-		'playImg':chrome.extension.getURL('images/control_play.png'),
-		'pauseImg':chrome.extension.getURL('images/control_pause.png'),
-		'deleteImg':chrome.extension.getURL('images/messagebox_critical.png')
+		'playImg':chrome.runtime.getURL('images/control_play.png'),
+		'pauseImg':chrome.runtime.getURL('images/control_pause.png'),
+		'deleteImg':chrome.runtime.getURL('images/messagebox_critical.png')
 	};
 	
 	// Grab a list of jobs (array of slot objects from the json API)
@@ -465,7 +465,7 @@ function OnProfileChanged( event )
 	var profileName = event.target.value;
 	profiles.setActiveProfile( profileName );
 	
-	var tabs = chrome.extension.getViews( {type: 'tab'} );
+	var tabs = chrome.runtime.getViews( {type: 'tab'} );
 	for( var t in tabs ) {
 		var tab = tabs[t];
 		if( tab.is_sabconnect_settings ) {
@@ -504,7 +504,7 @@ function populateAndSetCategoryList()
     var params = {
         action: 'get_categories'
     }
-    chrome.extension.sendMessage(params, function(data) {
+    chrome.runtime.sendMessage(params, function(data) {
         for (i = 0; i < data.categories.length; i++) {
             var cat = '<option value="' + data.categories[i] + '">' + data.categories[i] + '</option>';
             $('#userCategory').append(cat);

@@ -47,7 +47,7 @@
                 setting: 'nabignore.' + thishost,
                 value: true
             };
-            chrome.extension.sendMessage( request );
+            chrome.runtime.sendMessage( request );
             $('a.close').click();
         });
         $('#autonabEnable').click(function(){
@@ -55,13 +55,13 @@
                 action: 'get_setting',
                 setting: 'provider_newznab'
             };
-            chrome.extension.sendMessage( request, function( response ) {
+            chrome.runtime.sendMessage( request, function( response ) {
                 var request = {
                     action: 'set_setting',
                     setting: 'provider_newznab',
                     value: response.value + ', ' + thishost
                 };
-                chrome.extension.sendMessage( request, function() {
+                chrome.runtime.sendMessage( request, function() {
                     location.reload();
                 });
             });

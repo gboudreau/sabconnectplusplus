@@ -5,7 +5,7 @@ function onResponseAdd( response, addLink )
 	switch( response.ret ) {
 	case 'error' :
 		alert("Could not contact SABnzbd \n Check it is running and your settings are correct");
-		var img = chrome.extension.getURL('images/sab2_16_red.png');
+		var img = chrome.runtime.getURL('images/sab2_16_red.png');
 		if ($(addLink).find('img').length > 0) {
 			$(addLink).find('img').attr("src", img);
 		} else {
@@ -19,7 +19,7 @@ function onResponseAdd( response, addLink )
 		// If there was an error of some type, report it to the user and abort!
 		if (response.data.error) {
 			alert(response.data.error);
-			var img = chrome.extension.getURL('images/sab2_16_red.png');
+			var img = chrome.runtime.getURL('images/sab2_16_red.png');
 			if ($(addLink).find('img').length > 0) {
 				$(addLink).find('img').attr("src", img);
 			} else {
@@ -30,7 +30,7 @@ function onResponseAdd( response, addLink )
 			}
 			return;
 		}
-		var img = chrome.extension.getURL('images/sab2_16_green.png');
+		var img = chrome.runtime.getURL('images/sab2_16_green.png');
 		if ($(addLink).find('img').length > 0) {
 			$(addLink).find('img').attr("src", img);
 		} else if (addLink.nodeName && addLink.nodeName.toUpperCase() == 'INPUT' && addLink.value == 'Sent to SABnzbd!') {
@@ -77,7 +77,7 @@ function addToSABnzbd(addLink, nzburl, mode, nice_name, category) {
 	console.log("Sending to SABnzbd:");
 	console.log(request);
 	
-	chrome.extension.sendMessage(
+	chrome.runtime.sendMessage(
 		request,
 		function(response) { onResponseAdd( response, addLink ) }
 		);
@@ -90,7 +90,7 @@ function GetSetting( setting, callback )
 		setting: setting
 	}
 	
-	chrome.extension.sendMessage( request, function( response ) {
+	chrome.runtime.sendMessage( request, function( response ) {
 		var value = response.value;
 		
 		if( typeof value == 'undefined' || value == null ) {
@@ -118,7 +118,7 @@ function Initialize( provider, refresh_function, callback )
 		provider: provider
 	}
 		
-	chrome.extension.sendMessage( request, function( response ) {
+	chrome.runtime.sendMessage( request, function( response ) {
 		if( response.enabled ) {
 			callback();
 		}
@@ -140,4 +140,4 @@ function OnRequest( request, sender, onResponse )
 	}
 };
 
-chrome.extension.onMessage.addListener( OnRequest );
+chrome.runtime.onMessage.addListener( OnRequest );

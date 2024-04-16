@@ -351,7 +351,7 @@ function sendSabRequest( params, success_callback, error_callback, profileValues
 
 function updatePopup()
 {
-	var views = chrome.extension.getViews({ type: "popup" });
+	var views = chrome.runtime.getViews({ type: "popup" });
 	if( views.length == 1 )
 	{
 		var popup = views[0];
@@ -585,7 +585,7 @@ function initializeProfile()
 
 function initializeBackgroundPage()
 {
-	chrome.extension.onMessage.addListener( OnRequest );
+	chrome.runtime.onMessage.addListener( OnRequest );
 
     // Migration from localStorage to chrome.storage.sync
 	var settingsSynced = store.get( 'settings_synced' );

@@ -4,7 +4,7 @@ function addToSABnzbdFromNzbindex() {
     var addLink = this;
 
     // Set the image to an in-progress image
-    var img = chrome.extension.getURL('images/sab2_16_fetching.png');
+    var img = chrome.runtime.getURL('images/sab2_16_fetching.png');
     if ($(this).find('img').length > 0) {
         $(this).find('img').attr("src", img);
         var nzburl = $(this).attr('href');
@@ -50,7 +50,7 @@ function handleAllDownloadLinks() {
         if ($(this).attr('x-nzbpatched') !== 'true') {
             $(this).attr('x-nzbpatched', 'true');
             // add button to send checked items to SABConnect
-            var img = chrome.extension.getURL('/images/sab2_16.png');
+            var img = chrome.runtime.getURL('/images/sab2_16.png');
             var link = '<input class="addSABnzbd" x-nzbpatched="true" type="button" value="      Download selected" style="background-image: url(' + img + '); background-repeat: no-repeat; background-position: 3px 1px;" />';
             $(this).after(link);
             $(this).parent().find('input[class="addSABnzbd"]').first().click(addToSABnzbdFromNzbindex);
@@ -60,7 +60,7 @@ function handleAllDownloadLinks() {
     $('table a[href*="nzbindex.nl\\/download\\/"]').each(function () {
         if ($(this).attr('x-nzbpatched') !== 'true') {
             $(this).attr('x-nzbpatched', 'true');
-            var img = chrome.extension.getURL('/images/sab2_16.png');
+            var img = chrome.runtime.getURL('/images/sab2_16.png');
             var href = $(this).attr('href');
             var link = $('<a class="addSABnzbdOnClick" x-nzbpatched="true" href="' + href + '"><img title="Send to SABnzbd" src="' + img + '" /></a>');
             $(this).before(link);
@@ -71,7 +71,7 @@ function handleAllDownloadLinks() {
     $('table a[href*="nzbindex.com\\/download\\/"]').each(function () {
         if ($(this).attr('x-nzbpatched') !== 'true') {
             $(this).attr('x-nzbpatched', 'true');
-            var img = chrome.extension.getURL('/images/sab2_16.png');
+            var img = chrome.runtime.getURL('/images/sab2_16.png');
             var href = $(this).attr('href');
             var link = $('<a class="addSABnzbdOnClick" x-nzbpatched="true" href="' + href + '"><img title="Send to SABnzbd" src="' + img + '" /></a> ');
             $(this).before(link);

@@ -22,7 +22,7 @@ function ContextClicked( info, tab )
 
 function CreateContextMenuResult()
 {
-	var error = chrome.extension.lastError;
+	var error = chrome.runtime.lastError;
 	if( error )
 	{
 		alert(
