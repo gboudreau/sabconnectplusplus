@@ -43,7 +43,7 @@ function addToSABnzbdFromDognzb() {
 		nzburl = findNZBId(this);
 		if (nzburl) {
 			// Set the image to an in-progress image
-			var img = chrome.extension.getURL('images/sab2_16_fetching.png');
+			var img = chrome.runtime.getURL('images/sab2_16_fetching.png');
 			$(this).css('background-image', 'url('+img+')');
 
 			var tr = $(this).parent().parent();
@@ -76,7 +76,7 @@ function handleAllDownloadLinks() {
 		newlink.addClass('dog-icon-download').addClass('sabcpp-fake-dognzb-marker');
 
 		// Change the nzb download image
-		var img = chrome.extension.getURL('images/sab2_16.png');
+		var img = chrome.runtime.getURL('images/sab2_16.png');
 		newlink.css('background-image', 'url('+img+')');
 		newlink.css('background-position', '0 0');
 		newlink.css('background-size', 'inherit');

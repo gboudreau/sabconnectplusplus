@@ -2,7 +2,7 @@
 (function() { // Encapsulate
 
 	var queryString = '?i=' + $('[name=UID]').val() + '&r=' + $('[name=RSSTOKEN]').val() + '&del=1',
-		oneClickImgTag = '<img style="vertical-align:baseline" src="' + chrome.extension.getURL('/images/sab2_16.png') + '" />',
+		oneClickImgTag = '<img style="vertical-align:baseline" src="' + chrome.runtime.getURL('/images/sab2_16.png') + '" />',
 		ignoreCats,
 		linkRelAlternate = $('link[rel=alternate]').attr('href');
 
@@ -43,7 +43,7 @@
 		var $anchor = $tr.find('a.addSABnzbd');
 
 		// Set the image to an in-progress image
-		var img = chrome.extension.getURL('images/sab2_16_fetching.png');
+		var img = chrome.runtime.getURL('images/sab2_16_fetching.png');
 
 		if ($($anchor.get(0)).find('img').length > 0) {
 			$($anchor.get(0)).find('img').attr("src", img);

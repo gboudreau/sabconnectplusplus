@@ -2,7 +2,7 @@ var useNiceName;
 
 function addAllToSABnzbdFromYubse() {
 	 // Set the image to an in-progress image
-    var img = chrome.extension.getURL('images/sab2_16_fetching.png');
+    var img = chrome.runtime.getURL('images/sab2_16_fetching.png');
 	if ($(this).find('img').length > 0) {
 	    $(this).find('img').attr("src", img);
 	} else {
@@ -30,7 +30,7 @@ function addAllToSABnzbdFromYubse() {
 
 function addToSABnzbdFromYubse(node) {
 	 // Set the image to an in-progress image
-    var img = chrome.extension.getURL('images/sab2_16_fetching.png');
+    var img = chrome.runtime.getURL('images/sab2_16_fetching.png');
 	if ($(node).find('a[class="addSABnzbd"]').find('img').length > 0) {
 	    $(node).find('a[class="addSABnzbd"]').find('img').attr("src", img);
 	} else {
@@ -54,7 +54,7 @@ function addToSABnzbdFromYubse(node) {
 
 function handleAllDownloadLinks() {
 	$('.header_btn a:last-child').after(function() {
-		var img = chrome.extension.getURL('/images/sab2_16.png');
+		var img = chrome.runtime.getURL('/images/sab2_16.png');
 	    var href = $(this).attr('href');
 	    var link = '<a class="addSABnzbd"><img title="Send to SABnzbd" style="margin-top:-20px;" align="absmiddle"  src="' + img + '"/></a> ';
 	    $(this).after(link);
@@ -66,7 +66,7 @@ function handleAllDownloadLinks() {
 function handleSingleDownloadLink(node) {
 	if ($(node).find('a[class="addSABnzbd"]').length==0){
 		$(node).find('input').each(function() {
-			var img = chrome.extension.getURL('/images/sab2_16.png');
+			var img = chrome.runtime.getURL('/images/sab2_16.png');
 			var href = $(this).attr('href');
 			var link = '<td class="addSABnzbd"><a class="addSABnzbd"><img style="margin-top:3px" title="Send to SABnzbd" align="absmiddle"  src="' + img + '"/></a></td> ';
 			$(this).parent().parent().find('td:last').after(link);
