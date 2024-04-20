@@ -1,3 +1,7 @@
+Version 0.6.37
+--------------
+Fix for latest Chrome version that removed chrome.extension (thanks jeremybergen)
+
 Version 0.6.36
 --------------
 omgwtfnzbs TLD has changed from omgwtfnzbs.me back to omgwtfnzbs.org
