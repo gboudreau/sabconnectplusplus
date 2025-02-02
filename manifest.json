@@ -1,12 +1,12 @@
 {
 	"manifest_version": 2,
 	"name": "SABconnect++",
-	"version": "0.6.37",
+	"version": "0.6.38",
 	"description": "SABnzbd extension for Google Chrome.",
-	"minimum_chrome_version": "23.0",
+	"minimum_chrome_version": "88.0",
 	"background": {
 			"scripts": [
-				"third_party/jquery/jquery-1.9.1.min.js",
+				"third_party/jquery/jquery-1.12.4.min.js",
 				"third_party/jquery/jquery.urldecoder.min.js",
 				"third_party/fancy-settings/lib/store.js",
 				"scripts/convert.js",
@@ -20,27 +20,21 @@
 	},
 	"options_page": "settings.html",
 	"browser_action": {
-		"default_icon": {
-		    "19": "images/sab2_19.png",
-		    "38": "images/sab2_38.png"
-		},
-		"default_title": "SABnzbd",
+		"default_icon": "images/content_icon.png",
+		"default_title": "SABconnect++",
 		"default_popup": "popup.html"
 	},
-	"icons":
-	{
-		"16": "images/sab2_16.png",
-		"48": "images/sab2_48.png",
-		"128": "images/sab2_128.png"
+	"icons": {
+		"16": "images/content_icon.png",
+		"48": "images/sab_48.png",
+		"128": "images/sab_128.png"
 	},
 	"web_accessible_resources": [
-		"images/sab2_16_fetching.png",
-		"images/sab2_16.png",
-		"images/sab2_16_red.png",
-		"images/sab2_16_green.png",
-		"images/sab2_48.png",
-		"css/common.css",
-		"images/nzbmatrix_button.gif"
+		"images/content_icon.png",
+		"images/content_icon_error.png",
+		"images/content_icon_fetching.png",
+		"images/content_icon_success.png",
+		"css/common.css"
 	],
 	"permissions":
 	[
@@ -69,7 +63,7 @@
 				"*://*.yubse.com/*",
 				"*://*.omgwtfnzbs.org/*",
 				"*://*.nzb-rss.com/*",
-                "*://*.usenet4ever.info/*"
+				"*://*.usenet4ever.info/*"
 			],
 			"js": [
 				"third_party/jquery/jquery-1.9.1.min.js",

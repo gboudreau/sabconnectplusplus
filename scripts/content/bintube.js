@@ -1,6 +1,6 @@
 function addToSABnzbdFromBintube() {
     // Set the image to an in-progress image
-    var img = chrome.runtime.getURL('images/sab2_16_fetching.png');
+    var img = chrome.runtime.getURL('images/content_icon_fetching.png');
     $(this).find('img').attr("src", img);
     
     var nzburl = $(this).attr('href');
@@ -14,7 +14,7 @@ function addToSABnzbdFromBintube() {
 function handleAllDownloadLinks() {
 	$('a.dlbtn').each(function() {
 		var href = $(this).attr('href');
-		var img = chrome.runtime.getURL('/images/sab2_16.png');
+		var img = chrome.runtime.getURL('/images/content_icon.png');
 		var link = '<a class="addSABnzbd" href="' + href + '"><img src="' + img + '" /></a> ';
 		$(this).before(link);
 		$(this).remove();

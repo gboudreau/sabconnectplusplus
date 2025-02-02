@@ -76,7 +76,7 @@ function handleAllDownloadLinks()
     /*
 	$('img[src="http://usenet4ever.info/vb4/posten/images/nzb_link1.png"]').each(function() {
 		// add button to send item to SABConnect
-		var img = chrome.runtime.getURL('/images/sab2_16.png');
+		var img = chrome.runtime.getURL('/images/content_icon.png');
 		var link = '<button class="addToSABnzbd" style="margin:15px;" title="add to SABnzbd"><img src="'+img+'" />add to SABnzbd</button><br/>';
 		$(this).parent('a').before(link);
 		//$(this).parent('a').next('a.addSABnzbd').click(addToSABnzbdFromUsenet4ever);

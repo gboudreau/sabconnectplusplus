@@ -302,7 +302,7 @@ function reDrawPopup() {
 	var data = {
 		'playImg':chrome.runtime.getURL('images/control_play.png'),
 		'pauseImg':chrome.runtime.getURL('images/control_pause.png'),
-		'deleteImg':chrome.runtime.getURL('images/messagebox_critical.png')
+		'deleteImg':chrome.runtime.getURL('images/control_cancel.png')
 	};
 	
 	// Grab a list of jobs (array of slot objects from the json API)

@@ -2,7 +2,7 @@ function addToSABnzbdFromFanzub() {
 	var addLink = this;
 	
     // Set the image to an in-progress image
-    var img = chrome.runtime.getURL('images/sab2_16_fetching.png');
+    var img = chrome.runtime.getURL('images/content_icon_fetching.png');
 	var nzburl = this.href;
 
 	var category = null;
@@ -29,7 +29,7 @@ function addMultiToSABnzbdFromFanzub() {
 
 function handleAllDownloadLinks() {
 	$('table[class="fanzub"] td[class="file"] a').each(function() {
-	    var img = chrome.runtime.getURL('/images/sab2_16.png');
+	    var img = chrome.runtime.getURL('/images/content_icon.png');
 	    var href = $(this).attr('href');
 	    var link = '<a class="addSABnzbd" href="' + href + '"><img title="Send to SABnzbd" src="' + img + '" /></a>&nbsp;&nbsp;';
 	    $(this).before(link);
@@ -39,7 +39,7 @@ function handleAllDownloadLinks() {
 
 function addDownloadAllButton() {
 	$('table[class="nav"] td button').each(function() {
-	    var img = chrome.runtime.getURL('/images/sab2_16.png');
+	    var img = chrome.runtime.getURL('/images/content_icon.png');
 	    var href = $(this).attr('href');
 	    var link = '<input type="button" id="addMultiSABnzbd" value="Send to SABnzbd" style="width:120px">';
 	    $(this).after(link);

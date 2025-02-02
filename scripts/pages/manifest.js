@@ -1,6 +1,6 @@
 this.manifest = {
 	'name': 'SABConnect++ Settings',
-	'icon': 'images/sab2_48.png',
+	'icon': 'images/addon_icon.svg',
 	'alignment': [
 		[
 			//'profile',
