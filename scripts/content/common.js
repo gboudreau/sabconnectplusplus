@@ -35,6 +35,12 @@ function onResponseAdd( response, addLink )
 			$(addLink).find('img').attr("src", img);
 		} else if (addLink.nodeName && addLink.nodeName.toUpperCase() == 'INPUT' && addLink.value == 'Sent to SABnzbd!') {
 			// Nothing; handled in nzbsorg.js
+		} else if ($(addLink).find('i').length > 0) {
+			// Handle Font Awesome icons (e.g., DogNZB)
+			var icon = $(addLink).find('i');
+			if (icon.hasClass('fa-spinner') && icon.hasClass('fa-spin')) {
+				icon.removeClass('fa-spinner').removeClass('fa-spin').addClass('fa-check');
+			}
 		} else {
 			// Prevent updating the background image of Bootstrap buttons
 			if ($(addLink).hasClass('btn') == false) { 
