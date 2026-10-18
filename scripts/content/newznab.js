@@ -18,12 +18,10 @@
 	if (uid && rsstoken) {
 		queryString = '?i=' + uid + '&r=' + rsstoken + '&del=1';
 		console.log('SABconnect++ Newznab: Using standard form auth');
-	} else if (linkRelAlternate) {
-		var found = linkRelAlternate.match(/([\?&]i=.+$)/);
-		if (found) {
-			queryString = '?' + found[0];
-			console.log('SABconnect++ Newznab: Using queryString from link rel=alternate:', queryString);
-		}
+	} else if (linkRelAlternate && linkRelAlternate.match(/[\?&]i=.+$/)) {
+		var found = linkRelAlternate.match(/[\?&](i=.+$)/);
+		queryString = '?' + found[1];
+		console.log('SABconnect++ Newznab: Using queryString from link rel=alternate:', queryString);
 	} else {
 		console.log('SABconnect++ Newznab: Standard auth not found, trying alternatives...');
 		
@@ -94,7 +92,58 @@
 	}
 
 	// $tr is a table row from #browsetable (one nzb)
-	// http://nzbs.org/getnzb/abef39dde2baaad865adecb95e5eb26d
+	function uploadFileDirectly($tr, $anchor, nzbUrl, category) {
+		fetch(nzbUrl)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+				const responseHeaders = response.headers;
+				return response.text().then(text => ({ text, responseHeaders }));
+			})
+			.then(({ text, responseHeaders }) => {
+				if (!text.includes('<?xml') && !text.includes('<nzb')) {
+					throw new Error('Downloaded content is not a valid NZB file');
+				}
+				if (text.includes('<html') || text.includes('<HTML')) {
+					throw new Error('Downloaded content is an HTML page, not an NZB file');
+				}
+
+				let nzbFilename = 'download.nzb';
+				const contentDisposition = responseHeaders.get('content-disposition');
+				if (contentDisposition) {
+					const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+					if (filenameMatch && filenameMatch[1]) {
+						nzbFilename = filenameMatch[1].replace(/['"]/g, '');
+					}
+				}
+				if (nzbFilename === 'download.nzb') {
+					var titleText = $tr.find('a.title, a[href*="/details/"]').first().text().trim();
+					if (titleText) {
+						nzbFilename = titleText.replace(/[<>:"/\\|?*]/g, '_') + '.nzb';
+					}
+				}
+
+				const blob = new Blob([text], { type: 'application/x-nzb' });
+				const reader = new FileReader();
+				reader.onload = function() {
+					const base64data = reader.result.split(',')[1];
+					chrome.runtime.sendMessage({
+						action: 'uploadNZBFile',
+						fileData: base64data,
+						filename: nzbFilename,
+						category: category
+					}, function(response) {
+						onResponseAdd(response || { ret: 'success', data: {} }, $anchor.get(0));
+					});
+				};
+				reader.readAsDataURL(blob);
+			})
+			.catch(error => {
+				onResponseAdd({ ret: 'error' }, $anchor.get(0));
+			});
+	}
+
 	function addOne($tr) {
 
 		var $anchor = $tr.find('a.addSABnzbd');
@@ -110,14 +159,29 @@
 		if (!ignoreCats) {
 			$tr.parent().find('tr:nth-child(1)').find('th').each(function(i) {
 				if (!category && $.trim($(this).text().toLowerCase()) === 'category') {
-					category = $.trim($tr.find(`td:nth-child(${i + 1}) a`).text().match(/^\s*([^> -]+)/)[1]);
+					var catText = $.trim($tr.find(`td:nth-child(${i + 1})`).text());
+					var catMatch = catText.match(/^\s*([^> -]+)/);
+					if (catMatch) {
+						category = catMatch[1];
+					}
 				}
 			});
 		}
 
+		var nzbUrl = $anchor.attr('href');
+
+		if (window.location.hostname.includes('nzbfinder.ws') || window.location.hostname.includes('nzbstars.com') || !queryString) {
+			uploadFileDirectly($tr, $anchor, nzbUrl, category);
+			return;
+		}
+
+		if (queryString) {
+			nzbUrl += (nzbUrl.indexOf('?') !== -1 ? queryString.replace(/^\?/, '&') : queryString);
+		}
+
 		addToSABnzbd(
 			$anchor.get(0),
-			$anchor.attr('href') + queryString,
+			nzbUrl,
 			'addurl',
 			null,
 			category
@@ -145,7 +209,9 @@
 				});
 
 				$tr.find('a.addSABnzbd')
-					.on('click', function() {
+					.on('click', function(e) {
+						e.preventDefault();
+						e.stopPropagation();
 						addOne($(this).closest('tr'));
 						return false;
 					})
@@ -156,17 +222,23 @@
 		if ($('a.addSABnzbd').length == 0) {
 			// List view: Loop through all the td.check items and add a one-click link next the nearby title
 			console.log('SABconnect++ Newznab: Checking list view');
-			console.log('SABconnect++ Newznab: td.check elements:', $('td.check').length);
-			$('td.check').each(function() {
+			console.log('SABconnect++ Newznab: td.check elements:', $('td.check, td:has(input[type="checkbox"])').length);
+			$('td.check, td:has(input[type="checkbox"])').each(function() {
 				var $tr = $(this).parent(),
-					href = $tr.find('.icon_nzb a').attr('href') || $tr.find('a.icon_nzb').attr('href');
+					href = $tr.find('.icon_nzb a').attr('href') || $tr.find('a.icon_nzb').attr('href') || $tr.find('a#downloadlink').attr('href') || $tr.find('a[href*="getnzb"]').attr('href') || $tr.find('a.nzb-download').attr('href');
 
-				$tr.find('a.title').parent()
+				if (!href || $tr.find('a.addSABnzbd').length > 0) {
+					return;
+				}
+
+				$tr.find('a.title, a[href*="/details/"]').first().parent()
 					.prepend('<a class="addSABnzbd" href="' + href + '">' + oneClickImgTag + '</a>')
 				;
 
 				$tr.find('a.addSABnzbd')
-					.on('click', function() {
+					.on('click', function(e) {
+						e.preventDefault();
+						e.stopPropagation();
 						addOne($(this).closest('tr'));
 						return false;
 					})
@@ -187,7 +259,9 @@
 				;
 
 				$tr.parent().find('a.addSABnzbd')
-					.on('click', function() {
+					.on('click', function(e) {
+						e.preventDefault();
+						e.stopPropagation();
 						addOne($(this).closest('tr'));
 						return false;
 					})
@@ -253,7 +327,7 @@
 			
 			// Try multiple selector patterns common to different Newznab sites
 			var selectorPatterns = [
-				'a[href*="/getnzb/"], a[href*=".nzb"]',  // Standard patterns
+				'a[href*="getnzb"], a[href*=".nzb"], a#downloadlink',  // Standard patterns
 				'a[href*="/download/"], a[href*="get="]',  // Alternative patterns
 				'a[href*="/api"][href*="t=get"]',  // API-based downloads
 				'a[title*="Download"], a[title*="Get NZB"]',  // Title-based
