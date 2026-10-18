@@ -17,6 +17,10 @@
             ($('input.nzb_multi_operations_cart').filter(':first').length) )
         { return true; }
 
+        if ( ($('a#downloadlink, a[href*="getnzb"]').filter(':first').length) &&
+            ($('a[href*="/details/"]').filter(':first').length) )
+        { return true; }
+
         // some additionals
         $('#browsetable tr:gt(0)').filter(':first').each(function() {
             if ( $(this).find('td.item label').filter(':first').length )
@@ -59,7 +63,7 @@
                 var request = {
                     action: 'set_setting',
                     setting: 'provider_newznab',
-                    value: response.value + ', ' + thishost
+                    value: (response.value && response.value.trim().length > 0) ? (response.value.trim() + ', ' + thishost) : thishost
                 };
                 chrome.runtime.sendMessage( request, function() {
                     location.reload();

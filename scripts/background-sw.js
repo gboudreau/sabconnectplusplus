@@ -924,7 +924,7 @@ function SetupContextMenu() {
 }
 
 
-function uploadNZBToSABnzbd(nzbBlob, filename) {
+function uploadNZBToSABnzbd(nzbBlob, filename, sendResponse, category) {
     const sabApiUrl = constructApiUrl();
     const data = constructApiPost();
     data.mode = 'addfile';
@@ -939,6 +939,8 @@ function uploadNZBToSABnzbd(nzbBlob, filename) {
         
         if (hardCodedCategory && hardCodedCategory.trim() !== '') {
             data.cat = hardCodedCategory.trim();
+        } else if (category) {
+            data.cat = category;
         } else if (defaultCategory && defaultCategory.trim() !== '') {
             data.cat = defaultCategory.trim();
         }
@@ -961,7 +963,7 @@ function uploadNZBToSABnzbd(nzbBlob, filename) {
     
     // Create AbortController for timeout
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
     
     fetch(sabApiUrl, {
         method: 'POST',
@@ -977,12 +979,14 @@ function uploadNZBToSABnzbd(nzbBlob, filename) {
         return response.json();
     })
     .then(data => {
-        // Handle response silently
+        if (sendResponse) sendResponse({ ret: 'success', data: data });
     })
     .catch(error => {
         clearTimeout(timeoutId);
-        // Handle error silently
+        if (sendResponse) sendResponse({ ret: 'error' });
     });
+    
+    fetchInfo(true);
 }
 
 function addToSABnzbd(request, sendResponse) {
@@ -1129,8 +1133,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             const nzbBlob = new Blob([bytes], { type: 'application/x-nzb' });
             
             // Upload to SABnzbd
-            uploadNZBToSABnzbd(nzbBlob, request.filename);
-            break;
+            uploadNZBToSABnzbd(nzbBlob, request.filename, sendResponse, request.category);
+            return true;
         case 'get_categories':
             var params = { mode: 'get_cats' };
             sendSabRequest(params, sendResponse);
