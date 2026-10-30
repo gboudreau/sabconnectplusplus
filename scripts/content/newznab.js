@@ -140,7 +140,9 @@
 				reader.readAsDataURL(blob);
 			})
 			.catch(error => {
-				onResponseAdd({ ret: 'error' }, $anchor.get(0));
+				// The page can't fetch the NZB (e.g. CORS on a separate API host), so let SABnzbd fetch it
+				console.log('SABconnect++ Newznab: Direct download failed, sending URL to SABnzbd instead:', error.message);
+				addToSABnzbd($anchor.get(0), nzbUrl, 'addurl', null, category);
 			});
 	}
 
